@@ -1,0 +1,30 @@
+{
+  "panchayat_id": "MP0305",
+  "issue_date": "2024-09-09",
+  "lead_day": 1,
+  "var": "tmax",
+  "delta_vs_block": -0.2,
+  "reasons": [
+    {
+      "feature": "water_frac",
+      "effect": "warmer",
+      "text": {
+        "en": "Less open water nearby",
+        "hi": "पास में कम खुला पानी",
+        "pa": "ਨੇੜੇ ਘੱਟ ਖੁੱਲ੍ਹਾ ਪਾਣੀ"
+      }
+    },
+    {
+      "feature": "urban_frac",
+      "effect": "cooler",
+      "text": {
+        "en": "Less built-up land",
+        "hi": "कम बसी हुई ज़मीन",
+        "pa": "ਘੱਟ ਵਸੀ ਹੋਈ ਜ਼ਮੀਨ"
+      }
+    }
+  ],
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "method": "placeholder_static_contrast"
+}

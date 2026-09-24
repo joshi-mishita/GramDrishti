@@ -1,0 +1,12 @@
+{
+  "action": "edit",
+  "reviewer": "Officer Demo",
+  "note": "Shortened wording",
+  "edited": {
+    "action": {
+      "en": "No spraying before 10 September.",
+      "hi": "10 सितंबर से पहले छिड़काव न करें।",
+      "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+    }
+  }
+}

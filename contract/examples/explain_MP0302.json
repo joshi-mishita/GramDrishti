@@ -1,0 +1,39 @@
+{
+  "panchayat_id": "MP0302",
+  "issue_date": "2024-09-09",
+  "lead_day": 1,
+  "var": "tmax",
+  "delta_vs_block": -0.2,
+  "reasons": [
+    {
+      "feature": "tree_frac",
+      "effect": "warmer",
+      "text": {
+        "en": "Less tree cover",
+        "hi": "कम पेड़",
+        "pa": "ਘੱਟ ਰੁੱਖ"
+      }
+    },
+    {
+      "feature": "elevation_m",
+      "effect": "cooler",
+      "text": {
+        "en": "Higher ground than the block average",
+        "hi": "ब्लॉक के औसत से ऊँची ज़मीन",
+        "pa": "ਬਲਾਕ ਦੀ ਔਸਤ ਨਾਲੋਂ ਉੱਚੀ ਜ਼ਮੀਨ"
+      }
+    },
+    {
+      "feature": "irrigated_frac",
+      "effect": "cooler",
+      "text": {
+        "en": "More irrigated fields around it",
+        "hi": "आसपास ज़्यादा सिंचित खेत",
+        "pa": "ਆਲੇ-ਦੁਆਲੇ ਵੱਧ ਸਿੰਜੇ ਖੇਤ"
+      }
+    }
+  ],
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "method": "placeholder_static_contrast"
+}

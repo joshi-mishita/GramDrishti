@@ -1,0 +1,33 @@
+{
+  "season": "monsoon_2024",
+  "decision": "irrigation_wait",
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "model": {
+    "correct": 5941,
+    "wasted_wait": 310,
+    "washed_off": 679
+  },
+  "block_baseline": {
+    "correct": 5774,
+    "wasted_wait": 703,
+    "washed_off": 453
+  },
+  "n_decisions": 6930,
+  "rule": {
+    "model": {
+      "en": "Wait to irrigate when the chance of 5 mm rain is 50% or more.",
+      "hi": null,
+      "pa": null
+    },
+    "block": {
+      "en": "Wait to irrigate when the block forecast is 5 mm or more.",
+      "hi": null,
+      "pa": null
+    }
+  },
+  "notes": [
+    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
+    "Counts and rates only. No money values until an expert supplies costs."
+  ]
+}

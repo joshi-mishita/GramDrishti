@@ -1,0 +1,18 @@
+{
+  "id": "FB-00001",
+  "stored": true,
+  "received_at": "2024-09-09T09:30:00",
+  "data_mode": "mock",
+  "feedback": {
+    "panchayat_id": "MP0103",
+    "date": "2024-09-10",
+    "reported_rain": true,
+    "intensity": "moderate",
+    "channel": "app"
+  },
+  "message": {
+    "en": "Thank you. Your report helps improve the forecast for your village.",
+    "hi": "धन्यवाद। आपकी जानकारी से आपके गाँव का पूर्वानुमान बेहतर होता है।",
+    "pa": "ਧੰਨਵਾਦ। ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ ਨਾਲ ਤੁਹਾਡੇ ਪਿੰਡ ਦਾ ਅਨੁਮਾਨ ਬਿਹਤਰ ਹੁੰਦਾ ਹੈ।"
+  }
+}

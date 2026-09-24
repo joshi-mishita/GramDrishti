@@ -1,0 +1,216 @@
+{
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "method": "leave_one_block_out + temporal_holdout",
+  "period": {
+    "start": "2024-07-16",
+    "end": "2024-12-31"
+  },
+  "variables": [
+    {
+      "var": "rain",
+      "n": 12510,
+      "metrics": [
+        {
+          "name": "MAE",
+          "unit": "mm",
+          "model": 3.42,
+          "b0": 3.8,
+          "b1": 3.47,
+          "b2": 3.41,
+          "skill_vs_b0": 0.1,
+          "skill_ci95": [
+            0.052,
+            0.147
+          ]
+        },
+        {
+          "name": "RMSE",
+          "unit": "mm",
+          "model": 4.97,
+          "b0": 5.33,
+          "b1": 4.75,
+          "b2": 4.8,
+          "skill_vs_b0": 0.066,
+          "skill_ci95": [
+            0.026,
+            0.105
+          ]
+        }
+      ]
+    },
+    {
+      "var": "tmax",
+      "n": 12642,
+      "metrics": [
+        {
+          "name": "MAE",
+          "unit": "C",
+          "model": 1.05,
+          "b0": 1.1,
+          "b1": 1.01,
+          "b2": 1.01,
+          "skill_vs_b0": 0.042,
+          "skill_ci95": [
+            0.019,
+            0.064
+          ]
+        },
+        {
+          "name": "RMSE",
+          "unit": "C",
+          "model": 1.36,
+          "b0": 1.61,
+          "b1": 1.43,
+          "b2": 1.43,
+          "skill_vs_b0": 0.16,
+          "skill_ci95": [
+            0.111,
+            0.209
+          ]
+        }
+      ]
+    },
+    {
+      "var": "tmin",
+      "n": 12224,
+      "metrics": [
+        {
+          "name": "MAE",
+          "unit": "C",
+          "model": 1.03,
+          "b0": 1.16,
+          "b1": 1.12,
+          "b2": 1.14,
+          "skill_vs_b0": 0.106,
+          "skill_ci95": [
+            0.055,
+            0.158
+          ]
+        },
+        {
+          "name": "RMSE",
+          "unit": "C",
+          "model": 1.09,
+          "b0": 1.43,
+          "b1": 1.25,
+          "b2": 1.21,
+          "skill_vs_b0": 0.236,
+          "skill_ci95": [
+            0.199,
+            0.273
+          ]
+        }
+      ]
+    },
+    {
+      "var": "rh",
+      "n": 14573,
+      "metrics": [
+        {
+          "name": "MAE",
+          "unit": "%",
+          "model": 4.98,
+          "b0": 5.81,
+          "b1": 5.01,
+          "b2": 5.06,
+          "skill_vs_b0": 0.143,
+          "skill_ci95": [
+            0.092,
+            0.194
+          ]
+        },
+        {
+          "name": "RMSE",
+          "unit": "%",
+          "model": 6.41,
+          "b0": 8.23,
+          "b1": 7.12,
+          "b2": 6.9,
+          "skill_vs_b0": 0.221,
+          "skill_ci95": [
+            0.187,
+            0.256
+          ]
+        }
+      ]
+    },
+    {
+      "var": "wind",
+      "n": 12440,
+      "metrics": [
+        {
+          "name": "MAE",
+          "unit": "km/h",
+          "model": 1.91,
+          "b0": 2.02,
+          "b1": 1.92,
+          "b2": 1.92,
+          "skill_vs_b0": 0.056,
+          "skill_ci95": [
+            0.015,
+            0.096
+          ]
+        },
+        {
+          "name": "RMSE",
+          "unit": "km/h",
+          "model": 2.17,
+          "b0": 2.67,
+          "b1": 2.57,
+          "b2": 2.49,
+          "skill_vs_b0": 0.186,
+          "skill_ci95": [
+            0.148,
+            0.225
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "event": "rain_ge_1mm",
+      "pod": 0.815,
+      "far": 0.185,
+      "csi": 0.688,
+      "brier": 0.051,
+      "brier_skill_vs_climatology": 0.068
+    },
+    {
+      "event": "rain_ge_2_5mm",
+      "pod": 0.623,
+      "far": 0.429,
+      "csi": 0.424,
+      "brier": 0.057,
+      "brier_skill_vs_climatology": 0.232
+    },
+    {
+      "event": "rain_ge_10mm",
+      "pod": 0.514,
+      "far": 0.185,
+      "csi": 0.46,
+      "brier": 0.103,
+      "brier_skill_vs_climatology": 0.264
+    },
+    {
+      "event": "rain_ge_35mm",
+      "pod": 0.632,
+      "far": 0.418,
+      "csi": 0.435,
+      "brier": 0.142,
+      "brier_skill_vs_climatology": 0.158
+    }
+  ],
+  "block_mean_error": {
+    "rain": 8.35e-07,
+    "tmax": 4.46e-07,
+    "tmin": 3.99e-07,
+    "rh": 6.13e-07,
+    "wind": 2.86e-07
+  },
+  "notes": [
+    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
+    "Proxy validation on synthetic truth. Real-station validation follows when data is available."
+  ]
+}

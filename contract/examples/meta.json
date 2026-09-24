@@ -1,0 +1,91 @@
+{
+  "api_version": "0.1.1",
+  "data_mode": "mock",
+  "district": "Synthetic District",
+  "available_issue_dates": [
+    "2024-01-12",
+    "2024-03-31",
+    "2024-07-31",
+    "2024-08-15",
+    "2024-09-09",
+    "2024-10-13",
+    "2024-11-16",
+    "2024-12-24"
+  ],
+  "languages": [
+    "en",
+    "hi",
+    "pa"
+  ],
+  "crops": [
+    "bajra",
+    "cotton",
+    "gram",
+    "mustard",
+    "wheat"
+  ],
+  "vars": [
+    {
+      "var": "rain",
+      "unit": "mm"
+    },
+    {
+      "var": "tmax",
+      "unit": "C"
+    },
+    {
+      "var": "tmin",
+      "unit": "C"
+    },
+    {
+      "var": "rh",
+      "unit": "%"
+    },
+    {
+      "var": "wind",
+      "unit": "km/h"
+    }
+  ],
+  "issue_date_info": [
+    {
+      "date": "2024-01-12",
+      "label": "Training-period replay: January cold night",
+      "split": "train"
+    },
+    {
+      "date": "2024-03-31",
+      "label": "Training-period replay: March wheat heat",
+      "split": "train"
+    },
+    {
+      "date": "2024-07-31",
+      "label": "Patchy rain, blocks disagree",
+      "split": "test"
+    },
+    {
+      "date": "2024-08-15",
+      "label": "Monsoon break, dry days ahead",
+      "split": "test"
+    },
+    {
+      "date": "2024-09-09",
+      "label": "Heavy monsoon rain",
+      "split": "test"
+    },
+    {
+      "date": "2024-10-13",
+      "label": "Hot post-monsoon day",
+      "split": "test"
+    },
+    {
+      "date": "2024-11-16",
+      "label": "Ordinary day",
+      "split": "test"
+    },
+    {
+      "date": "2024-12-24",
+      "label": "Cold, calm December morning (fog-prone)",
+      "split": "test"
+    }
+  ]
+}

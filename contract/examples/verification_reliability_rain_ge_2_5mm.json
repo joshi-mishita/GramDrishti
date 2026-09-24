@@ -1,0 +1,61 @@
+{
+  "event": "rain_ge_2_5mm",
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "points": [
+    {
+      "forecast_prob": 0.05,
+      "observed_freq": 0.08,
+      "n": 518
+    },
+    {
+      "forecast_prob": 0.15,
+      "observed_freq": 0.04,
+      "n": 565
+    },
+    {
+      "forecast_prob": 0.25,
+      "observed_freq": 0.25,
+      "n": 332
+    },
+    {
+      "forecast_prob": 0.35,
+      "observed_freq": 0.39,
+      "n": 465
+    },
+    {
+      "forecast_prob": 0.45,
+      "observed_freq": 0.51,
+      "n": 503
+    },
+    {
+      "forecast_prob": 0.55,
+      "observed_freq": 0.47,
+      "n": 523
+    },
+    {
+      "forecast_prob": 0.65,
+      "observed_freq": 0.69,
+      "n": 67
+    },
+    {
+      "forecast_prob": 0.75,
+      "observed_freq": 0.86,
+      "n": 32
+    },
+    {
+      "forecast_prob": 0.85,
+      "observed_freq": 0.73,
+      "n": 97
+    },
+    {
+      "forecast_prob": 0.95,
+      "observed_freq": 0.98,
+      "n": 220
+    }
+  ],
+  "notes": [
+    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
+    "Proxy validation on synthetic truth. Real-station validation follows when data is available."
+  ]
+}

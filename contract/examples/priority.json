@@ -1,0 +1,1449 @@
+{
+  "issue_date": "2024-09-09",
+  "horizon_days": 2,
+  "data_mode": "mock",
+  "provenance": "provisional",
+  "thresholds_status": "placeholder",
+  "items": [
+    {
+      "panchayat_id": "MP0301",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0302",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0303",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0304",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0305",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0306",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0307",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0308",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0309",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0310",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0311",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0312",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0313",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0314",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0315",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0316",
+      "block_id": "MB03",
+      "top_risk": "heavy_rain",
+      "level": "severe",
+      "score": 0.93,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0101",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0102",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0103",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0104",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0105",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0106",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0107",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0108",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0109",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0110",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0111",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0112",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0113",
+      "block_id": "MB01",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0201",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0202",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0203",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0204",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0205",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0206",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0207",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0208",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0209",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0210",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0211",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0212",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0213",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0214",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0215",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0216",
+      "block_id": "MB02",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0401",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0402",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0403",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0404",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0405",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0406",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0407",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0408",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0409",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0410",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0411",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0412",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0413",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0414",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0415",
+      "block_id": "MB04",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0601",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0602",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0603",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0604",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0605",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0606",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0607",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0608",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0609",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0610",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0611",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "cotton"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0612",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0613",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0614",
+      "block_id": "MB06",
+      "top_risk": "dry_spell",
+      "level": "high",
+      "score": 0.6,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Little rain in the next 5 days",
+        "hi": "अगले 5 दिनों में कम बारिश",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0501",
+      "block_id": "MB05",
+      "top_risk": "waterlogging",
+      "level": "moderate",
+      "score": 0.42,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Rain on 10 September may waterlog slow-draining fields",
+        "hi": "10 सितंबर की बारिश से धीमी निकासी वाले खेतों में पानी भर सकता है",
+        "pa": "10 ਸਤੰਬਰ ਦੇ ਮੀਂਹ ਨਾਲ ਹੌਲੀ ਨਿਕਾਸੀ ਵਾਲੇ ਖੇਤਾਂ ਵਿੱਚ ਪਾਣੀ ਭਰ ਸਕਦਾ ਹੈ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0509",
+      "block_id": "MB05",
+      "top_risk": "waterlogging",
+      "level": "moderate",
+      "score": 0.42,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Rain on 10 September may waterlog slow-draining fields",
+        "hi": "10 सितंबर की बारिश से धीमी निकासी वाले खेतों में पानी भर सकता है",
+        "pa": "10 ਸਤੰਬਰ ਦੇ ਮੀਂਹ ਨਾਲ ਹੌਲੀ ਨਿਕਾਸੀ ਵਾਲੇ ਖੇਤਾਂ ਵਿੱਚ ਪਾਣੀ ਭਰ ਸਕਦਾ ਹੈ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0510",
+      "block_id": "MB05",
+      "top_risk": "waterlogging",
+      "level": "moderate",
+      "score": 0.42,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Rain on 10 September may waterlog slow-draining fields",
+        "hi": "10 सितंबर की बारिश से धीमी निकासी वाले खेतों में पानी भर सकता है",
+        "pa": "10 ਸਤੰਬਰ ਦੇ ਮੀਂਹ ਨਾਲ ਹੌਲੀ ਨਿਕਾਸੀ ਵਾਲੇ ਖੇਤਾਂ ਵਿੱਚ ਪਾਣੀ ਭਰ ਸਕਦਾ ਹੈ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0511",
+      "block_id": "MB05",
+      "top_risk": "waterlogging",
+      "level": "moderate",
+      "score": 0.42,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Rain on 10 September may waterlog slow-draining fields",
+        "hi": "10 सितंबर की बारिश से धीमी निकासी वाले खेतों में पानी भर सकता है",
+        "pa": "10 ਸਤੰਬਰ ਦੇ ਮੀਂਹ ਨਾਲ ਹੌਲੀ ਨਿਕਾਸੀ ਵਾਲੇ ਖੇਤਾਂ ਵਿੱਚ ਪਾਣੀ ਭਰ ਸਕਦਾ ਹੈ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0515",
+      "block_id": "MB05",
+      "top_risk": "waterlogging",
+      "level": "moderate",
+      "score": 0.42,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Rain on 10 September may waterlog slow-draining fields",
+        "hi": "10 सितंबर की बारिश से धीमी निकासी वाले खेतों में पानी भर सकता है",
+        "pa": "10 ਸਤੰਬਰ ਦੇ ਮੀਂਹ ਨਾਲ ਹੌਲੀ ਨਿਕਾਸੀ ਵਾਲੇ ਖੇਤਾਂ ਵਿੱਚ ਪਾਣੀ ਭਰ ਸਕਦਾ ਹੈ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0516",
+      "block_id": "MB05",
+      "top_risk": "waterlogging",
+      "level": "moderate",
+      "score": 0.42,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Rain on 10 September may waterlog slow-draining fields",
+        "hi": "10 सितंबर की बारिश से धीमी निकासी वाले खेतों में पानी भर सकता है",
+        "pa": "10 ਸਤੰਬਰ ਦੇ ਮੀਂਹ ਨਾਲ ਹੌਲੀ ਨਿਕਾਸੀ ਵਾਲੇ ਖੇਤਾਂ ਵਿੱਚ ਪਾਣੀ ਭਰ ਸਕਦਾ ਹੈ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0502",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0503",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0504",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0505",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0506",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0507",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0508",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0512",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0513",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    },
+    {
+      "panchayat_id": "MP0514",
+      "block_id": "MB05",
+      "top_risk": "heavy_rain",
+      "level": "moderate",
+      "score": 0.37,
+      "crops_affected": [
+        "bajra"
+      ],
+      "headline": {
+        "en": "Heavy rain likely on 10 September",
+        "hi": "10 सितंबर को भारी बारिश की संभावना",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
+      },
+      "valid_date": "2024-09-10"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "panchayat_id": "MP0412",
+  "from": "2024-09-10",
+  "to": "2024-09-14",
+  "source": "station",
+  "station_id": "MOCK_ARG_15",
+  "data_mode": "mock",
+  "days": [
+    {
+      "date": "2024-09-10",
+      "rain": 0.0,
+      "tmax": null,
+      "tmin": null,
+      "rh": null,
+      "wind": null
+    },
+    {
+      "date": "2024-09-11",
+      "rain": 0.0,
+      "tmax": null,
+      "tmin": null,
+      "rh": null,
+      "wind": null
+    },
+    {
+      "date": "2024-09-12",
+      "rain": 0.0,
+      "tmax": null,
+      "tmin": null,
+      "rh": null,
+      "wind": null
+    },
+    {
+      "date": "2024-09-13",
+      "rain": null,
+      "tmax": null,
+      "tmin": null,
+      "rh": null,
+      "wind": null
+    },
+    {
+      "date": "2024-09-14",
+      "rain": 0.0,
+      "tmax": null,
+      "tmin": null,
+      "rh": null,
+      "wind": null
+    }
+  ]
+}

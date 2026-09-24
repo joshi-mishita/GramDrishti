@@ -1,0 +1,69 @@
+{
+  "farmer_id": "F001",
+  "panchayat_id": "MP0103",
+  "issue_date": "2024-09-09",
+  "language": "hi",
+  "data_mode": "mock",
+  "items": [
+    {
+      "id": "ADV-2024-09-09-MP0103-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0103",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": ""
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    }
+  ]
+}

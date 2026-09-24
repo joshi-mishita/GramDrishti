@@ -1,0 +1,6 @@
+{
+  "error": {
+    "code": "issue_date_not_available",
+    "message": "Issue date 2024-09-10 is not available. Available: 2024-01-12, 2024-03-31, 2024-07-31, 2024-08-15, 2024-09-09, 2024-10-13, 2024-11-16, 2024-12-24"
+  }
+}

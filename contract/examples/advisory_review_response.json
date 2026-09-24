@@ -1,0 +1,64 @@
+{
+  "id": "ADV-2024-09-09-MP0301-cotton-spray",
+  "issue_date": "2024-09-09",
+  "panchayat_id": "MP0301",
+  "block_id": "MB03",
+  "crop": "cotton",
+  "stage": "boll_development_picking",
+  "category": "spray",
+  "priority": "severe",
+  "valid_from": "2024-09-10",
+  "valid_to": "2024-09-12",
+  "action": {
+    "en": "No spraying before 10 September.",
+    "hi": "10 सितंबर से पहले छिड़काव न करें।",
+    "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+  },
+  "reason": {
+    "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+    "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+    "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+  },
+  "fallback": {
+    "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+    "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+    "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+  },
+  "confidence": "high",
+  "evidence": [
+    {
+      "label": "Chance of rain over 2.5 mm on 10 September",
+      "value": "100%"
+    },
+    {
+      "label": "Rain expected on 10 September",
+      "value": "101 mm (range 40 to 193 mm)"
+    },
+    {
+      "label": "Crop stage (placeholder calendar)",
+      "value": "boll development picking"
+    }
+  ],
+  "thresholds_status": "placeholder",
+  "status": "edited",
+  "reviewed_by": "Officer Demo",
+  "reviewed_at": "2024-09-09T09:30:00",
+  "audit": [
+    {
+      "at": "2024-09-09T08:00:00",
+      "actor": "system",
+      "action": "created",
+      "note": "Placeholder generator (S2). Rules engine arrives in S8."
+    },
+    {
+      "at": "2024-09-09T09:30:00",
+      "actor": "Officer Demo",
+      "action": "edited",
+      "note": "Shortened wording"
+    }
+  ],
+  "audio": {},
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "translation_status": "needs_native_review"
+}
