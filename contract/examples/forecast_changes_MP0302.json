@@ -1,0 +1,201 @@
+{
+  "panchayat_id": "MP0302",
+  "issue_date": "2024-09-09",
+  "previous_issue_date": "2024-09-08",
+  "data_mode": "mock",
+  "provenance": "provisional",
+  "changes": [
+    {
+      "valid_date": "2024-09-10",
+      "var": "rain",
+      "previous_p50": 68.12,
+      "current_p50": 101.28,
+      "delta": 33.16,
+      "material": true
+    },
+    {
+      "valid_date": "2024-09-10",
+      "var": "tmax",
+      "previous_p50": 28.56,
+      "current_p50": 26.57,
+      "delta": -1.99,
+      "material": true
+    },
+    {
+      "valid_date": "2024-09-10",
+      "var": "tmin",
+      "previous_p50": 23.32,
+      "current_p50": 23.13,
+      "delta": -0.19,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-10",
+      "var": "rh",
+      "previous_p50": 58.11,
+      "current_p50": 55.97,
+      "delta": -2.15,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-10",
+      "var": "wind",
+      "previous_p50": 2.89,
+      "current_p50": 3.68,
+      "delta": 0.79,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-11",
+      "var": "rain",
+      "previous_p50": 0.0,
+      "current_p50": 0.0,
+      "delta": 0.0,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-11",
+      "var": "tmax",
+      "previous_p50": 29.82,
+      "current_p50": 31.77,
+      "delta": 1.95,
+      "material": true
+    },
+    {
+      "valid_date": "2024-09-11",
+      "var": "tmin",
+      "previous_p50": 22.61,
+      "current_p50": 21.75,
+      "delta": -0.86,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-11",
+      "var": "rh",
+      "previous_p50": 80.89,
+      "current_p50": 75.66,
+      "delta": -5.23,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-11",
+      "var": "wind",
+      "previous_p50": 14.52,
+      "current_p50": 10.21,
+      "delta": -4.31,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-12",
+      "var": "rain",
+      "previous_p50": 0.0,
+      "current_p50": 0.0,
+      "delta": 0.0,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-12",
+      "var": "tmax",
+      "previous_p50": 27.71,
+      "current_p50": 28.64,
+      "delta": 0.93,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-12",
+      "var": "tmin",
+      "previous_p50": 21.51,
+      "current_p50": 19.55,
+      "delta": -1.96,
+      "material": true
+    },
+    {
+      "valid_date": "2024-09-12",
+      "var": "rh",
+      "previous_p50": 68.83,
+      "current_p50": 72.6,
+      "delta": 3.77,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-12",
+      "var": "wind",
+      "previous_p50": 7.34,
+      "current_p50": 8.62,
+      "delta": 1.28,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-13",
+      "var": "rain",
+      "previous_p50": 0.0,
+      "current_p50": 12.91,
+      "delta": 12.91,
+      "material": true
+    },
+    {
+      "valid_date": "2024-09-13",
+      "var": "tmax",
+      "previous_p50": 30.58,
+      "current_p50": 33.28,
+      "delta": 2.7,
+      "material": true
+    },
+    {
+      "valid_date": "2024-09-13",
+      "var": "tmin",
+      "previous_p50": 18.47,
+      "current_p50": 24.12,
+      "delta": 5.65,
+      "material": true
+    },
+    {
+      "valid_date": "2024-09-13",
+      "var": "rh",
+      "previous_p50": 67.19,
+      "current_p50": 67.14,
+      "delta": -0.06,
+      "material": false
+    },
+    {
+      "valid_date": "2024-09-13",
+      "var": "wind",
+      "previous_p50": 9.36,
+      "current_p50": 9.28,
+      "delta": -0.07,
+      "material": false
+    }
+  ],
+  "event_changes": [
+    {
+      "valid_date": "2024-09-13",
+      "event": "rain_ge_1mm",
+      "previous_prob": 0.0,
+      "current_prob": 0.87
+    },
+    {
+      "valid_date": "2024-09-13",
+      "event": "rain_ge_2_5mm",
+      "previous_prob": 0.0,
+      "current_prob": 0.82
+    },
+    {
+      "valid_date": "2024-09-13",
+      "event": "rain_ge_10mm",
+      "previous_prob": 0.0,
+      "current_prob": 0.59
+    },
+    {
+      "valid_date": "2024-09-13",
+      "event": "rain_ge_35mm",
+      "previous_prob": 0.0,
+      "current_prob": 0.29
+    }
+  ],
+  "advice_changed": null,
+  "summary": {
+    "en": "The forecast changed for 7 day and variable pairs since 8 September.",
+    "hi": "8 सितंबर के पूर्वानुमान के बाद 7 जगह बदलाव हुआ है।",
+    "pa": "8 ਸਤੰਬਰ ਦੇ ਅਨੁਮਾਨ ਤੋਂ ਬਾਅਦ 7 ਥਾਵਾਂ ਤੇ ਬਦਲਾਅ ਹੋਇਆ ਹੈ।"
+  }
+}

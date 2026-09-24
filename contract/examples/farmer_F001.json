@@ -1,0 +1,24 @@
+{
+  "farmer_id": "F001",
+  "name": "Demo farmer 1",
+  "panchayat_id": "MP0103",
+  "block_id": "MB01",
+  "language": "hi",
+  "crops": [
+    {
+      "crop": "bajra",
+      "season": "kharif_2024",
+      "sowing_date": "2024-07-13",
+      "expected_harvest_date": "2024-10-06",
+      "area_fraction": 0.52
+    },
+    {
+      "crop": "wheat",
+      "season": "rabi_2024_25",
+      "sowing_date": "2024-11-15",
+      "expected_harvest_date": "2025-04-09",
+      "area_fraction": 0.85
+    }
+  ],
+  "data_mode": "mock"
+}

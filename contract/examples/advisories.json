@@ -1,0 +1,4067 @@
+{
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "total": 74,
+  "items": [
+    {
+      "id": "ADV-2024-09-09-MP0301-cotton-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0301",
+      "block_id": "MB03",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0302-cotton-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0302",
+      "block_id": "MB03",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0303-cotton-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0303",
+      "block_id": "MB03",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0304-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0304",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0305-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0305",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0306-cotton-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0306",
+      "block_id": "MB03",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0307-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0307",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0308-cotton-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0308",
+      "block_id": "MB03",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0309-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0309",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0310-cotton-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0310",
+      "block_id": "MB03",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0311-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0311",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0312-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0312",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0313-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0313",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0314-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0314",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0315-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0315",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0316-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0316",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "severe",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser before 10 September.",
+        "hi": "10 सितंबर से पहले कीटनाशक या खाद का छिड़काव न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+      },
+      "reason": {
+        "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
+        "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+      },
+      "fallback": {
+        "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
+        "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
+        "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of rain over 2.5 mm on 10 September",
+          "value": "100%"
+        },
+        {
+          "label": "Rain expected on 10 September",
+          "value": "101 mm (range 40 to 193 mm)"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0101-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0101",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0102-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0102",
+      "block_id": "MB01",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0103-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0103",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0104-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0104",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0105-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0105",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0106-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0106",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0107-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0107",
+      "block_id": "MB01",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0108-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0108",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0109-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0109",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0110-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0110",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0111-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0111",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0112-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0112",
+      "block_id": "MB01",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0113-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0113",
+      "block_id": "MB01",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0201-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0201",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0202-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0202",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0203-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0203",
+      "block_id": "MB02",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0204-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0204",
+      "block_id": "MB02",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0205-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0205",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0206-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0206",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0207-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0207",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0208-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0208",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0209-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0209",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0210-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0210",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0211-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0211",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0212-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0212",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0213-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0213",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0214-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0214",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0215-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0215",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0216-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0216",
+      "block_id": "MB02",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0401-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0401",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0402-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0402",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0403-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0403",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0404-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0404",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0405-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0405",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0406-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0406",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0407-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0407",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0408-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0408",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0409-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0409",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0410-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0410",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0411-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0411",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0412-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0412",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0413-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0413",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0414-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0414",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0415-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0415",
+      "block_id": "MB04",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0601-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0601",
+      "block_id": "MB06",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0602-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0602",
+      "block_id": "MB06",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0603-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0603",
+      "block_id": "MB06",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0604-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0604",
+      "block_id": "MB06",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0605-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0605",
+      "block_id": "MB06",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0606-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0606",
+      "block_id": "MB06",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0607-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0607",
+      "block_id": "MB06",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0608-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0608",
+      "block_id": "MB06",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0609-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0609",
+      "block_id": "MB06",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0610-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0610",
+      "block_id": "MB06",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0611-cotton-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0611",
+      "block_id": "MB06",
+      "crop": "cotton",
+      "stage": "boll_development_picking",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "boll development picking"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0612-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0612",
+      "block_id": "MB06",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0613-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0613",
+      "block_id": "MB06",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0614-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0614",
+      "block_id": "MB06",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan an irrigation in the next 2 days.",
+        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
+        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+      },
+      "reason": {
+        "en": "Little rain is expected over the next 5 days (0 mm in total).",
+        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
+        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+      },
+      "fallback": {
+        "en": "If more than 10 mm of rain falls, skip this irrigation.",
+        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
+        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Rain expected over the next 5 days",
+          "value": "0 mm"
+        },
+        {
+          "label": "Crop stage (placeholder calendar)",
+          "value": "flowering grain"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "placeholder",
+      "translation_status": "needs_native_review"
+    }
+  ]
+}

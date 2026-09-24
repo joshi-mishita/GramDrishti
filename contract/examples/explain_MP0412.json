@@ -1,0 +1,39 @@
+{
+  "panchayat_id": "MP0412",
+  "issue_date": "2024-09-09",
+  "lead_day": 1,
+  "var": "tmax",
+  "delta_vs_block": 0.0,
+  "reasons": [
+    {
+      "feature": "elevation_m",
+      "effect": "warmer",
+      "text": {
+        "en": "Lower ground than the block average",
+        "hi": "ब्लॉक के औसत से नीची ज़मीन",
+        "pa": "ਬਲਾਕ ਦੀ ਔਸਤ ਨਾਲੋਂ ਨੀਵੀਂ ਜ਼ਮੀਨ"
+      }
+    },
+    {
+      "feature": "irrigated_frac",
+      "effect": "warmer",
+      "text": {
+        "en": "Fewer irrigated fields around it",
+        "hi": "आसपास कम सिंचित खेत",
+        "pa": "ਆਲੇ-ਦੁਆਲੇ ਘੱਟ ਸਿੰਜੇ ਖੇਤ"
+      }
+    },
+    {
+      "feature": "water_frac",
+      "effect": "warmer",
+      "text": {
+        "en": "Less open water nearby",
+        "hi": "पास में कम खुला पानी",
+        "pa": "ਨੇੜੇ ਘੱਟ ਖੁੱਲ੍ਹਾ ਪਾਣੀ"
+      }
+    }
+  ],
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "method": "placeholder_static_contrast"
+}

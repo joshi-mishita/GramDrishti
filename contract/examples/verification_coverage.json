@@ -1,0 +1,50 @@
+{
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "items": [
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.7,
+      "mean_width": 12.22,
+      "n": 14079
+    },
+    {
+      "var": "tmax",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.8,
+      "mean_width": 3.06,
+      "n": 12908
+    },
+    {
+      "var": "tmin",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.75,
+      "mean_width": 2.98,
+      "n": 12896
+    },
+    {
+      "var": "rh",
+      "unit": "%",
+      "nominal": 0.8,
+      "empirical": 0.71,
+      "mean_width": 14.12,
+      "n": 13664
+    },
+    {
+      "var": "wind",
+      "unit": "km/h",
+      "nominal": 0.8,
+      "empirical": 0.73,
+      "mean_width": 4.78,
+      "n": 14560
+    }
+  ],
+  "notes": [
+    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
+    "Proxy validation on synthetic truth. Real-station validation follows when data is available."
+  ]
+}

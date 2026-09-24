@@ -1,0 +1,243 @@
+{
+  "as_of": "2024-12-24",
+  "data_mode": "mock",
+  "provenance": "provisional",
+  "stations_total": 24,
+  "stations_reporting_24h": 24,
+  "missing_share_30d": 0.05,
+  "stale_inputs": [
+    {
+      "input": "block_forecast",
+      "last_date": "2024-12-24",
+      "days_stale": 0
+    },
+    {
+      "input": "station_observations",
+      "last_date": "2024-12-24",
+      "days_stale": 0
+    },
+    {
+      "input": "satellite_weekly",
+      "last_date": "2024-12-22",
+      "days_stale": 2
+    }
+  ],
+  "stations": [
+    {
+      "station_id": "MOCK_ARG_03",
+      "station_type": "ARG",
+      "block_id": "MB01",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.1,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_04",
+      "station_type": "ARG",
+      "block_id": "MB01",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.07,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_07",
+      "station_type": "ARG",
+      "block_id": "MB02",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.03,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_08",
+      "station_type": "ARG",
+      "block_id": "MB02",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.1,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_11",
+      "station_type": "ARG",
+      "block_id": "MB03",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.03,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_12",
+      "station_type": "ARG",
+      "block_id": "MB03",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.07,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_15",
+      "station_type": "ARG",
+      "block_id": "MB04",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.03,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_16",
+      "station_type": "ARG",
+      "block_id": "MB04",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.03,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_19",
+      "station_type": "ARG",
+      "block_id": "MB05",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.0,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_20",
+      "station_type": "ARG",
+      "block_id": "MB05",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.03,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_23",
+      "station_type": "ARG",
+      "block_id": "MB06",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.03,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_ARG_24",
+      "station_type": "ARG",
+      "block_id": "MB06",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.0,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_01",
+      "station_type": "AWS",
+      "block_id": "MB01",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.07,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_02",
+      "station_type": "AWS",
+      "block_id": "MB01",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.03,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_05",
+      "station_type": "AWS",
+      "block_id": "MB02",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.07,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_06",
+      "station_type": "AWS",
+      "block_id": "MB02",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.0,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_09",
+      "station_type": "AWS",
+      "block_id": "MB03",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.07,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_10",
+      "station_type": "AWS",
+      "block_id": "MB03",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.07,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_13",
+      "station_type": "AWS",
+      "block_id": "MB04",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.07,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_14",
+      "station_type": "AWS",
+      "block_id": "MB04",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.03,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_17",
+      "station_type": "AWS",
+      "block_id": "MB05",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.1,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_18",
+      "station_type": "AWS",
+      "block_id": "MB05",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.03,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_21",
+      "station_type": "AWS",
+      "block_id": "MB06",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.07,
+      "flagged_share_30d": 0.0
+    },
+    {
+      "station_id": "MOCK_AWS_22",
+      "station_type": "AWS",
+      "block_id": "MB06",
+      "last_report": "2024-12-24",
+      "reported_last_24h": true,
+      "missing_share_30d": 0.0,
+      "flagged_share_30d": 0.0
+    }
+  ]
+}

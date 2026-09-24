@@ -1,0 +1,58 @@
+[
+  {
+    "date": "2024-01-12",
+    "label": "Training-period replay: January cold night",
+    "split": "train",
+    "category": "cold_replay",
+    "reason": "Coldest January 2024 night forecast (4.8 C district mean), a frost check. Inside TRAIN: shown as a replay, not as a held-out result."
+  },
+  {
+    "date": "2024-03-31",
+    "label": "Training-period replay: March wheat heat",
+    "split": "train",
+    "category": "heat_replay",
+    "reason": "Hottest March 2024 forecast for tomorrow (37.9 C) near the end of wheat grain fill (placeholder crop calendar). Inside TRAIN: shown as a replay, not as a held-out result."
+  },
+  {
+    "date": "2024-07-31",
+    "label": "Patchy rain, blocks disagree",
+    "split": "test",
+    "category": "patchy_rain",
+    "reason": "Largest spread of tomorrow's rain between blocks: standard deviation 15.8 mm across 6 blocks."
+  },
+  {
+    "date": "2024-08-15",
+    "label": "Monsoon break, dry days ahead",
+    "split": "test",
+    "category": "dry_spell",
+    "reason": "Driest 5-day outlook in the TEST monsoon: at most 0.9 mm in any block over leads 1-5."
+  },
+  {
+    "date": "2024-09-09",
+    "label": "Heavy monsoon rain",
+    "split": "test",
+    "category": "heavy_rain",
+    "reason": "Wettest block forecast for tomorrow in the TEST monsoon: 105.8 mm (district mean 20.7 mm)."
+  },
+  {
+    "date": "2024-10-13",
+    "label": "Hot post-monsoon day",
+    "split": "test",
+    "category": "heat",
+    "reason": "Highest district-mean Tmax forecast for tomorrow in October: 35.1 C."
+  },
+  {
+    "date": "2024-11-16",
+    "label": "Ordinary day",
+    "split": "test",
+    "category": "ordinary",
+    "reason": "Closest to a typical November day on rain, Tmax, Tmin, RH and wind (sum of |z| = 1.36)."
+  },
+  {
+    "date": "2024-12-24",
+    "label": "Cold, calm December morning (fog-prone)",
+    "split": "test",
+    "category": "cold_fog",
+    "reason": "Highest cold, humid and calm score in December: Tmin 2.1 C, RH 65 %, wind 2.6 km/h. No fog variable exists, so this is a proxy for a fog-prone morning."
+  }
+]

@@ -36,6 +36,9 @@ dev = [
 [tool.setuptools.packages.find]
 include = ["gramdrishti*"]
 
+[tool.setuptools.package-data]
+gramdrishti = ["contract/demo_dates.json"]
+
 [tool.ruff]
 line-length = 110
 target-version = "py311"

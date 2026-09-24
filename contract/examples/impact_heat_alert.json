@@ -1,0 +1,33 @@
+{
+  "season": "monsoon_2024",
+  "decision": "heat_alert",
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "model": {
+    "correct": 5255,
+    "wasted_wait": 689,
+    "washed_off": 986
+  },
+  "block_baseline": {
+    "correct": 5358,
+    "wasted_wait": 784,
+    "washed_off": 788
+  },
+  "n_decisions": 6930,
+  "rule": {
+    "model": {
+      "en": "Alert when the 90th percentile of Tmax reaches the heat threshold.",
+      "hi": null,
+      "pa": null
+    },
+    "block": {
+      "en": "Alert when the block Tmax forecast reaches the heat threshold.",
+      "hi": null,
+      "pa": null
+    }
+  },
+  "notes": [
+    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
+    "Counts and rates only. No money values until an expert supplies costs."
+  ]
+}

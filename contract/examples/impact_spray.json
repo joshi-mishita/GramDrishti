@@ -1,0 +1,33 @@
+{
+  "season": "monsoon_2024",
+  "decision": "spray",
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "model": {
+    "correct": 4935,
+    "wasted_wait": 948,
+    "washed_off": 1047
+  },
+  "block_baseline": {
+    "correct": 4908,
+    "wasted_wait": 1132,
+    "washed_off": 890
+  },
+  "n_decisions": 6930,
+  "rule": {
+    "model": {
+      "en": "Advise spraying when the chance of 2.5 mm rain is under 30%.",
+      "hi": null,
+      "pa": null
+    },
+    "block": {
+      "en": "Advise spraying when the block forecast is under 2.5 mm.",
+      "hi": null,
+      "pa": null
+    }
+  },
+  "notes": [
+    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
+    "Counts and rates only. No money values until an expert supplies costs."
+  ]
+}

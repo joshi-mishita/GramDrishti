@@ -33,6 +33,8 @@ Shared: Docker Compose, GitHub Actions.
 - Baseline report (TRAIN fit, CALIB scores): `cd backend && python -m gramdrishti.verify.baseline_report`
 - Run API: `cd backend && uvicorn gramdrishti.api.main:app --reload --port 8000`
 - Export contract: `cd backend && python -m gramdrishti.export_openapi`
+- Contract examples (calls the app, validates, writes `contract/examples/`): `cd backend && python -m gramdrishti.contract.make_examples`
+- Pick demo issue dates (prints reasons, writes `demo_dates.json`): `cd backend && python -m gramdrishti.contract.pick_demo_dates`
 - Frontend dev / build / test: `cd frontend && npm run dev | build | test`
 - Frontend types from contract: `cd frontend && npm run gen:types`
 - Screenshots for visual review: `cd frontend && npm run shots`

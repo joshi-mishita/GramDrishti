@@ -1,0 +1,488 @@
+{
+  "contract_version": "0.1.1",
+  "data_mode": "mock",
+  "main_issue_date": "2024-09-09",
+  "generated_by": "python -m gramdrishti.contract.make_examples",
+  "files": [
+    {
+      "file": "health.json",
+      "method": "GET",
+      "path": "/api/v1/health",
+      "status": 200,
+      "model": "Health",
+      "note": ""
+    },
+    {
+      "file": "meta.json",
+      "method": "GET",
+      "path": "/api/v1/meta",
+      "status": 200,
+      "model": "Meta",
+      "note": "issue_date_info is additive in v0.1.1"
+    },
+    {
+      "file": "panchayats.geojson",
+      "method": "GET",
+      "path": "/api/v1/geo/panchayats",
+      "status": 200,
+      "model": "PanchayatCollection",
+      "note": "GeoJSON FeatureCollection, coordinates [longitude, latitude]"
+    },
+    {
+      "file": "blocks.geojson",
+      "method": "GET",
+      "path": "/api/v1/geo/blocks",
+      "status": 200,
+      "model": "BlockCollection",
+      "note": "GeoJSON FeatureCollection, coordinates [longitude, latitude]"
+    },
+    {
+      "file": "forecast_map_rain.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=rain",
+      "status": 200,
+      "model": "ForecastMap",
+      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+    },
+    {
+      "file": "forecast_map_tmax.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=tmax",
+      "status": 200,
+      "model": "ForecastMap",
+      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+    },
+    {
+      "file": "forecast_map_tmin.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=tmin",
+      "status": 200,
+      "model": "ForecastMap",
+      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+    },
+    {
+      "file": "forecast_map_rh.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=rh",
+      "status": 200,
+      "model": "ForecastMap",
+      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+    },
+    {
+      "file": "forecast_map_wind.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=wind",
+      "status": 200,
+      "model": "ForecastMap",
+      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+    },
+    {
+      "file": "forecast_panchayat_MP0103.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP0103?issue_date=2024-09-09",
+      "status": 200,
+      "model": "PanchayatForecast",
+      "note": "PROVISIONAL. AWS station in the Panchayat, dry block MB01"
+    },
+    {
+      "file": "observed_panchayat_MP0103.json",
+      "method": "GET",
+      "path": "/api/v1/observed/panchayat/MP0103?from=2024-09-10&to=2024-09-14",
+      "status": 200,
+      "model": "Observed",
+      "note": "AWS station in the Panchayat, dry block MB01"
+    },
+    {
+      "file": "explain_MP0103.json",
+      "method": "GET",
+      "path": "/api/v1/explain/MP0103?issue_date=2024-09-09&lead_day=1&var=tmax",
+      "status": 200,
+      "model": "Explain",
+      "note": "PLACEHOLDER static contrast until SHAP (S10)"
+    },
+    {
+      "file": "forecast_changes_MP0103.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/changes/MP0103?issue_date=2024-09-09",
+      "status": 200,
+      "model": "ForecastChanges",
+      "note": "PROVISIONAL; advice_changed is null until the rules engine (S8)"
+    },
+    {
+      "file": "forecast_panchayat_MP0305.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP0305?issue_date=2024-09-09",
+      "status": 200,
+      "model": "PanchayatForecast",
+      "note": "PROVISIONAL. AWS station, wettest block MB03"
+    },
+    {
+      "file": "observed_panchayat_MP0305.json",
+      "method": "GET",
+      "path": "/api/v1/observed/panchayat/MP0305?from=2024-09-10&to=2024-09-14",
+      "status": 200,
+      "model": "Observed",
+      "note": "AWS station, wettest block MB03"
+    },
+    {
+      "file": "explain_MP0305.json",
+      "method": "GET",
+      "path": "/api/v1/explain/MP0305?issue_date=2024-09-09&lead_day=1&var=tmax",
+      "status": 200,
+      "model": "Explain",
+      "note": "PLACEHOLDER static contrast until SHAP (S10)"
+    },
+    {
+      "file": "forecast_changes_MP0305.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/changes/MP0305?issue_date=2024-09-09",
+      "status": 200,
+      "model": "ForecastChanges",
+      "note": "PROVISIONAL; advice_changed is null until the rules engine (S8)"
+    },
+    {
+      "file": "forecast_panchayat_MP0412.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP0412?issue_date=2024-09-09",
+      "status": 200,
+      "model": "PanchayatForecast",
+      "note": "PROVISIONAL. rain gauge only (other variables null), poorly drained soil"
+    },
+    {
+      "file": "observed_panchayat_MP0412.json",
+      "method": "GET",
+      "path": "/api/v1/observed/panchayat/MP0412?from=2024-09-10&to=2024-09-14",
+      "status": 200,
+      "model": "Observed",
+      "note": "rain gauge only (other variables null), poorly drained soil"
+    },
+    {
+      "file": "explain_MP0412.json",
+      "method": "GET",
+      "path": "/api/v1/explain/MP0412?issue_date=2024-09-09&lead_day=1&var=tmax",
+      "status": 200,
+      "model": "Explain",
+      "note": "PLACEHOLDER static contrast until SHAP (S10)"
+    },
+    {
+      "file": "forecast_changes_MP0412.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/changes/MP0412?issue_date=2024-09-09",
+      "status": 200,
+      "model": "ForecastChanges",
+      "note": "PROVISIONAL; advice_changed is null until the rules engine (S8)"
+    },
+    {
+      "file": "forecast_panchayat_MP0302.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP0302?issue_date=2024-09-09",
+      "status": 200,
+      "model": "PanchayatForecast",
+      "note": "PROVISIONAL. no station: observed comes from synthetic truth"
+    },
+    {
+      "file": "observed_panchayat_MP0302.json",
+      "method": "GET",
+      "path": "/api/v1/observed/panchayat/MP0302?from=2024-09-10&to=2024-09-14",
+      "status": 200,
+      "model": "Observed",
+      "note": "no station: observed comes from synthetic truth"
+    },
+    {
+      "file": "explain_MP0302.json",
+      "method": "GET",
+      "path": "/api/v1/explain/MP0302?issue_date=2024-09-09&lead_day=1&var=tmax",
+      "status": 200,
+      "model": "Explain",
+      "note": "PLACEHOLDER static contrast until SHAP (S10)"
+    },
+    {
+      "file": "forecast_changes_MP0302.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/changes/MP0302?issue_date=2024-09-09",
+      "status": 200,
+      "model": "ForecastChanges",
+      "note": "PROVISIONAL; advice_changed is null until the rules engine (S8)"
+    },
+    {
+      "file": "risk_heavy_rain.json",
+      "method": "GET",
+      "path": "/api/v1/risk?issue_date=2024-09-09&lead_day=1&type=heavy_rain",
+      "status": 200,
+      "model": "Risk",
+      "note": "PROVISIONAL scores, placeholder thresholds"
+    },
+    {
+      "file": "risk_waterlogging.json",
+      "method": "GET",
+      "path": "/api/v1/risk?issue_date=2024-07-31&lead_day=1&type=waterlogging",
+      "status": 200,
+      "model": "Risk",
+      "note": "PROVISIONAL scores, placeholder thresholds"
+    },
+    {
+      "file": "risk_heat.json",
+      "method": "GET",
+      "path": "/api/v1/risk?issue_date=2024-03-31&lead_day=1&type=heat",
+      "status": 200,
+      "model": "Risk",
+      "note": "PROVISIONAL scores, placeholder thresholds"
+    },
+    {
+      "file": "risk_frost.json",
+      "method": "GET",
+      "path": "/api/v1/risk?issue_date=2024-12-24&lead_day=1&type=frost",
+      "status": 200,
+      "model": "Risk",
+      "note": "PROVISIONAL scores, placeholder thresholds"
+    },
+    {
+      "file": "risk_dry_spell.json",
+      "method": "GET",
+      "path": "/api/v1/risk?issue_date=2024-08-15&lead_day=1&type=dry_spell",
+      "status": 200,
+      "model": "Risk",
+      "note": "PROVISIONAL scores, placeholder thresholds"
+    },
+    {
+      "file": "priority.json",
+      "method": "GET",
+      "path": "/api/v1/priority?issue_date=2024-09-09&horizon_days=2",
+      "status": 200,
+      "model": "Priority",
+      "note": "PROVISIONAL scores, placeholder thresholds"
+    },
+    {
+      "file": "priority_2024-12-24.json",
+      "method": "GET",
+      "path": "/api/v1/priority?issue_date=2024-12-24&horizon_days=2",
+      "status": 200,
+      "model": "Priority",
+      "note": "Cold December morning"
+    },
+    {
+      "file": "advisories.json",
+      "method": "GET",
+      "path": "/api/v1/advisories?status=draft&issue_date=2024-09-09",
+      "status": 200,
+      "model": "AdvisoryList",
+      "note": "PLACEHOLDER advisory generator until S8. Hindi and Punjabi need native review"
+    },
+    {
+      "file": "advisory_detail.json",
+      "method": "GET",
+      "path": "/api/v1/advisories/ADV-2024-09-09-MP0301-cotton-spray",
+      "status": 200,
+      "model": "Advisory",
+      "note": "one advisory with audit trail"
+    },
+    {
+      "file": "advisory_review_request.json",
+      "method": "POST",
+      "path": "/api/v1/advisories/ADV-2024-09-09-MP0301-cotton-spray/review",
+      "status": null,
+      "model": "ReviewRequest",
+      "note": "request body. action: approve | edit | reject"
+    },
+    {
+      "file": "advisory_review_response.json",
+      "method": "POST",
+      "path": "/api/v1/advisories/ADV-2024-09-09-MP0301-cotton-spray/review",
+      "status": 200,
+      "model": "Advisory",
+      "note": "action: approve | edit | reject"
+    },
+    {
+      "file": "farmer_F001.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F001",
+      "status": 200,
+      "model": "Farmer",
+      "note": "demo farmer"
+    },
+    {
+      "file": "farmer_F002.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F002",
+      "status": 200,
+      "model": "Farmer",
+      "note": "demo farmer"
+    },
+    {
+      "file": "farmer_F003.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F003",
+      "status": 200,
+      "model": "Farmer",
+      "note": "demo farmer"
+    },
+    {
+      "file": "farmer_F004.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F004",
+      "status": 200,
+      "model": "Farmer",
+      "note": "demo farmer"
+    },
+    {
+      "file": "farmer_F005.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F005",
+      "status": 200,
+      "model": "Farmer",
+      "note": "demo farmer"
+    },
+    {
+      "file": "farmer_F006.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F006",
+      "status": 200,
+      "model": "Farmer",
+      "note": "demo farmer"
+    },
+    {
+      "file": "farmer_advice_F001.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F001/advice?issue_date=2024-09-09",
+      "status": 200,
+      "model": "FarmerAdvice",
+      "note": "after the officer approved this Panchayat's advisories"
+    },
+    {
+      "file": "feedback_request.json",
+      "method": "POST",
+      "path": "/api/v1/feedback",
+      "status": null,
+      "model": "FeedbackRequest",
+      "note": "request body. intensity: none | light | moderate | heavy"
+    },
+    {
+      "file": "feedback_response.json",
+      "method": "POST",
+      "path": "/api/v1/feedback",
+      "status": 200,
+      "model": "FeedbackResponse",
+      "note": "intensity: none | light | moderate | heavy"
+    },
+    {
+      "file": "verification_summary.json",
+      "method": "GET",
+      "path": "/api/v1/verification/summary",
+      "status": 200,
+      "model": "VerificationSummary",
+      "note": "PLACEHOLDER numbers, not results (S10)"
+    },
+    {
+      "file": "verification_reliability_rain_ge_1mm.json",
+      "method": "GET",
+      "path": "/api/v1/verification/reliability?event=rain_ge_1mm",
+      "status": 200,
+      "model": "Reliability",
+      "note": "PLACEHOLDER numbers, not results (S10)"
+    },
+    {
+      "file": "verification_reliability_rain_ge_2_5mm.json",
+      "method": "GET",
+      "path": "/api/v1/verification/reliability?event=rain_ge_2_5mm",
+      "status": 200,
+      "model": "Reliability",
+      "note": "PLACEHOLDER numbers, not results (S10)"
+    },
+    {
+      "file": "verification_reliability_rain_ge_10mm.json",
+      "method": "GET",
+      "path": "/api/v1/verification/reliability?event=rain_ge_10mm",
+      "status": 200,
+      "model": "Reliability",
+      "note": "PLACEHOLDER numbers, not results (S10)"
+    },
+    {
+      "file": "verification_reliability_rain_ge_35mm.json",
+      "method": "GET",
+      "path": "/api/v1/verification/reliability?event=rain_ge_35mm",
+      "status": 200,
+      "model": "Reliability",
+      "note": "PLACEHOLDER numbers, not results (S10)"
+    },
+    {
+      "file": "verification_coverage.json",
+      "method": "GET",
+      "path": "/api/v1/verification/coverage",
+      "status": 200,
+      "model": "Coverage",
+      "note": "PLACEHOLDER numbers (S10)"
+    },
+    {
+      "file": "verification_regions.json",
+      "method": "GET",
+      "path": "/api/v1/verification/regions",
+      "status": 200,
+      "model": "Regions",
+      "note": "PLACEHOLDER numbers (S10)"
+    },
+    {
+      "file": "impact_spray.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=monsoon_2024&decision=spray",
+      "status": 200,
+      "model": "Impact",
+      "note": "PLACEHOLDER counts, not results (S10)"
+    },
+    {
+      "file": "impact_heat_alert.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=monsoon_2024&decision=heat_alert",
+      "status": 200,
+      "model": "Impact",
+      "note": "PLACEHOLDER counts, not results (S10)"
+    },
+    {
+      "file": "impact_irrigation_wait.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=monsoon_2024&decision=irrigation_wait",
+      "status": 200,
+      "model": "Impact",
+      "note": "PLACEHOLDER counts, not results (S10)"
+    },
+    {
+      "file": "data_quality.json",
+      "method": "GET",
+      "path": "/api/v1/data-quality?issue_date=2024-12-24",
+      "status": 200,
+      "model": "DataQuality",
+      "note": "computed from the station files"
+    },
+    {
+      "file": "error_not_found.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP9999?issue_date=2024-09-09",
+      "status": 404,
+      "model": "ErrorResponse",
+      "note": "unknown id"
+    },
+    {
+      "file": "error_issue_date_not_available.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP0103?issue_date=2024-09-10",
+      "status": 404,
+      "model": "ErrorResponse",
+      "note": "issue date not in /meta.available_issue_dates"
+    },
+    {
+      "file": "error_validation.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=9&var=rain",
+      "status": 422,
+      "model": "ErrorResponse",
+      "note": "invalid parameter"
+    },
+    {
+      "file": "error_audio_not_available.json",
+      "method": "GET",
+      "path": "/api/v1/audio/ADV-2024-09-09-MP0301-cotton-spray?lang=hi",
+      "status": 404,
+      "model": "ErrorResponse",
+      "note": "no audio yet: the UI falls back to browser speech"
+    }
+  ]
+}

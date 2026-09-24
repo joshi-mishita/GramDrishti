@@ -1,0 +1,4499 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "GramDrishti API",
+    "description": "Panchayat-level forecasts and advisories. Contract: Appendix A of the guides. Every response carries data_mode; 'mock' means synthetic data.",
+    "version": "0.1.1"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "summary": "Health",
+        "description": "Liveness check.",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/meta": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "summary": "Meta",
+        "description": "District, data mode, API version, demo issue dates (with labels), languages, crops, variables.",
+        "operationId": "meta_api_v1_meta_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Meta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/geo/panchayats": {
+      "get": {
+        "tags": [
+          "geo"
+        ],
+        "summary": "Panchayats",
+        "description": "Panchayat polygons (synthetic Voronoi cells in mock mode).",
+        "operationId": "panchayats_api_v1_geo_panchayats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PanchayatCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/geo/blocks": {
+      "get": {
+        "tags": [
+          "geo"
+        ],
+        "summary": "Blocks",
+        "description": "Block polygons (unions of the Panchayat cells in mock mode).",
+        "operationId": "blocks_api_v1_geo_blocks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlockCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/forecast/map": {
+      "get": {
+        "tags": [
+          "forecast"
+        ],
+        "summary": "Forecast Map",
+        "description": "Block layer and Panchayat layer for one variable and lead day.",
+        "operationId": "forecast_map_api_v1_forecast_map_get",
+        "parameters": [
+          {
+            "name": "issue_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Issue date, one of /meta.available_issue_dates",
+              "title": "Issue Date"
+            },
+            "description": "Issue date, one of /meta.available_issue_dates"
+          },
+          {
+            "name": "lead_day",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 5,
+              "minimum": 1,
+              "description": "Lead day, 1 = tomorrow",
+              "title": "Lead Day"
+            },
+            "description": "Lead day, 1 = tomorrow"
+          },
+          {
+            "name": "var",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Var"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForecastMap"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/forecast/panchayat/{panchayat_id}": {
+      "get": {
+        "tags": [
+          "forecast"
+        ],
+        "summary": "Forecast Panchayat",
+        "description": "5-day detail with quantiles, event probabilities and derived agro-variables.",
+        "operationId": "forecast_panchayat_api_v1_forecast_panchayat__panchayat_id__get",
+        "parameters": [
+          {
+            "name": "panchayat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Panchayat Id"
+            }
+          },
+          {
+            "name": "issue_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Issue date, one of /meta.available_issue_dates",
+              "title": "Issue Date"
+            },
+            "description": "Issue date, one of /meta.available_issue_dates"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PanchayatForecast"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/observed/panchayat/{panchayat_id}": {
+      "get": {
+        "tags": [
+          "forecast"
+        ],
+        "summary": "Observed",
+        "description": "What happened: the Panchayat's station if it has one, else synthetic truth (mock only).",
+        "operationId": "observed_api_v1_observed_panchayat__panchayat_id__get",
+        "parameters": [
+          {
+            "name": "panchayat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Panchayat Id"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "From"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "To"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Observed"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/explain/{panchayat_id}": {
+      "get": {
+        "tags": [
+          "forecast"
+        ],
+        "summary": "Explain",
+        "description": "Top reasons this Panchayat differs from its block (placeholder static contrast until SHAP).",
+        "operationId": "explain_api_v1_explain__panchayat_id__get",
+        "parameters": [
+          {
+            "name": "panchayat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Panchayat Id"
+            }
+          },
+          {
+            "name": "issue_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Issue date, one of /meta.available_issue_dates",
+              "title": "Issue Date"
+            },
+            "description": "Issue date, one of /meta.available_issue_dates"
+          },
+          {
+            "name": "lead_day",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 5,
+              "minimum": 1,
+              "description": "Lead day, 1 = tomorrow",
+              "title": "Lead Day"
+            },
+            "description": "Lead day, 1 = tomorrow"
+          },
+          {
+            "name": "var",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Var"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Explain"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not computed for real data yet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/forecast/changes/{panchayat_id}": {
+      "get": {
+        "tags": [
+          "forecast"
+        ],
+        "summary": "Forecast Changes",
+        "description": "What changed since the previous day's forecast.",
+        "operationId": "forecast_changes_api_v1_forecast_changes__panchayat_id__get",
+        "parameters": [
+          {
+            "name": "panchayat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Panchayat Id"
+            }
+          },
+          {
+            "name": "issue_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "description": "Issue date, one of /meta.available_issue_dates",
+              "title": "Issue Date"
+            },
+            "description": "Issue date, one of /meta.available_issue_dates"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForecastChanges"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/risk": {
+      "get": {
+        "tags": [
+          "risk"
+        ],
+        "summary": "Risk",
+        "description": "Risk level and score per Panchayat for one risk type and lead day.",
+        "operationId": "risk_api_v1_risk_get",
+        "parameters": [
+          {
+            "name": "issue_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "Issue Date"
+            }
+          },
+          {
+            "name": "lead_day",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 5,
+              "minimum": 1,
+              "title": "Lead Day"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RiskType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Risk"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/priority": {
+      "get": {
+        "tags": [
+          "risk"
+        ],
+        "summary": "Priority",
+        "description": "Panchayats needing attention within the horizon, highest score first (moderate and above).",
+        "operationId": "priority_api_v1_priority_get",
+        "parameters": [
+          {
+            "name": "issue_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "Issue Date"
+            }
+          },
+          {
+            "name": "horizon_days",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 5,
+              "minimum": 1,
+              "default": 2,
+              "title": "Horizon Days"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Priority"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/advisories": {
+      "get": {
+        "tags": [
+          "advisories"
+        ],
+        "summary": "Advisories",
+        "description": "Advisories filtered by status, Panchayat and issue date.",
+        "operationId": "advisories_api_v1_advisories_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Status"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "name": "panchayat_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Panchayat Id"
+            }
+          },
+          {
+            "name": "issue_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Issue Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvisoryList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/advisories/{advisory_id}": {
+      "get": {
+        "tags": [
+          "advisories"
+        ],
+        "summary": "Advisory",
+        "description": "One advisory with evidence and audit trail.",
+        "operationId": "advisory_api_v1_advisories__advisory_id__get",
+        "parameters": [
+          {
+            "name": "advisory_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Advisory Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Advisory"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/advisories/{advisory_id}/review": {
+      "post": {
+        "tags": [
+          "advisories"
+        ],
+        "summary": "Review",
+        "description": "Approve, edit or reject. Appends to the audit trail and returns the updated advisory.",
+        "operationId": "review_api_v1_advisories__advisory_id__review_post",
+        "parameters": [
+          {
+            "name": "advisory_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Advisory Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Advisory"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audio/{advisory_id}": {
+      "get": {
+        "tags": [
+          "advisories"
+        ],
+        "summary": "Audio",
+        "description": "MP3 of the advisory text, or 404 when no audio exists (the UI then falls back to browser speech).",
+        "operationId": "audio_api_v1_audio__advisory_id__get",
+        "parameters": [
+          {
+            "name": "advisory_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Advisory Id"
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Lang"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "MP3 of the advisory text",
+            "content": {
+              "audio/mpeg": {}
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/farmers/{farmer_id}": {
+      "get": {
+        "tags": [
+          "farmers"
+        ],
+        "summary": "Farmer",
+        "description": "Demo farmer profile: Panchayat, language, crops with sowing dates.",
+        "operationId": "farmer_api_v1_farmers__farmer_id__get",
+        "parameters": [
+          {
+            "name": "farmer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Farmer Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Farmer"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/farmers/{farmer_id}/advice": {
+      "get": {
+        "tags": [
+          "farmers"
+        ],
+        "summary": "Farmer Advice",
+        "description": "Approved (or edited and approved) advisories for the farmer's Panchayat on this issue date.",
+        "operationId": "farmer_advice_api_v1_farmers__farmer_id__advice_get",
+        "parameters": [
+          {
+            "name": "farmer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Farmer Id"
+            }
+          },
+          {
+            "name": "issue_date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "Issue Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FarmerAdvice"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback": {
+      "post": {
+        "tags": [
+          "farmers"
+        ],
+        "summary": "Feedback",
+        "description": "Farmer tapped \"Did it rain?\".",
+        "operationId": "feedback_api_v1_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/verification/summary": {
+      "get": {
+        "tags": [
+          "verification"
+        ],
+        "summary": "Summary",
+        "description": "Model against baselines B0, B1, B2 per variable, with 95% intervals of skill.",
+        "operationId": "summary_api_v1_verification_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationSummary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not computed for real data yet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/verification/reliability": {
+      "get": {
+        "tags": [
+          "verification"
+        ],
+        "summary": "Reliability",
+        "description": "Reliability diagram points for one rain event.",
+        "operationId": "reliability_api_v1_verification_reliability_get",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RainEvent"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reliability"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not computed for real data yet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/verification/coverage": {
+      "get": {
+        "tags": [
+          "verification"
+        ],
+        "summary": "Coverage",
+        "description": "Nominal against empirical interval coverage per variable.",
+        "operationId": "coverage_api_v1_verification_coverage_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Coverage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not computed for real data yet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/verification/regions": {
+      "get": {
+        "tags": [
+          "verification"
+        ],
+        "summary": "Regions",
+        "description": "Error per held-out block.",
+        "operationId": "regions_api_v1_verification_regions_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Regions"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not computed for real data yet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/impact": {
+      "get": {
+        "tags": [
+          "verification"
+        ],
+        "summary": "Impact",
+        "description": "Replay of one decision over a season: model rule against block-forecast rule.",
+        "operationId": "impact_api_v1_impact_get",
+        "parameters": [
+          {
+            "name": "season",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "monsoon_2024",
+              "title": "Season"
+            }
+          },
+          {
+            "name": "decision",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Decision",
+              "default": "spray"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Impact"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not computed for real data yet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/data-quality": {
+      "get": {
+        "tags": [
+          "verification"
+        ],
+        "summary": "Data Quality",
+        "description": "Stations reporting, missing share over 30 days, stale inputs, as of an issue date.",
+        "operationId": "data_quality_api_v1_data_quality_get",
+        "parameters": [
+          {
+            "name": "issue_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Issue Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataQuality"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id or issue date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Advisory": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "issue_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Issue Date"
+          },
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "crop": {
+            "type": "string",
+            "title": "Crop"
+          },
+          "stage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stage"
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/Level"
+          },
+          "valid_from": {
+            "type": "string",
+            "format": "date",
+            "title": "Valid From"
+          },
+          "valid_to": {
+            "type": "string",
+            "format": "date",
+            "title": "Valid To"
+          },
+          "action": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "fallback": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "confidence": {
+            "$ref": "#/components/schemas/Confidence"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceItem"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "thresholds_status": {
+            "$ref": "#/components/schemas/ThresholdsStatus"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "reviewed_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewed By"
+          },
+          "reviewed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewed At"
+          },
+          "audit": {
+            "items": {
+              "$ref": "#/components/schemas/AuditEntry"
+            },
+            "type": "array",
+            "title": "Audit"
+          },
+          "audio": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/Lang"
+            },
+            "type": "object",
+            "title": "Audio"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "translation_status": {
+            "$ref": "#/components/schemas/TranslationStatus"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "issue_date",
+          "panchayat_id",
+          "block_id",
+          "crop",
+          "stage",
+          "category",
+          "priority",
+          "valid_from",
+          "valid_to",
+          "action",
+          "reason",
+          "fallback",
+          "confidence",
+          "evidence",
+          "thresholds_status",
+          "status",
+          "reviewed_by",
+          "reviewed_at",
+          "audit",
+          "audio",
+          "data_mode",
+          "provenance",
+          "translation_status"
+        ],
+        "title": "Advisory"
+      },
+      "AdvisoryList": {
+        "properties": {
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/Advisory"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "data_mode",
+          "provenance",
+          "total",
+          "items"
+        ],
+        "title": "AdvisoryList"
+      },
+      "AuditEntry": {
+        "properties": {
+          "at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "At"
+          },
+          "actor": {
+            "type": "string",
+            "title": "Actor"
+          },
+          "action": {
+            "type": "string",
+            "title": "Action"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "at",
+          "actor",
+          "action",
+          "note"
+        ],
+        "title": "AuditEntry"
+      },
+      "BlockCollection": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "FeatureCollection",
+            "title": "Type"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/BlockFeature"
+            },
+            "type": "array",
+            "title": "Features"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type",
+          "data_mode",
+          "features"
+        ],
+        "title": "BlockCollection"
+      },
+      "BlockFeature": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "Feature",
+            "title": "Type"
+          },
+          "geometry": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PolygonGeometry"
+              },
+              {
+                "$ref": "#/components/schemas/MultiPolygonGeometry"
+              }
+            ],
+            "title": "Geometry",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "MultiPolygon": "#/components/schemas/MultiPolygonGeometry",
+                "Polygon": "#/components/schemas/PolygonGeometry"
+              }
+            }
+          },
+          "properties": {
+            "$ref": "#/components/schemas/BlockProperties"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type",
+          "geometry",
+          "properties"
+        ],
+        "title": "BlockFeature"
+      },
+      "BlockMapValue": {
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "block_id",
+          "value"
+        ],
+        "title": "BlockMapValue"
+      },
+      "BlockProperties": {
+        "properties": {
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "block_id",
+          "name"
+        ],
+        "title": "BlockProperties"
+      },
+      "Category": {
+        "type": "string",
+        "enum": [
+          "sowing",
+          "irrigation",
+          "spray",
+          "fertilizer",
+          "harvest",
+          "heat_stress",
+          "frost",
+          "waterlogging",
+          "dry_spell",
+          "pest_disease",
+          "livestock"
+        ],
+        "title": "Category"
+      },
+      "Channel": {
+        "type": "string",
+        "enum": [
+          "app",
+          "whatsapp",
+          "ivr"
+        ],
+        "title": "Channel"
+      },
+      "Confidence": {
+        "type": "string",
+        "enum": [
+          "high",
+          "medium",
+          "low"
+        ],
+        "title": "Confidence"
+      },
+      "Coverage": {
+        "properties": {
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CoverageItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "data_mode",
+          "provenance",
+          "items",
+          "notes"
+        ],
+        "title": "Coverage"
+      },
+      "CoverageItem": {
+        "properties": {
+          "var": {
+            "$ref": "#/components/schemas/Var"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "nominal": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Nominal"
+          },
+          "empirical": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Empirical"
+          },
+          "mean_width": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Width"
+          },
+          "n": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "N"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "var",
+          "unit",
+          "nominal",
+          "empirical",
+          "mean_width",
+          "n"
+        ],
+        "title": "CoverageItem"
+      },
+      "DataMode": {
+        "type": "string",
+        "enum": [
+          "mock",
+          "real"
+        ],
+        "title": "DataMode"
+      },
+      "DataQuality": {
+        "properties": {
+          "as_of": {
+            "type": "string",
+            "format": "date",
+            "title": "As Of"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "stations_total": {
+            "type": "integer",
+            "title": "Stations Total"
+          },
+          "stations_reporting_24h": {
+            "type": "integer",
+            "title": "Stations Reporting 24H"
+          },
+          "missing_share_30d": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Missing Share 30D"
+          },
+          "stale_inputs": {
+            "items": {
+              "$ref": "#/components/schemas/StaleInput"
+            },
+            "type": "array",
+            "title": "Stale Inputs"
+          },
+          "stations": {
+            "items": {
+              "$ref": "#/components/schemas/StationStatus"
+            },
+            "type": "array",
+            "title": "Stations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "as_of",
+          "data_mode",
+          "provenance",
+          "stations_total",
+          "stations_reporting_24h",
+          "missing_share_30d",
+          "stale_inputs",
+          "stations"
+        ],
+        "title": "DataQuality"
+      },
+      "Decision": {
+        "type": "string",
+        "enum": [
+          "spray",
+          "heat_alert",
+          "irrigation_wait"
+        ],
+        "title": "Decision"
+      },
+      "DecisionCounts": {
+        "properties": {
+          "correct": {
+            "type": "integer",
+            "title": "Correct"
+          },
+          "wasted_wait": {
+            "type": "integer",
+            "title": "Wasted Wait"
+          },
+          "washed_off": {
+            "type": "integer",
+            "title": "Washed Off"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "correct",
+          "wasted_wait",
+          "washed_off"
+        ],
+        "title": "DecisionCounts"
+      },
+      "Derived": {
+        "properties": {
+          "et0_mm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Et0 Mm"
+          },
+          "soil_moisture_frac": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soil Moisture Frac"
+          },
+          "thi": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Thi"
+          },
+          "waterlog_risk": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Level"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "et0_mm",
+          "soil_moisture_frac",
+          "thi",
+          "waterlog_risk"
+        ],
+        "title": "Derived"
+      },
+      "EditedFields": {
+        "properties": {
+          "action": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedText"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedText"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "fallback": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedText"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "EditedFields"
+      },
+      "Effect": {
+        "type": "string",
+        "enum": [
+          "warmer",
+          "cooler",
+          "wetter",
+          "drier",
+          "more_humid",
+          "less_humid",
+          "windier",
+          "calmer"
+        ],
+        "title": "Effect"
+      },
+      "ErrorBody": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorBody"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorBody"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "ErrorResponse",
+        "description": "Every 4xx/5xx body: ``{\"error\": {\"code\", \"message\"}}``."
+      },
+      "EventChange": {
+        "properties": {
+          "valid_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Valid Date"
+          },
+          "event": {
+            "$ref": "#/components/schemas/RainEvent"
+          },
+          "previous_prob": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Prob"
+          },
+          "current_prob": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Prob"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "valid_date",
+          "event",
+          "previous_prob",
+          "current_prob"
+        ],
+        "title": "EventChange"
+      },
+      "EventProbs": {
+        "properties": {
+          "rain_ge_1mm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rain Ge 1Mm"
+          },
+          "rain_ge_2_5mm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rain Ge 2 5Mm"
+          },
+          "rain_ge_10mm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rain Ge 10Mm"
+          },
+          "rain_ge_35mm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rain Ge 35Mm"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "rain_ge_1mm",
+          "rain_ge_2_5mm",
+          "rain_ge_10mm",
+          "rain_ge_35mm"
+        ],
+        "title": "EventProbs"
+      },
+      "EventSummary": {
+        "properties": {
+          "event": {
+            "$ref": "#/components/schemas/RainEvent"
+          },
+          "pod": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pod"
+          },
+          "far": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Far"
+          },
+          "csi": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Csi"
+          },
+          "brier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brier"
+          },
+          "brier_skill_vs_climatology": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brier Skill Vs Climatology"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event",
+          "pod",
+          "far",
+          "csi",
+          "brier",
+          "brier_skill_vs_climatology"
+        ],
+        "title": "EventSummary"
+      },
+      "EvidenceItem": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "label",
+          "value"
+        ],
+        "title": "EvidenceItem"
+      },
+      "Explain": {
+        "properties": {
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "issue_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Issue Date"
+          },
+          "lead_day": {
+            "type": "integer",
+            "title": "Lead Day"
+          },
+          "var": {
+            "$ref": "#/components/schemas/Var"
+          },
+          "delta_vs_block": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta Vs Block"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/components/schemas/ExplainReason"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "panchayat_id",
+          "issue_date",
+          "lead_day",
+          "var",
+          "delta_vs_block",
+          "reasons",
+          "data_mode",
+          "provenance",
+          "method"
+        ],
+        "title": "Explain"
+      },
+      "ExplainReason": {
+        "properties": {
+          "feature": {
+            "type": "string",
+            "title": "Feature"
+          },
+          "effect": {
+            "$ref": "#/components/schemas/Effect"
+          },
+          "text": {
+            "$ref": "#/components/schemas/LocalizedText"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "feature",
+          "effect",
+          "text"
+        ],
+        "title": "ExplainReason"
+      },
+      "Farmer": {
+        "properties": {
+          "farmer_id": {
+            "type": "string",
+            "title": "Farmer Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Lang"
+          },
+          "crops": {
+            "items": {
+              "$ref": "#/components/schemas/FarmerCrop"
+            },
+            "type": "array",
+            "title": "Crops"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "farmer_id",
+          "name",
+          "panchayat_id",
+          "block_id",
+          "language",
+          "crops",
+          "data_mode"
+        ],
+        "title": "Farmer"
+      },
+      "FarmerAdvice": {
+        "properties": {
+          "farmer_id": {
+            "type": "string",
+            "title": "Farmer Id"
+          },
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "issue_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Issue Date"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Lang"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/Advisory"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "farmer_id",
+          "panchayat_id",
+          "issue_date",
+          "language",
+          "data_mode",
+          "items"
+        ],
+        "title": "FarmerAdvice"
+      },
+      "FarmerCrop": {
+        "properties": {
+          "crop": {
+            "type": "string",
+            "title": "Crop"
+          },
+          "season": {
+            "type": "string",
+            "title": "Season"
+          },
+          "sowing_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Sowing Date"
+          },
+          "expected_harvest_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Harvest Date"
+          },
+          "area_fraction": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Fraction"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "crop",
+          "season",
+          "sowing_date",
+          "expected_harvest_date",
+          "area_fraction"
+        ],
+        "title": "FarmerCrop"
+      },
+      "FeedbackRequest": {
+        "properties": {
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "reported_rain": {
+            "type": "boolean",
+            "title": "Reported Rain"
+          },
+          "intensity": {
+            "$ref": "#/components/schemas/Intensity"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/Channel"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "panchayat_id",
+          "date",
+          "reported_rain",
+          "intensity",
+          "channel"
+        ],
+        "title": "FeedbackRequest"
+      },
+      "FeedbackResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "stored": {
+            "type": "boolean",
+            "title": "Stored"
+          },
+          "received_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Received At"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "feedback": {
+            "$ref": "#/components/schemas/FeedbackRequest"
+          },
+          "message": {
+            "$ref": "#/components/schemas/LocalizedText"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "stored",
+          "received_at",
+          "data_mode",
+          "feedback",
+          "message"
+        ],
+        "title": "FeedbackResponse"
+      },
+      "ForecastChanges": {
+        "properties": {
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "issue_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Issue Date"
+          },
+          "previous_issue_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Issue Date"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "changes": {
+            "items": {
+              "$ref": "#/components/schemas/VarChange"
+            },
+            "type": "array",
+            "title": "Changes"
+          },
+          "event_changes": {
+            "items": {
+              "$ref": "#/components/schemas/EventChange"
+            },
+            "type": "array",
+            "title": "Event Changes"
+          },
+          "advice_changed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Advice Changed"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/LocalizedText"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "panchayat_id",
+          "issue_date",
+          "previous_issue_date",
+          "data_mode",
+          "provenance",
+          "changes",
+          "event_changes",
+          "advice_changed",
+          "summary"
+        ],
+        "title": "ForecastChanges"
+      },
+      "ForecastDay": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "lead_day": {
+            "type": "integer",
+            "title": "Lead Day"
+          },
+          "rain": {
+            "$ref": "#/components/schemas/Quantiles"
+          },
+          "tmax": {
+            "$ref": "#/components/schemas/Quantiles"
+          },
+          "tmin": {
+            "$ref": "#/components/schemas/Quantiles"
+          },
+          "rh": {
+            "$ref": "#/components/schemas/Quantiles"
+          },
+          "wind": {
+            "$ref": "#/components/schemas/Quantiles"
+          },
+          "prob": {
+            "$ref": "#/components/schemas/EventProbs"
+          },
+          "derived": {
+            "$ref": "#/components/schemas/Derived"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "lead_day",
+          "rain",
+          "tmax",
+          "tmin",
+          "rh",
+          "wind",
+          "prob",
+          "derived"
+        ],
+        "title": "ForecastDay"
+      },
+      "ForecastMap": {
+        "properties": {
+          "issue_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Issue Date"
+          },
+          "valid_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Valid Date"
+          },
+          "lead_day": {
+            "type": "integer",
+            "title": "Lead Day"
+          },
+          "var": {
+            "$ref": "#/components/schemas/Var"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "block_layer": {
+            "items": {
+              "$ref": "#/components/schemas/BlockMapValue"
+            },
+            "type": "array",
+            "title": "Block Layer"
+          },
+          "panchayat_layer": {
+            "items": {
+              "$ref": "#/components/schemas/PanchayatMapValue"
+            },
+            "type": "array",
+            "title": "Panchayat Layer"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "issue_date",
+          "valid_date",
+          "lead_day",
+          "var",
+          "unit",
+          "data_mode",
+          "provenance",
+          "block_layer",
+          "panchayat_layer"
+        ],
+        "title": "ForecastMap"
+      },
+      "Health": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status"
+          },
+          "api_version": {
+            "type": "string",
+            "title": "Api Version"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "api_version",
+          "data_mode"
+        ],
+        "title": "Health"
+      },
+      "Impact": {
+        "properties": {
+          "season": {
+            "type": "string",
+            "title": "Season"
+          },
+          "decision": {
+            "$ref": "#/components/schemas/Decision"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "model": {
+            "$ref": "#/components/schemas/DecisionCounts"
+          },
+          "block_baseline": {
+            "$ref": "#/components/schemas/DecisionCounts"
+          },
+          "n_decisions": {
+            "type": "integer",
+            "title": "N Decisions"
+          },
+          "rule": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImpactRule"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes",
+            "default": []
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "season",
+          "decision",
+          "data_mode",
+          "provenance",
+          "model",
+          "block_baseline",
+          "n_decisions"
+        ],
+        "title": "Impact"
+      },
+      "ImpactRule": {
+        "properties": {
+          "model": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "block": {
+            "$ref": "#/components/schemas/LocalizedText"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model",
+          "block"
+        ],
+        "title": "ImpactRule"
+      },
+      "Intensity": {
+        "type": "string",
+        "enum": [
+          "none",
+          "light",
+          "moderate",
+          "heavy"
+        ],
+        "title": "Intensity"
+      },
+      "IssueDateInfo": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "split": {
+            "$ref": "#/components/schemas/Split"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "label",
+          "split"
+        ],
+        "title": "IssueDateInfo",
+        "description": "Why a demo issue date exists and which data window it sits in (additive, v0.1.1)."
+      },
+      "Lang": {
+        "type": "string",
+        "enum": [
+          "en",
+          "hi",
+          "pa"
+        ],
+        "title": "Lang"
+      },
+      "Level": {
+        "type": "string",
+        "enum": [
+          "low",
+          "moderate",
+          "high",
+          "severe"
+        ],
+        "title": "Level"
+      },
+      "LocalizedText": {
+        "properties": {
+          "en": {
+            "type": "string",
+            "title": "En"
+          },
+          "hi": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hi"
+          },
+          "pa": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pa"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "en"
+        ],
+        "title": "LocalizedText",
+        "description": "Text in English, Hindi and Punjabi. Hindi and Punjabi may be null when not yet written."
+      },
+      "Meta": {
+        "properties": {
+          "api_version": {
+            "type": "string",
+            "title": "Api Version"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "district": {
+            "type": "string",
+            "title": "District"
+          },
+          "available_issue_dates": {
+            "items": {
+              "type": "string",
+              "format": "date"
+            },
+            "type": "array",
+            "title": "Available Issue Dates"
+          },
+          "languages": {
+            "items": {
+              "$ref": "#/components/schemas/Lang"
+            },
+            "type": "array",
+            "title": "Languages"
+          },
+          "crops": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Crops"
+          },
+          "vars": {
+            "items": {
+              "$ref": "#/components/schemas/VarInfo"
+            },
+            "type": "array",
+            "title": "Vars"
+          },
+          "issue_date_info": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/IssueDateInfo"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Issue Date Info"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "api_version",
+          "data_mode",
+          "district",
+          "available_issue_dates",
+          "languages",
+          "crops",
+          "vars"
+        ],
+        "title": "Meta"
+      },
+      "MetricRow": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "b0": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "B0"
+          },
+          "b1": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "B1"
+          },
+          "b2": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "B2"
+          },
+          "skill_vs_b0": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Vs B0"
+          },
+          "skill_ci95": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Ci95"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "unit",
+          "model",
+          "b0",
+          "b1",
+          "b2",
+          "skill_vs_b0",
+          "skill_ci95"
+        ],
+        "title": "MetricRow"
+      },
+      "MultiPolygonGeometry": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "MultiPolygon",
+            "title": "Type"
+          },
+          "coordinates": {
+            "items": {
+              "items": {
+                "items": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Coordinates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type",
+          "coordinates"
+        ],
+        "title": "MultiPolygonGeometry"
+      },
+      "Observed": {
+        "properties": {
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "from": {
+            "type": "string",
+            "format": "date",
+            "title": "From"
+          },
+          "to": {
+            "type": "string",
+            "format": "date",
+            "title": "To"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ObservedSource"
+          },
+          "station_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Station Id"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "days": {
+            "items": {
+              "$ref": "#/components/schemas/ObservedDay"
+            },
+            "type": "array",
+            "title": "Days"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "panchayat_id",
+          "from",
+          "to",
+          "source",
+          "station_id",
+          "data_mode",
+          "days"
+        ],
+        "title": "Observed"
+      },
+      "ObservedDay": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "rain": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rain"
+          },
+          "tmax": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tmax"
+          },
+          "tmin": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tmin"
+          },
+          "rh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rh"
+          },
+          "wind": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wind"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "rain",
+          "tmax",
+          "tmin",
+          "rh",
+          "wind"
+        ],
+        "title": "ObservedDay"
+      },
+      "ObservedSource": {
+        "type": "string",
+        "enum": [
+          "station",
+          "synthetic_truth",
+          "none"
+        ],
+        "title": "ObservedSource"
+      },
+      "PanchayatCollection": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "FeatureCollection",
+            "title": "Type"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/PanchayatFeature"
+            },
+            "type": "array",
+            "title": "Features"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type",
+          "data_mode",
+          "features"
+        ],
+        "title": "PanchayatCollection"
+      },
+      "PanchayatFeature": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "Feature",
+            "title": "Type"
+          },
+          "geometry": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PolygonGeometry"
+              },
+              {
+                "$ref": "#/components/schemas/MultiPolygonGeometry"
+              }
+            ],
+            "title": "Geometry",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "MultiPolygon": "#/components/schemas/MultiPolygonGeometry",
+                "Polygon": "#/components/schemas/PolygonGeometry"
+              }
+            }
+          },
+          "properties": {
+            "$ref": "#/components/schemas/PanchayatProperties"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type",
+          "geometry",
+          "properties"
+        ],
+        "title": "PanchayatFeature"
+      },
+      "PanchayatForecast": {
+        "properties": {
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "issue_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Issue Date"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "static": {
+            "$ref": "#/components/schemas/StaticInfo"
+          },
+          "days": {
+            "items": {
+              "$ref": "#/components/schemas/ForecastDay"
+            },
+            "type": "array",
+            "title": "Days"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "panchayat_id",
+          "name",
+          "block_id",
+          "issue_date",
+          "data_mode",
+          "provenance",
+          "static",
+          "days"
+        ],
+        "title": "PanchayatForecast"
+      },
+      "PanchayatMapValue": {
+        "properties": {
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "p10": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P10"
+          },
+          "p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50"
+          },
+          "p90": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P90"
+          },
+          "block_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Block Value"
+          },
+          "delta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta"
+          },
+          "prob_event": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prob Event"
+          },
+          "event": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RainEvent"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "panchayat_id",
+          "block_id",
+          "p10",
+          "p50",
+          "p90",
+          "block_value",
+          "delta",
+          "prob_event",
+          "event"
+        ],
+        "title": "PanchayatMapValue"
+      },
+      "PanchayatProperties": {
+        "properties": {
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "panchayat_id",
+          "name",
+          "block_id"
+        ],
+        "title": "PanchayatProperties"
+      },
+      "Period": {
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date",
+            "title": "Start"
+          },
+          "end": {
+            "type": "string",
+            "format": "date",
+            "title": "End"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "Period"
+      },
+      "PolygonGeometry": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "Polygon",
+            "title": "Type"
+          },
+          "coordinates": {
+            "items": {
+              "items": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Coordinates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type",
+          "coordinates"
+        ],
+        "title": "PolygonGeometry"
+      },
+      "Priority": {
+        "properties": {
+          "issue_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Issue Date"
+          },
+          "horizon_days": {
+            "type": "integer",
+            "title": "Horizon Days"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "thresholds_status": {
+            "$ref": "#/components/schemas/ThresholdsStatus"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PriorityItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "issue_date",
+          "horizon_days",
+          "data_mode",
+          "provenance",
+          "thresholds_status",
+          "items"
+        ],
+        "title": "Priority"
+      },
+      "PriorityItem": {
+        "properties": {
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "top_risk": {
+            "$ref": "#/components/schemas/RiskType"
+          },
+          "level": {
+            "$ref": "#/components/schemas/Level"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score"
+          },
+          "crops_affected": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Crops Affected"
+          },
+          "headline": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "valid_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid Date"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "panchayat_id",
+          "block_id",
+          "top_risk",
+          "level",
+          "score",
+          "crops_affected",
+          "headline"
+        ],
+        "title": "PriorityItem"
+      },
+      "Provenance": {
+        "type": "string",
+        "enum": [
+          "provisional",
+          "placeholder",
+          "computed"
+        ],
+        "title": "Provenance",
+        "description": "Where the numbers in a response come from (additive field, v0.1.1).\n\nprovisional: computed from the data with an interim method (corrected block forecast B1).\nplaceholder: generated example content; numbers are not results and must not be quoted.\ncomputed: produced by the final pipeline or verification job."
+      },
+      "Quantiles": {
+        "properties": {
+          "p10": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P10"
+          },
+          "p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50"
+          },
+          "p90": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P90"
+          },
+          "block": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Block"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "p10",
+          "p50",
+          "p90",
+          "block"
+        ],
+        "title": "Quantiles",
+        "description": "p10, p50, p90 of the Panchayat forecast plus the block-level value for the same day."
+      },
+      "RainEvent": {
+        "type": "string",
+        "enum": [
+          "rain_ge_1mm",
+          "rain_ge_2_5mm",
+          "rain_ge_10mm",
+          "rain_ge_35mm"
+        ],
+        "title": "RainEvent"
+      },
+      "RegionItem": {
+        "properties": {
+          "region_type": {
+            "type": "string",
+            "enum": [
+              "block",
+              "station"
+            ],
+            "title": "Region Type"
+          },
+          "region_id": {
+            "type": "string",
+            "title": "Region Id"
+          },
+          "var": {
+            "$ref": "#/components/schemas/Var"
+          },
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "b0": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "B0"
+          },
+          "n": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "N"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "region_type",
+          "region_id",
+          "var",
+          "metric",
+          "unit",
+          "model",
+          "b0",
+          "n"
+        ],
+        "title": "RegionItem"
+      },
+      "Regions": {
+        "properties": {
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/RegionItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "data_mode",
+          "provenance",
+          "method",
+          "items",
+          "notes"
+        ],
+        "title": "Regions"
+      },
+      "Reliability": {
+        "properties": {
+          "event": {
+            "$ref": "#/components/schemas/RainEvent"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/ReliabilityPoint"
+            },
+            "type": "array",
+            "title": "Points"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event",
+          "data_mode",
+          "provenance",
+          "points",
+          "notes"
+        ],
+        "title": "Reliability"
+      },
+      "ReliabilityPoint": {
+        "properties": {
+          "forecast_prob": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Forecast Prob"
+          },
+          "observed_freq": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed Freq"
+          },
+          "n": {
+            "type": "integer",
+            "title": "N"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "forecast_prob",
+          "observed_freq",
+          "n"
+        ],
+        "title": "ReliabilityPoint"
+      },
+      "ReviewAction": {
+        "type": "string",
+        "enum": [
+          "approve",
+          "edit",
+          "reject"
+        ],
+        "title": "ReviewAction"
+      },
+      "ReviewRequest": {
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/ReviewAction"
+          },
+          "reviewer": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Reviewer"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note",
+            "default": ""
+          },
+          "edited": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EditedFields"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "action",
+          "reviewer"
+        ],
+        "title": "ReviewRequest"
+      },
+      "Risk": {
+        "properties": {
+          "issue_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Issue Date"
+          },
+          "valid_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Valid Date"
+          },
+          "lead_day": {
+            "type": "integer",
+            "title": "Lead Day"
+          },
+          "type": {
+            "$ref": "#/components/schemas/RiskType"
+          },
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "thresholds_status": {
+            "$ref": "#/components/schemas/ThresholdsStatus"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/RiskItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "issue_date",
+          "valid_date",
+          "lead_day",
+          "type",
+          "data_mode",
+          "provenance",
+          "thresholds_status",
+          "items"
+        ],
+        "title": "Risk"
+      },
+      "RiskItem": {
+        "properties": {
+          "panchayat_id": {
+            "type": "string",
+            "title": "Panchayat Id"
+          },
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "level": {
+            "$ref": "#/components/schemas/Level"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "panchayat_id",
+          "block_id",
+          "level",
+          "score"
+        ],
+        "title": "RiskItem"
+      },
+      "RiskType": {
+        "type": "string",
+        "enum": [
+          "heavy_rain",
+          "heat",
+          "frost",
+          "waterlogging",
+          "dry_spell"
+        ],
+        "title": "RiskType"
+      },
+      "Split": {
+        "type": "string",
+        "enum": [
+          "train",
+          "calib",
+          "test"
+        ],
+        "title": "Split"
+      },
+      "StaleInput": {
+        "properties": {
+          "input": {
+            "type": "string",
+            "title": "Input"
+          },
+          "last_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Date"
+          },
+          "days_stale": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Days Stale"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "input",
+          "last_date",
+          "days_stale"
+        ],
+        "title": "StaleInput"
+      },
+      "StaticInfo": {
+        "properties": {
+          "elevation_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Elevation M"
+          },
+          "soil_texture": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soil Texture"
+          },
+          "drainage_class": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drainage Class"
+          },
+          "irrigated_frac": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Irrigated Frac"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "elevation_m",
+          "soil_texture",
+          "drainage_class",
+          "irrigated_frac"
+        ],
+        "title": "StaticInfo"
+      },
+      "StationStatus": {
+        "properties": {
+          "station_id": {
+            "type": "string",
+            "title": "Station Id"
+          },
+          "station_type": {
+            "type": "string",
+            "title": "Station Type"
+          },
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "last_report": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Report"
+          },
+          "reported_last_24h": {
+            "type": "boolean",
+            "title": "Reported Last 24H"
+          },
+          "missing_share_30d": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Missing Share 30D"
+          },
+          "flagged_share_30d": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flagged Share 30D"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "station_id",
+          "station_type",
+          "block_id",
+          "last_report",
+          "reported_last_24h",
+          "missing_share_30d",
+          "flagged_share_30d"
+        ],
+        "title": "StationStatus"
+      },
+      "Status": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "approved",
+          "edited",
+          "rejected"
+        ],
+        "title": "Status"
+      },
+      "ThresholdsStatus": {
+        "type": "string",
+        "enum": [
+          "placeholder",
+          "reviewed"
+        ],
+        "title": "ThresholdsStatus"
+      },
+      "TranslationStatus": {
+        "type": "string",
+        "enum": [
+          "needs_native_review",
+          "reviewed"
+        ],
+        "title": "TranslationStatus"
+      },
+      "Var": {
+        "type": "string",
+        "enum": [
+          "rain",
+          "tmax",
+          "tmin",
+          "rh",
+          "wind"
+        ],
+        "title": "Var"
+      },
+      "VarChange": {
+        "properties": {
+          "valid_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Valid Date"
+          },
+          "var": {
+            "$ref": "#/components/schemas/Var"
+          },
+          "previous_p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous P50"
+          },
+          "current_p50": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current P50"
+          },
+          "delta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta"
+          },
+          "material": {
+            "type": "boolean",
+            "title": "Material"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "valid_date",
+          "var",
+          "previous_p50",
+          "current_p50",
+          "delta",
+          "material"
+        ],
+        "title": "VarChange"
+      },
+      "VarInfo": {
+        "properties": {
+          "var": {
+            "$ref": "#/components/schemas/Var"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "var",
+          "unit"
+        ],
+        "title": "VarInfo"
+      },
+      "VariableSummary": {
+        "properties": {
+          "var": {
+            "$ref": "#/components/schemas/Var"
+          },
+          "n": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "N"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/MetricRow"
+            },
+            "type": "array",
+            "title": "Metrics"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "var",
+          "n",
+          "metrics"
+        ],
+        "title": "VariableSummary"
+      },
+      "VerificationSummary": {
+        "properties": {
+          "data_mode": {
+            "$ref": "#/components/schemas/DataMode"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "variables": {
+            "items": {
+              "$ref": "#/components/schemas/VariableSummary"
+            },
+            "type": "array",
+            "title": "Variables"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/EventSummary"
+            },
+            "type": "array",
+            "title": "Events"
+          },
+          "block_mean_error": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/Var"
+            },
+            "type": "object",
+            "title": "Block Mean Error"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "data_mode",
+          "provenance",
+          "method",
+          "period",
+          "variables",
+          "events",
+          "block_mean_error",
+          "notes"
+        ],
+        "title": "VerificationSummary"
+      }
+    }
+  }
+}

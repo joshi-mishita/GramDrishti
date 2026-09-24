@@ -1,0 +1,131 @@
+{
+  "data_mode": "mock",
+  "provenance": "placeholder",
+  "method": "leave_one_block_out",
+  "items": [
+    {
+      "region_type": "block",
+      "region_id": "MB01",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "model": 2.91,
+      "b0": 3.57,
+      "n": 2343
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB01",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "model": 1.16,
+      "b0": 1.22,
+      "n": 2342
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB02",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "model": 4.07,
+      "b0": 4.49,
+      "n": 2524
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB02",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "model": 1.02,
+      "b0": 1.13,
+      "n": 2560
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB03",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "model": 4.26,
+      "b0": 4.29,
+      "n": 2369
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB03",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "model": 1.13,
+      "b0": 1.14,
+      "n": 2017
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB04",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "model": 4.11,
+      "b0": 4.01,
+      "n": 2546
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB04",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "model": 1.04,
+      "b0": 1.29,
+      "n": 2254
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB05",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "model": 4.13,
+      "b0": 4.13,
+      "n": 2551
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB05",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "model": 0.88,
+      "b0": 1.04,
+      "n": 2046
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB06",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "model": 3.59,
+      "b0": 3.72,
+      "n": 2581
+    },
+    {
+      "region_type": "block",
+      "region_id": "MB06",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "model": 1.22,
+      "b0": 1.29,
+      "n": 2069
+    }
+  ],
+  "notes": [
+    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
+    "Proxy validation on synthetic truth. Real-station validation follows when data is available."
+  ]
+}

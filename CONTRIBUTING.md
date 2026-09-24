@@ -39,11 +39,25 @@ chore(ci): cache pip downloads
 
 ## Changing the API contract
 
-The contract in Appendix A of the guides (`contract/openapi.json` and `contract/examples/`) is shared.
+The contract (Appendix A of the guides, implemented as `contract/openapi.json` and `contract/examples/`) is shared. **v0.1.1 is frozen** (see `contract/CHANGELOG.md`).
 
 1. Additive, optional fields are allowed. Add a line to `contract/CHANGELOG.md` with the new version, regenerate `contract/openapi.json` and the examples, and tell the other person.
 2. Anything that removes, renames or changes the type of a field is a breaking change. It needs agreement from both people before any code is written.
 3. Never edit `contract/` in two open pull requests at the same time.
+
+### How to change the contract (backend steps)
+
+1. Edit the Pydantic models in `backend/gramdrishti/api/schemas.py` and bump `API_VERSION` there (minor bump for additive changes).
+2. Add a row and a section for the new version to `contract/CHANGELOG.md`, marked additive or breaking.
+3. Regenerate the contract files from `backend/`:
+   ```bash
+   python -m gramdrishti.export_openapi           # contract/openapi.json
+   python -m gramdrishti.contract.make_examples   # contract/examples/*.json, *.geojson, index.json
+   ```
+4. Run `pytest -q`. The contract tests fail if `openapi.json` or any example is stale, if an example no longer validates, or if an endpoint has no example.
+5. Open a pull request that touches `contract/` and ask the frontend person to review it. They run `npm run gen:types`; a changed field then breaks their build instead of the demo.
+
+Demo issue dates are chosen by `python -m gramdrishti.contract.pick_demo_dates`, which prints why each date was picked and writes `backend/gramdrishti/contract/demo_dates.json`. Changing them changes `/meta`, so treat it like a contract change.
 
 ## Data honesty
 
