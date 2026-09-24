@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 SEED = int(os.environ.get("SEED", 42))
-OUT = os.environ.get("OUT", "/mnt/user-data/outputs/gramdrishti_mock_data")
+OUT = os.environ.get("OUT", os.path.dirname(os.path.abspath(__file__)))  # default: this data/ folder
 rng = np.random.default_rng(SEED)
 os.makedirs(f"{OUT}/synthetic_oracle", exist_ok=True)
 

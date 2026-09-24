@@ -2,7 +2,7 @@
 
 **Everything here is artificial.** Names, coordinates, stations and values do not describe any real Panchayat, station or forecast. Use it to build and demo the pipeline. **Never report model results on it as validation.**
 
-Setup: a fictional semi-arid northern-plains district (6 blocks, 90 Panchayats, 24 stations), 2023-01-01 to 2024-12-31 (731 days), regenerate with `python generate_mock_data.py` (`SEED` and `OUT` env vars).
+Setup: a fictional semi-arid northern-plains district (6 blocks, 90 Panchayats, 24 stations), 2023-01-01 to 2024-12-31 (731 days), regenerate with `python data/generate_mock_data.py` (`SEED`, default 42, and `OUT`, default this `data/` folder).
 
 ## Files and the real source that replaces each
 
@@ -11,7 +11,7 @@ Setup: a fictional semi-arid northern-plains district (6 blocks, 90 Panchayats, 
 | `panchayats_static.csv` | 90 rows: elevation, TPI, slope, irrigated/urban/water/tree/cropland fractions, canal distance, clay/sand/silt, texture, water holding capacity, drainage class | DEM, WorldCover, SoilGrids, JRC water, canal layers, aggregated per Panchayat |
 | `blocks.csv`, `*_SYNTHETIC.geojson` | Block table; Voronoi polygons for Panchayats and blocks | LGD codes + real boundaries (Bhuvan, DataMeet, SHRUG, state GIS centre) |
 | `block_forecast_mock_nwp.csv` | Block-level forecasts from two mock NWP sources, lead 1-5 days (rain, Tmax, Tmin, RH, wind) with lead-dependent bias/noise, misses and false alarms | GFS/ECMWF aggregated to blocks, or official IMD block forecast |
-| `stations.csv`, `station_observations_mock.csv` | 14 AWS (all variables) + 10 ARG (rain only, 0.5 mm resolution), measurement noise, ~5% missing days, some multi-week outages | State AWS/ARG, IMD, SAU/KVK, CPCB stations |
+| `stations.csv`, `station_observations_mock.csv` | 12 AWS (all variables) + 12 ARG (rain only, 0.5 mm resolution), measurement noise, ~5% missing days, some multi-week outages | State AWS/ARG, IMD, SAU/KVK, CPCB stations |
 | `satellite_weekly_mock.csv` | Weekly NDVI and daytime LST per Panchayat, with cloud gaps (heavier in Jul-Sep) | Sentinel-2 / MODIS composites |
 | `panchayat_crops_mock.csv` | Crop and sowing date per Panchayat for 5 seasons (rabi/kharif) | State crop calendars, Meri Fasal Mera Byora, crop maps |
 | `crop_calendar_PLACEHOLDER.csv` | Crop stages (DAS), alert thresholds, sensitivities, key operations. **Placeholders, not expert-reviewed.** | KVK/SAU-validated table |
@@ -36,3 +36,14 @@ Rain mm/day; temperatures °C; RH daily mean %; wind km/h; ET0 mm/day (Hargreave
 
 ## Swapping in real data
 Keep the same column names. Replace files one at a time: `stations` + `station_observations` first, then `block_forecast`, then static features and satellite. Delete `synthetic_oracle/` from any real-data run and switch validation to leave-one-station-out on real stations.
+
+## What is committed and what is generated
+
+| Path | In git | Size | How to get it |
+|---|---|---|---|
+| `*.csv`, `*.geojson`, `mock_data_summary.json` in `data/` | yes | about 3.8 MB in total (largest: `block_forecast_mock_nwp.csv`, 2.9 MB) | committed |
+| `synthetic_oracle/` (Panchayat and block truth) | **no** (git-ignored answer key) | 4.4 MB | `python data/generate_mock_data.py` |
+| `gramdrishti_mock_data.zip` | **no** (git-ignored) | 2 MB | original download; not needed |
+| `real/` | **no** (git-ignored) | - | real data, same column names (see `backend/gramdrishti/data/config.py`) |
+
+With the default seed the generator reproduces every committed CSV and GeoJSON byte for byte (checked in S1 on macOS with numpy 2.5; `backend/tests/test_mock_generator.py` keeps checking it). Only `mock_data_summary.json` can differ in the last digit of a float, because summation order differs across numpy versions.
