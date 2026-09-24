@@ -64,6 +64,10 @@ jobs:
             pip install -r requirements.txt
           fi
           pip install ruff pytest
+      - name: Generate mock oracle (git-ignored answer key)
+        run: |
+          OUT="$RUNNER_TEMP/mock" python ../data/generate_mock_data.py > /dev/null
+          cp -r "$RUNNER_TEMP/mock/synthetic_oracle" ../data/
       - name: Ruff
         run: ruff check .
       - name: Pytest

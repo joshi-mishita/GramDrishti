@@ -28,6 +28,9 @@ Shared: Docker Compose, GitHub Actions.
 ## Commands (update this section whenever a command is created)
 - Backend tests: `cd backend && pytest -q`
 - Backend lint: `cd backend && ruff check .`
+- Backend setup: `cd backend && python -m venv .venv && .venv/bin/pip install -e ".[dev]"`
+- Regenerate mock data (incl. git-ignored oracle): `python data/generate_mock_data.py`
+- Baseline report (TRAIN fit, CALIB scores): `cd backend && python -m gramdrishti.verify.baseline_report`
 - Run API: `cd backend && uvicorn gramdrishti.api.main:app --reload --port 8000`
 - Export contract: `cd backend && python -m gramdrishti.export_openapi`
 - Frontend dev / build / test: `cd frontend && npm run dev | build | test`

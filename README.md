@@ -57,14 +57,17 @@ scripts/    helper scripts
 
 ## Quick start
 
-Not runnable yet. These commands will work once the backend (session S1/S2) and frontend (session S3) exist.
+The backend data layer and baselines run (S1). The API (S2) and frontend (S3) do not exist yet.
 
 ```bash
 # backend
 cd backend
 python -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"            # placeholder until S1
-uvicorn gramdrishti.api.main:app --reload --port 8000
+pip install -e ".[dev]"
+python ../data/generate_mock_data.py            # recreates the git-ignored synthetic oracle
+pytest -q && ruff check .
+python -m gramdrishti.verify.baseline_report   # B0/B1/B2 scores on CALIB
+uvicorn gramdrishti.api.main:app --reload --port 8000   # from S2
 
 # frontend
 cd frontend
@@ -76,8 +79,8 @@ npm run dev                        # http://localhost:5173
 
 | Area | Status |
 |---|---|
-| Repo foundation and CI | in progress (S0) |
-| Backend data layer and baselines | not started |
+| Repo foundation and CI | done (S0) |
+| Backend data layer and baselines | PR open (S1) |
 | API contract | not started |
 | Frontend | not started |
 | Models, advisories, verification | not started |
