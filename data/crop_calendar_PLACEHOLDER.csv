@@ -1,0 +1,19 @@
+crop,stage,das_start,das_end,tmax_alert_c,tmin_alert_c,drought_sensitivity,waterlog_sensitivity,key_operations,status
+wheat,germination_crown_root,0,25,,4.0,high,medium,sowing; first irrigation ~CRI,PLACEHOLDER_needs_expert_review
+wheat,tillering,25,60,,2.0,medium,medium,top-dress nitrogen; weed control,PLACEHOLDER_needs_expert_review
+wheat,jointing_booting,60,90,30.0,0.0,high,medium,irrigation; spray timing,PLACEHOLDER_needs_expert_review
+wheat,flowering_grain_fill,90,130,34.0,0.0,high,low,terminal heat-stress watch; light irrigation,PLACEHOLDER_needs_expert_review
+wheat,maturity_harvest,130,145,,,low,low,harvest planning; avoid rain on harvested produce,PLACEHOLDER_needs_expert_review
+paddy,transplant_establishment,0,20,38.0,,medium,low,standing water; nursery care,PLACEHOLDER_needs_expert_review
+paddy,tillering,20,55,38.0,,medium,low,nitrogen top-dress,PLACEHOLDER_needs_expert_review
+paddy,panicle_flowering,55,90,35.0,,high,medium,avoid water stress; disease watch,PLACEHOLDER_needs_expert_review
+paddy,grain_fill_maturity,90,120,38.0,,medium,high,drain field; harvest window,PLACEHOLDER_needs_expert_review
+cotton,germination_seedling,0,30,42.0,,medium,high,avoid waterlogging,PLACEHOLDER_needs_expert_review
+cotton,squaring_flowering,30,100,40.0,,high,high,irrigation; pest scouting,PLACEHOLDER_needs_expert_review
+cotton,boll_development_picking,100,180,40.0,,medium,high,spray timing; picking before rain,PLACEHOLDER_needs_expert_review
+mustard,vegetative,0,45,,0.0,medium,high,thinning; irrigation,PLACEHOLDER_needs_expert_review
+mustard,flowering_pod,45,100,30.0,0.0,high,high,aphid watch; frost/fog risk,PLACEHOLDER_needs_expert_review
+mustard,maturity,100,130,,,low,medium,harvest timing,PLACEHOLDER_needs_expert_review
+bajra,establishment,0,25,42.0,,medium,high,gap filling,PLACEHOLDER_needs_expert_review
+bajra,tillering_boot,25,55,42.0,,high,high,nitrogen top-dress,PLACEHOLDER_needs_expert_review
+bajra,flowering_grain,55,85,40.0,,high,medium,heat/dry-spell watch,PLACEHOLDER_needs_expert_review

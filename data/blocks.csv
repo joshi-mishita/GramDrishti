@@ -1,0 +1,7 @@
+block_id,block_name,n_panchayats,centre_lat,centre_lon
+MB01,Synthetic Block 1,13,29.0288,75.475
+MB02,Synthetic Block 2,16,29.0288,75.625
+MB03,Synthetic Block 3,16,29.0288,75.775
+MB04,Synthetic Block 4,15,29.1862,75.475
+MB05,Synthetic Block 5,16,29.1862,75.625
+MB06,Synthetic Block 6,14,29.1862,75.775

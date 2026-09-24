@@ -1,0 +1,4 @@
+# Minimal ignore until S0 writes the full .gitignore
+.DS_Store
+data/*.zip
+data/synthetic_oracle/

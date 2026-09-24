@@ -1,0 +1,24 @@
+{
+  "seed": 42,
+  "days": 731,
+  "n_blocks": 6,
+  "n_panchayats": 90,
+  "n_stations": 24,
+  "geojson": "ok",
+  "block_mean_consistency_max_abs_err": {
+    "rain_mm": 0.0,
+    "tmax_c": 0.0
+  },
+  "within_block_spread_planted": {
+    "tmax_std_c_mean": 0.5296483452717418,
+    "tmin_std_c_mean": 0.4134947327894662,
+    "wet_day_rain_cv_within_block": 0.3588691453066163,
+    "share_panchayat_days_rain_gt1mm": 0.06683386532907737
+  },
+  "annual_rain_mm_district_mean": 352.0993344733242,
+  "rows": {
+    "truth": 65790,
+    "block_forecast": 43860,
+    "station_obs": 17544
+  }
+}
