@@ -1,4 +1,60 @@
-# Minimal ignore until S0 writes the full .gitignore
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.python-version
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# --- Node / frontend ---
+node_modules/
+frontend/dist/
+frontend/dev-dist/
+frontend/playwright-report/
+frontend/test-results/
+frontend/coverage/
+*.tsbuildinfo
+npm-debug.log*
+
+# --- Editors and OS ---
+.vscode/
+.idea/
+*.swp
+*~
 .DS_Store
-data/*.zip
+Thumbs.db
+
+# --- Secrets and local config ---
+.env
+.env.*
+!.env.example
+
+# --- Model artifacts, snapshots, audio cache, local database ---
+backend/artifacts/*
+!backend/artifacts/README.md
+*.joblib
+*.pkl
+*.parquet
+*.sqlite
+*.sqlite3
+*.db
+artifacts/audio/
+
+# --- Data: answer key and archives stay out of git ---
+# synthetic_oracle/ is the mock truth; regenerate with data/generate_mock_data.py
 data/synthetic_oracle/
+data/*.zip
+data/real/
+
+# --- Screenshots (only the README is committed) ---
+docs/screens/*
+!docs/screens/README.md
