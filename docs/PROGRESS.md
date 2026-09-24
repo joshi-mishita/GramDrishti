@@ -8,7 +8,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 |---|---|---|---|---|---|
 | S0 | Repo foundation | both | merged | session-00-foundation (#1) | yes |
 | S1 | Backend data layer and baselines | backend | PR open | session-01-backend-data-baselines | |
-| S2 | Contract and API skeleton | backend | not started | | |
+| S2 | Contract and API skeleton | backend | PR open | session-02-contract-api (stacked on S1) | |
 | S3 | Frontend foundation | frontend | not started | | |
 | S4 | Frontend map explorer | frontend | not started | | |
 | S5 | Backend model core | backend | not started | | |
@@ -38,6 +38,24 @@ S1: `backend/` package `gramdrishti` with `pyproject.toml` (ruff and pytest conf
 
 CI now runs the backend job and regenerates the oracle first. The generator's default output is `data/`. It reproduces the committed files with seed 42.
 
+S2: contract v0.1.1 **frozen**, stub API running. Built:
+- `api/schemas.py` (all Appendix A models plus the shapes Appendix A left open), `api/errors.py` (contract error shape for 4xx/5xx and validation), `api/service.py`, `api/routes/*`, `api/main.py` (`/api/v1`, CORS for `http://localhost:5173`, `X-Data-Mode` header).
+- `provisional/`: B1-based forecast with a two-source spread band (D014), placeholder risk (D019), templates in en/hi/pa, and seeded placeholders for verification, impact and explain.
+- `contract/pick_demo_dates.py` writes `demo_dates.json` (8 dates, printed reasons). `contract/make_examples.py` writes 60 files to `contract/examples/` plus `index.json`. `export_openapi.py` writes `contract/openapi.json`.
+- 227 tests (163 new).
+
+Demo issue dates (from the issued block forecast only):
+| Date | Split | Label | Why |
+|---|---|---|---|
+| 2024-01-12 | train | Training-period replay: January cold night | Coldest January 2024 night forecast, 4.8 C district mean |
+| 2024-03-31 | train | Training-period replay: March wheat heat | Hottest March 2024 forecast, 37.9 C, late wheat grain fill |
+| 2024-07-31 | test | Patchy rain, blocks disagree | Largest spread of tomorrow's rain between blocks, SD 15.8 mm |
+| 2024-08-15 | test | Monsoon break, dry days ahead | Driest 5-day outlook in the TEST monsoon, at most 0.9 mm in any block |
+| 2024-09-09 | test | Heavy monsoon rain | Wettest block forecast for tomorrow, 105.8 mm (district mean 20.7 mm) |
+| 2024-10-13 | test | Hot post-monsoon day | Highest October Tmax forecast, 35.1 C district mean |
+| 2024-11-16 | test | Ordinary day | Closest to a typical November day on all five variables |
+| 2024-12-24 | test | Cold, calm December morning (fog-prone) | Tmin 2.1 C, RH 65 %, wind 2.6 km/h; a proxy, no fog variable exists |
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -51,12 +69,28 @@ CI now runs the backend job and regenerates the oracle first. The generator's de
 - D010 Generator default OUT and CI oracle regeneration.
 - D011 Dependencies with minimum versions, pin in S14.
 - D012 QC edge cases.
+- D013 S2 branch stacked on S1.
+- D014 Provisional forecast: p50 = B1, band from source spread.
+- D015 `block` = raw block forecast B0.
+- D016 Demo dates from issued forecasts only; forecast endpoints accept only demo dates.
+- D017 `data_mode` everywhere, `provenance`, placeholders refused in real mode.
+- D018 Shapes defined for endpoints Appendix A left open.
+- D019 Placeholder risk thresholds and advisory generator, in-memory stores.
+- D020 `/observed` serves station or synthetic truth for display.
+- D021 Explain placeholder static contrast.
+- D022 THI and Hargreaves ET0; soil moisture null.
+- D023 Examples generated through the app, stale-file tests.
+- D024 Hindi and Punjabi drafts need native review.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
 - S1: CI has not run on GitHub from this session (no `gh`); check the pull request's checks. That includes the oracle regeneration step and the generator reproduction test on Linux with Python 3.11. Local runs used Python 3.13.9, pandas 3.0.6 and numpy 2.5.3 on macOS.
 - S1: real mode was tested only with copies of mock files under `data/real/` (column and dtype equality). No real data exists.
 - S1: B2 IDW and lapse terms are unit-tested on hand-made data. Their effect on the mock data is small because mock elevations vary by only about 8 m.
+- S2: CI has not run this branch (no `gh`). `test_examples_are_up_to_date` compares regenerated examples byte for byte; numbers are rounded to 2 decimals, but a different numpy/pandas on Linux could still flip a last digit. If it fails in CI only, regenerate there or loosen that test to a numeric tolerance.
+- S2: `/docs` was checked to answer 200, not clicked through in a browser.
+- S2: the Hindi and Punjabi strings are unreviewed drafts.
+- S2: `DATA_MODE=real` was tested only for the 503 answers of placeholder endpoints; the rest of real mode needs real files.
 
 ## Known issues
 - `gh` CLI not installed, so pull requests are opened by hand from the compare URL.
@@ -64,6 +98,12 @@ CI now runs the backend job and regenerates the oracle first. The generator's de
 - `mock_data_summary.json` regenerates with one float differing in the 16th significant digit (`tmin_std_c_mean`), because summation order differs across numpy versions. All CSV and GeoJSON files are byte-identical.
 - The S1 baseline report on CALIB (data description only): B1 rain RMSE is higher than B0 at leads 1 and 2. B1 RH bias is +0.75 to +1.19 % at leads 3 and 4 while B0 is -0.65 to -0.01 %. B2 differs from B1 by at most a few hundredths for temperature. B1 corrected wet-day frequency is 0.112 to 0.134 against block truth 0.103.
 - `data/README.md` said 14 AWS + 10 ARG. The file has 12 + 12, and the README is now corrected.
+
+- S2 provisional band is not calibrated: rain p90 can be about 2x p50 on heavy days (for example 193 mm on 2024-09-10 in MB03). Do not quote coverage from it.
+- S2 all Panchayats in a block share values (B1 is block-level), so the Panchayat map view looks like the block view with a flat delta per block. Real within-block variation arrives with S5.
+- S2 placeholder risk is coarse: on dry monsoon dates every Panchayat gets a "high" dry-spell item, and heat reaches "severe" in late July. Thresholds are placeholders (D019).
+- S2 review decisions and feedback are in memory and reset on restart.
+- `starlette.testclient` prints a deprecation warning about `httpx`; harmless for now.
 
 ## Inputs needed from the team
 - Enable branch protection on `main` (require pull request, require CI).
@@ -73,8 +113,11 @@ CI now runs the backend job and regenerates the oracle first. The generator's de
 | Date | Model version | Windows used | Notes |
 |---|---|---|---|
 | 2026-09-24 | baselines B0/B1/B2 (S1) | fit TRAIN, scored CALIB | `python -m gramdrishti.verify.baseline_report`. TEST window opened: never |
+| 2026-09-25 | provisional API forecast (S2) | fit TRAIN; applied to issued forecasts on the 8 demo dates | No scoring. The demo date picker reads issued forecasts in the TEST period, not outcomes. `/observed` displays TEST-period truth on request; no metric uses it. TEST window opened for evaluation: never |
 
 ## Handoff for the next session
-S1 is complete once its PR is merged. Next backend session: S2 (contract and API skeleton). S3 (frontend) can run in parallel.
+Merge order: S1, then S2 (S2 is stacked on S1).
 
-For S5, reuse `Baselines.predict(fc)` for the B0 to B2 comparison, `apply_bias` plus `combine_sources` for the corrected block forecast and spread features, and `select_window` for all splits. The purge of lead-day windows at split edges (guide 6.2) is not implemented yet because S1 needs none: bias fitting uses valid dates inside TRAIN only.
+Frontend (S3/S4): the contract is **frozen at v0.1.1**. Build from `contract/examples/` (see `contract/examples/index.json` for file -> endpoint -> model) and generate types from `contract/openapi.json`. Mock file names follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json`, `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`; the main demo issue date is 2024-09-09. Show a notice when `provenance` is `placeholder`.
+
+Backend S5: models replace `provisional/forecast.py`. Keep `Service.table()`'s columns (`<var>_p10/p50/p90/block`) or change the builders in `api/service.py`. S6 snapshots should cover the dates in `demo_dates.json`. S8 replaces `_generate_advisories` and the in-memory store. S10 replaces `provisional/placeholders.py` and sets `provenance: "computed"`.
