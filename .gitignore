@@ -22,6 +22,9 @@ frontend/dev-dist/
 frontend/playwright-report/
 frontend/test-results/
 frontend/coverage/
+# Copied from contract/examples by `npm run sync:mock`; snapshot exported by the backend
+frontend/public/mock/
+frontend/public/snapshot/
 *.tsbuildinfo
 npm-debug.log*
 

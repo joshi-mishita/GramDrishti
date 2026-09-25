@@ -1,0 +1,7 @@
+dist
+node_modules
+public/mock
+public/snapshot
+playwright-report
+test-results
+package-lock.json
