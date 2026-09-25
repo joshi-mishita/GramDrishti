@@ -9,7 +9,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S0 | Repo foundation | both | merged | session-00-foundation (#1) | yes |
 | S1 | Backend data layer and baselines | backend | PR open | session-01-backend-data-baselines | |
 | S2 | Contract and API skeleton | backend | PR open | session-02-contract-api (stacked on S1) | |
-| S3 | Frontend foundation | frontend | not started | | |
+| S3 | Frontend foundation | frontend | PR open | session-03-frontend-foundation (stacked on S2) | |
 | S4 | Frontend map explorer | frontend | not started | | |
 | S5 | Backend model core | backend | not started | | |
 | S6 | Agro-variables, snapshots, forecast APIs | backend | not started | | |
@@ -56,6 +56,16 @@ Demo issue dates (from the issued block forecast only):
 | 2024-11-16 | test | Ordinary day | Closest to a typical November day on all five variables |
 | 2024-12-24 | test | Cold, calm December morning (fog-prone) | Tmin 2.1 C, RH 65 %, wind 2.6 km/h; a proxy, no fog variable exists |
 
+S3: `frontend/` app shell on the frozen contract. Built:
+- Vite 8 + React 19 + TypeScript 5.9 strict, ESLint (typescript-eslint strict, react-hooks) + Prettier, Vitest, Playwright `npm run shots` (1366x768 and 360x740, full page, into `docs/screens/`).
+- `src/styles/tokens.css` (Guide 2.3 and section 4 exactly, plus derived tokens in `docs/design.md`), `base.css` (Hindi/Punjabi line height 1.65), `print.css` stub. Self-hosted fonts via Fontsource (Source Sans 3, Noto Sans Devanagari, Noto Sans Gurmukhi; 400/500/700; `font-display: swap`), licences in `docs/licences/fonts/`.
+- Shell: brand top bar (product, district from `/meta`, issue date select with each date's reason, Officer/Farmer switch, language switch in its own script), 28 px mock ribbon when `data_mode` is mock, left icon+label navigation (bottom bar below 768 px), farmer layout with three-item bottom navigation. All Guide 5 routes (`/`, `/map`, `/priority`, `/review`, `/verification`, `/impact`, `/farmer` with Today/Forecast/My farm, `/bulletin/:pid`, 404), lazy-loaded.
+- Placeholder screens load the data they will use and show real counts or text with loading, empty and error states: map controls (day buttons with dates, variable, view mode, Panchayat picker) plus loaded boundaries and value range; detail panel empty state; priority counts by level; review queue count; verification method and notes (no numbers); impact rules (no numbers); farmer approved advice and profile.
+- State: zustand store (issueDate, leadDay, variable, viewMode, selectedPid, lang, role); `date`, `var`, `pid` mirrored into the URL; language saved in localStorage and set on `<html lang>`.
+- API: `client.ts` with per-endpoint switch (`VITE_REAL_ENDPOINTS`, `VITE_SNAPSHOT`), mock requests resolved through `index.json` (D028), `ApiError`, TanStack Query hooks, `QueryBoundary`. Types only from generated `schema.d.ts`.
+- i18n: en/hi/pa UI strings (hi and pa are drafts needing native review, `src/i18n/README.md`), parity test.
+- 49 frontend tests (7 files). CI frontend job now uses Node 22 and checks generated types.
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -81,6 +91,17 @@ Demo issue dates (from the issued block forecast only):
 - D022 THI and Hargreaves ET0; soil moisture null.
 - D023 Examples generated through the app, stale-file tests.
 - D024 Hindi and Punjabi drafts need native review.
+- D025 S3 branch stacked on S2.
+- D026 Node 22, TypeScript 5.9, Vitest 4.1.
+- D027 `public/mock` git-ignored and synced; `schema.d.ts` committed with CI staleness check.
+- D028 Mock requests matched through `index.json`; `not_in_mock` empty state; snapshot format assumed.
+- D029 Default issue date 2024-09-09.
+- D030 Fixed date-name tables in three languages (Chrome lacks Punjabi months).
+- D031 Extra design tokens, contrast-tested.
+- D032 URL keys and role from route.
+- D033 Placeholder numbers never displayed.
+- D034 Screenshots can use installed Chrome.
+- D035 Map, chart and PWA packages installed for later sessions.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -90,6 +111,10 @@ Demo issue dates (from the issued block forecast only):
 - S2: CI has not run this branch (no `gh`). `test_examples_are_up_to_date` compares regenerated examples byte for byte; numbers are rounded to 2 decimals, but a different numpy/pandas on Linux could still flip a last digit. If it fails in CI only, regenerate there or loosen that test to a numeric tolerance.
 - S2: `/docs` was checked to answer 200, not clicked through in a browser.
 - S2: the Hindi and Punjabi strings are unreviewed drafts.
+- S3: the Hindi and Punjabi UI strings and date names are unreviewed drafts. Screenshots show no missing-glyph boxes in Chrome 153 on macOS; not checked on Windows, Android or a low-end phone.
+- S3: CI has not run the frontend job (no `gh`), including Node 22 via `.nvmrc` and `npm run check:types` on Linux.
+- S3: `VITE_SNAPSHOT=1` is unit-tested with contract examples only; no backend snapshot export exists yet.
+- S3: screenshots came from the installed Google Chrome, not Playwright's Chromium (download blocked here, D034). Keyboard use and a screen reader were not tried by hand.
 - S2: `DATA_MODE=real` was tested only for the 503 answers of placeholder endpoints; the rest of real mode needs real files.
 
 ## Known issues
@@ -104,10 +129,15 @@ Demo issue dates (from the issued block forecast only):
 - S2 placeholder risk is coarse: on dry monsoon dates every Panchayat gets a "high" dry-spell item, and heat reaches "severe" in late July. Thresholds are placeholders (D019).
 - S2 review decisions and feedback are in memory and reset on restart.
 - `starlette.testclient` prints a deprecation warning about `httpx`; harmless for now.
+- S3 most mock files exist only for issue date 2024-09-09, so other dates show "No demo file" on most screens in mock mode. Use `VITE_REAL_ENDPOINTS` for other dates.
+- S3 demo-date labels from `/meta.issue_date_info` are English only, also in the Hindi and Punjabi UI.
+- S3 at phone width the officer map controls fill the first screen; the map sits below them.
+- S3 Vitest prints a Node warning about `--localstorage-file` (Node 25 with jsdom); harmless.
 
 ## Inputs needed from the team
 - Enable branch protection on `main` (require pull request, require CI).
-- Later: expert threshold review (S8), native Hindi/Punjabi review (S3, S13).
+- Native Hindi and Punjabi review of `frontend/src/i18n/hi.json`, `pa.json` and the day/month names in `frontend/src/lib/format.ts` (S3), then advisory text (S13).
+- Later: expert threshold review (S8).
 
 ## Model and validation log
 | Date | Model version | Windows used | Notes |
@@ -119,5 +149,7 @@ Demo issue dates (from the issued block forecast only):
 Merge order: S1, then S2 (S2 is stacked on S1).
 
 Frontend (S3/S4): the contract is **frozen at v0.1.1**. Build from `contract/examples/` (see `contract/examples/index.json` for file -> endpoint -> model) and generate types from `contract/openapi.json`. Mock file names follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json`, `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`; the main demo issue date is 2024-09-09. Show a notice when `provenance` is `placeholder`.
+
+S4 (map explorer): the shell, store, URL sync and hooks exist. Replace `MapPlaceholder` in `frontend/src/pages/MapPage.tsx` with MapLibre (`useGeoPanchayats`, `useGeoBlocks`, `useForecastMap`); controls and `viewMode` are already wired. Add `lib/ramps.ts` and the legend. Consider collapsing the controls on phones. Keep `PanchayatPicker` as the keyboard route, and add the table view.
 
 Backend S5: models replace `provisional/forecast.py`. Keep `Service.table()`'s columns (`<var>_p10/p50/p90/block`) or change the builders in `api/service.py`. S6 snapshots should cover the dates in `demo_dates.json`. S8 replaces `_generate_advisories` and the in-memory store. S10 replaces `provisional/placeholders.py` and sets `provenance: "computed"`.
