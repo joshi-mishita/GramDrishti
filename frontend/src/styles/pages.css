@@ -1,0 +1,162 @@
+/* Screen layouts. */
+
+.page {
+  padding: var(--gap-5);
+  max-width: 1100px;
+}
+.page > * + * {
+  margin-top: var(--gap-4);
+}
+.page-header > * + * {
+  margin-top: var(--gap-1);
+}
+
+/* ---- Map explorer: controls | map | detail panel (Guide 6.1) ---- */
+.map-page {
+  display: grid;
+  grid-template-columns: 232px minmax(0, 1fr) var(--panel-w);
+  min-height: calc(100vh - var(--topbar-h) - var(--ribbon-h));
+}
+
+.map-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4);
+  padding: var(--gap-4);
+  background: var(--canvas);
+  border-right: 1px solid var(--line);
+}
+
+.map-area {
+  padding: var(--gap-4);
+  min-width: 0;
+}
+.map-stack > * + * {
+  margin-top: var(--gap-3);
+}
+
+.detail-panel {
+  background: var(--surface);
+  border-left: 1px solid var(--line);
+  padding: var(--gap-4);
+}
+.detail-panel > .empty {
+  border: 0;
+  padding: 0;
+}
+.detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--gap-2);
+  padding-bottom: var(--gap-3);
+  margin-bottom: var(--gap-3);
+  border-bottom: 1px solid var(--line);
+}
+
+@media (max-width: 1199px) {
+  .map-page {
+    grid-template-columns: 216px minmax(0, 1fr);
+  }
+  .detail-panel {
+    grid-column: 1 / -1;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 767px) {
+  .page {
+    padding: var(--gap-4) var(--gap-3);
+  }
+  .map-page {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .map-controls {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .map-area {
+    padding: var(--gap-3);
+  }
+}
+
+/* ---- Priority ---- */
+.level-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-2) var(--gap-5);
+  margin: 0;
+}
+.level-counts > div {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+}
+.level-counts dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* ---- Verification and impact ---- */
+.notes {
+  margin: var(--gap-2) 0 0;
+  padding-left: var(--gap-5);
+  font-size: var(--fs-2);
+}
+.rules {
+  margin: 0;
+}
+.rules > div + div {
+  margin-top: var(--gap-3);
+}
+.rules dt {
+  font-size: var(--fs-2);
+  font-weight: 700;
+}
+.rules dd {
+  margin: 0;
+}
+
+/* ---- Farmer screens ---- */
+.farmer-page {
+  padding: var(--gap-4);
+}
+.farmer-page > * + * {
+  margin-top: var(--gap-4);
+}
+.farmer-head h1 {
+  font-size: var(--fs-farmer-action);
+}
+.farmer-page .empty-title {
+  font-size: var(--fs-4);
+}
+.farmer-page p {
+  font-size: var(--fs-farmer-body);
+}
+.farmer-advice {
+  font-size: var(--fs-farmer-body);
+}
+.crop-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap-3);
+}
+.kv {
+  margin: 0;
+}
+.kv > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap-3);
+  padding: var(--gap-3) var(--gap-4);
+  border-bottom: 1px solid var(--line);
+}
+.kv dt {
+  color: var(--muted);
+}
+.kv dd {
+  margin: 0;
+  font-weight: 500;
+}
