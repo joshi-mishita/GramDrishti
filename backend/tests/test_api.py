@@ -25,8 +25,9 @@ PID = "MP0103"
 
 
 @pytest.fixture(scope="module")
-def client() -> TestClient:
-    return TestClient(create_app(Service(clock=lambda: datetime(2024, 9, 9, 9, 30))))
+def client(snapshot_dir) -> TestClient:  # noqa: ANN001
+    svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir)
+    return TestClient(create_app(svc))
 
 
 def _walk_finite(x: Any, path: str = "$") -> None:

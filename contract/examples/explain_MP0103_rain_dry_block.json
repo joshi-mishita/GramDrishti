@@ -1,0 +1,12 @@
+{
+  "panchayat_id": "MP0103",
+  "issue_date": "2024-09-09",
+  "lead_day": 1,
+  "var": "rain",
+  "delta_vs_block": 0.0,
+  "reasons": [],
+  "data_mode": "mock",
+  "provenance": "computed",
+  "method": "shap_tree_explainer_mean_model_block_contrast",
+  "model_version": "s5-lgbm-9b632a7b1b"
+}

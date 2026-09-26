@@ -9,7 +9,26 @@ Rules (see `CONTRIBUTING.md`):
 | Version | Date | Status | Change | Breaking |
 |---|---|---|---|---|
 | v0.1 | 2026-09-24 | superseded | Contract as written in Appendix A. Not yet implemented; `openapi.json` and examples arrive in S2. | n/a |
-| v0.1.1 | 2026-09-25 | **frozen** | First implementation (S2): `openapi.json`, `examples/`. Every Appendix A shape kept; additions and definitions listed below. | no (additive) |
+| v0.1.1 | 2026-09-25 | superseded | First implementation (S2): `openapi.json`, `examples/`. Every Appendix A shape kept; additions and definitions listed below. | no (additive) |
+| v0.1.2 | 2026-09-26 | **current** | Forecast endpoints serve the S5 model through snapshots (S6). Optional fields only; see below. | no (additive) |
+
+## v0.1.2 (2026-09-26, S6)
+
+Additive and optional: every v0.1.1 client and example still validates. `GET /meta` and `/health` return `api_version: "0.1.2"`. Forecast, explain and change responses now carry `provenance: "computed"` (model output from snapshots) instead of `provisional`/`placeholder`.
+
+New optional fields:
+- `Quantiles` (in `/forecast/panchayat` days): `mean` (model mean) and `block_corrected` (corrected block forecast B1).
+- `/forecast/map`: `panchayat_layer[].mean`, `block_layer[].corrected` (B1), and `model_version`.
+- `Derived`: `soil_moisture_frac_dry` and `soil_moisture_frac_wet` (soil water on the p10 and p90 rain paths; `soil_moisture_frac` is the p50 path), `depletion_frac`, `gdd` (`{crop: degree days}` for crops in season at that Panchayat), `frost_prob`, `frost_risk` (level), `fog_proxy` (bool, a December-January proxy), `dry_spell_days` (consecutive forecast days with P(rain >= 1 mm) < 0.2, counted from lead day 1).
+- `/forecast/panchayat`: `model_version`, `thresholds_status` (`placeholder`: the waterlogging and frost levels use placeholder thresholds).
+- `/explain` and `/forecast/changes`: `model_version`.
+
+Semantics fixed or clarified in this version:
+- Block consistency holds for the model **mean**: the plain average of a block's Panchayat `mean` values equals `block_corrected` (map: `block_layer[].corrected`) to within 1e-6 before rounding (0.01 after rounding each value to 2 decimals). It does not hold for `p50`, and `block` / `block_value` stay the raw block forecast B0, so `delta = p50 - block_value` includes the bias correction.
+- Rain probabilities (`prob`, map `prob_event`) come from calibrated event classifiers, not from the quantiles.
+- `/explain`: `delta_vs_block` is `mean - block_corrected`, the quantity the reasons explain (SHAP on the mean model, Panchayat minus block average). `reasons` holds exactly 3 items, or is empty when that difference is negligible (for example rain in a block forecast to get 0 mm). `text.hi` and `text.pa` are null until written by a native speaker. `method` is `shap_tree_explainer_mean_model_block_contrast`.
+- `/forecast/changes` compares with the snapshot of the previous day's issue (the builder writes one for each demo date). Without it, `previous_issue_date` is null, the lists are empty and `summary` says there is nothing to compare with. The summary count now includes event changes.
+- A forecast, explain, change, risk, priority or advisory request for a demo date without a snapshot answers 503 `not_computed`.
 
 ## v0.1.1 (frozen 2026-09-25)
 

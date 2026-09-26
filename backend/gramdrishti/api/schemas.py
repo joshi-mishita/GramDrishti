@@ -1,4 +1,4 @@
-"""Pydantic models for every endpoint of the API contract (Appendix A, contract v0.1.1).
+"""Pydantic models for every endpoint of the API contract (Appendix A, contract v0.1.2).
 
 Rules that hold for every model:
 - Missing numbers are ``null``. NaN and Infinity are rejected (``allow_inf_nan=False``).
@@ -18,7 +18,7 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-API_VERSION = "0.1.1"
+API_VERSION = "0.1.2"
 
 
 class ApiModel(BaseModel):
@@ -201,6 +201,10 @@ class Quantiles(ApiModel):
     p50: Num
     p90: Num
     block: Num
+    # v0.1.2 (optional): the model's mean and the corrected block forecast B1. The block average of
+    # the Panchayat ``mean`` values equals ``block_corrected``.
+    mean: Num = None
+    block_corrected: Num = None
 
 
 # ---------------------------------------------------------------- health and meta
@@ -290,6 +294,7 @@ class BlockCollection(ApiModel):
 class BlockMapValue(ApiModel):
     block_id: str
     value: Num
+    corrected: Num = None  # v0.1.2: corrected block forecast B1, the reconciliation target
 
 
 class PanchayatMapValue(ApiModel):
@@ -302,6 +307,7 @@ class PanchayatMapValue(ApiModel):
     delta: Num
     prob_event: Prob | None
     event: RainEvent | None
+    mean: Num = None  # v0.1.2: model mean; its block average equals the block's ``corrected`` value
 
 
 class ForecastMap(ApiModel):
@@ -313,6 +319,7 @@ class ForecastMap(ApiModel):
     data_mode: DataMode
     provenance: Provenance
     block_layer: list[BlockMapValue]
+    model_version: str | None = None
     panchayat_layer: list[PanchayatMapValue]
 
 
@@ -335,6 +342,16 @@ class Derived(ApiModel):
     soil_moisture_frac: Num
     thi: Num
     waterlog_risk: Level | None
+    # v0.1.2 (optional). Soil moisture at the end of the day on the p50 rain path; ``_dry`` and ``_wet``
+    # use p10 and p90 rain. Levels use placeholder thresholds.
+    soil_moisture_frac_dry: Num = None
+    soil_moisture_frac_wet: Num = None
+    depletion_frac: Num = None
+    gdd: dict[str, float] | None = None
+    frost_prob: Prob | None = None
+    frost_risk: Level | None = None
+    fog_proxy: bool | None = None
+    dry_spell_days: int | None = None
 
 
 class ForecastDay(ApiModel):
@@ -358,6 +375,8 @@ class PanchayatForecast(ApiModel):
     provenance: Provenance
     static: StaticInfo
     days: list[ForecastDay]
+    model_version: str | None = None
+    thresholds_status: ThresholdsStatus | None = None
 
 
 class ObservedDay(ApiModel):
@@ -395,6 +414,7 @@ class Explain(ApiModel):
     data_mode: DataMode
     provenance: Provenance
     method: str
+    model_version: str | None = None
 
 
 class VarChange(ApiModel):
@@ -423,6 +443,7 @@ class ForecastChanges(ApiModel):
     event_changes: list[EventChange]
     advice_changed: bool | None
     summary: LocalizedText
+    model_version: str | None = None
 
 
 # ---------------------------------------------------------------- risk and priority

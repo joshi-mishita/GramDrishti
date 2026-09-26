@@ -2,16 +2,19 @@
 
 Run: ``cd backend && python -m gramdrishti.contract.make_examples``
 
-Every example is a real response of the stub API with a fixed clock, so the files are reproducible and
-match the Pydantic models by construction. ``index.json`` maps each file to its endpoint and model.
-Forecast numbers are PROVISIONAL (B1). Verification, impact, explain and advisory content is PLACEHOLDER
-(``provenance`` says which). All of it is ``data_mode: "mock"``.
+Every example is a real response of the API with a fixed clock, so the files are reproducible and
+match the Pydantic models by construction. ``index.json`` maps each file to its endpoint and model and
+records the model version of the snapshots used.
+Forecast, explain and change numbers come from the snapshots in ``backend/artifacts/snapshots`` (run
+``python -m gramdrishti.pipeline.run_daily --all-demo-dates`` first). Risk and priority are PROVISIONAL
+(placeholder thresholds); verification, impact and advisory content is PLACEHOLDER (``provenance`` says
+which). All of it is ``data_mode: "mock"``.
 """
 
 from __future__ import annotations
 
 import json
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
@@ -88,7 +91,8 @@ def build(out: Path = OUT) -> list[dict]:
     out.mkdir(parents=True, exist_ok=True)
     for old in list(out.glob("*.json")) + list(out.glob("*.geojson")):
         old.unlink()
-    client = TestClient(create_app(Service(clock=lambda: FIXED_NOW)))
+    svc = Service(clock=lambda: FIXED_NOW)
+    client = TestClient(create_app(svc))
     w = Writer(client, out)
     d = MAIN_DATE
 
@@ -99,16 +103,17 @@ def build(out: Path = OUT) -> list[dict]:
 
     for var in s.Var:
         w.get(f"forecast_map_{var.value}.json", f"/forecast/map?issue_date={d}&lead_day=1&var={var.value}",
-              s.ForecastMap, "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0")
+              s.ForecastMap, "model snapshot; block_value = raw block forecast B0, block_layer.corrected = "
+              "B1; block mean of Panchayat mean = corrected")
     for pid, why in PANCHAYATS.items():
         w.get(f"forecast_panchayat_{pid}.json", f"/forecast/panchayat/{pid}?issue_date={d}",
-              s.PanchayatForecast, f"PROVISIONAL. {why}")
+              s.PanchayatForecast, f"model snapshot; agro levels use placeholder thresholds. {why}")
         w.get(f"observed_panchayat_{pid}.json", f"/observed/panchayat/{pid}?from=2024-09-10&to=2024-09-14",
               s.Observed, why)
         w.get(f"explain_{pid}.json", f"/explain/{pid}?issue_date={d}&lead_day=1&var=tmax", s.Explain,
-              "PLACEHOLDER static contrast until SHAP (S10)")
+              "SHAP block contrast on the mean model; hi and pa null until written")
         w.get(f"forecast_changes_{pid}.json", f"/forecast/changes/{pid}?issue_date={d}", s.ForecastChanges,
-              "PROVISIONAL; advice_changed is null until the rules engine (S8)")
+              "against the 2024-09-08 snapshot; advice_changed is null until the rules engine (S8)")
 
     for rtype, rdate in RISK_DATES.items():
         w.get(f"risk_{rtype}.json", f"/risk?issue_date={rdate}&lead_day=1&type={rtype}", s.Risk,
@@ -168,7 +173,12 @@ def build(out: Path = OUT) -> list[dict]:
     w.get("error_audio_not_available.json", f"/audio/{spray['id']}?lang=hi", s.ErrorResponse,
           "no audio yet: the UI falls back to browser speech", status=404)
 
+    w.get("explain_MP0305_rain.json", f"/explain/MP0305?issue_date={d}&lead_day=1&var=rain", s.Explain,
+          "rain reasons in the wettest block")
+    w.get("explain_MP0103_rain_dry_block.json", f"/explain/MP0103?issue_date={d}&lead_day=1&var=rain",
+          s.Explain, "dry block: every Panchayat is 0 mm, so there is nothing to explain (reasons empty)")
     index = {"contract_version": s.API_VERSION, "data_mode": "mock", "main_issue_date": d,
+             "model_version": svc.model_version(date.fromisoformat(d)),
              "generated_by": "python -m gramdrishti.contract.make_examples", "files": w.index}
     (out / "index.json").write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
     return w.index

@@ -1,0 +1,40 @@
+{
+  "panchayat_id": "MP0305",
+  "issue_date": "2024-09-09",
+  "lead_day": 1,
+  "var": "rain",
+  "delta_vs_block": 12.48,
+  "reasons": [
+    {
+      "feature": "block_forecast",
+      "effect": "wetter",
+      "text": {
+        "en": "The block forecast for this day, combined with local conditions, so it is likely wetter than the block average.",
+        "hi": null,
+        "pa": null
+      }
+    },
+    {
+      "feature": "position_ns",
+      "effect": "wetter",
+      "text": {
+        "en": "Lies further south than most of the block, so it is likely wetter than the block average.",
+        "hi": null,
+        "pa": null
+      }
+    },
+    {
+      "feature": "greening",
+      "effect": "wetter",
+      "text": {
+        "en": "Crops greening more slowly than the rest of the block (satellite), so it is likely wetter than the block average.",
+        "hi": null,
+        "pa": null
+      }
+    }
+  ],
+  "data_mode": "mock",
+  "provenance": "computed",
+  "method": "shap_tree_explainer_mean_model_block_contrast",
+  "model_version": "s5-lgbm-9b632a7b1b"
+}

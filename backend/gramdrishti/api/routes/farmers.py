@@ -8,7 +8,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 
 from gramdrishti.api import schemas as s
-from gramdrishti.api.deps import ERRORS, service
+from gramdrishti.api.deps import ERRORS, ERRORS_503, service
 from gramdrishti.api.service import Service
 
 router = APIRouter(tags=["farmers"])
@@ -21,7 +21,7 @@ def farmer(svc: Svc, farmer_id: str) -> s.Farmer:
     return svc.farmer(farmer_id)
 
 
-@router.get("/farmers/{farmer_id}/advice", response_model=s.FarmerAdvice, responses=ERRORS)
+@router.get("/farmers/{farmer_id}/advice", response_model=s.FarmerAdvice, responses=ERRORS_503)
 def farmer_advice(svc: Svc, farmer_id: str, issue_date: date) -> s.FarmerAdvice:
     """Approved (or edited and approved) advisories for the farmer's Panchayat on this issue date."""
     return svc.farmer_advice(farmer_id, issue_date)

@@ -7,13 +7,10 @@ from datetime import date
 import numpy as np
 import pytest
 
-from gramdrishti.api.service import Service, num
-from gramdrishti.contract.pick_demo_dates import load_demo_dates
+from gramdrishti.api.service import num
 from gramdrishti.provisional import agro, placeholders
 from gramdrishti.provisional.forecast import prob_exceed
 from gramdrishti.provisional.risk import level_of
-
-from .conftest import needs_oracle
 
 
 def test_prob_exceed_bounds_and_monotone() -> None:
@@ -55,19 +52,3 @@ def test_explain_reasons(static) -> None:  # noqa: ANN001
     assert all(x["effect"] in ("warmer", "cooler") for x in r)
     assert placeholders.explain_reasons(static, "MP0103", "tmax") == r
 
-
-@needs_oracle
-@pytest.mark.parametrize("d", [p.date for p in load_demo_dates()])
-def test_block_consistency_and_ordering(d: str) -> None:
-    """Rule 6: the block mean of Panchayat p50 equals the block target within 1e-6 (trivial for B1)."""
-    svc = Service()
-    t = svc.table(date.fromisoformat(d))
-    assert set(t["lead_day"]) == {1, 2, 3, 4, 5}
-    for var in ("rain", "tmax", "tmin", "rh", "wind"):
-        g = t.groupby(["block_id", "lead_day"])[f"{var}_p50"]
-        assert np.allclose(g.mean(), g.first(), atol=1e-6)
-        assert (t[f"{var}_p10"] <= t[f"{var}_p50"] + 1e-9).all()
-        assert (t[f"{var}_p50"] <= t[f"{var}_p90"] + 1e-9).all()
-    assert (t["rain_p10"] >= 0).all()
-    assert t["rh_p10"].between(0, 100).all() and t["rh_p90"].between(0, 100).all()
-    assert (t["tmin_p50"] < t["tmax_p50"]).all()

@@ -11,7 +11,8 @@ from gramdrishti.api.service import Service
 ERRORS = {404: {"model": ErrorResponse, "description": "Unknown id or issue date"},
           422: {"model": ErrorResponse, "description": "Invalid parameters"}}
 ERRORS_400 = {**ERRORS, 400: {"model": ErrorResponse, "description": "Bad request"}}
-ERRORS_503 = {**ERRORS, 503: {"model": ErrorResponse, "description": "Not computed for real data yet"}}
+ERRORS_503 = {**ERRORS, 503: {"model": ErrorResponse,
+                              "description": "No forecast snapshot, or placeholder in real mode"}}
 
 
 def service(request: Request) -> Service:

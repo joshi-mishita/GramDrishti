@@ -3,28 +3,38 @@
   "issue_date": "2024-09-09",
   "lead_day": 1,
   "var": "tmax",
-  "delta_vs_block": -0.2,
+  "delta_vs_block": -0.16,
   "reasons": [
     {
-      "feature": "water_frac",
-      "effect": "warmer",
+      "feature": "urban",
+      "effect": "cooler",
       "text": {
-        "en": "Less open water nearby",
-        "hi": "पास में कम खुला पानी",
-        "pa": "ਨੇੜੇ ਘੱਟ ਖੁੱਲ੍ਹਾ ਪਾਣੀ"
+        "en": "Less built-up land than the rest of the block, so it is likely cooler than the block average.",
+        "hi": null,
+        "pa": null
       }
     },
     {
-      "feature": "urban_frac",
+      "feature": "irrigated",
       "effect": "cooler",
       "text": {
-        "en": "Less built-up land",
-        "hi": "कम बसी हुई ज़मीन",
-        "pa": "ਘੱਟ ਵਸੀ ਹੋਈ ਜ਼ਮੀਨ"
+        "en": "Fewer irrigated fields than the rest of the block, so it is likely cooler than the block average.",
+        "hi": null,
+        "pa": null
+      }
+    },
+    {
+      "feature": "sand",
+      "effect": "warmer",
+      "text": {
+        "en": "Less sandy soil than the rest of the block, so it is likely warmer than the block average.",
+        "hi": null,
+        "pa": null
       }
     }
   ],
   "data_mode": "mock",
-  "provenance": "placeholder",
-  "method": "placeholder_static_contrast"
+  "provenance": "computed",
+  "method": "shap_tree_explainer_mean_model_block_contrast",
+  "model_version": "s5-lgbm-9b632a7b1b"
 }

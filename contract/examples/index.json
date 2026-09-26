@@ -1,7 +1,8 @@
 {
-  "contract_version": "0.1.1",
+  "contract_version": "0.1.2",
   "data_mode": "mock",
   "main_issue_date": "2024-09-09",
+  "model_version": "s5-lgbm-9b632a7b1b",
   "generated_by": "python -m gramdrishti.contract.make_examples",
   "files": [
     {
@@ -42,7 +43,7 @@
       "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=rain",
       "status": 200,
       "model": "ForecastMap",
-      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+      "note": "model snapshot; block_value = raw block forecast B0, block_layer.corrected = B1; block mean of Panchayat mean = corrected"
     },
     {
       "file": "forecast_map_tmax.json",
@@ -50,7 +51,7 @@
       "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=tmax",
       "status": 200,
       "model": "ForecastMap",
-      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+      "note": "model snapshot; block_value = raw block forecast B0, block_layer.corrected = B1; block mean of Panchayat mean = corrected"
     },
     {
       "file": "forecast_map_tmin.json",
@@ -58,7 +59,7 @@
       "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=tmin",
       "status": 200,
       "model": "ForecastMap",
-      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+      "note": "model snapshot; block_value = raw block forecast B0, block_layer.corrected = B1; block mean of Panchayat mean = corrected"
     },
     {
       "file": "forecast_map_rh.json",
@@ -66,7 +67,7 @@
       "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=rh",
       "status": 200,
       "model": "ForecastMap",
-      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+      "note": "model snapshot; block_value = raw block forecast B0, block_layer.corrected = B1; block mean of Panchayat mean = corrected"
     },
     {
       "file": "forecast_map_wind.json",
@@ -74,7 +75,7 @@
       "path": "/api/v1/forecast/map?issue_date=2024-09-09&lead_day=1&var=wind",
       "status": 200,
       "model": "ForecastMap",
-      "note": "PROVISIONAL: p50 = corrected block forecast B1, block = raw block forecast B0"
+      "note": "model snapshot; block_value = raw block forecast B0, block_layer.corrected = B1; block mean of Panchayat mean = corrected"
     },
     {
       "file": "forecast_panchayat_MP0103.json",
@@ -82,7 +83,7 @@
       "path": "/api/v1/forecast/panchayat/MP0103?issue_date=2024-09-09",
       "status": 200,
       "model": "PanchayatForecast",
-      "note": "PROVISIONAL. AWS station in the Panchayat, dry block MB01"
+      "note": "model snapshot; agro levels use placeholder thresholds. AWS station in the Panchayat, dry block MB01"
     },
     {
       "file": "observed_panchayat_MP0103.json",
@@ -98,7 +99,7 @@
       "path": "/api/v1/explain/MP0103?issue_date=2024-09-09&lead_day=1&var=tmax",
       "status": 200,
       "model": "Explain",
-      "note": "PLACEHOLDER static contrast until SHAP (S10)"
+      "note": "SHAP block contrast on the mean model; hi and pa null until written"
     },
     {
       "file": "forecast_changes_MP0103.json",
@@ -106,7 +107,7 @@
       "path": "/api/v1/forecast/changes/MP0103?issue_date=2024-09-09",
       "status": 200,
       "model": "ForecastChanges",
-      "note": "PROVISIONAL; advice_changed is null until the rules engine (S8)"
+      "note": "against the 2024-09-08 snapshot; advice_changed is null until the rules engine (S8)"
     },
     {
       "file": "forecast_panchayat_MP0305.json",
@@ -114,7 +115,7 @@
       "path": "/api/v1/forecast/panchayat/MP0305?issue_date=2024-09-09",
       "status": 200,
       "model": "PanchayatForecast",
-      "note": "PROVISIONAL. AWS station, wettest block MB03"
+      "note": "model snapshot; agro levels use placeholder thresholds. AWS station, wettest block MB03"
     },
     {
       "file": "observed_panchayat_MP0305.json",
@@ -130,7 +131,7 @@
       "path": "/api/v1/explain/MP0305?issue_date=2024-09-09&lead_day=1&var=tmax",
       "status": 200,
       "model": "Explain",
-      "note": "PLACEHOLDER static contrast until SHAP (S10)"
+      "note": "SHAP block contrast on the mean model; hi and pa null until written"
     },
     {
       "file": "forecast_changes_MP0305.json",
@@ -138,7 +139,7 @@
       "path": "/api/v1/forecast/changes/MP0305?issue_date=2024-09-09",
       "status": 200,
       "model": "ForecastChanges",
-      "note": "PROVISIONAL; advice_changed is null until the rules engine (S8)"
+      "note": "against the 2024-09-08 snapshot; advice_changed is null until the rules engine (S8)"
     },
     {
       "file": "forecast_panchayat_MP0412.json",
@@ -146,7 +147,7 @@
       "path": "/api/v1/forecast/panchayat/MP0412?issue_date=2024-09-09",
       "status": 200,
       "model": "PanchayatForecast",
-      "note": "PROVISIONAL. rain gauge only (other variables null), poorly drained soil"
+      "note": "model snapshot; agro levels use placeholder thresholds. rain gauge only (other variables null), poorly drained soil"
     },
     {
       "file": "observed_panchayat_MP0412.json",
@@ -162,7 +163,7 @@
       "path": "/api/v1/explain/MP0412?issue_date=2024-09-09&lead_day=1&var=tmax",
       "status": 200,
       "model": "Explain",
-      "note": "PLACEHOLDER static contrast until SHAP (S10)"
+      "note": "SHAP block contrast on the mean model; hi and pa null until written"
     },
     {
       "file": "forecast_changes_MP0412.json",
@@ -170,7 +171,7 @@
       "path": "/api/v1/forecast/changes/MP0412?issue_date=2024-09-09",
       "status": 200,
       "model": "ForecastChanges",
-      "note": "PROVISIONAL; advice_changed is null until the rules engine (S8)"
+      "note": "against the 2024-09-08 snapshot; advice_changed is null until the rules engine (S8)"
     },
     {
       "file": "forecast_panchayat_MP0302.json",
@@ -178,7 +179,7 @@
       "path": "/api/v1/forecast/panchayat/MP0302?issue_date=2024-09-09",
       "status": 200,
       "model": "PanchayatForecast",
-      "note": "PROVISIONAL. no station: observed comes from synthetic truth"
+      "note": "model snapshot; agro levels use placeholder thresholds. no station: observed comes from synthetic truth"
     },
     {
       "file": "observed_panchayat_MP0302.json",
@@ -194,7 +195,7 @@
       "path": "/api/v1/explain/MP0302?issue_date=2024-09-09&lead_day=1&var=tmax",
       "status": 200,
       "model": "Explain",
-      "note": "PLACEHOLDER static contrast until SHAP (S10)"
+      "note": "SHAP block contrast on the mean model; hi and pa null until written"
     },
     {
       "file": "forecast_changes_MP0302.json",
@@ -202,7 +203,7 @@
       "path": "/api/v1/forecast/changes/MP0302?issue_date=2024-09-09",
       "status": 200,
       "model": "ForecastChanges",
-      "note": "PROVISIONAL; advice_changed is null until the rules engine (S8)"
+      "note": "against the 2024-09-08 snapshot; advice_changed is null until the rules engine (S8)"
     },
     {
       "file": "risk_heavy_rain.json",
@@ -483,6 +484,22 @@
       "status": 404,
       "model": "ErrorResponse",
       "note": "no audio yet: the UI falls back to browser speech"
+    },
+    {
+      "file": "explain_MP0305_rain.json",
+      "method": "GET",
+      "path": "/api/v1/explain/MP0305?issue_date=2024-09-09&lead_day=1&var=rain",
+      "status": 200,
+      "model": "Explain",
+      "note": "rain reasons in the wettest block"
+    },
+    {
+      "file": "explain_MP0103_rain_dry_block.json",
+      "method": "GET",
+      "path": "/api/v1/explain/MP0103?issue_date=2024-09-09&lead_day=1&var=rain",
+      "status": 200,
+      "model": "Explain",
+      "note": "dry block: every Panchayat is 0 mm, so there is nothing to explain (reasons empty)"
     }
   ]
 }

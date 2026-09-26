@@ -15,6 +15,7 @@ from gramdrishti.data import loaders
 from gramdrishti.data.config import ROOT
 from gramdrishti.export_openapi import OUT as OPENAPI_FILE
 from gramdrishti.export_openapi import openapi_text
+from gramdrishti.pipeline.run_daily import SNAPSHOTS
 
 from .conftest import needs_oracle
 
@@ -64,7 +65,16 @@ def test_openapi_version_matches_changelog() -> None:
     assert f"v{s.API_VERSION}" in (ROOT / "contract" / "CHANGELOG.md").read_text()
 
 
+def _local_snapshot_version() -> str | None:
+    idx = SNAPSHOTS / "index.json"
+    return json.loads(idx.read_text()).get("model_version") if idx.exists() else None
+
+
 @needs_oracle
+@pytest.mark.skipif(_local_snapshot_version() != INDEX.get("model_version"),
+                    reason="examples come from the trained model's snapshots (git-ignored); local snapshots "
+                           f"{_local_snapshot_version()!r}, examples {INDEX.get('model_version')!r}. "
+                           "Train, then run `python -m gramdrishti.pipeline.run_daily --all-demo-dates`.")
 def test_examples_are_up_to_date(tmp_path: Path) -> None:
     make_examples.build(tmp_path)
     for p in sorted(tmp_path.iterdir()):

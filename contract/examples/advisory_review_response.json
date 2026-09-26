@@ -28,11 +28,11 @@
   "evidence": [
     {
       "label": "Chance of rain over 2.5 mm on 10 September",
-      "value": "100%"
+      "value": "89%"
     },
     {
       "label": "Rain expected on 10 September",
-      "value": "101 mm (range 40 to 193 mm)"
+      "value": "104 mm (range 0 to 150 mm)"
     },
     {
       "label": "Crop stage (placeholder calendar)",

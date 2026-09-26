@@ -1,16 +1,22 @@
-"""Builds every API response from the data files, the PROVISIONAL B1 forecast and placeholder generators.
+"""Builds every API response from forecast snapshots, the data files and placeholder generators.
 
-Nothing is loaded at import time. The first request that needs data loads the files and fits the B1
-parameters on TRAIN (well under a second on the mock data); results are cached per issue date.
+Forecast values come from the snapshots written by ``pipeline/run_daily.py`` (model output, agro-variables
+and SHAP reasons; no model inference per request). A missing snapshot is a 503 ``not_computed``.
+Risk, priority and advisories still use PROVISIONAL placeholder thresholds on top of the snapshot table
+(S8 replaces them); verification and impact are PLACEHOLDER (S10).
+
+Nothing is loaded at import time; snapshots are read on first use and cached per issue date.
 Advisory review state and farmer feedback live in memory until the SQLite store arrives (S8, S12).
 """
 
 from __future__ import annotations
 
+import os
 import threading
 from collections.abc import Callable
 from datetime import date, datetime, time, timedelta
 from functools import cached_property
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -21,12 +27,18 @@ from gramdrishti.contract.pick_demo_dates import DemoDate, load_demo_dates
 from gramdrishti.data import loaders
 from gramdrishti.data.config import COLS, LEADS, VARS, data_mode
 from gramdrishti.data.qc import clean_values, run_qc
-from gramdrishti.models.baselines import Baselines
+from gramdrishti.explain.shap_explain import NEGLIGIBLE_DELTA
+from gramdrishti.pipeline.run_daily import SNAPSHOTS, Snapshot, read_snapshot
 from gramdrishti.provisional import agro, placeholders, texts
-from gramdrishti.provisional.forecast import block_quantiles, event_probs, fit_provisional, prob_exceed
+from gramdrishti.provisional.forecast import prob_exceed
 from gramdrishti.provisional.risk import RISK_TYPES, risk_scores
 
-QS = ("p10", "p50", "p90", "block")
+QS = ("p10", "p50", "p90", "block", "mean", "block_corrected")
+# rain_ge_2_5mm -> snapshot column prob_rain_ge_2_5
+EVENT_COLS = {e: "prob_" + e.value.removesuffix("mm") for e in s.RainEvent}
+MAP_EVENT = s.RainEvent.rain_ge_2_5mm
+SNAPSHOT_ENV = "GRAMDRISHTI_SNAPSHOT_DIR"
+EXPLAIN_METHOD = "shap_tree_explainer_mean_model_block_contrast"
 DISTRICT_MOCK = "Synthetic District"
 MATERIAL_CHANGE = {"rain": 5.0, "tmax": 1.5, "tmin": 1.5, "rh": 10.0, "wind": 5.0}
 MATERIAL_PROB_CHANGE = 0.15
@@ -64,10 +76,12 @@ class Service:
     """All response builders. One instance per app; thread-safe for the in-memory stores."""
 
     def __init__(self, demo_dates: list[DemoDate] | None = None,
-                 clock: Callable[[], datetime] = _now) -> None:
+                 clock: Callable[[], datetime] = _now, snapshot_dir: Path | None = None) -> None:
         self._demo = demo_dates
         self.clock = clock
+        self.snapshot_dir = snapshot_dir or Path(os.environ.get(SNAPSHOT_ENV, SNAPSHOTS))
         self._lock = threading.Lock()
+        self._snaps: dict[date, Snapshot] = {}
         self._tables: dict[date, pd.DataFrame] = {}
         self._advisories: dict[str, dict] | None = None
         self._feedback: list[s.FeedbackResponse] = []
@@ -118,10 +132,6 @@ class Service:
         return clean_values(self.qc_obs)
 
     @cached_property
-    def baselines(self) -> Baselines:
-        return fit_provisional()
-
-    @cached_property
     def truth(self) -> pd.DataFrame:
         return loaders.load_truth()  # MOCK ONLY: served by /observed for display, never used as a feature
 
@@ -147,21 +157,49 @@ class Service:
         if self.mode != s.DataMode.mock:
             raise ApiError(503, "not_computed", f"{what} has not been computed yet for real data.")
 
-    # ------------------------------------------------------------ forecast table
-    def table(self, issue: date) -> pd.DataFrame:
-        """Wide Panchayat table for one issue date: <var>_<q> columns, lead_day, valid_date, statics."""
+    # ------------------------------------------------------------ snapshots and forecast table
+    def snapshot(self, issue: date, required: bool = True) -> Snapshot | None:
+        """The snapshot for ``issue`` (cached). Missing: 503 ``not_computed`` if required, else None."""
         with self._lock:
-            if issue not in self._tables:
-                ts = pd.Timestamp(issue)
-                bq = block_quantiles(self.fc[self.fc["issue_date"] == ts], self.baselines)
-                wide = bq.pivot_table(index=["block_id", "valid_date", "lead_day"], columns="var",
-                                      values=list(QS), aggfunc="first")
-                wide.columns = [f"{v}_{q}" for q, v in wide.columns]
-                wide = wide.reset_index()
-                st = self.static[["panchayat_id", "block_id", "lat", "drainage_class"]]
-                t = st.merge(wide, on="block_id", how="inner").sort_values(["panchayat_id", "lead_day"])
-                self._tables[issue] = t.reset_index(drop=True)
-            return self._tables[issue]
+            snap = self._snaps.get(issue)
+        if snap is None:
+            snap = read_snapshot(self.snapshot_dir, issue)
+            if snap is not None:
+                if snap.manifest.get("data_mode") != self.mode.value:
+                    built = snap.manifest.get("data_mode")
+                    raise ApiError(503, "not_computed", f"The snapshot for {issue.isoformat()} was built in "
+                                   f"{built} mode, the API runs in {self.mode.value}")
+                with self._lock:
+                    snap = self._snaps.setdefault(issue, snap)
+        if snap is None and required:
+            raise ApiError(503, "not_computed",
+                           f"No forecast snapshot for {issue.isoformat()}. Run `cd backend && python -m "
+                           "gramdrishti.pipeline.run_daily --all-demo-dates`.")
+        return snap
+
+    def model_version(self, issue: date) -> str | None:
+        snap = self.snapshot(issue)
+        return snap.manifest.get("model_version") if snap else None
+
+    def table(self, issue: date) -> pd.DataFrame:
+        """Wide Panchayat table for one issue date from its snapshot.
+
+        Columns: ids, ``<var>_{p10,p50,p90,mean}``, ``<var>_block`` (raw block forecast B0),
+        ``<var>_block_corrected`` (B1), ``prob_rain_ge_*``, agro-variables, lat and drainage_class.
+        """
+        with self._lock:
+            cached = self._tables.get(issue)
+        if cached is not None:
+            return cached
+        f = self.snapshot(issue).forecast.copy()
+        for v in VARS:
+            f[f"{v}_block"] = f[f"b0_{v}"]
+            f[f"{v}_block_corrected"] = f[f"b1_{v}"]
+        st = self.static[["panchayat_id", "lat", "drainage_class"]]
+        t = f.merge(st, on="panchayat_id", how="left").sort_values(["panchayat_id", "lead_day"])
+        t = t.reset_index(drop=True)
+        with self._lock:
+            return self._tables.setdefault(issue, t)
 
     def _row(self, issue: date, pid: str, lead: int) -> pd.Series:
         t = self.table(issue)
@@ -212,55 +250,67 @@ class Service:
     # ------------------------------------------------------------ forecast endpoints
     def forecast_map(self, issue: date, lead: int, var: s.Var) -> s.ForecastMap:
         self.check_issue(issue)
+        snap = self.snapshot(issue)
         t = self.table(issue)
         t = t[t["lead_day"] == lead]
         v = var.value
-        block = t.drop_duplicates("block_id").sort_values("block_id")
-        layer = []
-        for r in t.itertuples(index=False):
-            rd = r._asdict()
-            pe = event = None
-            if var == s.Var.rain:
-                event = s.RainEvent.rain_ge_2_5mm
-                pe = prob(prob_exceed(2.5, rd["rain_p10"], rd["rain_p50"], rd["rain_p90"]))
-            layer.append(s.PanchayatMapValue(
-                panchayat_id=rd["panchayat_id"], block_id=rd["block_id"], p10=num(rd[f"{v}_p10"]),
-                p50=num(rd[f"{v}_p50"]), p90=num(rd[f"{v}_p90"]), block_value=num(rd[f"{v}_block"]),
-                delta=num(rd[f"{v}_p50"] - rd[f"{v}_block"]), prob_event=pe, event=event))
+        ev = MAP_EVENT if var == s.Var.rain else None
+        layer = [s.PanchayatMapValue(
+            panchayat_id=r["panchayat_id"], block_id=r["block_id"], p10=num(r[f"{v}_p10"]),
+            p50=num(r[f"{v}_p50"]), p90=num(r[f"{v}_p90"]), block_value=num(r[f"{v}_block"]),
+            delta=num(r[f"{v}_p50"] - r[f"{v}_block"]), prob_event=prob(r[EVENT_COLS[ev]]) if ev else None,
+            event=ev, mean=num(r[f"{v}_mean"]))
+            for _, r in t.iterrows()]
+        b = snap.block[snap.block["lead_day"] == lead].sort_values("block_id")
         return s.ForecastMap(
             issue_date=issue, valid_date=issue + timedelta(days=lead), lead_day=lead, var=var,
-            unit=s.UNITS[var],
-            data_mode=self.mode, provenance=s.Provenance.provisional,
-            block_layer=[s.BlockMapValue(block_id=b.block_id, value=num(getattr(b, f"{v}_block")))
-                         for b in block.itertuples(index=False)],
-            panchayat_layer=layer)
+            unit=s.UNITS[var], data_mode=self.mode, provenance=s.Provenance.computed,
+            block_layer=[s.BlockMapValue(block_id=r["block_id"], value=num(r[f"b0_{v}"]),
+                                         corrected=num(r[f"b1_{v}"])) for _, r in b.iterrows()],
+            panchayat_layer=layer, model_version=snap.manifest.get("model_version"))
 
     def _quantiles(self, r: pd.Series, var: str) -> s.Quantiles:
         return s.Quantiles(**{q: num(r[f"{var}_{q}"]) for q in QS})
+
+    def _derived(self, r: pd.Series, crops_now: list[str]) -> s.Derived:
+        def level(x: object) -> str | None:
+            return x if isinstance(x, str) else None
+
+        def whole(x: object) -> int | None:
+            v = num(x, 0)
+            return None if v is None else int(v)
+
+        return s.Derived(
+            et0_mm=num(r["et0_mm"], 1), soil_moisture_frac=num(r["soil_moisture_frac"]), thi=num(r["thi"], 1),
+            waterlog_risk=level(r["waterlog_risk"]),
+            soil_moisture_frac_dry=num(r["soil_moisture_frac_dry"]),
+            soil_moisture_frac_wet=num(r["soil_moisture_frac_wet"]),
+            depletion_frac=num(r["depletion_frac"]),
+            gdd={c: v for c in crops_now if (v := num(r[f"gdd_{c}"], 1)) is not None},
+            frost_prob=prob(r["frost_prob"]), frost_risk=level(r["frost_risk"]),
+            fog_proxy=bool(r["fog_proxy"]), dry_spell_days=whole(r["dry_spell_days"]))
 
     def forecast_panchayat(self, pid: str, issue: date) -> s.PanchayatForecast:
         st = self.check_panchayat(pid)
         self.check_issue(issue)
         t = self.table(issue)
+        crops_now = sorted(c for c in self._crops_now(pid, issue)["crop"].unique()
+                           if f"gdd_{c}" in t.columns)
         days = []
         for _, r in t[t["panchayat_id"] == pid].sort_values("lead_day").iterrows():
-            valid = r["valid_date"].date()
-            probs = event_probs(r["rain_p10"], r["rain_p50"], r["rain_p90"])
-            tmean = (r["tmax_p50"] + r["tmin_p50"]) / 2
             days.append(s.ForecastDay(
-                date=valid, lead_day=int(r["lead_day"]),
+                date=r["valid_date"].date(), lead_day=int(r["lead_day"]),
                 **{v: self._quantiles(r, v) for v in VARS},
-                prob=s.EventProbs(**{k: prob(p) for k, p in probs.items()}),
-                derived=s.Derived(
-                    et0_mm=num(agro.et0_hargreaves(r["tmax_p50"], r["tmin_p50"], float(st["lat"]), valid), 1),
-                    soil_moisture_frac=None, thi=num(agro.thi(tmean, r["rh_p50"]), 1), waterlog_risk=None)))
+                prob=s.EventProbs(**{e.value: prob(r[col]) for e, col in EVENT_COLS.items()}),
+                derived=self._derived(r, crops_now)))
         return s.PanchayatForecast(
             panchayat_id=pid, name=str(st["panchayat_name"]), block_id=str(st["block_id"]), issue_date=issue,
-            data_mode=self.mode, provenance=s.Provenance.provisional,
+            data_mode=self.mode, provenance=s.Provenance.computed,
             static=s.StaticInfo(elevation_m=num(st["elevation_m"], 1), soil_texture=str(st["soil_texture"]),
                                 drainage_class=str(st["drainage_class"]),
                                 irrigated_frac=num(st["irrigated_frac"])),
-            days=days)
+            days=days, model_version=self.model_version(issue),
+            thresholds_status=s.ThresholdsStatus.placeholder)
 
     def observed(self, pid: str, start: date, end: date) -> s.Observed:
         self.check_panchayat(pid)
@@ -284,28 +334,40 @@ class Service:
                           data_mode=self.mode, days=days)
 
     def explain(self, pid: str, issue: date, lead: int, var: s.Var) -> s.Explain:
+        """Top 3 SHAP reasons. ``delta_vs_block`` is the model mean minus the corrected block forecast
+        (the quantity the reasons explain); no reasons when that difference is negligible."""
         self.check_panchayat(pid)
         self.check_issue(issue)
-        self.require_mock_for_placeholder("Explain")
+        snap = self.snapshot(issue)
         r = self._row(issue, pid, lead)
         v = var.value
+        delta = float(r[f"{v}_mean"] - r[f"{v}_block_corrected"])
+        e = snap.explain
+        e = e[(e["panchayat_id"] == pid) & (e["lead_day"] == lead) & (e["var"] == v)].sort_values("rank")
+        reasons = [] if abs(delta) < NEGLIGIBLE_DELTA[v] else [
+            s.ExplainReason(feature=x["feature"], effect=x["effect"],
+                            text=s.LocalizedText(en=x["text_en"], hi=None, pa=None))
+            for _, x in e.iterrows()]
         return s.Explain(panchayat_id=pid, issue_date=issue, lead_day=lead, var=var,
-                         delta_vs_block=num(r[f"{v}_p50"] - r[f"{v}_block"]),
-                         reasons=placeholders.explain_reasons(self.static, pid, v), data_mode=self.mode,
-                         provenance=s.Provenance.placeholder, method="placeholder_static_contrast")
+                         delta_vs_block=num(delta), reasons=reasons, data_mode=self.mode,
+                         provenance=s.Provenance.computed, method=EXPLAIN_METHOD,
+                         model_version=snap.manifest.get("model_version"))
 
     def changes(self, pid: str, issue: date) -> s.ForecastChanges:
+        """Compare with the snapshot of the previous day's issue for the valid dates both cover."""
         self.check_panchayat(pid)
         self.check_issue(issue)
-        prev_issue = issue - timedelta(days=1)
         cur = self.table(issue)
         cur = cur[cur["panchayat_id"] == pid].set_index("valid_date")
-        prev_all = self._table_any(prev_issue)
-        if prev_all is None:
-            return s.ForecastChanges(panchayat_id=pid, issue_date=issue, previous_issue_date=None,
-                                     data_mode=self.mode, provenance=s.Provenance.provisional, changes=[],
-                                     event_changes=[], advice_changed=None, summary=texts.CHANGES_NONE)
-        prev = prev_all[prev_all["panchayat_id"] == pid].set_index("valid_date")
+        prev_issue = issue - timedelta(days=1)
+        common = {"panchayat_id": pid, "issue_date": issue, "data_mode": self.mode,
+                  "provenance": s.Provenance.computed, "advice_changed": None,
+                  "model_version": self.model_version(issue)}
+        if self.snapshot(prev_issue, required=False) is None:
+            return s.ForecastChanges(**common, previous_issue_date=None, changes=[], event_changes=[],
+                                     summary=s.LocalizedText(**texts.CHANGES_NO_PREVIOUS))
+        prev = self.table(prev_issue)
+        prev = prev[prev["panchayat_id"] == pid].set_index("valid_date")
         changes, events = [], []
         for vd in sorted(set(cur.index) & set(prev.index)):
             c, p = cur.loc[vd], prev.loc[vd]
@@ -314,25 +376,15 @@ class Service:
                 changes.append(s.VarChange(valid_date=vd.date(), var=v, previous_p50=num(p[f"{v}_p50"]),
                                            current_p50=num(c[f"{v}_p50"]), delta=num(d),
                                            material=bool(abs(d) >= MATERIAL_CHANGE[v])))
-            pc = event_probs(c["rain_p10"], c["rain_p50"], c["rain_p90"])
-            pp = event_probs(p["rain_p10"], p["rain_p50"], p["rain_p90"])
-            for ev in s.RainEvent:
-                a, b = pp[ev.value], pc[ev.value]
-                if a is not None and b is not None and abs(b - a) >= MATERIAL_PROB_CHANGE:
+            for ev, col in EVENT_COLS.items():
+                a, b = p[col], c[col]
+                if pd.notna(a) and pd.notna(b) and abs(b - a) >= MATERIAL_PROB_CHANGE:
                     events.append(s.EventChange(valid_date=vd.date(), event=ev, previous_prob=prob(a),
                                                 current_prob=prob(b)))
-        n = sum(ch.material for ch in changes)
+        n = sum(ch.material for ch in changes) + len(events)
         summary = texts.CHANGES_NONE if n == 0 else texts.fill(texts.CHANGES_SOME, prev_issue, n=n)
-        return s.ForecastChanges(panchayat_id=pid, issue_date=issue, previous_issue_date=prev_issue,
-                                 data_mode=self.mode, provenance=s.Provenance.provisional, changes=changes,
-                                 event_changes=events, advice_changed=None,
-                                 summary=s.LocalizedText(**summary))
-
-    def _table_any(self, issue: date) -> pd.DataFrame | None:
-        """Forecast table for any issue date present in the data (used for the previous day)."""
-        if not (self.fc["issue_date"] == pd.Timestamp(issue)).any():
-            return None
-        return self.table(issue)
+        return s.ForecastChanges(**common, previous_issue_date=prev_issue, changes=changes,
+                                 event_changes=events, summary=s.LocalizedText(**summary))
 
     # ------------------------------------------------------------ risk and priority
     def _risks(self, issue: date) -> pd.DataFrame:

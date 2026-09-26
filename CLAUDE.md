@@ -31,10 +31,11 @@ Shared: Docker Compose, GitHub Actions.
 - Backend setup: `cd backend && python -m venv .venv && .venv/bin/pip install -e ".[dev]"`
 - Regenerate mock data (incl. git-ignored oracle): `python data/generate_mock_data.py`
 - Baseline report (TRAIN fit, CALIB scores): `cd backend && python -m gramdrishti.verify.baseline_report`
-- Train models + dev report (TRAIN fit, CALIB calibration, writes `backend/artifacts/`; ~6 min, add `--lobo` for leave-one-block-out, ~9 min): `cd backend && python -m gramdrishti.pipeline.train --lobo`
+- Train models (writes git-ignored `backend/artifacts/`; add `--lobo` for leave-one-block-out): `cd backend && python -m gramdrishti.pipeline.train`
+- Build forecast snapshots (needs trained artifacts; the API reads them): `cd backend && python -m gramdrishti.pipeline.run_daily --all-demo-dates` (or `--issue-date YYYY-MM-DD`)
 - Run API: `cd backend && uvicorn gramdrishti.api.main:app --reload --port 8000`
 - Export contract: `cd backend && python -m gramdrishti.export_openapi`
-- Contract examples (calls the app, validates, writes `contract/examples/`): `cd backend && python -m gramdrishti.contract.make_examples`
+- Contract examples (calls the app, validates, writes `contract/examples/`; needs the snapshots above): `cd backend && python -m gramdrishti.contract.make_examples`
 - Pick demo issue dates (prints reasons, writes `demo_dates.json`): `cd backend && python -m gramdrishti.contract.pick_demo_dates`
 - Frontend setup (Node 22, see `frontend/.nvmrc`): `cd frontend && npm install`
 - Frontend dev / build / test / lint: `cd frontend && npm run dev | build | test | lint`

@@ -143,6 +143,9 @@ FEATURE_TEXT = {
 CHANGES_NONE = {"en": "No material change since the previous forecast.",
                 "hi": "पिछले पूर्वानुमान के बाद कोई खास बदलाव नहीं।",
                 "pa": "ਪਿਛਲੇ ਅਨੁਮਾਨ ਤੋਂ ਬਾਅਦ ਕੋਈ ਖ਼ਾਸ ਬਦਲਾਅ ਨਹੀਂ।"}
+CHANGES_NO_PREVIOUS = {"en": "No earlier forecast to compare with.",
+                       "hi": "तुलना के लिए कोई पिछला पूर्वानुमान नहीं है।",
+                       "pa": "ਤੁਲਨਾ ਲਈ ਕੋਈ ਪਿਛਲਾ ਅਨੁਮਾਨ ਨਹੀਂ ਹੈ।"}
 CHANGES_SOME = {"en": "The forecast changed for {n} day and variable pairs since {date}.",
                 "hi": "{date} के पूर्वानुमान के बाद {n} जगह बदलाव हुआ है।",
                 "pa": "{date} ਦੇ ਅਨੁਮਾਨ ਤੋਂ ਬਾਅਦ {n} ਥਾਵਾਂ ਤੇ ਬਦਲਾਅ ਹੋਇਆ ਹੈ।"}
