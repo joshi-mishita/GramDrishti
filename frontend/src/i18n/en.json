@@ -1,0 +1,221 @@
+{
+  "app": {
+    "name": "GramDrishti"
+  },
+  "shell": {
+    "district": "District",
+    "issueDate": "Issue date",
+    "role": "View as",
+    "officer": "Officer",
+    "farmer": "Farmer",
+    "language": "Language",
+    "ribbon": "Synthetic demo data. Not real weather.",
+    "noLogin": "Prototype without login. Officer and Farmer only change the layout.",
+    "skip": "Skip to main content",
+    "metaLoading": "Loading dates",
+    "metaFailed": "District not loaded"
+  },
+  "nav": {
+    "label": "Officer console",
+    "map": "Map",
+    "priority": "Priority",
+    "review": "Review",
+    "verification": "Verification",
+    "impact": "Impact"
+  },
+  "farmerNav": {
+    "label": "Farmer app",
+    "today": "Today",
+    "forecast": "Forecast",
+    "farm": "My farm"
+  },
+  "vars": {
+    "rain": "Rain",
+    "tmax": "Max temperature",
+    "tmin": "Min temperature",
+    "rh": "Humidity",
+    "wind": "Wind"
+  },
+  "units": {
+    "mm": "mm",
+    "C": "°C",
+    "%": "%",
+    "km/h": "km/h"
+  },
+  "levels": {
+    "low": "Low",
+    "moderate": "Moderate",
+    "high": "High",
+    "severe": "Severe"
+  },
+  "viewModes": {
+    "block": "Block",
+    "panchayat": "Panchayat",
+    "delta": "Difference from block"
+  },
+  "states": {
+    "loading": "Loading {{what}}",
+    "retry": "Try again",
+    "error": "Could not load {{what}}. Check the server is running, then try again.",
+    "notInMock": "No demo file for {{what}} with these settings",
+    "notInMockDates": "Demo files exist for {{dates}}. Choose one of those dates, or switch this view to the API.",
+    "notInMockNoDates": "The demo files do not include this request. Switch this view to the API to see it.",
+    "renderError": "This screen stopped working. Reload the page to try again."
+  },
+  "provenance": {
+    "provisional": "Provisional forecast: the corrected block forecast with an uncalibrated range. Not a verified result.",
+    "placeholder": "The API sends placeholder numbers for this screen. They are not results, so they are not shown.",
+    "computed": "Computed by the verification job."
+  },
+  "thresholds": {
+    "placeholder": "Thresholds pending expert review."
+  },
+  "what": {
+    "meta": "the district details",
+    "geo": "the Panchayat boundaries",
+    "forecastMap": "the map forecast",
+    "priority": "the priority list",
+    "advisories": "the review queue",
+    "verification": "the verification summary",
+    "impact": "the decision replay",
+    "farmer": "the farmer profile",
+    "farmerAdvice": "today's advice",
+    "forecastPanchayat": "the Panchayat forecast"
+  },
+  "map": {
+    "title": "Map explorer",
+    "areaLabel": "Map",
+    "controls": "Map settings",
+    "day": "Day",
+    "show": "Show",
+    "view": "View",
+    "jumpTo": "Panchayat",
+    "jumpNone": "None selected",
+    "blockLabel": "Block {{block}}",
+    "noValues": "No Panchayat values for this day",
+    "panelLabel": "Selected Panchayat",
+    "panelEmptyTitle": "No Panchayat selected",
+    "panelEmptyBody": "Choose a Panchayat to see its 5-day forecast, why it differs from its block, and its advisories.",
+    "clearSelection": "Clear selection",
+    "unknownPid": "Panchayat {{pid}} is not in this district",
+    "heading": "{{variable}}, {{date}}: {{view}}",
+    "showTable": "Show as table",
+    "showMap": "Show as map",
+    "flatNote": "In this provisional forecast every Panchayat in a block has the same value, so the Panchayat view changes colour only between blocks. Variation within a block arrives with the downscaling model.",
+    "regionLabel": "Map of Panchayats coloured by {{variable}}. For keyboard use, choose Show as table.",
+    "noWebglTitle": "This browser cannot draw the map",
+    "noWebglBody": "WebGL is switched off or missing. Choose Show as table for the same values.",
+    "riskLayer": "Risk layer",
+    "riskNone": "None",
+    "riskHint": "Not connected yet. Risk layers on the map arrive with the risk screens in a later version.",
+    "tableCaption": "{{variable}} for every Panchayat, {{date}}"
+  },
+  "priority": {
+    "title": "Panchayats needing attention",
+    "subtitle_one": "Next {{count}} day after the issue of {{date}}",
+    "subtitle_other": "Next {{count}} days after the issue of {{date}}",
+    "summary_one": "{{count}} Panchayat at moderate level or above.",
+    "summary_other": "{{count}} Panchayats at moderate level or above.",
+    "byLevel": "Panchayats by level",
+    "emptyTitle": "No Panchayat needs attention",
+    "emptyBody": "No risk reaches moderate level for the issue of {{date}}. Change the date to check another day.",
+    "notBuilt": "The ranked table with sorting, filters and printing comes in the next version."
+  },
+  "review": {
+    "title": "Advisory review",
+    "waiting_one": "Waiting for review ({{count}})",
+    "waiting_other": "Waiting for review ({{count}})",
+    "emptyTitle": "Nothing waiting for review",
+    "emptyBody": "No advisories waiting for review for {{date}}. Change the date or run the daily job.",
+    "notBuilt": "The queue, the editor in three languages and the audit trail come in the next version."
+  },
+  "verification": {
+    "title": "Forecast accuracy check",
+    "method": "Method: {{method}}. Period: {{start}} to {{end}}.",
+    "notesTitle": "Notes from the verification job",
+    "notBuilt": "No accuracy numbers are shown until the verification job has produced them."
+  },
+  "impact": {
+    "title": "Decision replay",
+    "decision": "Decision",
+    "decisions": {
+      "spray": "Spray",
+      "heat_alert": "Heat alert",
+      "irrigation_wait": "Wait to irrigate"
+    },
+    "ruleModel": "GramDrishti rule",
+    "ruleBlock": "Block forecast rule",
+    "notBuilt": "Counts of correct, wasted-wait and washed-off decisions are shown once the verification job has produced them."
+  },
+  "farmer": {
+    "village": "Panchayat {{pid}}",
+    "todayTitle": "Today",
+    "emptyTitle": "No advice for today yet",
+    "emptyBody": "Advice appears here after the agriculture officer approves it.",
+    "approvedTitle_one": "Approved advice ({{count}})",
+    "approvedTitle_other": "Approved advice ({{count}})",
+    "forecastTitle": "Forecast",
+    "forecastNotBuilt": "The 5-day forecast for your village comes in the next version.",
+    "farmTitle": "My farm",
+    "panchayat": "Panchayat",
+    "language": "Language",
+    "crops": "Crops",
+    "sown": "sown {{date}}",
+    "demoNote": "Demo farmer profile. There is no login in this prototype."
+  },
+  "crops": {
+    "bajra": "Bajra",
+    "cotton": "Cotton",
+    "gram": "Gram",
+    "mustard": "Mustard",
+    "paddy": "Paddy",
+    "wheat": "Wheat"
+  },
+  "bulletin": {
+    "title": "Bulletin for {{pid}}",
+    "notBuilt": "The printable A4 bulletin comes in a later version."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "There is no screen at {{path}}.",
+    "back": "Open the map"
+  },
+  "legend": {
+    "noValue": "No value",
+    "summary": "Colour scale from {{from}} to {{to}} {{unit}}",
+    "deltaCaption": "Panchayat minus block. Zero is white."
+  },
+  "tooltip": {
+    "value": "Forecast",
+    "range": "Range",
+    "block": "Block",
+    "delta": "Difference"
+  },
+  "table": {
+    "panchayat": "Panchayat",
+    "block": "Block",
+    "panchayatValue": "Panchayat ({{unit}})",
+    "range": "Likely range ({{unit}})",
+    "blockValue": "Block forecast ({{unit}})",
+    "delta": "Difference ({{unit}})",
+    "sortAsc": "{{column}}: sort from low to high",
+    "sortDesc": "{{column}}: sort from high to low",
+    "variable": "Variable",
+    "panchayatShort": "Panchayat",
+    "blockShort": "Block"
+  },
+  "panel": {
+    "valueOn": "{{variable}} on {{date}}",
+    "rangeBetween": "likely between {{lo}} and {{hi}} {{unit}}",
+    "rangeAbout": "likely about {{value}} {{unit}}",
+    "rangeUnknown": "range not available",
+    "blockForecast": "Block forecast",
+    "difference": "Difference from block",
+    "allVars": "All variables, {{date}}",
+    "chartTitle": "5-day forecast",
+    "chartEmptyTitle": "Chart not built yet",
+    "chartEmptyBody": "The 5-day chart with the likely range and the block forecast comes in the next version.",
+    "notInLayer": "No value for this Panchayat on this day.",
+    "noDay": "No forecast for this day"
+  }
+}

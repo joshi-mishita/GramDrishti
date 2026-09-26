@@ -1,0 +1,59 @@
+/*
+ * Design tokens. Palette and spacing are exactly Frontend Guide 2.3 and section 4.
+ * Tokens below the "Additions" line are not in the guide; each one is derived from
+ * a guide colour or rule (see docs/design.md). Components use only these variables.
+ */
+:root {
+  /* Frontend Guide 2.3 / section 4 */
+  --ink: #18262b;
+  --canvas: #eef1f0;
+  --surface: #ffffff;
+  --line: #d3dad7;
+  --muted: #5b6b70;
+  --brand: #24594a;
+  --brand-ink: #ffffff;
+  --water: #2a6fa8;
+  --heat: #c4551d;
+  --sev-low: #3e8e41;
+  --sev-mod: #e8b923;
+  --sev-high: #e0801f;
+  --sev-severe: #c62828;
+  --radius: 3px;
+  --gap-1: 4px;
+  --gap-2: 8px;
+  --gap-3: 12px;
+  --gap-4: 16px;
+  --gap-5: 24px;
+  --font: "Source Sans 3", "Noto Sans Devanagari", "Noto Sans Gurmukhi", system-ui, sans-serif;
+
+  /* Additions (see docs/design.md) */
+  --brand-strong: #1b4538; /* brand, darker: top bar borders, pressed state */
+  --brand-tint: #e3ede9; /* selected nav row on white */
+  --surface-hover: #f5f7f6; /* row and button hover */
+  --skeleton: #e3e8e6; /* the "no value" grey from Guide 8.1 */
+  --ribbon-bg: #fbf1cf; /* mock ribbon: pale tint of --sev-mod, text stays --ink */
+  --ribbon-line: #e8b923;
+  --brand-ink-soft: #cfe0d9; /* secondary text and dividers on --brand */
+  --focus: var(--brand);
+
+  /* Type scale, Guide 2.4: 12 / 14 / 16 / 20 / 28 px; farmer 17 and 24 px */
+  --fs-1: 12px;
+  --fs-2: 14px;
+  --fs-3: 16px;
+  --fs-4: 20px;
+  --fs-5: 28px;
+  --fs-farmer-body: 17px;
+  --fs-farmer-action: 24px;
+  --lh-latin: 1.45;
+  --lh-indic: 1.65; /* about 15 to 20 percent more, Guide 2.4 */
+
+  /* Layout, Guide 2.5 and 5 */
+  --topbar-h: 52px;
+  --ribbon-h: 28px;
+  --nav-w: 184px;
+  --panel-w: 320px;
+  --row-h: 36px;
+  --touch: 48px; /* farmer app minimum touch target */
+  --radius-panel: 2px;
+  --shadow-popover: 0 2px 8px rgb(24 38 43 / 0.18); /* popovers only */
+}
