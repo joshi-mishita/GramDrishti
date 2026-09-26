@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { addDays, formatDate, formatNumber, isIsoDate } from "./format";
+import {
+  addDays,
+  describeRange,
+  formatDate,
+  formatNumber,
+  formatSigned,
+  formatValue,
+  isIsoDate,
+} from "./format";
 
 describe("dates", () => {
   it("validates ISO dates, including impossible days", () => {
@@ -45,5 +53,33 @@ describe("numbers", () => {
     expect(formatNumber(105.84, "en")).toBe("105.8");
     expect(formatNumber(105.84, "hi")).toBe("105.8");
     expect(formatNumber(105.84, "pa")).toBe("105.8");
+  });
+});
+
+describe("values and ranges", () => {
+  it("adds the unit, or a dash when there is no value", () => {
+    expect(formatValue(9.84, "mm", "en")).toBe("9.8 mm");
+    expect(formatValue(35.67, "°C", "hi")).toBe("35.7 °C");
+    expect(formatValue(62.77, "%", "en", 0)).toBe("63 %");
+    expect(formatValue(null, "mm", "en")).toBe("–");
+    expect(formatValue(Number.NaN, "mm", "en")).toBe("–");
+  });
+
+  it("signs differences, with no sign on zero after rounding", () => {
+    expect(formatSigned(0.88, "en")).toBe("+0.9");
+    expect(formatSigned(-4.5, "en")).toBe("-4.5");
+    expect(formatSigned(0.01, "en")).toBe("0");
+    expect(formatSigned(null, "en")).toBe("–");
+  });
+
+  it("describes a p10..p90 band in plain parts", () => {
+    expect(describeRange(2.04, 13.96, "en", 0)).toEqual({ kind: "between", lo: "2", hi: "14" });
+    expect(describeRange(0, 0.75, "en")).toEqual({ kind: "between", lo: "0", hi: "0.8" });
+    expect(describeRange(0, 0.02, "en")).toEqual({ kind: "about", value: "0" });
+    expect(describeRange(null, 3, "en")).toEqual({ kind: "unknown" });
+  });
+
+  it("keeps Western digits in Hindi and Punjabi", () => {
+    expect(formatValue(1234.5, "mm", "pa")).toMatch(/^1,?234\.5 mm$/);
   });
 });
