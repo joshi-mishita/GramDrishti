@@ -81,6 +81,19 @@ Screenshot review (2024-09-09, rain, lead day 1):
 - Tmax difference is one-sided: every Panchayat is 0 to 0.4 C cooler than its block (bias correction), so the whole map is shades of blue.
 - Panchayat outlines are hard to see on the palest rain colour; block outlines are clear.
 - At phone width the controls still come before the map (now wrapped into rows).
+S5: Panchayat model core (not yet served by the API; S6 wires it in). Built:
+- `features/`: `make_table(kind)` for train and infer: static + block-relative contrasts, position, calendar, forecast context (B1, source spread, lead-day change, block dew point), satellite (latest week ended by the issue date), station rain over the 3 and 7 days before the issue date. TRAIN/CALIB tables keep only issue dates whose 5 leads fit the window; TEST raises.
+- `models/downscale.py` (LightGBM mean + p10/p50/p90, rain event classifiers + isotonic), `reconcile.py` (additive, multiplicative, bounded for RH), `conformal.py` (CQR per variable and lead group, constraints), `humidity.py`, `artifacts.py`.
+- `pipeline/predict.py`, `pipeline/train.py` (`--lobo`, dev report, artifacts with data hash).
+- 22 new tests (249 total).
+
+S5 dev report (full model, `python -m gramdrishti.pipeline.train --lobo`; mock data, synthetic proxy validation):
+- LOBO on TRAIN, MAE vs B1: tmax 1.156 -> 1.096 C (+5.2 %), tmin 1.124 -> 1.074 C (+4.4 %), rh 5.826 -> 5.642 % (+3.2 %), wind 1.452 -> 1.431 km/h (+1.4 %), **rain 0.711 -> 0.716 mm (-0.7 %, does NOT beat B1)**.
+- Out-of-time on CALIB, MAE vs B1: tmax +12.4 %, tmin +1.2 %, rh +3.1 %, wind +2.1 %, **rain -15.8 % (RMSE 4.743 -> 5.940 mm), does NOT beat B1**.
+- 80 % interval, offsets fitted on one CALIB half, scored on the other: 0.734..0.971 (mean 0.823) across variables and lead groups. Rain on wet days only: 0.42..0.72 (undercovered). RH days 3-5 when fitted on the monsoon half and scored on May: 0.734.
+- Rain events: isotonic calibration was worse than the raw classifier in 5 of 8 half-splits (the halves differ: base rate 0.19 vs 0.013 at 1 mm).
+- Block consistency max error 1.4e-14; 0 constraint violations; Tmax anomaly +0.456 / -0.086 / -0.384 C at irrigated_frac p10 / p50 / p90.
+- Hypothesis for rain (TRAIN truth): only 26 % of within-block rain variance is a persistent Panchayat x month offset, against 89-92 % for Tmax, Tmin and dew point and 70 % for wind. Rain placement inside a block is mostly day-to-day noise, so moving rain between Panchayats adds error.
 
 S5 (written up in S6 from the S5 handoff and `backend/artifacts/dev_report.txt`): `features/` (`make_table`, shared by train and infer), `models/{downscale,reconcile,conformal,humidity,artifacts}.py`, `pipeline/{predict,train}.py`. LightGBM mean + p10/p50/p90 per target (tmax, tmin, dew point, wind, rain), rain event classifiers with isotonic calibration, reconciliation to the corrected block forecast B1, conformal offsets per variable and lead group. Final bundle `s5-lgbm-9b632a7b1b` (400 trees, TRAIN fit, CALIB calibration, TEST not opened). Results (synthetic proxy validation, mock data): leave-one-block-out on TRAIN, MAE skill vs B1: tmax +5.2 %, tmin +4.4 %, RH +3.2 %, wind +1.4 %, **rain -0.7 % (does not beat B1)**. Out-of-time on CALIB: tmax +12.4 %, tmin +1.2 %, RH +3.1 %, wind +2.1 %, **rain -15.8 % (does not beat B1)**. 80 % interval coverage on CALIB halves after calibration 0.73 to 0.98 (mean 0.82); on wet days rain coverage is 0.42 to 0.72. Isotonic made Brier worse than the raw classifier in 5 of 8 half-splits. Block consistency ~1e-14, constraint violations 0.
 
@@ -228,6 +241,10 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 - S8: `sowing_go` and `sowing_heavy_rain_wait` fire on no demo date (November soil is dry in the mock data); only their unit cases cover them.
 
 ## Known issues
+- S5 rain does not beat B1 (LOBO -0.7 %, CALIB -15.8 % MAE). The rain CQR offset is 0 because dry days dominate, and wet-day coverage is 0.42..0.72. Options for discussion (not tuning): serve B1 rain amount with model event probabilities, or a wet-day-conditional interval.
+- S5 isotonic calibration is kept as the guide says but did not help on CALIB halves. Discuss before S6.
+- S5 CALIB covers May to mid-July only, so coverage in winter is unmeasured until TEST (S10).
+- S5 the oracle loader parses the whole CSV; TEST-window rows are dropped immediately in `add_targets`/`fit_bias` before any computation.
 - `gh` CLI not installed, so pull requests are opened by hand from the compare URL.
 - `data/synthetic_oracle/` is git-ignored: a fresh clone must run `python data/generate_mock_data.py` (the default output is now `data/`).
 - `mock_data_summary.json` regenerates with one float differing in the 16th significant digit (`tmin_std_c_mean`), because summation order differs across numpy versions. All CSV and GeoJSON files are byte-identical.
@@ -269,6 +286,7 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 | Date | Model version | Windows used | Notes |
 |---|---|---|---|
 | 2026-09-24 | baselines B0/B1/B2 (S1) | fit TRAIN, scored CALIB | `python -m gramdrishti.verify.baseline_report`. TEST window opened: never |
+| 2026-09-26 | s5-lgbm (S5) | models TRAIN; isotonic + CQR CALIB; dev checks TRAIN LOBO and CALIB halves | `python -m gramdrishti.pipeline.train --lobo`. TEST window opened: never |
 | 2026-09-25 | provisional API forecast (S2) | fit TRAIN; applied to issued forecasts on the 8 demo dates | No scoring. The demo date picker reads issued forecasts in the TEST period, not outcomes. `/observed` displays TEST-period truth on request; no metric uses it. TEST window opened for evaluation: never |
 | 2026-09-26 | s5-lgbm-9b632a7b1b (S5) | models fit TRAIN; isotonic and conformal on CALIB; leave-one-block-out on TRAIN; out-of-time on CALIB | `python -m gramdrishti.pipeline.train --lobo`, report in `backend/artifacts/dev_report.txt` (numbers under "Current state"). Rain does not beat B1. Re-run without `--lobo` in S6: 114 s, byte-identical model files. TEST window opened: never |
 | 2026-09-26 | rules.yaml v1 on s5-lgbm-9b632a7b1b snapshots (S8) | inference snapshots of the 8 demo dates and the day before each (unchanged from S6) | Rules engine drafts for the 8 demo dates; `/forecast/changes` runs the engine on the previous-day snapshots too. No scoring, no training. TEST window opened for evaluation: never |

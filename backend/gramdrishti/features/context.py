@@ -8,7 +8,7 @@ Only issued forecasts are used, never block truth: at inference time only the fo
 - ``b1_td``: block dew point derived from B1 mean temperature and RH.
 - B1 Tmin and Tmax are repaired to a diurnal range of at least ``DIURNAL_MIN_C`` around their midpoint:
   the issued sources sometimes forecast Tmin >= Tmax on rainy days, and a block target like that
-  would force Panchayats to break Tmin < Tmax after reconciliation (DECISIONS D039).
+  would force Panchayats to break Tmin < Tmax after reconciliation (DECISIONS D048).
 - ``b0_<var>``: the plain block forecast (baseline B0). Kept for scoring, not a model feature.
 """
 
