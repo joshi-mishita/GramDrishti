@@ -14,7 +14,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S5 | Backend model core | backend | merged | session-05-model-core (#7) | yes |
 | S6 | Agro-variables, snapshots, forecast APIs | backend | PR open | session-06-snapshots-forecast-api | |
 | S7 | Frontend detail panel and first integration | frontend | not started | | |
-| S8 | Advisory engine and review APIs | backend | not started | | |
+| S8 | Advisory engine and review APIs | backend | PR open (stacked on S6) | session-08-advisory-engine | |
 | S9 | Frontend priority, risk and review | frontend | not started | | |
 | S10 | Verification and impact | backend | not started | | |
 | S11 | Frontend verification and impact | frontend | not started | | |
@@ -102,6 +102,33 @@ Explain texts that read awkwardly (demo dates, served reasons only):
 - "Its loam soil ..." / "Its moderate soil drainage ..." do not say why the class matters.
 - All sentences share one template ("..., so it is likely X than the block average.") and are English only.
 
+S8: advisory engine, risk and priority from YAML rules, review workflow in SQLite. Contract v0.2.0 (additive). Built:
+- `advisory/signals.py`: signals per Panchayat, crop and issue date (Guide 9.2) from the snapshot, static features and the placeholder calendar, with a registry (`SIGNALS`) that rules are checked against. Stage from das on lead day 1; crops sown within 10 days get `pre_sowing`. One livestock context per Panchayat.
+- `advisory/rules.yaml`: 15 rules covering all 11 categories (sowing x3, irrigate, hold irrigation, spray hold, fertilizer, heat stress, frost, waterlogging, dry spell, harvest, pest/disease, livestock x2), simpleeval `when`, named thresholds with unit and meaning, `thresholds_status: placeholder`, empty `source`, priority, confidence keys, evidence, `supersedes`. Also the spray-planner thresholds, risk cuts, confidence settings. `rules.py` is the schema (pydantic, exported to `rules.schema.json`) plus meaning checks.
+- `advisory/templates.yaml`: English action, reason and fallback for each rule, Hindi and Punjabi drafts (`translation_status: needs_native_review`), crop and stage names, priority headlines, units. `docs/translation_notes.md` lists the terms we were unsure about.
+- `advisory/spray.py`: whole-day Good / Caution / Avoid from P(rain >= 2.5 mm) that day and the next and p90 wind; no hour windows.
+- `advisory/engine.py`: evaluate, fill templates, evidence rows, confidence (Guide 9.5), priority (base +/- stage sensitivity, -1 for low confidence), de-duplication (`supersedes`, then one per Panchayat, crop and category). Deterministic; about 0.5 s per issue date.
+- `advisory/risk.py`: risk scores per Panchayat and lead day (crop-aware heat and frost). `store/db.py` + `store/init_db.py`: Guide 10 tables plus `schema_version`, `generation_runs`; migrations as SQL scripts.
+- API: `/risk`, `/priority` (ranked by level, score, id; headlines in en/hi/pa), `/advisories` (filters), `/advisories/{id}`, `POST /advisories/{id}/review` (approve / edit / reject, audit row with before and after), `/farmers/{id}/advice` (approved and edited only), `/feedback` (stored). `/forecast/changes` sets `advice_changed`; `/forecast/panchayat` days carry `spray_rating`. Provenance `computed`, thresholds `placeholder`.
+- `run_daily` writes drafts for the 8 demo dates after the snapshots. `advisory/expert_table.py` writes `docs/thresholds_for_expert_review.md` (the file for the KVK or SAU expert); `advisory/show.py` prints stored advisories.
+- Tests: 359 backend (80 new: `test_advisory.py`, `test_store.py`, S8 API tests), 86 frontend.
+
+Draft advisories per demo date (placeholder thresholds, mock data):
+| Date | Drafts | By category |
+|---|---|---|
+| 2024-01-12 | 125 | frost 26, irrigation 83, spray 16 |
+| 2024-03-31 | 109 | heat_stress 12, irrigation 7, livestock 90 |
+| 2024-07-31 | 285 | fertilizer 37, heat_stress 11, irrigation 67, livestock 90, spray 68, waterlogging 12 |
+| 2024-08-15 | 197 | dry_spell 52, irrigation 31, livestock 90, pest_disease 8, spray 16 |
+| 2024-09-09 (heavy rain) | 198 | dry_spell 20, harvest 3, irrigation 53, livestock 90, spray 29, waterlogging 3 |
+| 2024-10-13 | 96 | irrigation 6, livestock 90 |
+| 2024-11-16 | 84 | irrigation 50, sowing 34 |
+| 2024-12-24 (cold) | 157 | frost 73, irrigation 84 |
+
+Same block, same crop, different advice (2024-09-09, bajra, block MB03): MP0307 is low-lying (tpi_z -2.6) and gets "clear the field drains" (48 % chance of 35 mm or more by 12 September) and "do not spray on 10 September" (82 % chance of rain). MP0311's bajra is due for harvest in 10 days, so it gets "harvest before the rain expected on 10 September" (80 % chance of 10 mm or more), which supersedes its spray hold, and "hold irrigation" (84 % of root-zone water used, 80 % chance of useful rain).
+
+Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms, `/risk` 2.5 ms, `/advisories?issue_date` 10.5 ms, `/advisories/{id}` 1.5 ms. The first risk or priority request per issue date takes 0.45 to 0.7 s (engine and risk scores, then cached).
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -159,6 +186,19 @@ Explain texts that read awkwardly (demo dates, served reasons only):
 - D054 Event probabilities from classifiers; risk and advisories still placeholder.
 - D055 Small-bundle test fixture; example freshness test needs matching local snapshots.
 - D056 Change summary counts event changes.
+- D057 S8 stacked on S6 in a separate worktree.
+- D058 Signals: independent-days union for multi-day chances, das on lead day 1, `pre_sowing` look-ahead, livestock context everywhere.
+- D059 Named thresholds in rules.yaml, calendar alerts, generated expert table, schema and checks.
+- D060 Confidence keys, margins and reference widths.
+- D061 Priority from base level, stage sensitivity and low confidence; irrigation starts moderate.
+- D062 De-duplication with `supersedes`, then one per Panchayat, crop and category.
+- D063 Review: edits null omitted languages, re-review allowed, audit before/after, drafts at 08:00.
+- D064 SQLite store, lazy drafts in the API, tests on temporary databases, farmers table not seeded yet.
+- D065 Crop-aware risk scores, priority ranking and crops_affected.
+- D066 Contract v0.2.0 and `advice_changed`.
+- D067 Spray hold uses the day-level planner.
+- D068 Text formatting, English-only evidence, no gender agreement with crop names.
+- D069 Removed the S2 placeholder risk and advisory texts.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -181,6 +221,11 @@ Explain texts that read awkwardly (demo dates, served reasons only):
 - S6: real mode for snapshots is untested: `run_daily` needs a trained real-mode model, which cannot exist yet; soil fields would be null.
 - S6: Hindi and Punjabi explain texts do not exist (null); the new Hindi and Punjabi change summary ("No earlier forecast to compare with") is a draft needing native review.
 - S6: the frontend was not run against the new API in a browser this session (types, tests, lint and build only).
+- S8: CI has not run this branch (no `gh`). The branch is stacked on S6; its PR diff includes S6 until S6 merges.
+- S8: the frontend was not run against the new endpoints in a browser (types regenerated; tests, lint and build pass with the main checkout's `node_modules` linked in).
+- S8: Hindi and Punjabi advisory text, crop and stage names and headlines are unreviewed drafts. Every threshold is a placeholder.
+- S8: real mode is untested for advisories: soil signals would be missing, so irrigation, sowing and dry-spell rules would be skipped (counted, not guessed).
+- S8: `sowing_go` and `sowing_heavy_rain_wait` fire on no demo date (November soil is dry in the mock data); only their unit cases cover them.
 
 ## Known issues
 - `gh` CLI not installed, so pull requests are opened by hand from the compare URL.
@@ -204,11 +249,18 @@ Explain texts that read awkwardly (demo dates, served reasons only):
 - S4 the lazy map chunk is 1.0 MB (284 kB gzip) plus a 510 kB worker, all MapLibre; Vite prints a chunk-size warning. It loads only on `/map`.
 - S4 in mock mode only lead day 1 of 2024-09-09 has map files, and only MP0103, MP0302, MP0305, MP0412 have a Panchayat forecast; other days and Panchayats show "No demo file". Use the API for the rest.
 - S3 Vitest prints a Node warning about `--localstorage-file` (Node 25 with jsdom); harmless.
+- S8 mock soil water is very dry all winter (depletion 0.9 to 0.98 in rabi; the start state comes from the oracle and no irrigation is simulated, D050), so almost every sown field gets "irrigate" in November to January (83 on 2024-01-12, 84 on 2024-12-24).
+- S8 livestock heat advice fires in all 90 Panchayats on four demo dates (THI p90 is 80 to 96 in the monsoon with the upper maximum temperature). It is weather-wide, not local, and makes the review queue long; the expert should set the THI thresholds.
+- S8 heavy-rain chances are the same for every Panchayat in a block on some days (MB03 on 2024-09-10: 0.64 everywhere), so heavy-rain risk and priority are flat within those blocks.
+- S8 `/priority` answers in about 70 ms warm (headline lookups per item); fine for 90 Panchayats.
+- S8 the first `/advisories` request for an issue date without a `run_daily` run writes that date's drafts (about 0.5 s).
 
 ## Inputs needed from the team
 - Enable branch protection on `main` (require pull request, require CI).
 - Native Hindi and Punjabi review of `frontend/src/i18n/hi.json`, `pa.json` and the day/month names in `frontend/src/lib/format.ts` (S3), then advisory text (S13).
-- Later: expert threshold review (S8).
+- Expert threshold review: send `docs/thresholds_for_expert_review.md` to a KVK or SAU expert (every rule, spray-planner, risk, confidence, crop-calendar and agro placeholder, with blank columns for their value and source).
+- Native Hindi and Punjabi review of `backend/gramdrishti/advisory/templates.yaml` (see `docs/translation_notes.md`).
+- Which cotton the district grows (ਨਰਮਾ or ਕਪਾਹ in Punjabi text), and whether livestock advice should go to every Panchayat.
 - Expert review of the S6 agro placeholders (D051): runoff, kc, waterlogging and frost thresholds, fog proxy, crop base temperatures.
 - Native Hindi and Punjabi writing of the explain sentence dictionary (`backend/gramdrishti/explain/texts.py`), about 50 phrases.
 - For real mode: a soil-moisture source (ERA5-Land or SMAP) for the water balance start state.
@@ -219,13 +271,16 @@ Explain texts that read awkwardly (demo dates, served reasons only):
 | 2026-09-24 | baselines B0/B1/B2 (S1) | fit TRAIN, scored CALIB | `python -m gramdrishti.verify.baseline_report`. TEST window opened: never |
 | 2026-09-25 | provisional API forecast (S2) | fit TRAIN; applied to issued forecasts on the 8 demo dates | No scoring. The demo date picker reads issued forecasts in the TEST period, not outcomes. `/observed` displays TEST-period truth on request; no metric uses it. TEST window opened for evaluation: never |
 | 2026-09-26 | s5-lgbm-9b632a7b1b (S5) | models fit TRAIN; isotonic and conformal on CALIB; leave-one-block-out on TRAIN; out-of-time on CALIB | `python -m gramdrishti.pipeline.train --lobo`, report in `backend/artifacts/dev_report.txt` (numbers under "Current state"). Rain does not beat B1. Re-run without `--lobo` in S6: 114 s, byte-identical model files. TEST window opened: never |
+| 2026-09-26 | rules.yaml v1 on s5-lgbm-9b632a7b1b snapshots (S8) | inference snapshots of the 8 demo dates and the day before each (unchanged from S6) | Rules engine drafts for the 8 demo dates; `/forecast/changes` runs the engine on the previous-day snapshots too. No scoring, no training. TEST window opened for evaluation: never |
 | 2026-09-26 | s5-lgbm-9b632a7b1b applied (S6) | inference on issued forecasts for the 8 demo dates and the day before each (6 of them in TEST) | `python -m gramdrishti.pipeline.run_daily --all-demo-dates`. No scoring. The soil water balance starts from oracle soil moisture on the day before each issue date (mock stand-in, D050); no metric uses it. TEST window opened for evaluation: never |
 
 ## Handoff for the next session
-Merge order: S6 is branched from `main` after S5 merged (#7); nothing else is stacked.
+Merge order: S6 (`session-06-snapshots-forecast-api`), then S8 (`session-08-advisory-engine`, stacked on S6, D057). After S6 merges, merge `main` into S8 and rerun `pytest`.
 
-Backend (S7 integration support, S8): the forecast endpoints are real model output from snapshots. To run them locally: `cd backend && python -m gramdrishti.pipeline.train` (about 2 minutes, writes the git-ignored `backend/artifacts/`), then `python -m gramdrishti.pipeline.run_daily --all-demo-dates` (35 s), then start the API. S8: replace `_generate_advisories` and the placeholder risk scores with YAML rules; the signals are in the snapshot table (`Service.table()` columns: `<var>_{p10,p50,p90,mean,block,block_corrected}`, `prob_rain_ge_{1,2_5,10,35}`, `et0_mm`, `soil_moisture_frac{,_dry,_wet,_start}`, `depletion_frac`, `waterlog_score/_risk`, `thi`, `rh_afternoon`, `frost_prob/_risk`, `fog_proxy`, `dry_spell_days`, `gdd_<crop>`). Crop-specific frost thresholds and kc belong there. Set `advice_changed` in `/forecast/changes` once rules exist. S10 replaces `provisional/placeholders.py`.
+Local run: `cd backend && python -m gramdrishti.pipeline.train` (once, about 2 minutes), then `python -m gramdrishti.pipeline.run_daily --all-demo-dates` (snapshots and draft advisories, about 40 s), then the API. `python -m gramdrishti.advisory.show --issue-date 2024-09-09` prints advisories; `--counts` prints counts.
 
-Frontend (S7): the contract is **v0.1.2** (additive; `contract/CHANGELOG.md`). `VITE_REAL_ENDPOINTS=meta,geo,forecast,observed,explain` now serves real model output (`forecast` covers `/forecast/map`, `/forecast/panchayat` and `/forecast/changes`); the backend needs the snapshots above. Decide what the map and panel headline show: `p50` (rain is almost flat inside a block) or `mean` (varies, and its block average equals `block_layer[].corrected`); see D048. `delta` still compares with the raw block forecast. `/explain` can return an empty `reasons` list (nothing to explain): show a plain empty state. Explain `text.hi` and `text.pa` are null, so fall back to English. Put the fan chart in the empty slot in `features/map/DetailPanel.tsx` (`useForecastPanchayat` is already loaded there), then "Why different?", "Forecast changed" and advisories. S9: enable `RiskLayerSelect` in `features/map/MapControls.tsx`; `RISK_TOKENS` in `lib/ramps.ts` maps levels to severity tokens, and `MapView` takes any Ramp. Reuse `components/DataTable.tsx` for priority and verification lists.
+Frontend (S9): contract **v0.2.0** (additive, `contract/CHANGELOG.md`). `/risk`, `/priority` and `/advisories` are real rules-engine output with `provenance: computed` and `thresholds_status: placeholder` (show the placeholder notice from `thresholds_status`, not from provenance). Review screen: `POST /advisories/{id}/review` returns the updated advisory; audit entries carry optional `before` / `after` for a diff view; an edit that sends only `en` nulls `hi` and `pa` (D063), so say so in the edit form. `Advisory.rule_id` names the rule. Priority `crops_affected` can be empty. `derived.spray_rating` (good / caution / avoid) is per whole day, for a spray strip in the detail panel. New mock file `advisories_2024-12-24.json`; `risk_dry_spell.json` is now lead day 5 (dry spells build up over the days); `forecast_changes_*.json` has a boolean `advice_changed`.
 
-Mock files (`contract/examples/`, main date 2024-09-09) follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json` (plus `explain_MP0305_rain.json` and `explain_MP0103_rain_dry_block.json`), `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`. Show a notice when `provenance` is `placeholder`.
+Backend (S10): verification can replay decisions from the engine (`advisory.engine.generate` on any snapshot) and the spray planner (`advisory.spray.plan`); confidence levels are there to be checked against outcomes. S12: seed the `farmers` table (created, empty) and move `/farmers` onto it; feedback is already stored in SQLite. When the expert returns values: edit `rules.yaml` and the calendar, fill `source`, set `thresholds_status: reviewed` per rule, then regenerate the expert table and examples.
+
+Mock files (`contract/examples/`, main date 2024-09-09) follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json` (plus `explain_MP0305_rain.json` and `explain_MP0103_rain_dry_block.json`), `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`, `advisories.json`, `advisories_2024-12-24.json`, `priority.json`, `priority_2024-12-24.json`. Show a notice when `provenance` or `thresholds_status` is `placeholder`.
