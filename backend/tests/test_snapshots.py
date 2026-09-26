@@ -39,7 +39,8 @@ DEMO = [date.fromisoformat(d.date) for d in load_demo_dates()]
 
 @pytest.fixture(scope="module")
 def client(snapshot_dir: Path) -> TestClient:
-    svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir)
+    svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir,
+                  db_path=snapshot_dir.parent / "snapshots_test.sqlite")
     return TestClient(create_app(svc))
 
 

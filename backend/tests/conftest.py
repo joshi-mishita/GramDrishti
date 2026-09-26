@@ -14,11 +14,18 @@ needs_oracle = pytest.mark.skipif(
 )
 
 
+@pytest.fixture(scope="session")
+def _test_db(tmp_path_factory: pytest.TempPathFactory):
+    return tmp_path_factory.mktemp("store") / "default.sqlite"
+
+
 @pytest.fixture(autouse=True)
-def _mock_mode(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Every test starts in mock mode on the repo's data folder unless it changes that itself."""
+def _mock_mode(monkeypatch: pytest.MonkeyPatch, _test_db) -> None:
+    """Every test starts in mock mode on the repo's data folder unless it changes that itself, and never
+    writes to the real advisory database in ``backend/artifacts/``."""
     monkeypatch.setenv("DATA_MODE", "mock")
     monkeypatch.delenv("GRAMDRISHTI_DATA_DIR", raising=False)
+    monkeypatch.setenv("GRAMDRISHTI_DB", str(_test_db))
 
 
 @pytest.fixture(scope="session")

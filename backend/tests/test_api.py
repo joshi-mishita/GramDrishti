@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import math
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any
 
 import pytest
@@ -25,8 +25,9 @@ PID = "MP0103"
 
 
 @pytest.fixture(scope="module")
-def client(snapshot_dir) -> TestClient:  # noqa: ANN001
-    svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir)
+def client(snapshot_dir, tmp_path_factory: pytest.TempPathFactory) -> TestClient:  # noqa: ANN001
+    db = tmp_path_factory.mktemp("db") / "api.sqlite"
+    svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir, db_path=db)
     return TestClient(create_app(svc))
 
 
@@ -282,3 +283,106 @@ def test_every_app_route_is_tested() -> None:
                     and all(a == b or b.startswith("{") for a, b in zip(t.split("/"), pattern.split("/"),
                                                                         strict=True))}
         assert concrete, f"route {path} is not covered by test_every_route_ok_on_main_date"
+
+
+# ---------------------------------------------------------------- S8: rules engine, risk, priority, review
+LEVEL_RANK = {"low": 0, "moderate": 1, "high": 2, "severe": 3}
+
+
+@pytest.mark.parametrize("d", DEMO)
+def test_priority_is_ranked_with_plain_headlines(client: TestClient, d: str) -> None:
+    body = _get_ok(client, f"/priority?issue_date={d}&horizon_days=3", s.Priority)
+    assert body["provenance"] == "computed" and body["thresholds_status"] == "placeholder"
+    items = body["items"]
+    keys = [(-LEVEL_RANK[i["level"]], -i["score"], i["panchayat_id"]) for i in items]
+    assert keys == sorted(keys)
+    assert len({i["panchayat_id"] for i in items}) == len(items)
+    for i in items:
+        assert i["level"] != "low" and "livestock" not in i["crops_affected"]
+        for lang in ("en", "hi", "pa"):
+            text = i["headline"][lang]
+            assert text and "{" not in text and "nan" not in text.lower()
+
+
+def test_priority_matches_risk_levels(client: TestClient) -> None:
+    pri = _get_ok(client, f"/priority?issue_date={MAIN}&horizon_days=1", s.Priority)["items"]
+    assert pri, "the heavy-rain demo date should have Panchayats needing attention"
+    for item in pri[:5]:
+        risk = _get_ok(client, f"/risk?issue_date={MAIN}&lead_day=1&type={item['top_risk']}", s.Risk)
+        row = next(r for r in risk["items"] if r["panchayat_id"] == item["panchayat_id"])
+        assert (row["level"], row["score"]) == (item["level"], item["score"])
+
+
+def test_risk_levels_follow_rule_file_cuts(client: TestClient) -> None:
+    from gramdrishti.advisory.rules import load_rules
+
+    cuts = load_rules().risk["heavy_rain"].cuts
+    body = _get_ok(client, f"/risk?issue_date={MAIN}&lead_day=1&type=heavy_rain", s.Risk)
+    assert body["provenance"] == "computed"
+    for r in body["items"]:
+        expected = "low" if r["score"] < cuts[0] else "moderate" if r["score"] < cuts[1] else \
+            "high" if r["score"] < cuts[2] else "severe"
+        assert r["level"] == expected, r
+
+
+def test_advisories_come_from_rules(client: TestClient) -> None:
+    body = _get_ok(client, f"/advisories?issue_date={MAIN}", s.AdvisoryList)
+    assert body["provenance"] == "computed" and body["total"] == len(body["items"]) > 0
+    for a in body["items"]:
+        assert a["rule_id"] and a["id"].startswith(f"ADV-{MAIN}-{a['panchayat_id']}-{a['crop']}-")
+        assert a["thresholds_status"] == "placeholder" and a["translation_status"] == "needs_native_review"
+        assert a["audit"][0]["action"] == "created" and a["audit"][0]["actor"] == "system"
+    one = _get_ok(client, f"/advisories?issue_date={MAIN}&panchayat_id=MP0305", s.AdvisoryList)
+    assert {a["panchayat_id"] for a in one["items"]} == {"MP0305"}
+    approved = _get_ok(client, f"/advisories?issue_date={MAIN}&status=approved", s.AdvisoryList)
+    assert all(a["status"] == "approved" for a in approved["items"])
+
+
+def test_advisory_ids_outside_demo_dates_are_404(client: TestClient) -> None:
+    for bad in ("ADV-2024-09-10-MP0101-bajra-spray", "ADV-garbage", "ADV-2024-09-09-MP0101-rice-spray"):
+        r = client.get(f"{PREFIX}/advisories/{bad}")
+        assert r.status_code == 404 and r.json()["error"]["code"] == "not_found", bad
+
+
+def test_review_edit_audit_has_before_and_after(client: TestClient) -> None:
+    items = _get_ok(client, "/advisories?issue_date=2024-12-24&status=draft", s.AdvisoryList)["items"]
+    adv = next(a for a in items if a["category"] == "frost")
+    r = client.post(f"{PREFIX}/advisories/{adv['id']}/review",
+                    json={"action": "approve", "reviewer": "O", "edited": {"action": {"en": "x"}}})
+    assert r.status_code == 400
+    body = {"action": "edit", "reviewer": "Officer Demo", "note": "shorter",
+            "edited": {"action": {"en": "Light irrigation this evening.", "hi": "आज शाम हल्की सिंचाई करें।"}}}
+    out = client.post(f"{PREFIX}/advisories/{adv['id']}/review", json=body).json()
+    assert out["status"] == "edited" and out["action"]["pa"] is None
+    last = out["audit"][-1]
+    assert last["action"] == "edited" and last["actor"] == "Officer Demo" and last["note"] == "shorter"
+    assert last["before"]["action"]["en"] == adv["action"]["en"]
+    assert last["after"] == {"status": "edited", "action": body["edited"]["action"] | {"pa": None}}
+    again = _get_ok(client, f"/advisories/{adv['id']}", s.Advisory)
+    assert again["audit"] == out["audit"]
+
+
+def test_advice_changed_is_computed(client: TestClient) -> None:
+    for pid in ("MP0103", "MP0305", "MP0412"):
+        body = _get_ok(client, f"/forecast/changes/{pid}?issue_date={MAIN}", s.ForecastChanges)
+        assert isinstance(body["advice_changed"], bool)
+
+
+def test_forecast_days_carry_spray_rating(client: TestClient) -> None:
+    body = _get_ok(client, f"/forecast/panchayat/{PID}?issue_date={MAIN}", s.PanchayatForecast)
+    ratings = [d["derived"]["spray_rating"] for d in body["days"]]
+    assert len(ratings) == 5 and set(ratings) <= {"good", "caution", "avoid"}
+
+
+def test_run_daily_writes_drafts(snapshot_dir, tmp_path) -> None:  # noqa: ANN001
+    from gramdrishti.pipeline.run_daily import demo_plan, write_advisories
+    from gramdrishti.store.db import Store
+
+    store = Store(tmp_path / "rd.sqlite")
+    counts = write_advisories(demo_plan(), snapshot_dir, store, log=lambda *_: None)
+    assert set(counts) == {date.fromisoformat(d) for d in DEMO}
+    for d, by_cat in counts.items():
+        assert store.counts(d)["category"] == by_cat
+        assert store.counts(d)["status"] == ({"draft": sum(by_cat.values())} if by_cat else {})
+    again = write_advisories(demo_plan(), snapshot_dir, store, log=lambda *_: None)
+    assert again == counts

@@ -1,4 +1,4 @@
-"""Provisional forecast, risk and placeholder helpers."""
+"""Provisional forecast and placeholder helpers."""
 
 from __future__ import annotations
 
@@ -10,7 +10,6 @@ import pytest
 from gramdrishti.api.service import num
 from gramdrishti.provisional import agro, placeholders
 from gramdrishti.provisional.forecast import prob_exceed
-from gramdrishti.provisional.risk import level_of
 
 
 def test_prob_exceed_bounds_and_monotone() -> None:
@@ -27,10 +26,6 @@ def test_prob_exceed_bounds_and_monotone() -> None:
 def test_num_never_returns_non_finite() -> None:
     assert num(float("nan")) is None and num(float("inf")) is None and num(None) is None
     assert num(1.23456) == 1.23
-
-
-def test_level_cuts() -> None:
-    assert [level_of(x) for x in (0.0, 0.3, 0.6, 0.9)] == ["low", "moderate", "high", "severe"]
 
 
 def test_thi_and_et0() -> None:
