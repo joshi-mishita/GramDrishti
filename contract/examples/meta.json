@@ -1,5 +1,5 @@
 {
-  "api_version": "0.1.1",
+  "api_version": "0.1.2",
   "data_mode": "mock",
   "district": "Synthetic District",
   "available_issue_dates": [

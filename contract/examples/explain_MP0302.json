@@ -3,37 +3,38 @@
   "issue_date": "2024-09-09",
   "lead_day": 1,
   "var": "tmax",
-  "delta_vs_block": -0.2,
+  "delta_vs_block": -0.37,
   "reasons": [
     {
-      "feature": "tree_frac",
-      "effect": "warmer",
+      "feature": "irrigated",
+      "effect": "cooler",
       "text": {
-        "en": "Less tree cover",
-        "hi": "कम पेड़",
-        "pa": "ਘੱਟ ਰੁੱਖ"
+        "en": "More irrigated fields than the rest of the block, so it is likely cooler than the block average.",
+        "hi": null,
+        "pa": null
       }
     },
     {
-      "feature": "elevation_m",
+      "feature": "sand",
       "effect": "cooler",
       "text": {
-        "en": "Higher ground than the block average",
-        "hi": "ब्लॉक के औसत से ऊँची ज़मीन",
-        "pa": "ਬਲਾਕ ਦੀ ਔਸਤ ਨਾਲੋਂ ਉੱਚੀ ਜ਼ਮੀਨ"
+        "en": "Less sandy soil than the rest of the block, so it is likely cooler than the block average.",
+        "hi": null,
+        "pa": null
       }
     },
     {
-      "feature": "irrigated_frac",
+      "feature": "urban",
       "effect": "cooler",
       "text": {
-        "en": "More irrigated fields around it",
-        "hi": "आसपास ज़्यादा सिंचित खेत",
-        "pa": "ਆਲੇ-ਦੁਆਲੇ ਵੱਧ ਸਿੰਜੇ ਖੇਤ"
+        "en": "Less built-up land than the rest of the block, so it is likely cooler than the block average.",
+        "hi": null,
+        "pa": null
       }
     }
   ],
   "data_mode": "mock",
-  "provenance": "placeholder",
-  "method": "placeholder_static_contrast"
+  "provenance": "computed",
+  "method": "shap_tree_explainer_mean_model_block_contrast",
+  "model_version": "s5-lgbm-9b632a7b1b"
 }

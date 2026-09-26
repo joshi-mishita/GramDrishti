@@ -3,7 +3,7 @@
   "issue_date": "2024-09-09",
   "previous_issue_date": "2024-09-08",
   "data_mode": "mock",
-  "provenance": "provisional",
+  "provenance": "computed",
   "changes": [
     {
       "valid_date": "2024-09-10",
@@ -16,33 +16,33 @@
     {
       "valid_date": "2024-09-10",
       "var": "tmax",
-      "previous_p50": 35.34,
-      "current_p50": 35.67,
-      "delta": 0.33,
+      "previous_p50": 35.42,
+      "current_p50": 35.54,
+      "delta": 0.12,
       "material": false
     },
     {
       "valid_date": "2024-09-10",
       "var": "tmin",
-      "previous_p50": 23.94,
-      "current_p50": 24.2,
-      "delta": 0.26,
+      "previous_p50": 24.23,
+      "current_p50": 24.31,
+      "delta": 0.09,
       "material": false
     },
     {
       "valid_date": "2024-09-10",
       "var": "rh",
-      "previous_p50": 64.84,
-      "current_p50": 62.77,
-      "delta": -2.08,
+      "previous_p50": 63.82,
+      "current_p50": 62.84,
+      "delta": -0.98,
       "material": false
     },
     {
       "valid_date": "2024-09-10",
       "var": "wind",
-      "previous_p50": 2.34,
-      "current_p50": 2.57,
-      "delta": 0.23,
+      "previous_p50": 2.33,
+      "current_p50": 2.51,
+      "delta": 0.18,
       "material": false
     },
     {
@@ -56,33 +56,33 @@
     {
       "valid_date": "2024-09-11",
       "var": "tmax",
-      "previous_p50": 33.62,
-      "current_p50": 31.23,
-      "delta": -2.39,
+      "previous_p50": 33.68,
+      "current_p50": 31.32,
+      "delta": -2.36,
       "material": true
     },
     {
       "valid_date": "2024-09-11",
       "var": "tmin",
-      "previous_p50": 22.62,
-      "current_p50": 20.18,
-      "delta": -2.44,
+      "previous_p50": 22.63,
+      "current_p50": 20.31,
+      "delta": -2.32,
       "material": true
     },
     {
       "valid_date": "2024-09-11",
       "var": "rh",
-      "previous_p50": 59.45,
-      "current_p50": 73.84,
-      "delta": 14.39,
+      "previous_p50": 59.75,
+      "current_p50": 72.75,
+      "delta": 13.01,
       "material": true
     },
     {
       "valid_date": "2024-09-11",
       "var": "wind",
-      "previous_p50": 9.17,
-      "current_p50": 14.61,
-      "delta": 5.44,
+      "previous_p50": 9.03,
+      "current_p50": 14.7,
+      "delta": 5.67,
       "material": true
     },
     {
@@ -96,33 +96,33 @@
     {
       "valid_date": "2024-09-12",
       "var": "tmax",
-      "previous_p50": 31.7,
-      "current_p50": 31.72,
-      "delta": 0.02,
+      "previous_p50": 31.77,
+      "current_p50": 32.0,
+      "delta": 0.24,
       "material": false
     },
     {
       "valid_date": "2024-09-12",
       "var": "tmin",
-      "previous_p50": 22.27,
-      "current_p50": 20.53,
-      "delta": -1.75,
+      "previous_p50": 22.35,
+      "current_p50": 20.5,
+      "delta": -1.86,
       "material": true
     },
     {
       "valid_date": "2024-09-12",
       "var": "rh",
-      "previous_p50": 81.92,
-      "current_p50": 74.66,
-      "delta": -7.26,
+      "previous_p50": 81.43,
+      "current_p50": 75.76,
+      "delta": -5.67,
       "material": false
     },
     {
       "valid_date": "2024-09-12",
       "var": "wind",
-      "previous_p50": 9.74,
-      "current_p50": 7.85,
-      "delta": -1.89,
+      "previous_p50": 10.31,
+      "current_p50": 8.11,
+      "delta": -2.2,
       "material": false
     },
     {
@@ -136,33 +136,33 @@
     {
       "valid_date": "2024-09-13",
       "var": "tmax",
-      "previous_p50": 32.94,
-      "current_p50": 33.21,
-      "delta": 0.26,
+      "previous_p50": 33.17,
+      "current_p50": 33.34,
+      "delta": 0.17,
       "material": false
     },
     {
       "valid_date": "2024-09-13",
       "var": "tmin",
-      "previous_p50": 20.92,
-      "current_p50": 19.84,
-      "delta": -1.08,
+      "previous_p50": 20.86,
+      "current_p50": 19.83,
+      "delta": -1.04,
       "material": false
     },
     {
       "valid_date": "2024-09-13",
       "var": "rh",
-      "previous_p50": 61.28,
-      "current_p50": 75.57,
-      "delta": 14.3,
+      "previous_p50": 59.72,
+      "current_p50": 76.39,
+      "delta": 16.68,
       "material": true
     },
     {
       "valid_date": "2024-09-13",
       "var": "wind",
-      "previous_p50": 5.15,
-      "current_p50": 6.63,
-      "delta": 1.48,
+      "previous_p50": 4.85,
+      "current_p50": 6.77,
+      "delta": 1.92,
       "material": false
     }
   ],
@@ -172,5 +172,6 @@
     "en": "The forecast changed for 6 day and variable pairs since 8 September.",
     "hi": "8 सितंबर के पूर्वानुमान के बाद 6 जगह बदलाव हुआ है।",
     "pa": "8 ਸਤੰਬਰ ਦੇ ਅਨੁਮਾਨ ਤੋਂ ਬਾਅਦ 6 ਥਾਵਾਂ ਤੇ ਬਦਲਾਅ ਹੋਇਆ ਹੈ।"
-  }
+  },
+  "model_version": "s5-lgbm-9b632a7b1b"
 }

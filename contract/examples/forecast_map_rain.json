@@ -5,1023 +5,1120 @@
   "var": "rain",
   "unit": "mm",
   "data_mode": "mock",
-  "provenance": "provisional",
+  "provenance": "computed",
   "block_layer": [
     {
       "block_id": "MB01",
-      "value": 0.0
+      "value": 0.0,
+      "corrected": 0.0
     },
     {
       "block_id": "MB02",
-      "value": 0.0
+      "value": 0.0,
+      "corrected": 0.0
     },
     {
       "block_id": "MB03",
-      "value": 105.78
+      "value": 105.78,
+      "corrected": 101.28
     },
     {
       "block_id": "MB04",
-      "value": 0.0
+      "value": 0.0,
+      "corrected": 0.0
     },
     {
       "block_id": "MB05",
-      "value": 18.38
+      "value": 18.38,
+      "corrected": 19.26
     },
     {
       "block_id": "MB06",
-      "value": 0.0
+      "value": 0.0,
+      "corrected": 0.0
     }
   ],
+  "model_version": "s5-lgbm-9b632a7b1b",
   "panchayat_layer": [
     {
       "panchayat_id": "MP0101",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0102",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0103",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0104",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.01,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0105",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0106",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0107",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0108",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0109",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0110",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0111",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0112",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0113",
       "block_id": "MB01",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0201",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.06,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0202",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0203",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0204",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0205",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.05,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0206",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.04,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0207",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0208",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0209",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.05,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0210",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0211",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0212",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.05,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0213",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0214",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0215",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.02,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0216",
       "block_id": "MB02",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.04,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0301",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 149.64,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 99.0
     },
     {
       "panchayat_id": "MP0302",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 149.36,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 105.92
     },
     {
       "panchayat_id": "MP0303",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 180.37,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.89,
+      "event": "rain_ge_2_5mm",
+      "mean": 124.22
     },
     {
       "panchayat_id": "MP0304",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 154.58,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.82,
+      "event": "rain_ge_2_5mm",
+      "mean": 103.87
     },
     {
       "panchayat_id": "MP0305",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 154.31,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 113.75
     },
     {
       "panchayat_id": "MP0306",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 180.34,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.89,
+      "event": "rain_ge_2_5mm",
+      "mean": 124.12
     },
     {
       "panchayat_id": "MP0307",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 156.24,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.82,
+      "event": "rain_ge_2_5mm",
+      "mean": 101.41
     },
     {
       "panchayat_id": "MP0308",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 149.39,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 85.05
     },
     {
       "panchayat_id": "MP0309",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 160.01,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 110.96
     },
     {
       "panchayat_id": "MP0310",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 159.14,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.82,
+      "event": "rain_ge_2_5mm",
+      "mean": 119.97
     },
     {
       "panchayat_id": "MP0311",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 155.73,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 65.22
     },
     {
       "panchayat_id": "MP0312",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 149.58,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 87.4
     },
     {
       "panchayat_id": "MP0313",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 159.31,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.89,
+      "event": "rain_ge_2_5mm",
+      "mean": 112.7
     },
     {
       "panchayat_id": "MP0314",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 160.63,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.82,
+      "event": "rain_ge_2_5mm",
+      "mean": 84.96
     },
     {
       "panchayat_id": "MP0315",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 160.6,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 67.26
     },
     {
       "panchayat_id": "MP0316",
       "block_id": "MB03",
-      "p10": 40.01,
-      "p50": 101.28,
-      "p90": 193.18,
+      "p10": 0.0,
+      "p50": 103.84,
+      "p90": 164.22,
       "block_value": 105.78,
-      "delta": -4.5,
-      "prob_event": 1.0,
-      "event": "rain_ge_2_5mm"
+      "delta": -1.93,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 114.65
     },
     {
       "panchayat_id": "MP0401",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0402",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0403",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0404",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0405",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0406",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0407",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0408",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0409",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0410",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0411",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0412",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0413",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0414",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0415",
       "block_id": "MB04",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0501",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 38.17,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 24.03
     },
     {
       "panchayat_id": "MP0502",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 39.15,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 22.59
     },
     {
       "panchayat_id": "MP0503",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.49,
+      "p90": 38.17,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.88,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 20.37
     },
     {
       "panchayat_id": "MP0504",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 38.19,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 20.61
     },
     {
       "panchayat_id": "MP0505",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 39.15,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 21.95
     },
     {
       "panchayat_id": "MP0506",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 39.15,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 25.74
     },
     {
       "panchayat_id": "MP0507",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 38.16,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 19.56
     },
     {
       "panchayat_id": "MP0508",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 38.17,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 14.49
     },
     {
       "panchayat_id": "MP0509",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 39.19,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 20.1
     },
     {
       "panchayat_id": "MP0510",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 39.24,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 20.92
     },
     {
       "panchayat_id": "MP0511",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 38.16,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 12.11
     },
     {
       "panchayat_id": "MP0512",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 39.18,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 15.59
     },
     {
       "panchayat_id": "MP0513",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 38.19,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 21.67
     },
     {
       "panchayat_id": "MP0514",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 38.17,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 11.62
     },
     {
       "panchayat_id": "MP0515",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 39.23,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 15.22
     },
     {
       "panchayat_id": "MP0516",
       "block_id": "MB05",
       "p10": 0.0,
-      "p50": 19.26,
-      "p90": 68.64,
+      "p50": 11.6,
+      "p90": 39.16,
       "block_value": 18.38,
-      "delta": 0.88,
-      "prob_event": 0.85,
-      "event": "rain_ge_2_5mm"
+      "delta": -6.77,
+      "prob_event": 0.8,
+      "event": "rain_ge_2_5mm",
+      "mean": 21.52
     },
     {
       "panchayat_id": "MP0601",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.01,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0602",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.01,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0603",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0604",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
-      "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "prob_event": 0.01,
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0605",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0606",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0607",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0608",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0609",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0610",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0611",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0612",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0613",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     },
     {
       "panchayat_id": "MP0614",
       "block_id": "MB06",
       "p10": 0.0,
       "p50": 0.0,
-      "p90": 0.75,
+      "p90": 0.0,
       "block_value": 0.0,
       "delta": 0.0,
       "prob_event": 0.0,
-      "event": "rain_ge_2_5mm"
+      "event": "rain_ge_2_5mm",
+      "mean": 0.0
     }
   ]
 }

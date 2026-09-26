@@ -10,7 +10,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "cotton"
       ],
@@ -26,7 +26,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "cotton"
       ],
@@ -42,7 +42,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "cotton"
       ],
@@ -58,7 +58,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -74,7 +74,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -90,7 +90,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "cotton"
       ],
@@ -106,7 +106,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -122,7 +122,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "cotton"
       ],
@@ -138,7 +138,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -154,7 +154,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "cotton"
       ],
@@ -170,7 +170,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -186,7 +186,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -202,7 +202,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -218,7 +218,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -234,7 +234,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -250,7 +250,7 @@
       "block_id": "MB03",
       "top_risk": "heavy_rain",
       "level": "severe",
-      "score": 0.93,
+      "score": 0.77,
       "crops_affected": [
         "bajra"
       ],
@@ -1194,7 +1194,7 @@
       "block_id": "MB05",
       "top_risk": "waterlogging",
       "level": "moderate",
-      "score": 0.42,
+      "score": 0.33,
       "crops_affected": [
         "bajra"
       ],
@@ -1210,7 +1210,7 @@
       "block_id": "MB05",
       "top_risk": "waterlogging",
       "level": "moderate",
-      "score": 0.42,
+      "score": 0.33,
       "crops_affected": [
         "bajra"
       ],
@@ -1226,7 +1226,7 @@
       "block_id": "MB05",
       "top_risk": "waterlogging",
       "level": "moderate",
-      "score": 0.42,
+      "score": 0.33,
       "crops_affected": [
         "bajra"
       ],
@@ -1242,7 +1242,7 @@
       "block_id": "MB05",
       "top_risk": "waterlogging",
       "level": "moderate",
-      "score": 0.42,
+      "score": 0.33,
       "crops_affected": [
         "bajra"
       ],
@@ -1258,7 +1258,7 @@
       "block_id": "MB05",
       "top_risk": "waterlogging",
       "level": "moderate",
-      "score": 0.42,
+      "score": 0.33,
       "crops_affected": [
         "bajra"
       ],
@@ -1274,7 +1274,7 @@
       "block_id": "MB05",
       "top_risk": "waterlogging",
       "level": "moderate",
-      "score": 0.42,
+      "score": 0.33,
       "crops_affected": [
         "bajra"
       ],
@@ -1282,166 +1282,6 @@
         "en": "Rain on 10 September may waterlog slow-draining fields",
         "hi": "10 सितंबर की बारिश से धीमी निकासी वाले खेतों में पानी भर सकता है",
         "pa": "10 ਸਤੰਬਰ ਦੇ ਮੀਂਹ ਨਾਲ ਹੌਲੀ ਨਿਕਾਸੀ ਵਾਲੇ ਖੇਤਾਂ ਵਿੱਚ ਪਾਣੀ ਭਰ ਸਕਦਾ ਹੈ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0502",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0503",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0504",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0505",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0506",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0507",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0508",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0512",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0513",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
-      },
-      "valid_date": "2024-09-10"
-    },
-    {
-      "panchayat_id": "MP0514",
-      "block_id": "MB05",
-      "top_risk": "heavy_rain",
-      "level": "moderate",
-      "score": 0.37,
-      "crops_affected": [
-        "bajra"
-      ],
-      "headline": {
-        "en": "Heavy rain likely on 10 September",
-        "hi": "10 सितंबर को भारी बारिश की संभावना",
-        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ"
       },
       "valid_date": "2024-09-10"
     }

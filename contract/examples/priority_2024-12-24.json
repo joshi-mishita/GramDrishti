@@ -6,11 +6,11 @@
   "thresholds_status": "placeholder",
   "items": [
     {
-      "panchayat_id": "MP0101",
+      "panchayat_id": "MP0111",
       "block_id": "MB01",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 1.0,
       "crops_affected": [
         "wheat"
       ],
@@ -22,11 +22,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0102",
-      "block_id": "MB01",
+      "panchayat_id": "MP0213",
+      "block_id": "MB02",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 1.0,
       "crops_affected": [
         "wheat"
       ],
@@ -38,11 +38,59 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0103",
-      "block_id": "MB01",
+      "panchayat_id": "MP0412",
+      "block_id": "MB04",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 1.0,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -2 C",
+        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0610",
+      "block_id": "MB06",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 1.0,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -3 C",
+        "hi": "25 दिसंबर को ठंडी रात, -3 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -3 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0414",
+      "block_id": "MB04",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.97,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -2 C",
+        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0604",
+      "block_id": "MB06",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.95,
       "crops_affected": [
         "wheat"
       ],
@@ -58,7 +106,7 @@
       "block_id": "MB01",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 0.94,
       "crops_affected": [
         "mustard"
       ],
@@ -70,11 +118,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0105",
-      "block_id": "MB01",
+      "panchayat_id": "MP0407",
+      "block_id": "MB04",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 0.93,
       "crops_affected": [
         "wheat"
       ],
@@ -86,66 +134,66 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0106",
-      "block_id": "MB01",
+      "panchayat_id": "MP0307",
+      "block_id": "MB03",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 0.9,
       "crops_affected": [
         "wheat"
       ],
       "headline": {
-        "en": "Cold night on 25 December, down to -2 C",
-        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
       },
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0107",
-      "block_id": "MB01",
+      "panchayat_id": "MP0206",
+      "block_id": "MB02",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 0.89,
+      "crops_affected": [
+        "gram"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0606",
+      "block_id": "MB06",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.88,
       "crops_affected": [
         "wheat"
       ],
       "headline": {
-        "en": "Cold night on 25 December, down to -2 C",
-        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
       },
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0108",
-      "block_id": "MB01",
+      "panchayat_id": "MP0405",
+      "block_id": "MB04",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 0.86,
       "crops_affected": [
-        "mustard"
+        "gram"
       ],
       "headline": {
-        "en": "Cold night on 25 December, down to -2 C",
-        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0109",
-      "block_id": "MB01",
-      "top_risk": "frost",
-      "level": "severe",
-      "score": 0.92,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -2 C",
-        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
       },
       "valid_date": "2024-12-25"
     },
@@ -154,30 +202,158 @@
       "block_id": "MB01",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 0.81,
       "crops_affected": [
         "mustard"
       ],
       "headline": {
-        "en": "Cold night on 25 December, down to -2 C",
-        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
       },
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0111",
-      "block_id": "MB01",
+      "panchayat_id": "MP0607",
+      "block_id": "MB06",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 0.81,
       "crops_affected": [
         "wheat"
       ],
       "headline": {
-        "en": "Cold night on 25 December, down to -2 C",
-        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0209",
+      "block_id": "MB02",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.8,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0108",
+      "block_id": "MB01",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.79,
+      "crops_affected": [
+        "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0109",
+      "block_id": "MB01",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.79,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0403",
+      "block_id": "MB04",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.79,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0201",
+      "block_id": "MB02",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.78,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0107",
+      "block_id": "MB01",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.77,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0215",
+      "block_id": "MB02",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.77,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0515",
+      "block_id": "MB05",
+      "top_risk": "frost",
+      "level": "severe",
+      "score": 0.77,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
       },
       "valid_date": "2024-12-25"
     },
@@ -186,87 +362,23 @@
       "block_id": "MB01",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
+      "score": 0.76,
       "crops_affected": [
         "mustard"
       ],
       "headline": {
-        "en": "Cold night on 25 December, down to -2 C",
-        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
       },
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0113",
-      "block_id": "MB01",
+      "panchayat_id": "MP0408",
+      "block_id": "MB04",
       "top_risk": "frost",
       "level": "severe",
-      "score": 0.92,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -2 C",
-        "hi": "25 दिसंबर को ठंडी रात, -2 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -2 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0601",
-      "block_id": "MB06",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
-      "crops_affected": [
-        "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -0 C",
-        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0602",
-      "block_id": "MB06",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
-      "crops_affected": [
-        "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -0 C",
-        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0603",
-      "block_id": "MB06",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -0 C",
-        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0604",
-      "block_id": "MB06",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
+      "score": 0.75,
       "crops_affected": [
         "wheat"
       ],
@@ -281,88 +393,8 @@
       "panchayat_id": "MP0605",
       "block_id": "MB06",
       "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -0 C",
-        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0606",
-      "block_id": "MB06",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -0 C",
-        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0607",
-      "block_id": "MB06",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -0 C",
-        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0608",
-      "block_id": "MB06",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -0 C",
-        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0609",
-      "block_id": "MB06",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to -0 C",
-        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0610",
-      "block_id": "MB06",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.68,
+      "level": "severe",
+      "score": 0.75,
       "crops_affected": [
         "wheat"
       ],
@@ -377,8 +409,24 @@
       "panchayat_id": "MP0611",
       "block_id": "MB06",
       "top_risk": "frost",
+      "level": "severe",
+      "score": 0.75,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -1 C",
+        "hi": "25 दिसंबर को ठंडी रात, -1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0102",
+      "block_id": "MB01",
+      "top_risk": "frost",
       "level": "high",
-      "score": 0.68,
+      "score": 0.74,
       "crops_affected": [
         "wheat"
       ],
@@ -390,13 +438,141 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0612",
+      "panchayat_id": "MP0210",
+      "block_id": "MB02",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.74,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0103",
+      "block_id": "MB01",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.73,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0504",
+      "block_id": "MB05",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.73,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0106",
+      "block_id": "MB01",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.72,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0101",
+      "block_id": "MB01",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.7,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0203",
+      "block_id": "MB02",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.7,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0601",
       "block_id": "MB06",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.68,
+      "score": 0.7,
       "crops_affected": [
         "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0608",
+      "block_id": "MB06",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.7,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0510",
+      "block_id": "MB05",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.69,
+      "crops_affected": [
+        "wheat"
       ],
       "headline": {
         "en": "Cold night on 25 December, down to -0 C",
@@ -410,7 +586,7 @@
       "block_id": "MB06",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.68,
+      "score": 0.69,
       "crops_affected": [
         "wheat"
       ],
@@ -426,6 +602,22 @@
       "block_id": "MB06",
       "top_risk": "frost",
       "level": "high",
+      "score": 0.69,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0304",
+      "block_id": "MB03",
+      "top_risk": "frost",
+      "level": "high",
       "score": 0.68,
       "crops_affected": [
         "wheat"
@@ -438,381 +630,125 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0201",
-      "block_id": "MB02",
+      "panchayat_id": "MP0406",
+      "block_id": "MB04",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.64,
+      "score": 0.68,
+      "crops_affected": [
+        "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0113",
+      "block_id": "MB01",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.67,
       "crops_affected": [
         "wheat"
       ],
       "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
       },
-      "valid_date": "2024-12-26"
+      "valid_date": "2024-12-25"
     },
     {
       "panchayat_id": "MP0202",
       "block_id": "MB02",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.64,
+      "score": 0.67,
       "crops_affected": [
         "wheat"
       ],
       "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
       },
-      "valid_date": "2024-12-26"
+      "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0203",
-      "block_id": "MB02",
+      "panchayat_id": "MP0411",
+      "block_id": "MB04",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.64,
+      "score": 0.67,
       "crops_affected": [
         "wheat"
       ],
       "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
       },
-      "valid_date": "2024-12-26"
+      "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0204",
-      "block_id": "MB02",
+      "panchayat_id": "MP0511",
+      "block_id": "MB05",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0205",
-      "block_id": "MB02",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
+      "score": 0.67,
       "crops_affected": [
         "mustard"
       ],
       "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to -0 C",
+        "hi": "25 दिसंबर को ठंडी रात, -0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, -0 ਡਿਗਰੀ ਤੱਕ"
       },
-      "valid_date": "2024-12-26"
+      "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0206",
-      "block_id": "MB02",
+      "panchayat_id": "MP0509",
+      "block_id": "MB05",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "gram"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0207",
-      "block_id": "MB02",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
+      "score": 0.66,
       "crops_affected": [
         "mustard"
       ],
       "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to 0 C",
+        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
       },
-      "valid_date": "2024-12-26"
+      "valid_date": "2024-12-25"
     },
     {
       "panchayat_id": "MP0208",
       "block_id": "MB02",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.64,
+      "score": 0.65,
       "crops_affected": [
         "wheat"
       ],
       "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+        "en": "Cold night on 25 December, down to 0 C",
+        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
       },
-      "valid_date": "2024-12-26"
+      "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0209",
-      "block_id": "MB02",
+      "panchayat_id": "MP0312",
+      "block_id": "MB03",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0210",
-      "block_id": "MB02",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0211",
-      "block_id": "MB02",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0212",
-      "block_id": "MB02",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
+      "score": 0.65,
       "crops_affected": [
         "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0213",
-      "block_id": "MB02",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0214",
-      "block_id": "MB02",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0215",
-      "block_id": "MB02",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0216",
-      "block_id": "MB02",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 26 December, down to 0 C",
-        "hi": "26 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "26 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-26"
-    },
-    {
-      "panchayat_id": "MP0401",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0402",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0403",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0404",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0405",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "gram"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0406",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0407",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0408",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
       ],
       "headline": {
         "en": "Cold night on 25 December, down to 0 C",
@@ -826,55 +762,7 @@
       "block_id": "MB04",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0410",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0411",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 0 C",
-        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0412",
-      "block_id": "MB04",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.64,
+      "score": 0.65,
       "crops_affected": [
         "wheat"
       ],
@@ -890,6 +778,22 @@
       "block_id": "MB04",
       "top_risk": "frost",
       "level": "high",
+      "score": 0.65,
+      "crops_affected": [
+        "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 0 C",
+        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0205",
+      "block_id": "MB02",
+      "top_risk": "frost",
+      "level": "high",
       "score": 0.64,
       "crops_affected": [
         "mustard"
@@ -902,8 +806,8 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0414",
-      "block_id": "MB04",
+      "panchayat_id": "MP0513",
+      "block_id": "MB05",
       "top_risk": "frost",
       "level": "high",
       "score": 0.64,
@@ -918,11 +822,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0415",
-      "block_id": "MB04",
+      "panchayat_id": "MP0105",
+      "block_id": "MB01",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.64,
+      "score": 0.63,
       "crops_affected": [
         "wheat"
       ],
@@ -930,6 +834,182 @@
         "en": "Cold night on 25 December, down to 0 C",
         "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
         "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0214",
+      "block_id": "MB02",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.61,
+      "crops_affected": [
+        "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 0 C",
+        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0612",
+      "block_id": "MB06",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.61,
+      "crops_affected": [
+        "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 0 C",
+        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0216",
+      "block_id": "MB02",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.59,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 0 C",
+        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0410",
+      "block_id": "MB04",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.59,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 0 C",
+        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0506",
+      "block_id": "MB05",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.59,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 0 C",
+        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0512",
+      "block_id": "MB05",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.59,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 0 C",
+        "hi": "25 दिसंबर को ठंडी रात, 0 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 0 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0603",
+      "block_id": "MB06",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.58,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0207",
+      "block_id": "MB02",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.57,
+      "crops_affected": [
+        "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0516",
+      "block_id": "MB05",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.57,
+      "crops_affected": [
+        "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0401",
+      "block_id": "MB04",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.56,
+      "crops_affected": [
+        "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0404",
+      "block_id": "MB04",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.56,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
       },
       "valid_date": "2024-12-25"
     },
@@ -938,7 +1018,7 @@
       "block_id": "MB05",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
+      "score": 0.56,
       "crops_affected": [
         "wheat"
       ],
@@ -950,11 +1030,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0502",
-      "block_id": "MB05",
+      "panchayat_id": "MP0609",
+      "block_id": "MB06",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
+      "score": 0.56,
       "crops_affected": [
         "wheat"
       ],
@@ -966,13 +1046,13 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0503",
-      "block_id": "MB05",
+      "panchayat_id": "MP0303",
+      "block_id": "MB03",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
+      "score": 0.55,
       "crops_affected": [
-        "gram"
+        "wheat"
       ],
       "headline": {
         "en": "Cold night on 25 December, down to 1 C",
@@ -982,13 +1062,29 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0504",
-      "block_id": "MB05",
+      "panchayat_id": "MP0305",
+      "block_id": "MB03",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
+      "score": 0.55,
       "crops_affected": [
         "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0311",
+      "block_id": "MB03",
+      "top_risk": "frost",
+      "level": "high",
+      "score": 0.55,
+      "crops_affected": [
+        "mustard"
       ],
       "headline": {
         "en": "Cold night on 25 December, down to 1 C",
@@ -1002,39 +1098,7 @@
       "block_id": "MB05",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0506",
-      "block_id": "MB05",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.51,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0507",
-      "block_id": "MB05",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.51,
+      "score": 0.55,
       "crops_affected": [
         "wheat"
       ],
@@ -1050,7 +1114,7 @@
       "block_id": "MB05",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
+      "score": 0.55,
       "crops_affected": [
         "gram"
       ],
@@ -1062,11 +1126,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0509",
-      "block_id": "MB05",
+      "panchayat_id": "MP0602",
+      "block_id": "MB06",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
+      "score": 0.55,
       "crops_affected": [
         "mustard"
       ],
@@ -1078,11 +1142,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0510",
-      "block_id": "MB05",
+      "panchayat_id": "MP0211",
+      "block_id": "MB02",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
+      "score": 0.54,
       "crops_affected": [
         "wheat"
       ],
@@ -1094,43 +1158,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0511",
-      "block_id": "MB05",
+      "panchayat_id": "MP0415",
+      "block_id": "MB04",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
-      "crops_affected": [
-        "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0512",
-      "block_id": "MB05",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.51,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0513",
-      "block_id": "MB05",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.51,
+      "score": 0.54,
       "crops_affected": [
         "wheat"
       ],
@@ -1146,7 +1178,7 @@
       "block_id": "MB05",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
+      "score": 0.54,
       "crops_affected": [
         "gram"
       ],
@@ -1158,27 +1190,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0515",
-      "block_id": "MB05",
+      "panchayat_id": "MP0212",
+      "block_id": "MB02",
       "top_risk": "frost",
       "level": "high",
-      "score": 0.51,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0516",
-      "block_id": "MB05",
-      "top_risk": "frost",
-      "level": "high",
-      "score": 0.51,
+      "score": 0.53,
       "crops_affected": [
         "mustard"
       ],
@@ -1190,109 +1206,13 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0301",
-      "block_id": "MB03",
+      "panchayat_id": "MP0503",
+      "block_id": "MB05",
       "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
+      "level": "high",
+      "score": 0.53,
       "crops_affected": [
-        "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0302",
-      "block_id": "MB03",
-      "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0303",
-      "block_id": "MB03",
-      "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0304",
-      "block_id": "MB03",
-      "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0305",
-      "block_id": "MB03",
-      "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0306",
-      "block_id": "MB03",
-      "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0307",
-      "block_id": "MB03",
-      "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
-      "crops_affected": [
-        "wheat"
+        "gram"
       ],
       "headline": {
         "en": "Cold night on 25 December, down to 1 C",
@@ -1305,8 +1225,8 @@
       "panchayat_id": "MP0308",
       "block_id": "MB03",
       "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
+      "level": "high",
+      "score": 0.52,
       "crops_affected": [
         "wheat"
       ],
@@ -1318,11 +1238,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0309",
-      "block_id": "MB03",
+      "panchayat_id": "MP0204",
+      "block_id": "MB02",
       "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
+      "level": "high",
+      "score": 0.5,
       "crops_affected": [
         "wheat"
       ],
@@ -1334,11 +1254,11 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0310",
-      "block_id": "MB03",
+      "panchayat_id": "MP0402",
+      "block_id": "MB04",
       "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
+      "level": "high",
+      "score": 0.5,
       "crops_affected": [
         "wheat"
       ],
@@ -1350,45 +1270,13 @@
       "valid_date": "2024-12-25"
     },
     {
-      "panchayat_id": "MP0311",
-      "block_id": "MB03",
+      "panchayat_id": "MP0507",
+      "block_id": "MB05",
       "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
+      "level": "high",
+      "score": 0.5,
       "crops_affected": [
-        "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0312",
-      "block_id": "MB03",
-      "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
-      "crops_affected": [
-        "mustard"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0313",
-      "block_id": "MB03",
-      "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
-      "crops_affected": [
-        "gram"
+        "wheat"
       ],
       "headline": {
         "en": "Cold night on 25 December, down to 1 C",
@@ -1402,23 +1290,7 @@
       "block_id": "MB03",
       "top_risk": "frost",
       "level": "moderate",
-      "score": 0.44,
-      "crops_affected": [
-        "wheat"
-      ],
-      "headline": {
-        "en": "Cold night on 25 December, down to 1 C",
-        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
-        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
-      },
-      "valid_date": "2024-12-25"
-    },
-    {
-      "panchayat_id": "MP0315",
-      "block_id": "MB03",
-      "top_risk": "frost",
-      "level": "moderate",
-      "score": 0.44,
+      "score": 0.49,
       "crops_affected": [
         "wheat"
       ],
@@ -1434,7 +1306,7 @@
       "block_id": "MB03",
       "top_risk": "frost",
       "level": "moderate",
-      "score": 0.44,
+      "score": 0.49,
       "crops_affected": [
         "wheat"
       ],
@@ -1442,6 +1314,134 @@
         "en": "Cold night on 25 December, down to 1 C",
         "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
         "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0309",
+      "block_id": "MB03",
+      "top_risk": "frost",
+      "level": "moderate",
+      "score": 0.47,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0313",
+      "block_id": "MB03",
+      "top_risk": "frost",
+      "level": "moderate",
+      "score": 0.47,
+      "crops_affected": [
+        "gram"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0502",
+      "block_id": "MB05",
+      "top_risk": "frost",
+      "level": "moderate",
+      "score": 0.47,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0310",
+      "block_id": "MB03",
+      "top_risk": "frost",
+      "level": "moderate",
+      "score": 0.43,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0306",
+      "block_id": "MB03",
+      "top_risk": "frost",
+      "level": "moderate",
+      "score": 0.42,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 1 C",
+        "hi": "25 दिसंबर को ठंडी रात, 1 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 1 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0315",
+      "block_id": "MB03",
+      "top_risk": "frost",
+      "level": "moderate",
+      "score": 0.41,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 2 C",
+        "hi": "25 दिसंबर को ठंडी रात, 2 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 2 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0302",
+      "block_id": "MB03",
+      "top_risk": "frost",
+      "level": "moderate",
+      "score": 0.4,
+      "crops_affected": [
+        "wheat"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 2 C",
+        "hi": "25 दिसंबर को ठंडी रात, 2 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 2 ਡਿਗਰੀ ਤੱਕ"
+      },
+      "valid_date": "2024-12-25"
+    },
+    {
+      "panchayat_id": "MP0301",
+      "block_id": "MB03",
+      "top_risk": "frost",
+      "level": "moderate",
+      "score": 0.31,
+      "crops_affected": [
+        "mustard"
+      ],
+      "headline": {
+        "en": "Cold night on 25 December, down to 2 C",
+        "hi": "25 दिसंबर को ठंडी रात, 2 डिग्री तक",
+        "pa": "25 ਦਸੰਬਰ ਨੂੰ ਠੰਢੀ ਰਾਤ, 2 ਡਿਗਰੀ ਤੱਕ"
       },
       "valid_date": "2024-12-25"
     }

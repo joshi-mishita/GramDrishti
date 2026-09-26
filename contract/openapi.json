@@ -3,7 +3,7 @@
   "info": {
     "title": "GramDrishti API",
     "description": "Panchayat-level forecasts and advisories. Contract: Appendix A of the guides. Every response carries data_mode; 'mock' means synthetic data.",
-    "version": "0.1.1"
+    "version": "0.1.2"
   },
   "paths": {
     "/api/v1/health": {
@@ -167,6 +167,16 @@
                 }
               }
             }
+          },
+          "503": {
+            "description": "No forecast snapshot, or placeholder in real mode",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -225,6 +235,16 @@
           },
           "422": {
             "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -325,7 +345,7 @@
           "forecast"
         ],
         "summary": "Explain",
-        "description": "Top reasons this Panchayat differs from its block (placeholder static contrast until SHAP).",
+        "description": "Top 3 SHAP reasons this Panchayat differs from its corrected block forecast (none if negligible).",
         "operationId": "explain_api_v1_explain__panchayat_id__get",
         "parameters": [
           {
@@ -403,7 +423,7 @@
             }
           },
           "503": {
-            "description": "Not computed for real data yet",
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -469,6 +489,16 @@
           },
           "422": {
             "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -549,6 +579,16 @@
                 }
               }
             }
+          },
+          "503": {
+            "description": "No forecast snapshot, or placeholder in real mode",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -608,6 +648,16 @@
           },
           "422": {
             "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -708,6 +758,16 @@
                 }
               }
             }
+          },
+          "503": {
+            "description": "No forecast snapshot, or placeholder in real mode",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -754,6 +814,16 @@
           },
           "422": {
             "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -1007,6 +1077,16 @@
                 }
               }
             }
+          },
+          "503": {
+            "description": "No forecast snapshot, or placeholder in real mode",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -1103,7 +1183,7 @@
             }
           },
           "503": {
-            "description": "Not computed for real data yet",
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -1165,7 +1245,7 @@
             }
           },
           "503": {
-            "description": "Not computed for real data yet",
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -1217,7 +1297,7 @@
             }
           },
           "503": {
-            "description": "Not computed for real data yet",
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -1269,7 +1349,7 @@
             }
           },
           "503": {
-            "description": "Not computed for real data yet",
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -1342,7 +1422,7 @@
             }
           },
           "503": {
-            "description": "Not computed for real data yet",
+            "description": "No forecast snapshot, or placeholder in real mode",
             "content": {
               "application/json": {
                 "schema": {
@@ -1714,6 +1794,17 @@
               }
             ],
             "title": "Value"
+          },
+          "corrected": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Corrected"
           }
         },
         "additionalProperties": false,
@@ -2022,6 +2113,98 @@
                 "type": "null"
               }
             ]
+          },
+          "soil_moisture_frac_dry": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soil Moisture Frac Dry"
+          },
+          "soil_moisture_frac_wet": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soil Moisture Frac Wet"
+          },
+          "depletion_frac": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Depletion Frac"
+          },
+          "gdd": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gdd"
+          },
+          "frost_prob": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Frost Prob"
+          },
+          "frost_risk": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Level"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "fog_proxy": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fog Proxy"
+          },
+          "dry_spell_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dry Spell Days"
           }
         },
         "additionalProperties": false,
@@ -2367,6 +2550,17 @@
           "method": {
             "type": "string",
             "title": "Method"
+          },
+          "model_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Version"
           }
         },
         "additionalProperties": false,
@@ -2668,6 +2862,17 @@
           },
           "summary": {
             "$ref": "#/components/schemas/LocalizedText"
+          },
+          "model_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Version"
           }
         },
         "additionalProperties": false,
@@ -2768,6 +2973,17 @@
             },
             "type": "array",
             "title": "Block Layer"
+          },
+          "model_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Version"
           },
           "panchayat_layer": {
             "items": {
@@ -3416,6 +3632,27 @@
             },
             "type": "array",
             "title": "Days"
+          },
+          "model_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Version"
+          },
+          "thresholds_status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ThresholdsStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -3519,6 +3756,17 @@
                 "type": "null"
               }
             ]
+          },
+          "mean": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean"
           }
         },
         "additionalProperties": false,
@@ -3763,6 +4011,28 @@
               }
             ],
             "title": "Block"
+          },
+          "mean": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean"
+          },
+          "block_corrected": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Block Corrected"
           }
         },
         "additionalProperties": false,
