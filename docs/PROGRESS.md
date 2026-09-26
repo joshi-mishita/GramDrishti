@@ -9,9 +9,9 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S0 | Repo foundation | both | merged | session-00-foundation (#1) | yes |
 | S1 | Backend data layer and baselines | backend | PR open | session-01-backend-data-baselines | |
 | S2 | Contract and API skeleton | backend | PR open | session-02-contract-api (stacked on S1) | |
-| S3 | Frontend foundation | frontend | not started | | |
-| S4 | Frontend map explorer | frontend | not started | | |
-| S5 | Backend model core | backend | in progress (handoff below) | session-05-model-core | |
+| S3 | Frontend foundation | frontend | merged | session-03-frontend-foundation | yes |
+| S4 | Frontend map explorer | frontend | merged | session-04-map-explorer (#6) | yes |
+| S5 | Backend model core | backend | merged (code, #7); results docs in session-05-results | session-05-model-core (#7) | yes |
 | S6 | Agro-variables, snapshots, forecast APIs | backend | not started | | |
 | S7 | Frontend detail panel and first integration | frontend | not started | | |
 | S8 | Advisory engine and review APIs | backend | not started | | |
@@ -81,6 +81,19 @@ Screenshot review (2024-09-09, rain, lead day 1):
 - Tmax difference is one-sided: every Panchayat is 0 to 0.4 C cooler than its block (bias correction), so the whole map is shades of blue.
 - Panchayat outlines are hard to see on the palest rain colour; block outlines are clear.
 - At phone width the controls still come before the map (now wrapped into rows).
+S5: Panchayat model core (not yet served by the API; S6 wires it in). Built:
+- `features/`: `make_table(kind)` for train and infer: static + block-relative contrasts, position, calendar, forecast context (B1, source spread, lead-day change, block dew point), satellite (latest week ended by the issue date), station rain over the 3 and 7 days before the issue date. TRAIN/CALIB tables keep only issue dates whose 5 leads fit the window; TEST raises.
+- `models/downscale.py` (LightGBM mean + p10/p50/p90, rain event classifiers + isotonic), `reconcile.py` (additive, multiplicative, bounded for RH), `conformal.py` (CQR per variable and lead group, constraints), `humidity.py`, `artifacts.py`.
+- `pipeline/predict.py`, `pipeline/train.py` (`--lobo`, dev report, artifacts with data hash).
+- 22 new tests (249 total).
+
+S5 dev report (full model, `python -m gramdrishti.pipeline.train --lobo`; mock data, synthetic proxy validation):
+- LOBO on TRAIN, MAE vs B1: tmax 1.156 -> 1.096 C (+5.2 %), tmin 1.124 -> 1.074 C (+4.4 %), rh 5.826 -> 5.642 % (+3.2 %), wind 1.452 -> 1.431 km/h (+1.4 %), **rain 0.711 -> 0.716 mm (-0.7 %, does NOT beat B1)**.
+- Out-of-time on CALIB, MAE vs B1: tmax +12.4 %, tmin +1.2 %, rh +3.1 %, wind +2.1 %, **rain -15.8 % (RMSE 4.743 -> 5.940 mm), does NOT beat B1**.
+- 80 % interval, offsets fitted on one CALIB half, scored on the other: 0.734..0.971 (mean 0.823) across variables and lead groups. Rain on wet days only: 0.42..0.72 (undercovered). RH days 3-5 when fitted on the monsoon half and scored on May: 0.734.
+- Rain events: isotonic calibration was worse than the raw classifier in 5 of 8 half-splits (the halves differ: base rate 0.19 vs 0.013 at 1 mm).
+- Block consistency max error 1.4e-14; 0 constraint violations; Tmax anomaly +0.456 / -0.086 / -0.384 C at irrigated_frac p10 / p50 / p90.
+- Hypothesis for rain (TRAIN truth): only 26 % of within-block rain variance is a persistent Panchayat x month offset, against 89-92 % for Tmax, Tmin and dew point and 70 % for wind. Rain placement inside a block is mostly day-to-day noise, so moving rain between Panchayats adds error.
 
 ## Decisions
 - D001 Licence MIT.
@@ -127,6 +140,16 @@ Screenshot review (2024-09-09, rain, lead day 1):
 - D042 Panel headline from the map layer, variables table from `/forecast/panchayat`.
 - D043 Note when values are flat within blocks.
 - D044 Fixed-height map layout on wide screens; re-fit on resize.
+- D045 S5 in a separate worktree from origin/main (renumbered: S4 took D036-D044).
+- D046 Block-relative features; station rain excludes the issue day.
+- D047 Purge: whole 5-day issue windows per split.
+- D048 B1 Tmin/Tmax repaired to >= 1 C range.
+- D049 RH reconciled after derivation (bounded).
+- D050 Consistency on `mean`; S6 chooses the served point value.
+- D051 CQR per variable x lead group; CALIB halves by valid date.
+- D052 LOBO refits mean models only, bias shared.
+- D053 Multiplicative fallback when model block mean ~0.
+- D054 Seeds, data hash, artifact files.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -144,8 +167,15 @@ Screenshot review (2024-09-09, rain, lead day 1):
 - S4: the WebGL fallback message was not triggered (no browser without WebGL here).
 - S4: CI has not run this branch.
 - S2: `DATA_MODE=real` was tested only for the 503 answers of placeholder endpoints; the rest of real mode needs real files.
+- S5: CI has not run the branch. Local runs: Python 3.13, LightGBM 4.7.0, scikit-learn 1.9.1, pandas 3.0.6 on macOS. LightGBM results can differ in the last digits on another OS or thread count; the determinism test compares two fits on the same machine only.
+- S5: the model is not served by the API yet (S6); inference on the demo dates was only exercised in tests (`make_table("infer")`), not with the saved bundle end to end.
+- S5: `test_model_core.py` takes about 30-50 s (small models).
 
 ## Known issues
+- S5 rain does not beat B1 (LOBO -0.7 %, CALIB -15.8 % MAE). The rain CQR offset is 0 because dry days dominate, and wet-day coverage is 0.42..0.72. Options for discussion (not tuning): serve B1 rain amount with model event probabilities, or a wet-day-conditional interval.
+- S5 isotonic calibration is kept as the guide says but did not help on CALIB halves. Discuss before S6.
+- S5 CALIB covers May to mid-July only, so coverage in winter is unmeasured until TEST (S10).
+- S5 the oracle loader parses the whole CSV; TEST-window rows are dropped immediately in `add_targets`/`fit_bias` before any computation.
 - `gh` CLI not installed, so pull requests are opened by hand from the compare URL.
 - `data/synthetic_oracle/` is git-ignored: a fresh clone must run `python data/generate_mock_data.py` (the default output is now `data/`).
 - `mock_data_summary.json` regenerates with one float differing in the 16th significant digit (`tmin_std_c_mean`), because summation order differs across numpy versions. All CSV and GeoJSON files are byte-identical.
@@ -173,9 +203,12 @@ Screenshot review (2024-09-09, rain, lead day 1):
 | Date | Model version | Windows used | Notes |
 |---|---|---|---|
 | 2026-09-24 | baselines B0/B1/B2 (S1) | fit TRAIN, scored CALIB | `python -m gramdrishti.verify.baseline_report`. TEST window opened: never |
+| 2026-09-26 | s5-lgbm (S5) | models TRAIN; isotonic + CQR CALIB; dev checks TRAIN LOBO and CALIB halves | `python -m gramdrishti.pipeline.train --lobo`. TEST window opened: never |
 | 2026-09-25 | provisional API forecast (S2) | fit TRAIN; applied to issued forecasts on the 8 demo dates | No scoring. The demo date picker reads issued forecasts in the TEST period, not outcomes. `/observed` displays TEST-period truth on request; no metric uses it. TEST window opened for evaluation: never |
 
 ## Handoff for the next session
+S6: load the bundle with `models.artifacts.load_bundle(ART)`, build `make_table("infer", ...)` for the demo dates, run `pipeline.predict.predict_table`, and replace `provisional/forecast.py`. Decide `mean` vs `p50` as the point value (D050) and what to serve for rain (Known issues).
+
 S7 (detail panel): put the fan chart in the empty slot in `features/map/DetailPanel.tsx` (`useForecastPanchayat` is already loaded there), then "Why different?", "Forecast changed" and advisories. S9: enable `RiskLayerSelect` in `features/map/MapControls.tsx`; `RISK_TOKENS` in `lib/ramps.ts` maps levels to severity tokens, and `MapView` takes any Ramp. Reuse `components/DataTable.tsx` for priority and verification lists.
 
 Merge order: S1, then S2 (S2 is stacked on S1).
@@ -186,9 +219,3 @@ S4 (map explorer): the shell, store, URL sync and hooks exist. Replace `MapPlace
 
 Backend S5: models replace `provisional/forecast.py`. Keep `Service.table()`'s columns (`<var>_p10/p50/p90/block`) or change the builders in `api/service.py`. S6 snapshots should cover the dates in `demo_dates.json`. S8 replaces `_generate_advisories` and the in-memory store. S10 replaces `provisional/placeholders.py` and sets `provenance: "computed"`.
 
-## Handoff S5 (2026-09-26, stopped at usage limit)
-Branch `session-05-model-core` (worktree `../GramDrishti-s05`, from `origin/main`). Done and committed: `features/` (`make_table`), `models/{downscale,reconcile,conformal,humidity,artifacts}.py`, `pipeline/{predict,train}.py`, tests (`test_features.py`, `test_reconcile_conformal.py`, `test_model_core.py`), decisions D036-D045.
-Verified here: ruff clean; new tests 22 passed (features + reconcile/conformal 15, model core 7). A 40-tree run of `python -m gramdrishti.pipeline.train --trees 40 --no-save` completed (not the final model): CALIB out-of-time MAE vs B1 was rain -9.1 % (does NOT beat B1), tmax +9.8 %, tmin +0.8 %, rh +2.0 %, wind +1.3 %; coverage after calibration 0.71-0.99 by group, rain on wet days only 0.47-0.81; isotonic calibration made Brier worse than raw in 6 of 8 half-splits; block consistency ~1e-14; constraint violations 0.
-Not done: the full 400-tree `--lobo` run was still running at the stop, so there are no final numbers or artifacts. Full `pytest -q` was not run. PROGRESS/CLAUDE.md commands are not updated beyond this note. No PR yet.
-Next: rerun `cd backend && python -m gramdrishti.pipeline.train --lobo`, paste the report here, run `pytest -q`, add the train command to CLAUDE.md, decide on isotonic (D043 note) and the rain interval, then push and open the PR.
-Hypothesis for rain (measured on TRAIN truth): only 26 % of within-block rain variance is a persistent Panchayat x month offset, against 89-92 % for Tmax/Tmin/dew point and 70 % for wind, so rain placement inside a block is mostly day-to-day noise.
