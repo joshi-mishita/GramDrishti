@@ -39,10 +39,11 @@ Shared: Docker Compose, GitHub Actions.
 - Pick demo issue dates (prints reasons, writes `demo_dates.json`): `cd backend && python -m gramdrishti.contract.pick_demo_dates`
 - Frontend setup (Node 22, see `frontend/.nvmrc`): `cd frontend && npm install`
 - Frontend dev / build / test / lint: `cd frontend && npm run dev | build | test | lint`
-- Frontend with the real API for some endpoints: `cd frontend && VITE_REAL_ENDPOINTS=meta npm run dev` (backend on port 8000)
+- Frontend with the real API for some endpoints: `cd frontend && VITE_REAL_ENDPOINTS=meta,geo,forecast,observed,explain npm run dev` (backend on port 8000)
 - Frontend types from contract: `cd frontend && npm run gen:types` (CI runs `npm run check:types`)
 - Copy contract examples to `frontend/public/mock/` (runs before dev and build): `cd frontend && npm run sync:mock`
 - Screenshots for visual review: `cd frontend && npm run shots` (add `SHOTS_BROWSER_CHANNEL=chrome` if Playwright's Chromium cannot be downloaded)
+- Detail panel screenshots from the real API (API running on port 8000 with snapshots): `cd frontend && SHOTS_REAL=1 npm run shots`
 
 ## Non-negotiable rules
 1. **Everything current is synthetic.** Every API response carries `data_mode` ("mock" or "real"). The UI shows the ribbon "Synthetic demo data. Not real weather." whenever it is "mock".

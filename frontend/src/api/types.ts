@@ -24,6 +24,19 @@ export type PanchayatMapValue = Schemas["PanchayatMapValue"];
 export type PanchayatForecast = Schemas["PanchayatForecast"];
 export type ForecastDay = Schemas["ForecastDay"];
 export type Quantiles = Schemas["Quantiles"];
+export type EventProbs = Schemas["EventProbs"];
+export type Derived = Schemas["Derived"];
+export type Observed = Schemas["Observed"];
+export type ObservedDay = Schemas["ObservedDay"];
+export type ObservedSource = Schemas["ObservedSource"];
+export type Explain = Schemas["Explain"];
+export type ExplainReason = Schemas["ExplainReason"];
+export type Effect = Schemas["Effect"];
+export type ForecastChanges = Schemas["ForecastChanges"];
+export type VarChange = Schemas["VarChange"];
+export type EventChange = Schemas["EventChange"];
+export type RainEvent = Schemas["RainEvent"];
+export type Confidence = Schemas["Confidence"];
 export type Priority = Schemas["Priority"];
 export type AdvisoryList = Schemas["AdvisoryList"];
 export type Advisory = Schemas["Advisory"];
@@ -37,3 +50,10 @@ export type FarmerAdvice = Schemas["FarmerAdvice"];
 export const VARS: readonly Var[] = ["rain", "tmax", "tmin", "rh", "wind"];
 export const LANGS: readonly Lang[] = ["en", "hi", "pa"];
 export const LEVELS: readonly Level[] = ["low", "moderate", "high", "severe"];
+/** Rain events from lightest to heaviest; keys of EventProbs match RainEvent values. */
+export const RAIN_EVENTS: readonly RainEvent[] = [
+  "rain_ge_1mm",
+  "rain_ge_2_5mm",
+  "rain_ge_10mm",
+  "rain_ge_35mm",
+];

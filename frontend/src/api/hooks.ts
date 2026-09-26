@@ -8,9 +8,12 @@ import type {
   AdvisoryList,
   BlockCollection,
   Decision,
+  Explain,
   Farmer,
   FarmerAdvice,
+  ForecastChanges,
   ForecastMap,
+  Observed,
   PanchayatForecast,
   Impact,
   Meta,
@@ -31,6 +34,10 @@ export const queryKeys = {
     ["forecastMap", issueDate, leadDay, variable] as const,
   forecastPanchayat: (pid: string, issueDate: string) =>
     ["forecastPanchayat", pid, issueDate] as const,
+  observed: (pid: string, from: string, to: string) => ["observed", pid, from, to] as const,
+  explain: (pid: string, issueDate: string, leadDay: number, variable: Var) =>
+    ["explain", pid, issueDate, leadDay, variable] as const,
+  forecastChanges: (pid: string, issueDate: string) => ["forecastChanges", pid, issueDate] as const,
   priority: (issueDate: string, horizonDays: number) =>
     ["priority", issueDate, horizonDays] as const,
   advisories: (status: Status | undefined, issueDate: string) =>
@@ -83,6 +90,64 @@ export const useForecastPanchayat = (pid: string | null, issueDate: string | nul
     queryFn: ({ signal }) =>
       apiGet<PanchayatForecast>(
         `/forecast/panchayat/${encodeURIComponent(pid ?? "")}`,
+        { issue_date: issueDate },
+        undefined,
+        signal,
+      ),
+    enabled: !!pid && !!issueDate,
+    staleTime: 5 * MINUTE,
+  });
+
+/**
+ * What was observed at a Panchayat between two dates (station, or synthetic truth in mock
+ * mode). Only fetched when `enabled`, so the overlay costs nothing until it is switched on.
+ */
+export const useObserved = (
+  pid: string | null,
+  from: string | null,
+  to: string | null,
+  enabled = true,
+) =>
+  useQuery({
+    queryKey: queryKeys.observed(pid ?? "", from ?? "", to ?? ""),
+    queryFn: ({ signal }) =>
+      apiGet<Observed>(
+        `/observed/panchayat/${encodeURIComponent(pid ?? "")}`,
+        { from, to },
+        undefined,
+        signal,
+      ),
+    enabled: enabled && !!pid && !!from && !!to,
+    staleTime: 10 * MINUTE,
+  });
+
+/** Why one Panchayat differs from its block for one day and variable. */
+export const useExplain = (
+  pid: string | null,
+  issueDate: string | null,
+  leadDay: number,
+  variable: Var,
+) =>
+  useQuery({
+    queryKey: queryKeys.explain(pid ?? "", issueDate ?? "", leadDay, variable),
+    queryFn: ({ signal }) =>
+      apiGet<Explain>(
+        `/explain/${encodeURIComponent(pid ?? "")}`,
+        { issue_date: issueDate, lead_day: leadDay, var: variable },
+        undefined,
+        signal,
+      ),
+    enabled: !!pid && !!issueDate,
+    staleTime: 5 * MINUTE,
+  });
+
+/** How this issue's forecast differs from the previous day's issue. */
+export const useForecastChanges = (pid: string | null, issueDate: string | null) =>
+  useQuery({
+    queryKey: queryKeys.forecastChanges(pid ?? "", issueDate ?? ""),
+    queryFn: ({ signal }) =>
+      apiGet<ForecastChanges>(
+        `/forecast/changes/${encodeURIComponent(pid ?? "")}`,
         { issue_date: issueDate },
         undefined,
         signal,
