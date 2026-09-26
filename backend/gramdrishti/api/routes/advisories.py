@@ -13,7 +13,7 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import FileResponse
 
 from gramdrishti.api import schemas as s
-from gramdrishti.api.deps import ERRORS, ERRORS_400, service
+from gramdrishti.api.deps import ERRORS, ERRORS_400, ERRORS_503, service
 from gramdrishti.api.errors import not_found
 from gramdrishti.api.service import Service
 from gramdrishti.data.config import ART
@@ -22,14 +22,14 @@ router = APIRouter(tags=["advisories"])
 Svc = Annotated[Service, Depends(service)]
 
 
-@router.get("/advisories", response_model=s.AdvisoryList, responses=ERRORS)
+@router.get("/advisories", response_model=s.AdvisoryList, responses=ERRORS_503)
 def advisories(svc: Svc, status: s.Status | None = None, panchayat_id: str | None = None,
                issue_date: date | None = None) -> s.AdvisoryList:
     """Advisories filtered by status, Panchayat and issue date."""
     return svc.advisories(status, panchayat_id, issue_date)
 
 
-@router.get("/advisories/{advisory_id}", response_model=s.Advisory, responses=ERRORS)
+@router.get("/advisories/{advisory_id}", response_model=s.Advisory, responses=ERRORS_503)
 def advisory(svc: Svc, advisory_id: str) -> s.Advisory:
     """One advisory with evidence and audit trail."""
     return svc.advisory(advisory_id)
