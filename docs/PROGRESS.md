@@ -7,12 +7,12 @@ Claude Code updates this file at the end of every session. People update the "Me
 | ID | Session | Owner | Status | PR | Merged |
 |---|---|---|---|---|---|
 | S0 | Repo foundation | both | merged | session-00-foundation (#1) | yes |
-| S1 | Backend data layer and baselines | backend | PR open | session-01-backend-data-baselines | |
-| S2 | Contract and API skeleton | backend | PR open | session-02-contract-api (stacked on S1) | |
-| S3 | Frontend foundation | frontend | not started | | |
-| S4 | Frontend map explorer | frontend | not started | | |
-| S5 | Backend model core | backend | in progress (handoff below) | session-05-model-core | |
-| S6 | Agro-variables, snapshots, forecast APIs | backend | not started | | |
+| S1 | Backend data layer and baselines | backend | merged | session-01-backend-data-baselines (#2) | yes |
+| S2 | Contract and API skeleton | backend | merged | session-02-contract-api (#3, #5) | yes |
+| S3 | Frontend foundation | frontend | merged | session-03-frontend-foundation (#4) | yes |
+| S4 | Frontend map explorer | frontend | merged | session-04-map-explorer (#6) | yes |
+| S5 | Backend model core | backend | merged | session-05-model-core (#7) | yes |
+| S6 | Agro-variables, snapshots, forecast APIs | backend | PR open | session-06-snapshots-forecast-api | |
 | S7 | Frontend detail panel and first integration | frontend | not started | | |
 | S8 | Advisory engine and review APIs | backend | not started | | |
 | S9 | Frontend priority, risk and review | frontend | not started | | |
@@ -82,6 +82,26 @@ Screenshot review (2024-09-09, rain, lead day 1):
 - Panchayat outlines are hard to see on the palest rain colour; block outlines are clear.
 - At phone width the controls still come before the map (now wrapped into rows).
 
+S5 (written up in S6 from the S5 handoff and `backend/artifacts/dev_report.txt`): `features/` (`make_table`, shared by train and infer), `models/{downscale,reconcile,conformal,humidity,artifacts}.py`, `pipeline/{predict,train}.py`. LightGBM mean + p10/p50/p90 per target (tmax, tmin, dew point, wind, rain), rain event classifiers with isotonic calibration, reconciliation to the corrected block forecast B1, conformal offsets per variable and lead group. Final bundle `s5-lgbm-9b632a7b1b` (400 trees, TRAIN fit, CALIB calibration, TEST not opened). Results (synthetic proxy validation, mock data): leave-one-block-out on TRAIN, MAE skill vs B1: tmax +5.2 %, tmin +4.4 %, RH +3.2 %, wind +1.4 %, **rain -0.7 % (does not beat B1)**. Out-of-time on CALIB: tmax +12.4 %, tmin +1.2 %, RH +3.1 %, wind +2.1 %, **rain -15.8 % (does not beat B1)**. 80 % interval coverage on CALIB halves after calibration 0.73 to 0.98 (mean 0.82); on wet days rain coverage is 0.42 to 0.72. Isotonic made Brier worse than the raw classifier in 5 of 8 half-splits. Block consistency ~1e-14, constraint violations 0.
+
+S6: forecast endpoints serve the S5 model through precomputed snapshots. Contract v0.1.2 (additive). Built:
+- `agro/derived.py`: vectorised ET0 (Hargreaves, Ra from latitude and day of year), GDD per crop, soil bucket run five days on the p50, p10 and p90 rain paths from the latest known state, depletion, waterlogging score and level, THI (Tmax with afternoon RH from dew point), frost probability and level, a December-January fog proxy, dry-spell counter. Placeholder numbers in D051.
+- `explain/`: SHAP TreeExplainer on the mean model, Panchayat minus block-average contrast, 25 feature groups, top 3, sign-aware English sentence dictionary (hi and pa null). D052.
+- `pipeline/run_daily.py`: `--issue-date` or `--all-demo-dates` (8 demo dates plus the day before each = 16 snapshots, 4.5 MB, 34 s). Checks block consistency before writing. Deterministic: a rebuild is byte-identical (manifests carry sha256 per file).
+- API: `/forecast/map`, `/forecast/panchayat/{id}`, `/explain/{id}`, `/forecast/changes/{id}` read snapshots (`provenance: computed`, `model_version`); `/observed` unchanged (files, D053); a missing snapshot is 503 `not_computed`. Risk, priority and advisories run on the model table with the S2 placeholder thresholds (D054).
+- Contract v0.1.2 (`contract/CHANGELOG.md`): optional `mean`, `block_corrected`, map `corrected`, extra `derived` fields, `model_version`, `thresholds_status`; explain and change semantics written down. Examples regenerated from the real snapshots (62 files); frontend types regenerated and two map-test fixture values updated.
+- Tests: 279 backend (`test_agro.py` and `test_snapshots.py` new), 86 frontend.
+
+Measured (local, 2026-09-26): median HTTP latency with curl, 50 warm requests each: `/forecast/map` 6.2 ms, `/forecast/panchayat` 4.1 ms, `/observed` 4.0 ms, `/explain` 3.2 ms, `/forecast/changes` 4.2 ms. First request for a new date 19 ms. In-process test: median 3.9 ms.
+
+Explain texts that read awkwardly (demo dates, served reasons only):
+- "The block forecast for this day, combined with local conditions, ..." and "The time of year, combined with local conditions, ...": block-wide groups are 23 % of all reasons and **69 % of rank-1 rain reasons**, 34 % of RH reasons. They mean "an interaction the model found" and tell a farmer nothing.
+- Counter-intuitive directions from the model: "Fewer irrigated fields than the rest of the block, so it is likely cooler" (154 Tmax reasons), "More built-up land ..., so it is likely cooler" (38).
+- Satellite groups for rain and RH, for example "Crops greening more slowly than the rest of the block (satellite), so it is likely wetter": probably spurious.
+- RH reasons come from the dew point model ("more humid" means more moisture at the same temperature).
+- "Its loam soil ..." / "Its moderate soil drainage ..." do not say why the class matters.
+- All sentences share one template ("..., so it is likely X than the block average.") and are English only.
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -127,6 +147,18 @@ Screenshot review (2024-09-09, rain, lead day 1):
 - D042 Panel headline from the map layer, variables table from `/forecast/panchayat`.
 - D043 Note when values are flat within blocks.
 - D044 Fixed-height map layout on wide screens; re-fit on resize.
+- S5-D036 to S5-D045 (model core; the numbers repeat S4's, see D046): worktree, extra features, purge, diurnal repair, dew point and RH reconciliation, block consistency on the mean, CQR per lead group, LOBO design, multiplicative fallback, reproducibility.
+- D046 S6 numbering from D046; D036-D045 used twice.
+- D047 Snapshots use the S5 bundle s5-lgbm-9b632a7b1b, hash re-verified.
+- D048 p50 and B0 `block` unchanged; `mean` and `block_corrected` added; consistency holds for mean vs B1; contract 0.1.2.
+- D049 Snapshot layout, previous-day snapshots, 503 when missing.
+- D050 Soil start state from the oracle at the end of D-1 (mock only); issue day not simulated.
+- D051 Agro placeholder numbers; THI per Guide 8.
+- D052 SHAP block contrast, 25 groups, no reasons when negligible, hi/pa null.
+- D053 `/observed` stays on data files.
+- D054 Event probabilities from classifiers; risk and advisories still placeholder.
+- D055 Small-bundle test fixture; example freshness test needs matching local snapshots.
+- D056 Change summary counts event changes.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -144,6 +176,11 @@ Screenshot review (2024-09-09, rain, lead day 1):
 - S4: the WebGL fallback message was not triggered (no browser without WebGL here).
 - S4: CI has not run this branch.
 - S2: `DATA_MODE=real` was tested only for the 503 answers of placeholder endpoints; the rest of real mode needs real files.
+- S6: CI has not run this branch (no `gh`). In CI the example freshness test is skipped (no trained model there, D055); every other test builds its own small model.
+- S6: snapshots were built with the S5 bundle copied from the S5 worktree (hash re-verified from this checkout).
+- S6: real mode for snapshots is untested: `run_daily` needs a trained real-mode model, which cannot exist yet; soil fields would be null.
+- S6: Hindi and Punjabi explain texts do not exist (null); the new Hindi and Punjabi change summary ("No earlier forecast to compare with") is a draft needing native review.
+- S6: the frontend was not run against the new API in a browser this session (types, tests, lint and build only).
 
 ## Known issues
 - `gh` CLI not installed, so pull requests are opened by hand from the compare URL.
@@ -153,7 +190,11 @@ Screenshot review (2024-09-09, rain, lead day 1):
 - `data/README.md` said 14 AWS + 10 ARG. The file has 12 + 12, and the README is now corrected.
 
 - S2 provisional band is not calibrated: rain p90 can be about 2x p50 on heavy days (for example 193 mm on 2024-09-10 in MB03). Do not quote coverage from it.
-- S2 all Panchayats in a block share values (B1 is block-level), so the Panchayat map view looks like the block view with a flat delta per block. Real within-block variation arrives with S5.
+- S2 all Panchayats in a block share values (B1 is block-level). Resolved in S6 for Tmax, Tmin, RH and wind. **Rain p50 is still almost flat inside a block** (MB03 on 2024-09-10: 103.84 mm for all 16 Panchayats; the model mean ranges 65 to 124 mm). The rain model does not beat B1 at Panchayat level (S5), so the within-block rain differences are not skilful anyway.
+- S6 rain quantiles and event classifiers are separate models and can disagree: rain p10 is 0 mm where P(rain >= 1 mm) is 0.91. After the non-increasing clamp some days show equal probabilities for 1, 2.5 and 10 mm (0.54 each for MP0305 on 2024-09-13).
+- S6 map `delta` is p50 minus the raw block forecast B0, so it includes the bias correction (Tmax is cooler than B0 almost everywhere). The Panchayat-versus-corrected-block difference is `mean - block_corrected`.
+- S6 soil water skips the issue day itself (D050) and simulates no irrigation, so irrigated Panchayats dry out faster than the oracle over five days.
+- S6 explain texts: see "Explain texts that read awkwardly" above.
 - S2 placeholder risk is coarse: on dry monsoon dates every Panchayat gets a "high" dry-spell item, and heat reaches "severe" in late July. Thresholds are placeholders (D019).
 - S2 review decisions and feedback are in memory and reset on restart.
 - `starlette.testclient` prints a deprecation warning about `httpx`; harmless for now.
@@ -168,27 +209,23 @@ Screenshot review (2024-09-09, rain, lead day 1):
 - Enable branch protection on `main` (require pull request, require CI).
 - Native Hindi and Punjabi review of `frontend/src/i18n/hi.json`, `pa.json` and the day/month names in `frontend/src/lib/format.ts` (S3), then advisory text (S13).
 - Later: expert threshold review (S8).
+- Expert review of the S6 agro placeholders (D051): runoff, kc, waterlogging and frost thresholds, fog proxy, crop base temperatures.
+- Native Hindi and Punjabi writing of the explain sentence dictionary (`backend/gramdrishti/explain/texts.py`), about 50 phrases.
+- For real mode: a soil-moisture source (ERA5-Land or SMAP) for the water balance start state.
 
 ## Model and validation log
 | Date | Model version | Windows used | Notes |
 |---|---|---|---|
 | 2026-09-24 | baselines B0/B1/B2 (S1) | fit TRAIN, scored CALIB | `python -m gramdrishti.verify.baseline_report`. TEST window opened: never |
 | 2026-09-25 | provisional API forecast (S2) | fit TRAIN; applied to issued forecasts on the 8 demo dates | No scoring. The demo date picker reads issued forecasts in the TEST period, not outcomes. `/observed` displays TEST-period truth on request; no metric uses it. TEST window opened for evaluation: never |
+| 2026-09-26 | s5-lgbm-9b632a7b1b (S5) | models fit TRAIN; isotonic and conformal on CALIB; leave-one-block-out on TRAIN; out-of-time on CALIB | `python -m gramdrishti.pipeline.train --lobo`, report in `backend/artifacts/dev_report.txt` (numbers under "Current state"). Rain does not beat B1. Re-run without `--lobo` in S6: 114 s, byte-identical model files. TEST window opened: never |
+| 2026-09-26 | s5-lgbm-9b632a7b1b applied (S6) | inference on issued forecasts for the 8 demo dates and the day before each (6 of them in TEST) | `python -m gramdrishti.pipeline.run_daily --all-demo-dates`. No scoring. The soil water balance starts from oracle soil moisture on the day before each issue date (mock stand-in, D050); no metric uses it. TEST window opened for evaluation: never |
 
 ## Handoff for the next session
-S7 (detail panel): put the fan chart in the empty slot in `features/map/DetailPanel.tsx` (`useForecastPanchayat` is already loaded there), then "Why different?", "Forecast changed" and advisories. S9: enable `RiskLayerSelect` in `features/map/MapControls.tsx`; `RISK_TOKENS` in `lib/ramps.ts` maps levels to severity tokens, and `MapView` takes any Ramp. Reuse `components/DataTable.tsx` for priority and verification lists.
+Merge order: S6 is branched from `main` after S5 merged (#7); nothing else is stacked.
 
-Merge order: S1, then S2 (S2 is stacked on S1).
+Backend (S7 integration support, S8): the forecast endpoints are real model output from snapshots. To run them locally: `cd backend && python -m gramdrishti.pipeline.train` (about 2 minutes, writes the git-ignored `backend/artifacts/`), then `python -m gramdrishti.pipeline.run_daily --all-demo-dates` (35 s), then start the API. S8: replace `_generate_advisories` and the placeholder risk scores with YAML rules; the signals are in the snapshot table (`Service.table()` columns: `<var>_{p10,p50,p90,mean,block,block_corrected}`, `prob_rain_ge_{1,2_5,10,35}`, `et0_mm`, `soil_moisture_frac{,_dry,_wet,_start}`, `depletion_frac`, `waterlog_score/_risk`, `thi`, `rh_afternoon`, `frost_prob/_risk`, `fog_proxy`, `dry_spell_days`, `gdd_<crop>`). Crop-specific frost thresholds and kc belong there. Set `advice_changed` in `/forecast/changes` once rules exist. S10 replaces `provisional/placeholders.py`.
 
-Frontend (S3/S4): the contract is **frozen at v0.1.1**. Build from `contract/examples/` (see `contract/examples/index.json` for file -> endpoint -> model) and generate types from `contract/openapi.json`. Mock file names follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json`, `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`; the main demo issue date is 2024-09-09. Show a notice when `provenance` is `placeholder`.
+Frontend (S7): the contract is **v0.1.2** (additive; `contract/CHANGELOG.md`). `VITE_REAL_ENDPOINTS=meta,geo,forecast,observed,explain` now serves real model output (`forecast` covers `/forecast/map`, `/forecast/panchayat` and `/forecast/changes`); the backend needs the snapshots above. Decide what the map and panel headline show: `p50` (rain is almost flat inside a block) or `mean` (varies, and its block average equals `block_layer[].corrected`); see D048. `delta` still compares with the raw block forecast. `/explain` can return an empty `reasons` list (nothing to explain): show a plain empty state. Explain `text.hi` and `text.pa` are null, so fall back to English. Put the fan chart in the empty slot in `features/map/DetailPanel.tsx` (`useForecastPanchayat` is already loaded there), then "Why different?", "Forecast changed" and advisories. S9: enable `RiskLayerSelect` in `features/map/MapControls.tsx`; `RISK_TOKENS` in `lib/ramps.ts` maps levels to severity tokens, and `MapView` takes any Ramp. Reuse `components/DataTable.tsx` for priority and verification lists.
 
-S4 (map explorer): the shell, store, URL sync and hooks exist. Replace `MapPlaceholder` in `frontend/src/pages/MapPage.tsx` with MapLibre (`useGeoPanchayats`, `useGeoBlocks`, `useForecastMap`); controls and `viewMode` are already wired. Add `lib/ramps.ts` and the legend. Consider collapsing the controls on phones. Keep `PanchayatPicker` as the keyboard route, and add the table view.
-
-Backend S5: models replace `provisional/forecast.py`. Keep `Service.table()`'s columns (`<var>_p10/p50/p90/block`) or change the builders in `api/service.py`. S6 snapshots should cover the dates in `demo_dates.json`. S8 replaces `_generate_advisories` and the in-memory store. S10 replaces `provisional/placeholders.py` and sets `provenance: "computed"`.
-
-## Handoff S5 (2026-09-26, stopped at usage limit)
-Branch `session-05-model-core` (worktree `../GramDrishti-s05`, from `origin/main`). Done and committed: `features/` (`make_table`), `models/{downscale,reconcile,conformal,humidity,artifacts}.py`, `pipeline/{predict,train}.py`, tests (`test_features.py`, `test_reconcile_conformal.py`, `test_model_core.py`), decisions D036-D045.
-Verified here: ruff clean; new tests 22 passed (features + reconcile/conformal 15, model core 7). A 40-tree run of `python -m gramdrishti.pipeline.train --trees 40 --no-save` completed (not the final model): CALIB out-of-time MAE vs B1 was rain -9.1 % (does NOT beat B1), tmax +9.8 %, tmin +0.8 %, rh +2.0 %, wind +1.3 %; coverage after calibration 0.71-0.99 by group, rain on wet days only 0.47-0.81; isotonic calibration made Brier worse than raw in 6 of 8 half-splits; block consistency ~1e-14; constraint violations 0.
-Not done: the full 400-tree `--lobo` run was still running at the stop, so there are no final numbers or artifacts. Full `pytest -q` was not run. PROGRESS/CLAUDE.md commands are not updated beyond this note. No PR yet.
-Next: rerun `cd backend && python -m gramdrishti.pipeline.train --lobo`, paste the report here, run `pytest -q`, add the train command to CLAUDE.md, decide on isotonic (D043 note) and the rain interval, then push and open the PR.
-Hypothesis for rain (measured on TRAIN truth): only 26 % of within-block rain variance is a persistent Panchayat x month offset, against 89-92 % for Tmax/Tmin/dew point and 70 % for wind, so rain placement inside a block is mostly day-to-day noise.
+Mock files (`contract/examples/`, main date 2024-09-09) follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json` (plus `explain_MP0305_rain.json` and `explain_MP0103_rain_dry_block.json`), `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`. Show a notice when `provenance` is `placeholder`.
