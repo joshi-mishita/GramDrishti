@@ -11,6 +11,7 @@ import type {
   Farmer,
   FarmerAdvice,
   ForecastMap,
+  PanchayatForecast,
   Impact,
   Meta,
   PanchayatCollection,
@@ -28,6 +29,8 @@ export const queryKeys = {
   geoBlocks: ["geo", "blocks"] as const,
   forecastMap: (issueDate: string, leadDay: number, variable: Var) =>
     ["forecastMap", issueDate, leadDay, variable] as const,
+  forecastPanchayat: (pid: string, issueDate: string) =>
+    ["forecastPanchayat", pid, issueDate] as const,
   priority: (issueDate: string, horizonDays: number) =>
     ["priority", issueDate, horizonDays] as const,
   advisories: (status: Status | undefined, issueDate: string) =>
@@ -70,6 +73,21 @@ export const useForecastMap = (issueDate: string | null, leadDay: number, variab
         signal,
       ),
     enabled: !!issueDate,
+    staleTime: 5 * MINUTE,
+  });
+
+/** 5-day forecast of one Panchayat, all variables. Disabled until a Panchayat is chosen. */
+export const useForecastPanchayat = (pid: string | null, issueDate: string | null) =>
+  useQuery({
+    queryKey: queryKeys.forecastPanchayat(pid ?? "", issueDate ?? ""),
+    queryFn: ({ signal }) =>
+      apiGet<PanchayatForecast>(
+        `/forecast/panchayat/${encodeURIComponent(pid ?? "")}`,
+        { issue_date: issueDate },
+        undefined,
+        signal,
+      ),
+    enabled: !!pid && !!issueDate,
     staleTime: 5 * MINUTE,
   });
 

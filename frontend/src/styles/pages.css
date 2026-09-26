@@ -17,6 +17,16 @@
   grid-template-columns: 232px minmax(0, 1fr) var(--panel-w);
   min-height: calc(100vh - var(--topbar-h) - var(--ribbon-h));
 }
+/* Wide screens: the map fills the window; controls and panel scroll on their own */
+@media (min-width: 1200px) {
+  .map-page {
+    height: calc(100vh - var(--topbar-h) - var(--ribbon-h));
+    min-height: 560px;
+  }
+  .map-page > * {
+    overflow-y: auto;
+  }
+}
 
 .map-controls {
   display: flex;
@@ -28,11 +38,138 @@
 }
 
 .map-area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-3);
   padding: var(--gap-4);
   min-width: 0;
 }
-.map-stack > * + * {
-  margin-top: var(--gap-3);
+.map-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap-3);
+  flex-wrap: wrap;
+}
+.map-head h2 {
+  font-size: var(--fs-3);
+}
+.map-note {
+  font-size: var(--fs-2);
+  color: var(--muted);
+  max-width: 72ch;
+}
+.map-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 460px;
+}
+.map-wrap[hidden] {
+  display: none;
+}
+.map-frame {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--canvas);
+  overflow: hidden;
+}
+/* MapLibre sets position: relative on its container, so size it explicitly */
+.map-canvas {
+  width: 100%;
+  height: 100%;
+}
+.map-canvas:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+}
+.map-tooltip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  pointer-events: none;
+  min-width: 180px;
+  max-width: 260px;
+  padding: var(--gap-2) var(--gap-3);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-popover);
+  font-size: var(--fs-2);
+}
+.map-tooltip dl {
+  margin: var(--gap-1) 0 0;
+}
+.map-tooltip dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap-3);
+}
+.map-tooltip dt {
+  color: var(--muted);
+}
+.map-tooltip dd {
+  margin: 0;
+  font-weight: 500;
+  text-align: right;
+}
+.map-legend {
+  position: absolute;
+  left: var(--gap-3);
+  bottom: var(--gap-3);
+  z-index: 1;
+  padding: var(--gap-2) var(--gap-3);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* Legend: the colour bar is generated from lib/ramps.ts, like the map style */
+.legend {
+  margin: 0;
+  font-size: var(--fs-1);
+}
+.legend-title {
+  font-size: var(--fs-2);
+  font-weight: 700;
+}
+.legend-title .muted {
+  font-weight: 400;
+}
+.legend-caption {
+  margin: 0;
+}
+.legend-bar {
+  display: block;
+  margin-top: var(--gap-1);
+  overflow: visible;
+}
+.legend-rect {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.legend-tick {
+  stroke: var(--muted);
+}
+.legend-label {
+  fill: var(--ink);
+  font-size: var(--fs-1);
+  font-family: var(--font);
+}
+.legend-novalue {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  margin: var(--gap-1) 0 0;
+  color: var(--muted);
+}
+.legend-swatch {
+  width: 14px;
+  height: 10px;
+  background: var(--skeleton);
+  border: 1px solid var(--line);
 }
 
 .detail-panel {
@@ -43,6 +180,44 @@
 .detail-panel > .empty {
   border: 0;
   padding: 0;
+}
+.detail-body > * + * {
+  margin-top: var(--gap-5);
+}
+.detail-body .empty {
+  padding: var(--gap-3);
+}
+.section-title {
+  font-size: var(--fs-2);
+  font-weight: 700;
+  margin-bottom: var(--gap-2);
+}
+.headline-value {
+  font-size: var(--fs-5);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.headline-range {
+  color: var(--muted);
+  margin-bottom: var(--gap-3);
+}
+.kv-compact {
+  margin: 0 0 var(--gap-3);
+  font-size: var(--fs-2);
+}
+.kv-compact > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap-3);
+  padding: var(--gap-1) 0;
+  border-top: 1px solid var(--line);
+}
+.kv-compact dt {
+  color: var(--muted);
+}
+.kv-compact dd {
+  margin: 0;
+  font-weight: 500;
 }
 .detail-head {
   display: flex;
@@ -79,6 +254,21 @@
   }
   .map-area {
     padding: var(--gap-3);
+  }
+  .map-wrap {
+    min-height: 380px;
+  }
+  /* Variable and view options wrap into rows so the map is reachable sooner */
+  .map-controls .seg-list .seg-options {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .map-controls .seg-list .seg-opt + .seg-opt {
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+  .map-controls .seg-hint {
+    display: none;
   }
 }
 

@@ -1,229 +1,198 @@
-import { useId } from "react";
-import { MapPinned, MousePointerClick, X } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Map as MapIcon, Table } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useForecastMap, useGeoBlocks, useGeoPanchayats, useMeta } from "../api/hooks";
-import type { PanchayatCollection, Var } from "../api/types";
-import { SegmentedControl } from "../components/SegmentedControl";
+import { useForecastMap, useGeoBlocks, useGeoPanchayats } from "../api/hooks";
+import type { ForecastMap, PanchayatCollection } from "../api/types";
 import { ProvenanceNote } from "../components/ProvenanceNote";
 import { QueryBoundary } from "../components/QueryBoundary";
 import { EmptyState } from "../components/states";
-import { LEAD_DAYS } from "../lib/config";
-import { addDays, formatDate, formatNumber } from "../lib/format";
-import { useAppStore, type ViewMode } from "../state/store";
+import { DetailPanel } from "../features/map/DetailPanel";
+import { Legend } from "../features/map/Legend";
+import { MapControls } from "../features/map/MapControls";
+import { MapView } from "../features/map/MapView";
+import { PanchayatTable } from "../features/map/PanchayatTable";
+import { isFlatWithinBlocks, rampForMode, valuesForMode } from "../features/map/mapData";
+import { VAR_DIGITS, formatDate, formatNumber, formatSigned, formatValue } from "../lib/format";
+import { useAppStore } from "../state/store";
 
-/** Map explorer (Guide 6.1). This version has the controls and data; drawing comes next. */
+/** Map explorer (Guide 6.1): controls | map or table | detail panel. */
 export default function MapPage() {
   const { t } = useTranslation();
   return (
     <div className="map-page">
       <h1 className="visually-hidden">{t("map.title")}</h1>
       <MapControls />
-      <section className="map-area" aria-label={t("map.areaLabel")}>
-        <MapPlaceholder />
-      </section>
+      <MapArea />
       <DetailPanel />
     </div>
   );
 }
 
-function MapControls() {
+const EMPTY = new Map<string, number | null>();
+
+function MapArea() {
   const { t } = useTranslation();
-  const meta = useMeta();
   const lang = useAppStore((s) => s.lang);
   const issueDate = useAppStore((s) => s.issueDate);
   const leadDay = useAppStore((s) => s.leadDay);
-  const setLeadDay = useAppStore((s) => s.setLeadDay);
   const variable = useAppStore((s) => s.variable);
-  const setVariable = useAppStore((s) => s.setVariable);
   const viewMode = useAppStore((s) => s.viewMode);
-  const setViewMode = useAppStore((s) => s.setViewMode);
-
-  const dayOptions = LEAD_DAYS.map((d) => ({
-    value: String(d),
-    label: issueDate ? formatDate(addDays(issueDate, d), lang, "day") : String(d),
-  }));
-  const varOptions = (meta.data?.vars ?? []).map((v) => ({
-    value: v.var,
-    label: t(`vars.${v.var}`),
-    hint: t(`units.${v.unit}`, { defaultValue: v.unit }),
-  }));
-
-  return (
-    <aside className="map-controls toolbar" aria-label={t("map.controls")}>
-      <SegmentedControl
-        legend={t("map.day")}
-        showLegend
-        name="lead-day"
-        variant="wrap"
-        value={String(leadDay)}
-        options={dayOptions}
-        onChange={(v) => setLeadDay(Number(v))}
-      />
-      {varOptions.length ? (
-        <SegmentedControl<Var>
-          legend={t("map.show")}
-          showLegend
-          name="variable"
-          variant="list"
-          value={variable}
-          options={varOptions}
-          onChange={setVariable}
-        />
-      ) : null}
-      <SegmentedControl<ViewMode>
-        legend={t("map.view")}
-        showLegend
-        name="view-mode"
-        variant="list"
-        value={viewMode}
-        options={[
-          { value: "block", label: t("viewModes.block") },
-          { value: "panchayat", label: t("viewModes.panchayat") },
-          { value: "delta", label: t("viewModes.delta") },
-        ]}
-        onChange={setViewMode}
-      />
-      <PanchayatPicker />
-    </aside>
-  );
-}
-
-/** Keyboard route to a Panchayat until the map is drawn; later it stays as the table alternative. */
-function PanchayatPicker() {
-  const { t } = useTranslation();
-  const id = useId();
-  const geo = useGeoPanchayats();
   const selectedPid = useAppStore((s) => s.selectedPid);
   const setSelectedPid = useAppStore((s) => s.setSelectedPid);
-  const byBlock = groupByBlock(geo.data);
-  return (
-    <div className="field-stack">
-      <label htmlFor={id}>{t("map.jumpTo")}</label>
-      <select
-        id={id}
-        value={selectedPid ?? ""}
-        disabled={!geo.data}
-        onChange={(e) => setSelectedPid(e.target.value || null)}
-      >
-        <option value="">{t("map.jumpNone")}</option>
-        {[...byBlock].map(([block, pids]) => (
-          <optgroup key={block} label={t("map.blockLabel", { block })}>
-            {pids.map((pid) => (
-              <option key={pid} value={pid}>
-                {pid}
-              </option>
-            ))}
-          </optgroup>
-        ))}
-      </select>
-    </div>
-  );
-}
-
-function groupByBlock(geo: PanchayatCollection | undefined): Map<string, string[]> {
-  const out = new Map<string, string[]>();
-  for (const f of geo?.features ?? []) {
-    const { block_id, panchayat_id } = f.properties;
-    out.set(block_id, [...(out.get(block_id) ?? []), panchayat_id]);
-  }
-  return out;
-}
-
-function MapPlaceholder() {
-  const { t } = useTranslation();
-  const lang = useAppStore((s) => s.lang);
-  const issueDate = useAppStore((s) => s.issueDate);
-  const leadDay = useAppStore((s) => s.leadDay);
-  const variable = useAppStore((s) => s.variable);
+  const [showTable, setShowTable] = useState(false);
   const geo = useGeoPanchayats();
   const blocks = useGeoBlocks();
   const forecast = useForecastMap(issueDate, leadDay, variable);
 
+  // View mode is not part of the query key: switching it reuses the loaded layer.
+  const data = forecast.data;
+  const values = useMemo(
+    () => (data ? valuesForMode(data.panchayat_layer, viewMode) : EMPTY),
+    [data, viewMode],
+  );
+  const ramp = useMemo(() => (data ? rampForMode(data, viewMode) : null), [data, viewMode]);
+  const rowsById = useMemo(
+    () => new Map(data?.panchayat_layer.map((r) => [r.panchayat_id, r]) ?? []),
+    [data],
+  );
+
+  const varLabel = t(`vars.${variable}`);
+  const validDate = data ? formatDate(data.valid_date, lang) : "";
+  const unit = data ? t(`units.${data.unit}`, { defaultValue: data.unit }) : "";
+
+  const renderTooltip = (pid: string) => {
+    const name =
+      geo.data?.features.find((f) => f.properties.panchayat_id === pid)?.properties.name ?? pid;
+    const r = rowsById.get(pid);
+    const digits = VAR_DIGITS[variable];
+    return (
+      <>
+        <strong>{name}</strong>
+        {r && data ? (
+          <dl>
+            <div>
+              <dt>{t("tooltip.value")}</dt>
+              <dd>{formatValue(r.p50, unit, lang, digits)}</dd>
+            </div>
+            <div>
+              <dt>{t("tooltip.range")}</dt>
+              <dd>
+                {r.p10 === null || r.p90 === null
+                  ? "–"
+                  : `${formatNumber(r.p10, lang, digits)} – ${formatValue(r.p90, unit, lang, digits)}`}
+              </dd>
+            </div>
+            {viewMode !== "panchayat" ? (
+              <div>
+                <dt>{viewMode === "block" ? t("tooltip.block") : t("tooltip.delta")}</dt>
+                <dd>
+                  {viewMode === "block"
+                    ? formatValue(r.block_value, unit, lang, digits)
+                    : r.delta === null
+                      ? "–"
+                      : `${formatSigned(r.delta, lang, digits)} ${unit}`}
+                </dd>
+              </div>
+            ) : null}
+          </dl>
+        ) : (
+          <p>{t("legend.noValue")}</p>
+        )}
+      </>
+    );
+  };
+
   return (
-    <div className="map-stack">
-      <QueryBoundary query={geo} what={t("what.geo")}>
+    <section className="map-area" aria-labelledby="map-heading">
+      <div className="map-head">
+        <h2 id="map-heading">
+          {data
+            ? t("map.heading", {
+                variable: varLabel,
+                date: validDate,
+                view: t(`viewModes.${viewMode}`),
+              })
+            : varLabel}
+        </h2>
+        <button
+          type="button"
+          className="btn"
+          aria-pressed={showTable}
+          onClick={() => setShowTable((v) => !v)}
+          disabled={!geo.data || !data}
+        >
+          {showTable ? (
+            <MapIcon size={16} aria-hidden="true" />
+          ) : (
+            <Table size={16} aria-hidden="true" />
+          )}
+          {showTable ? t("map.showMap") : t("map.showTable")}
+        </button>
+      </div>
+
+      {forecast.isSuccess ? null : (
+        <QueryBoundary query={forecast} what={t("what.forecastMap")} skeletonLines={1}>
+          {() => null}
+        </QueryBoundary>
+      )}
+      {data && data.panchayat_layer.length === 0 ? <EmptyState title={t("map.noValues")} /> : null}
+      {data && isFlatWithinBlocks(data.panchayat_layer) ? (
+        <p className="map-note">{t("map.flatNote")}</p>
+      ) : null}
+
+      <QueryBoundary query={geo} what={t("what.geo")} skeletonLines={6}>
         {(g) => (
-          <EmptyState icon={MapPinned} title={t("map.notBuiltTitle")}>
-            <p>{t("map.notBuiltBody")}</p>
-            <p className="facts">
-              {t("map.loadedGeo", {
-                panchayats: g.features.length,
-                blocks: blocks.data?.features.length ?? groupByBlock(g).size,
-              })}
-            </p>
-          </EmptyState>
+          <>
+            <div className="map-wrap" hidden={showTable}>
+              <MapView
+                panchayats={g}
+                blocks={blocks.data}
+                values={values}
+                ramp={ramp}
+                selectedPid={selectedPid}
+                onSelect={setSelectedPid}
+                renderTooltip={renderTooltip}
+                label={t("map.regionLabel", { variable: varLabel })}
+                paintKey={`${issueDate}|${leadDay}|${variable}|${viewMode}|${forecast.status}`}
+                fallback={
+                  <EmptyState title={t("map.noWebglTitle")}>
+                    <p>{t("map.noWebglBody")}</p>
+                  </EmptyState>
+                }
+              />
+              {ramp && data ? (
+                <div className="map-legend">
+                  <Legend
+                    ramp={ramp}
+                    title={viewMode === "delta" ? t("viewModes.delta") : varLabel}
+                    unitLabel={unit}
+                    lang={lang}
+                    caption={viewMode === "delta" ? t("legend.deltaCaption") : undefined}
+                  />
+                </div>
+              ) : null}
+            </div>
+            {showTable ? <TableView data={data} geo={g} /> : null}
+          </>
         )}
       </QueryBoundary>
-      <QueryBoundary
-        query={forecast}
-        what={t("what.forecastMap")}
-        isEmpty={(f) => f.panchayat_layer.length === 0}
-        empty={<EmptyState title={t("map.noValues")} />}
-      >
-        {(f) => {
-          const values = f.block_layer.map((b) => b.value).filter((v): v is number => v !== null);
-          return (
-            <div className="panel panel-pad">
-              <h2>
-                {t(`vars.${f.var}`)}, {formatDate(f.valid_date, lang)}
-              </h2>
-              <p className="facts">
-                {t("map.loadedValues", {
-                  count: f.panchayat_layer.length,
-                  min: formatNumber(values.length ? Math.min(...values) : null, lang),
-                  max: formatNumber(values.length ? Math.max(...values) : null, lang),
-                  unit: t(`units.${f.unit}`, { defaultValue: f.unit }),
-                })}
-              </p>
-              <ProvenanceNote provenance={f.provenance} />
-            </div>
-          );
-        }}
-      </QueryBoundary>
-    </div>
+      {data ? <ProvenanceNote provenance={data.provenance} /> : null}
+    </section>
   );
 }
 
-function DetailPanel() {
+function TableView({ data, geo }: { data: ForecastMap | undefined; geo: PanchayatCollection }) {
   const { t } = useTranslation();
-  const selectedPid = useAppStore((s) => s.selectedPid);
-  const setSelectedPid = useAppStore((s) => s.setSelectedPid);
-  const geo = useGeoPanchayats();
-  const feature = geo.data?.features.find((f) => f.properties.panchayat_id === selectedPid);
-
+  const lang = useAppStore((s) => s.lang);
+  if (!data) return null;
   return (
-    <aside className="detail-panel" aria-label={t("map.panelLabel")}>
-      {selectedPid ? (
-        <>
-          <div className="detail-head">
-            <div>
-              <h2>{feature?.properties.name ?? selectedPid}</h2>
-              {feature ? (
-                <p className="muted">
-                  {t("map.blockLabel", { block: feature.properties.block_id })}
-                </p>
-              ) : null}
-            </div>
-            <button
-              type="button"
-              className="btn btn-icon"
-              onClick={() => setSelectedPid(null)}
-              aria-label={t("map.clearSelection")}
-            >
-              <X size={18} aria-hidden="true" />
-            </button>
-          </div>
-          {geo.data && !feature ? (
-            <EmptyState title={t("map.unknownPid", { pid: selectedPid })} />
-          ) : (
-            <p className="muted">{t("map.panelNotBuilt")}</p>
-          )}
-        </>
-      ) : (
-        <EmptyState icon={MousePointerClick} title={t("map.panelEmptyTitle")}>
-          <p>{t("map.panelEmptyBody")}</p>
-        </EmptyState>
-      )}
-    </aside>
+    <PanchayatTable
+      forecast={data}
+      geo={geo}
+      caption={t("map.tableCaption", {
+        variable: t(`vars.${data.var}`),
+        date: formatDate(data.valid_date, lang),
+      })}
+    />
   );
 }
