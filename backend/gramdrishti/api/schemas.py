@@ -1,4 +1,4 @@
-"""Pydantic models for every endpoint of the API contract (Appendix A, contract v0.1.2).
+"""Pydantic models for every endpoint of the API contract (Appendix A, contract v0.2.0).
 
 Rules that hold for every model:
 - Missing numbers are ``null``. NaN and Infinity are rejected (``allow_inf_nan=False``).
@@ -14,11 +14,11 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from enum import StrEnum
-from typing import Annotated, Literal
+from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-API_VERSION = "0.1.2"
+API_VERSION = "0.2.0"
 
 
 class ApiModel(BaseModel):
@@ -149,6 +149,14 @@ class ThresholdsStatus(StrEnum):
 class TranslationStatus(StrEnum):
     needs_native_review = "needs_native_review"
     reviewed = "reviewed"
+
+
+class SprayRating(StrEnum):
+    """Day-level spray planner rating (v0.2.0). Whole days only: the data is daily, not hourly."""
+
+    good = "good"
+    caution = "caution"
+    avoid = "avoid"
 
 
 class ObservedSource(StrEnum):
@@ -352,6 +360,8 @@ class Derived(ApiModel):
     frost_risk: Level | None = None
     fog_proxy: bool | None = None
     dry_spell_days: int | None = None
+    # v0.2.0 (optional): day-level spray rating from P(rain >= 2.5 mm) that day and the next and p90 wind.
+    spray_rating: SprayRating | None = None
 
 
 class ForecastDay(ApiModel):
@@ -496,6 +506,9 @@ class AuditEntry(ApiModel):
     actor: str
     action: str
     note: str
+    # v0.2.0 (optional): the fields this entry changed, before and after (status, action, reason, fallback).
+    before: dict[str, Any] | None = None
+    after: dict[str, Any] | None = None
 
 
 class Advisory(ApiModel):
@@ -523,6 +536,8 @@ class Advisory(ApiModel):
     data_mode: DataMode
     provenance: Provenance
     translation_status: TranslationStatus
+    # v0.2.0 (optional): the rules.yaml rule that produced this advisory.
+    rule_id: str | None = None
 
 
 class AdvisoryList(ApiModel):

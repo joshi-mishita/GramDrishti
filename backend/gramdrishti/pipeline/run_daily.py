@@ -13,6 +13,10 @@ block 4 derive agro-variables 5 SHAP reasons. Output in ``artifacts/snapshots/<d
 ``--all-demo-dates`` also builds the day before each demo date (role ``previous``), which
 ``/forecast/changes`` compares against. Output is deterministic: no timestamps, fixed row order.
 
+Afterwards the rules engine writes draft advisories for every demo-role date into the SQLite store
+(``GRAMDRISHTI_DB`` or ``artifacts/gramdrishti.sqlite``), replacing earlier drafts and keeping reviewed
+advisories. ``--no-advisories`` skips that step.
+
 Run: ``cd backend && python -m gramdrishti.pipeline.run_daily --issue-date 2024-09-09``
      ``cd backend && python -m gramdrishti.pipeline.run_daily --all-demo-dates``
 """
@@ -31,6 +35,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from gramdrishti.advisory.drafts import create_drafts
 from gramdrishti.agro import derived
 from gramdrishti.contract.pick_demo_dates import load_demo_dates
 from gramdrishti.data import loaders
@@ -40,6 +45,7 @@ from gramdrishti.features.table import Inputs, load_inputs, make_table
 from gramdrishti.models.artifacts import Bundle, load_bundle
 from gramdrishti.models.reconcile import max_block_error
 from gramdrishti.pipeline.predict import predict_table
+from gramdrishti.store.db import Store
 
 SNAPSHOTS = ART / "snapshots"
 FRAMES = ("forecast", "block", "explain")
@@ -182,6 +188,27 @@ def run(plan: list[tuple[date, str]], out: Path = SNAPSHOTS, artifacts: Path = A
     return written
 
 
+def write_advisories(plan: list[tuple[date, str]], snapshots: Path = SNAPSHOTS, store: Store | None = None,
+                     log=print) -> dict[date, dict[str, int]]:
+    """Draft advisories for every demo-role date in ``plan``; returns counts by category per date."""
+    store = store or Store()
+    inputs = (loaders.load_static(), loaders.load_crops(), loaders.load_calendar())
+    out = {}
+    for issue, role in plan:
+        if role != ROLE_DEMO:
+            continue
+        snap = read_snapshot(snapshots, issue)
+        if snap is None:
+            raise FileNotFoundError(f"no snapshot for {issue.isoformat()} in {snapshots}")
+        res, written, kept = create_drafts(store, issue, snap.forecast, *inputs, data_mode=data_mode(),
+                                           model_version=snap.manifest.get("model_version"))
+        out[issue] = res.counts_by_category()
+        cats = ", ".join(f"{k} {v}" for k, v in out[issue].items()) or "none"
+        log(f"{issue.isoformat()} {len(res.advisories):>4} drafts ({written} written, {kept} reviewed kept): "
+            f"{cats}")
+    return out
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI entry point."""
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -191,12 +218,17 @@ def main(argv: list[str] | None = None) -> int:
                    help="every date in demo_dates.json plus the day before each")
     ap.add_argument("--out", type=Path, default=SNAPSHOTS, help="snapshot root (default artifacts/snapshots)")
     ap.add_argument("--artifacts", type=Path, default=ART, help="trained model bundle (default artifacts)")
+    ap.add_argument("--no-advisories", action="store_true", help="only build snapshots, no draft advisories")
     args = ap.parse_args(argv)
     plan = demo_plan() if args.all_demo_dates else [(args.issue_date, ROLE_DEMO)]
     t0 = time.time()
     written = run(plan, args.out, args.artifacts)
     size = sum(p.stat().st_size for d in written for p in d.iterdir())
     print(f"\nwrote {len(written)} snapshots to {args.out} ({size / 1e6:.2f} MB) in {time.time() - t0:.1f} s")
+    if not args.no_advisories:
+        store = Store()
+        print(f"\ndraft advisories -> {store.path}")
+        write_advisories(plan, args.out, store)
     return 0
 
 
