@@ -24,6 +24,8 @@ describe("dates", () => {
 
   it("formats English as the guide shows: Tue 10 Sep", () => {
     expect(formatDate("2024-09-10", "en", "day")).toBe("Tue 10 Sep");
+    expect(formatDate("2024-09-10", "en", "short")).toBe("Tue 10");
+    expect(formatDate("2024-09-10", "hi", "short")).toBe("मंगल 10");
     expect(formatDate("2024-09-09", "en")).toBe("Mon 9 Sep 2024");
   });
 

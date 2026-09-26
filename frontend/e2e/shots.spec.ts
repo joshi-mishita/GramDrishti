@@ -22,6 +22,19 @@ const ROUTES: { name: string; path: string; langs: ("en" | "hi" | "pa")[] }[] = 
   { name: "not-found", path: "/nowhere", langs: ["en"] },
 ];
 
+/**
+ * Detail panel on the real API (SHOTS_REAL=1): three Panchayats with different observation
+ * sources on a patchy-rain and a heavy-rain date, both in TEST. MP0305 has a weather station,
+ * MP0412 a rain gauge only (no observed temperature), MP0302 no station (synthetic truth).
+ */
+const PANEL_ROUTES = ["2024-07-31", "2024-09-09"].flatMap((date) =>
+  ["MP0305", "MP0412", "MP0302"].map((pid) => ({
+    name: `panel-${date}-${pid}`,
+    path: `/map?date=${date}&var=rain&pid=${pid}`,
+  })),
+);
+const REAL = process.env.SHOTS_REAL === "1";
+
 const VIEWPORTS = [
   { name: "desktop", width: 1366, height: 768 },
   { name: "phone", width: 360, height: 740 },
@@ -30,7 +43,42 @@ const VIEWPORTS = [
 const OUT = resolve(import.meta.dirname, "../../docs/screens");
 mkdirSync(OUT, { recursive: true });
 
-for (const route of ROUTES) {
+if (REAL) {
+  for (const route of PANEL_ROUTES) {
+    for (const vp of VIEWPORTS) {
+      test(`${route.name} ${vp.name}`, async ({ page }) => {
+        const errors: string[] = [];
+        page.on("console", (m) => {
+          if (m.type() === "error" || m.type() === "warning") errors.push(m.text());
+        });
+        page.on("pageerror", (e) => errors.push(e.message));
+        await page.setViewportSize({ width: vp.width, height: vp.height });
+        await page.addInitScript(() => localStorage.setItem("gramdrishti.lang", "en"));
+        await page.goto(route.path);
+        await expect(page.locator(".ribbon")).toBeVisible();
+        await page.getByRole("checkbox", { name: "Show what happened" }).check();
+        await expect(page.getByText(/^Source: /)).toBeVisible({ timeout: 10_000 });
+        await expect(page.locator(".skeleton")).toHaveCount(0, { timeout: 10_000 });
+        await expect(page.locator(".detail-panel .error")).toHaveCount(0);
+        await expect(page.locator('.map-canvas[data-painted="true"]')).toHaveCount(1, {
+          timeout: 15_000,
+        });
+        await page.evaluate(() => document.fonts.ready);
+        // What an officer sees first, then the whole panel with its scrolling switched off.
+        await page.screenshot({ path: `${OUT}/${route.name}-${vp.name}.png` });
+        await page.addStyleTag({
+          content: ".detail-panel { overflow: visible !important; height: auto !important; }",
+        });
+        await page
+          .locator(".detail-panel")
+          .screenshot({ path: `${OUT}/${route.name}-${vp.name}-full.png` });
+        expect(errors, "console errors or warnings").toEqual([]);
+      });
+    }
+  }
+}
+
+for (const route of REAL ? [] : ROUTES) {
   for (const lang of route.langs) {
     for (const vp of VIEWPORTS) {
       test(`${route.name} ${lang} ${vp.name}`, async ({ page }) => {

@@ -413,3 +413,42 @@ a.btn {
   cursor: pointer;
   text-align: left;
 }
+
+/* ---- Confidence word with a tooltip on hover and focus ---- */
+.confidence {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-2);
+  font-weight: 500;
+  border-radius: var(--radius);
+}
+.confidence:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.confidence-icon {
+  color: var(--muted);
+}
+.tooltip-bubble {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 4px);
+  z-index: 10;
+  width: max-content;
+  max-width: 240px;
+  padding: var(--gap-2) var(--gap-3);
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-popover);
+  font-size: var(--fs-1);
+  font-weight: 400;
+  visibility: hidden;
+}
+.confidence:hover .tooltip-bubble,
+.confidence:focus .tooltip-bubble {
+  visibility: visible;
+}

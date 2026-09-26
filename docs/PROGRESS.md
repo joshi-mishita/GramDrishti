@@ -12,9 +12,9 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S3 | Frontend foundation | frontend | merged | session-03-frontend-foundation (#4) | yes |
 | S4 | Frontend map explorer | frontend | merged | session-04-map-explorer (#6) | yes |
 | S5 | Backend model core | backend | merged | session-05-model-core (#7) | yes |
-| S6 | Agro-variables, snapshots, forecast APIs | backend | PR open | session-06-snapshots-forecast-api | |
-| S7 | Frontend detail panel and first integration | frontend | not started | | |
-| S8 | Advisory engine and review APIs | backend | PR open (stacked on S6) | session-08-advisory-engine | |
+| S6 | Agro-variables, snapshots, forecast APIs | backend | merged | session-06-snapshots-forecast-api (#9) | yes |
+| S7 | Frontend detail panel and first integration | frontend | PR open | session-07-detail-panel | |
+| S8 | Advisory engine and review APIs | backend | not started | | |
 | S9 | Frontend priority, risk and review | frontend | not started | | |
 | S10 | Verification and impact | backend | not started | | |
 | S11 | Frontend verification and impact | frontend | not started | | |
@@ -212,6 +212,15 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 - D067 Spray hold uses the day-level planner.
 - D068 Text formatting, English-only evidence, no gender agreement with crop names.
 - D069 Removed the S2 placeholder risk and advisory texts.
+- D057 S7 stacked on S6.
+- D058 Headline and chart middle line on p50.
+- D059 Chart variable switch shares the map variable.
+- D060 Probability and confidence words.
+- D061 Change list wording and merging.
+- D062 Observed overlay off by default, source labelled.
+- D063 Real endpoints in `.env.example`; `SHOTS_REAL` panel screenshots.
+- D064 Explain difference labelled apart from the headline difference.
+- D065 Fan chart y domain.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -240,6 +249,11 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 - S8: real mode is untested for advisories: soil signals would be missing, so irrigation, sowing and dry-spell rules would be skipped (counted, not guessed).
 - S8: `sowing_go` and `sowing_heavy_rain_wait` fire on no demo date (November soil is dry in the mock data); only their unit cases cover them.
 
+- S7: CI has not run this branch (no `gh`). The `SHOTS_REAL` screenshots need the local API with snapshots and are not part of CI.
+- S7: keyboard use of the chart (the SVG is hidden from assistive tech; the table is the route) and the confidence tooltip were not tried with a real screen reader. Chart hover was checked with a dispatched mouse event; the in-app browser's hover emulation did not trigger it in a scaled viewport.
+- S7: Hindi and Punjabi panel strings are drafts (word order in "कल: सूखा (4%)। अब: ..." is built from parts and uses "." rather than "।").
+- S7: tested in Chrome only; not in Firefox, Safari or on a touch device.
+
 ## Known issues
 - S5 rain does not beat B1 (LOBO -0.7 %, CALIB -15.8 % MAE). The rain CQR offset is 0 because dry days dominate, and wet-day coverage is 0.42..0.72. Options for discussion (not tuning): serve B1 rain amount with model event probabilities, or a wet-day-conditional interval.
 - S5 isotonic calibration is kept as the guide says but did not help on CALIB halves. Discuss before S6.
@@ -265,6 +279,9 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 - S3/S4 at phone width the officer map controls still fill most of the first screen; the map sits below them. One-finger drag on the map pans it rather than scrolling the page.
 - S4 the lazy map chunk is 1.0 MB (284 kB gzip) plus a 510 kB worker, all MapLibre; Vite prints a chunk-size warning. It loads only on `/map`.
 - S4 in mock mode only lead day 1 of 2024-09-09 has map files, and only MP0103, MP0302, MP0305, MP0412 have a Panchayat forecast; other days and Panchayats show "No demo file". Use the API for the rest.
+- S7 the map chunk grew from 1.0 MB to 1.43 MB (395 kB gzip) with Recharts. It loads only on `/map`; lazy-loading the chart would let the map paint first.
+- S7 rain event probabilities often repeat across thresholds (1, 2.5 and 10 mm all 28 % for MP0305 on 1 Aug 2024), a result of the S6 clamp. The panel shows them as they are.
+- S7 the ribbon scrolls off-screen on phone once the page is scrolled (it is not sticky).
 - S3 Vitest prints a Node warning about `--localstorage-file` (Node 25 with jsdom); harmless.
 - S8 mock soil water is very dry all winter (depletion 0.9 to 0.98 in rabi; the start state comes from the oracle and no irrigation is simulated, D050), so almost every sown field gets "irrigate" in November to January (83 on 2024-01-12, 84 on 2024-12-24).
 - S8 livestock heat advice fires in all 90 Panchayats on four demo dates (THI p90 is 80 to 96 in the monsoon with the upper maximum temperature). It is weather-wide, not local, and makes the review queue long; the expert should set the THI thresholds.
@@ -300,5 +317,6 @@ Local run: `cd backend && python -m gramdrishti.pipeline.train` (once, about 2 m
 Frontend (S9): contract **v0.2.0** (additive, `contract/CHANGELOG.md`). `/risk`, `/priority` and `/advisories` are real rules-engine output with `provenance: computed` and `thresholds_status: placeholder` (show the placeholder notice from `thresholds_status`, not from provenance). Review screen: `POST /advisories/{id}/review` returns the updated advisory; audit entries carry optional `before` / `after` for a diff view; an edit that sends only `en` nulls `hi` and `pa` (D063), so say so in the edit form. `Advisory.rule_id` names the rule. Priority `crops_affected` can be empty. `derived.spray_rating` (good / caution / avoid) is per whole day, for a spray strip in the detail panel. New mock file `advisories_2024-12-24.json`; `risk_dry_spell.json` is now lead day 5 (dry spells build up over the days); `forecast_changes_*.json` has a boolean `advice_changed`.
 
 Backend (S10): verification can replay decisions from the engine (`advisory.engine.generate` on any snapshot) and the spray planner (`advisory.spray.plan`); confidence levels are there to be checked against outcomes. S12: seed the `farmers` table (created, empty) and move `/farmers` onto it; feedback is already stored in SQLite. When the expert returns values: edit `rules.yaml` and the calendar, fill `source`, set `thresholds_status: reviewed` per rule, then regenerate the expert table and examples.
+Frontend (S9): the panel now ends with "Forecast changed". Add advisories for the selected Panchayat under it and use `components/ConfidenceLabel` in advisory cards. Enable `RiskLayerSelect` in `features/map/MapControls.tsx` (`RISK_TOKENS` in `lib/ramps.ts`); reuse `components/DataTable.tsx`. Add `risk,priority,advisories` to `VITE_REAL_ENDPOINTS` once S8 serves rules. S6 is merged (#9); `main` was merged into S7, so the S7 pull request targets `main`.
 
 Mock files (`contract/examples/`, main date 2024-09-09) follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json` (plus `explain_MP0305_rain.json` and `explain_MP0103_rain_dry_block.json`), `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`, `advisories.json`, `advisories_2024-12-24.json`, `priority.json`, `priority_2024-12-24.json`. Show a notice when `provenance` or `thresholds_status` is `placeholder`.
