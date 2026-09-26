@@ -350,3 +350,133 @@
   margin: 0;
   font-weight: 500;
 }
+
+/* ---- Detail panel: fan chart (Guide 8.3) ---- */
+.subsection-title {
+  font-size: var(--fs-2);
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: var(--gap-1);
+}
+.fan {
+  margin: 0;
+}
+.fan-unit {
+  font-size: var(--fs-1);
+  color: var(--muted);
+  margin-bottom: var(--gap-1);
+}
+.fan-plot {
+  width: 100%;
+  height: 200px;
+}
+.fan-plot .recharts-surface:focus,
+.fan-plot .recharts-wrapper:focus {
+  outline: none;
+}
+.fan-legend {
+  list-style: none;
+  margin: var(--gap-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-1) var(--gap-3);
+  font-size: var(--fs-1);
+  color: var(--muted);
+}
+.fan-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.key {
+  display: inline-block;
+  flex: none;
+}
+.key-band {
+  width: 16px;
+  height: 10px;
+  background: var(--water);
+  opacity: 0.22;
+}
+.key-middle {
+  width: 16px;
+  border-top: 2px solid var(--water);
+}
+.key-block {
+  width: 16px;
+  border-top: 2px dashed var(--ink);
+}
+.key-observed {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--heat);
+}
+.fan-tip {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-popover);
+  padding: var(--gap-2) var(--gap-3);
+  font-size: var(--fs-1);
+}
+.fan-tip-date {
+  font-weight: 700;
+}
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-2);
+  min-height: 32px;
+  font-size: var(--fs-2);
+  cursor: pointer;
+}
+.check input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--brand);
+}
+
+/* ---- Detail panel: explain and change lists ---- */
+.explain-list,
+.change-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--fs-2);
+}
+.explain-list > li,
+.change-list > li {
+  padding: var(--gap-2) 0;
+  border-top: 1px solid var(--line);
+}
+.explain-list > li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.effect {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-1);
+  font-weight: 700;
+  color: var(--muted);
+}
+.effect-warmer svg {
+  color: var(--heat);
+}
+.effect-wetter svg,
+.effect-more_humid svg {
+  color: var(--water);
+}
+.change-date {
+  font-weight: 700;
+}
+.change-event {
+  font-weight: 500;
+}
+.change-list p + p {
+  margin-top: 2px;
+}
