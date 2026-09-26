@@ -117,3 +117,19 @@ def rain_season(dates: pd.Series) -> pd.Series:
     """Map dates to "monsoon" (Jun-Sep) or "non_monsoon"."""
     months = pd.to_datetime(dates).dt.month
     return pd.Series(np.where(months.isin(MONSOON_MONTHS), "monsoon", "non_monsoon"), index=months.index)
+
+
+# ---------------------------------------------------------------- downscaling model (S5)
+SEED = 42
+# Backend Guide 6.3 defaults. Tune only num_leaves, min_child_samples, n_estimators, and only on CALIB.
+LGBM_BASE = {"n_estimators": 400, "learning_rate": 0.05, "num_leaves": 31, "min_child_samples": 50,
+             "subsample": 0.8, "subsample_freq": 1, "colsample_bytree": 0.8, "n_jobs": -1, "verbose": -1}
+# Same inputs, same parameters and the same machine give the same model.
+LGBM_DETERMINISM = {"random_state": SEED, "deterministic": True, "force_row_wise": True}
+QUANTILES = (0.1, 0.5, 0.9)
+RAIN_EVENTS_MM = (1.0, 2.5, 10.0, 35.0)
+INTERVAL_LEVEL = 0.8                    # p10..p90
+LEAD_GROUPS = {1: "d1_2", 2: "d1_2", 3: "d3_5", 4: "d3_5", 5: "d3_5"}
+WIND_FLOOR_KMH = 0.1                    # floor inside log(Panchayat / block) for the wind target
+RECONCILE_TOL = 1e-6                    # block mean of Panchayat means must equal the block forecast
+MODEL_VERSION_PREFIX = "s5-lgbm"
