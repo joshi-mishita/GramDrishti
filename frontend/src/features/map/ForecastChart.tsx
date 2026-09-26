@@ -53,14 +53,16 @@ function ChartBody({ forecast }: { forecast: PanchayatForecast }) {
 
   return (
     <div className="stack">
-      <SegmentedControl<Var>
-        legend={t("panel.chartVar")}
-        name="panel-variable"
-        value={variable}
-        variant="wrap"
-        options={VARS.map((v) => ({ value: v, label: t(`varsShort.${v}`) }))}
-        onChange={setVariable}
-      />
+      <div className="fan-vars">
+        <SegmentedControl<Var>
+          legend={t("panel.chartVar")}
+          name="panel-variable"
+          value={variable}
+          variant="wrap"
+          options={VARS.map((v) => ({ value: v, label: t(`varsShort.${v}`) }))}
+          onChange={setVariable}
+        />
+      </div>
       {hasAnyValue(rows) ? (
         <FanChart
           rows={rows}

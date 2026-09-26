@@ -62,6 +62,7 @@ export function FanChart({ rows, variable, unit, lang, showObserved, selectedDat
               tickLine={false}
               axisLine={{ stroke: "var(--line)" }}
               interval={0}
+              padding={{ left: 14, right: 18 }}
             />
             <YAxis
               domain={domain ?? [0, 1]}
@@ -71,7 +72,9 @@ export function FanChart({ rows, variable, unit, lang, showObserved, selectedDat
               tickFormatter={(v: number) => formatNumber(v, lang, digits)}
               tickLine={false}
               axisLine={false}
-              allowDataOverflow={false}
+              // fanDomain already covers every plotted value. Without this Recharts widens
+              // the axis to the stack's 0 baseline and a 30 C band becomes a flat line.
+              allowDataOverflow
             />
             {selectedDate ? (
               <ReferenceLine x={selectedDate} stroke="var(--muted)" strokeDasharray="1 3" />
@@ -172,31 +175,34 @@ export function FanChart({ rows, variable, unit, lang, showObserved, selectedDat
           </li>
         ) : null}
       </ul>
-      <table className="visually-hidden">
-        <caption>{t("panel.chartTableCaption", { variable: varName, unit })}</caption>
-        <thead>
-          <tr>
-            <th scope="col">{t("panel.colDay")}</th>
-            <th scope="col">{t("panel.colLow")}</th>
-            <th scope="col">{t("panel.colMiddle")}</th>
-            <th scope="col">{t("panel.colHigh")}</th>
-            <th scope="col">{t("panel.colBlock")}</th>
-            {showObserved ? <th scope="col">{t("panel.colObserved")}</th> : null}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.date}>
-              <th scope="row">{formatDate(r.date, lang, "day")}</th>
-              <td>{fmt(r.p10)}</td>
-              <td>{fmt(r.p50)}</td>
-              <td>{fmt(r.p90)}</td>
-              <td>{fmt(r.block)}</td>
-              {showObserved ? <td>{fmt(r.observed)}</td> : null}
+      {/* The wrapper hides the table: overflow does not clip an element shown as a table. */}
+      <div className="visually-hidden">
+        <table>
+          <caption>{t("panel.chartTableCaption", { variable: varName, unit })}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{t("panel.colDay")}</th>
+              <th scope="col">{t("panel.colLow")}</th>
+              <th scope="col">{t("panel.colMiddle")}</th>
+              <th scope="col">{t("panel.colHigh")}</th>
+              <th scope="col">{t("panel.colBlock")}</th>
+              {showObserved ? <th scope="col">{t("panel.colObserved")}</th> : null}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.date}>
+                <th scope="row">{formatDate(r.date, lang, "day")}</th>
+                <td>{fmt(r.p10)}</td>
+                <td>{fmt(r.p50)}</td>
+                <td>{fmt(r.p90)}</td>
+                <td>{fmt(r.block)}</td>
+                {showObserved ? <td>{fmt(r.observed)}</td> : null}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </figure>
   );
 }

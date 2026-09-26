@@ -67,13 +67,15 @@ function ExplainBody({ explain }: { explain: Explain }) {
   return (
     <div className="stack">
       {explain.delta_vs_block !== null ? (
-        <p className="small">
-          {t("panel.explainDelta", {
-            variable,
-            value: formatSigned(explain.delta_vs_block, lang, VAR_DIGITS[explain.var]),
-            unit: t(`units.${UNITS[explain.var]}`),
-          })}
-        </p>
+        <div className="small">
+          <p>
+            {t("panel.explainDelta", {
+              value: formatSigned(explain.delta_vs_block, lang, VAR_DIGITS[explain.var]),
+              unit: t(`units.${UNITS[explain.var]}`),
+            })}
+          </p>
+          <p className="muted">{t("panel.explainDeltaNote")}</p>
+        </div>
       ) : null}
       <ul className="explain-list">
         {explain.reasons.map((r, i) => {

@@ -480,3 +480,10 @@
 .change-list p + p {
   margin-top: 2px;
 }
+/* Five variables do not fit on one row of the panel: three, then two, all equal width. */
+.fan-vars .seg-opt {
+  flex: 1 0 30%;
+}
+.fan-vars .seg-face {
+  justify-content: center;
+}

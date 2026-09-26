@@ -82,7 +82,9 @@ describe("detail panel", () => {
     expect(
       within(reasons).getByText(/Less built-up land than the rest of the block/),
     ).toBeInTheDocument();
-    expect(within(reasons).getByText(/-0.2 °C/)).toBeInTheDocument();
+    expect(
+      within(reasons).getByText("Model average here compared with the block average: -0.2 °C"),
+    ).toBeInTheDocument();
 
     // Changes: 1, 2.5 and 10 mm on 13 Sep collapse into one line.
     const changes = await screen.findByRole("region", { name: "Forecast changed since yesterday" });
