@@ -17,29 +17,41 @@
       "valid_from": "2024-09-10",
       "valid_to": "2024-09-12",
       "action": {
-        "en": "Plan an irrigation in the next 2 days.",
-        "hi": "अगले 2 दिनों में सिंचाई की योजना बनाएँ।",
-        "pa": "ਅਗਲੇ 2 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ।"
+        "en": "Irrigate bajra by 10 September. Skip it if you irrigated in the last 3 days.",
+        "hi": "10 सितंबर तक बाजरा की सिंचाई करें। अगर पिछले 3 दिनों में सिंचाई की है, तो न करें।",
+        "pa": "10 ਸਤੰਬਰ ਤੱਕ ਬਾਜਰਾ ਦੀ ਸਿੰਚਾਈ ਕਰੋ। ਜੇ ਪਿਛਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਕੀਤੀ ਹੈ, ਤਾਂ ਨਾ ਕਰੋ।"
       },
       "reason": {
-        "en": "Little rain is expected over the next 5 days (0 mm in total).",
-        "hi": "अगले 5 दिनों में कम बारिश की उम्मीद है (कुल 0 मिमी)।",
-        "pa": "ਅਗਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ ਘੱਟ ਮੀਂਹ ਦੀ ਉਮੀਦ ਹੈ (ਕੁੱਲ 0 ਮਿਲੀਮੀਟਰ)।"
+        "en": "The soil is drying. About 60% of the root-zone water is used, and the chance of useful rain (10 mm or more) in the next 3 days is 1%.",
+        "hi": "मिट्टी सूख रही है। जड़ क्षेत्र की लगभग 60% नमी खत्म हो चुकी है, और अगले 3 दिनों में काम की बारिश (10 मिमी या अधिक) की संभावना 1% है।",
+        "pa": "ਮਿੱਟੀ ਸੁੱਕ ਰਹੀ ਹੈ। ਜੜ੍ਹਾਂ ਵਾਲੇ ਹਿੱਸੇ ਦੀ ਲਗਭਗ 60% ਨਮੀ ਖ਼ਤਮ ਹੋ ਚੁੱਕੀ ਹੈ, ਅਤੇ ਅਗਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਦੇ ਮੀਂਹ (10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ) ਦੀ ਸੰਭਾਵਨਾ 1% ਹੈ।"
       },
       "fallback": {
-        "en": "If more than 10 mm of rain falls, skip this irrigation.",
-        "hi": "अगर 10 मिमी से ज़्यादा बारिश हो, तो यह सिंचाई छोड़ दें।",
-        "pa": "ਜੇ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਛੱਡ ਦਿਓ।"
+        "en": "If more than 10 mm of rain falls before you irrigate, skip this irrigation.",
+        "hi": "अगर सिंचाई से पहले 10 मिमी से अधिक बारिश हो जाए, तो यह सिंचाई न करें।",
+        "pa": "ਜੇ ਸਿੰਚਾਈ ਤੋਂ ਪਹਿਲਾਂ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪੈ ਜਾਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਨਾ ਕਰੋ।"
       },
       "confidence": "high",
       "evidence": [
         {
-          "label": "Rain expected over the next 5 days",
-          "value": "0 mm"
+          "label": "Share of root-zone water already used, start of 10 Sep",
+          "value": "60%"
+        },
+        {
+          "label": "Chance of 10 mm or more on at least one day, 10 Sep to 12 Sep",
+          "value": "1%"
+        },
+        {
+          "label": "Expected rain, total 10 Sep to 12 Sep (median)",
+          "value": "0.0 mm"
+        },
+        {
+          "label": "Crop water demand (reference evapotranspiration), mean 10 Sep to 12 Sep",
+          "value": "4.8 mm"
         },
         {
           "label": "Crop stage (placeholder calendar)",
-          "value": "flowering grain"
+          "value": "flowering and grain"
         }
       ],
       "thresholds_status": "placeholder",
@@ -51,19 +63,101 @@
           "at": "2024-09-09T08:00:00",
           "actor": "system",
           "action": "created",
-          "note": "Placeholder generator (S2). Rules engine arrives in S8."
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
         },
         {
           "at": "2024-09-09T09:30:00",
           "actor": "Officer Demo",
           "action": "approved",
-          "note": ""
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
         }
       ],
       "audio": {},
       "data_mode": "mock",
-      "provenance": "placeholder",
-      "translation_status": "needs_native_review"
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "irrigate_now"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0103-livestock-livestock",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0103",
+      "block_id": "MB01",
+      "crop": "livestock",
+      "stage": null,
+      "category": "livestock",
+      "priority": "moderate",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Give animals shade and plenty of fresh water, and graze them in the cooler morning and evening hours until 12 September.",
+        "hi": "12 सितंबर तक पशुओं को छाया और भरपूर ताज़ा पानी दें, और उन्हें सुबह-शाम की ठंडक में चराएं।",
+        "pa": "12 ਸਤੰਬਰ ਤੱਕ ਪਸ਼ੂਆਂ ਨੂੰ ਛਾਂ ਅਤੇ ਭਰਪੂਰ ਤਾਜ਼ਾ ਪਾਣੀ ਦਿਓ, ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸਵੇਰੇ-ਸ਼ਾਮ ਦੀ ਠੰਢਕ ਵਿੱਚ ਚਰਾਓ।"
+      },
+      "reason": {
+        "en": "The heat index for animals may reach 85 on 10 September, with a maximum temperature up to 36.8 C.",
+        "hi": "10 सितंबर को पशुओं के लिए गर्मी सूचकांक 85 तक जा सकता है, अधिकतम तापमान 36.8 डिग्री सेल्सियस तक।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਪਸ਼ੂਆਂ ਲਈ ਗਰਮੀ ਸੂਚਕਾਂਕ 85 ਤੱਕ ਜਾ ਸਕਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ 36.8 ਡਿਗਰੀ ਸੈਲਸੀਅਸ ਤੱਕ।"
+      },
+      "fallback": {
+        "en": "If the day is cooler than forecast, shade and water as usual are enough.",
+        "hi": "अगर दिन अनुमान से ठंडा रहे, तो सामान्य छाया और पानी काफ़ी है।",
+        "pa": "ਜੇ ਦਿਨ ਅਨੁਮਾਨ ਨਾਲੋਂ ਠੰਢਾ ਰਹੇ, ਤਾਂ ਆਮ ਵਾਂਗ ਛਾਂ ਅਤੇ ਪਾਣੀ ਕਾਫ਼ੀ ਹੈ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Livestock heat index (THI) with the upper maximum temperature, highest 10 Sep to 12 Sep",
+          "value": "85"
+        },
+        {
+          "label": "Highest maximum temperature, upper estimate (p90), 10 Sep to 12 Sep",
+          "value": "36.8 C"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {},
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "livestock_heat"
     }
   ]
 }

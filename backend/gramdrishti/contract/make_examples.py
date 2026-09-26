@@ -6,14 +6,16 @@ Every example is a real response of the API with a fixed clock, so the files are
 match the Pydantic models by construction. ``index.json`` maps each file to its endpoint and model and
 records the model version of the snapshots used.
 Forecast, explain and change numbers come from the snapshots in ``backend/artifacts/snapshots`` (run
-``python -m gramdrishti.pipeline.run_daily --all-demo-dates`` first). Risk and priority are PROVISIONAL
-(placeholder thresholds); verification, impact and advisory content is PLACEHOLDER (``provenance`` says
-which). All of it is ``data_mode: "mock"``.
+``python -m gramdrishti.pipeline.run_daily --all-demo-dates`` first). Risk, priority and advisories come
+from the YAML rules engine with PLACEHOLDER thresholds (``thresholds_status: "placeholder"``); the review
+examples run against a throwaway SQLite file, never the local store. Verification and impact numbers are
+PLACEHOLDER (``provenance`` says so). All of it is ``data_mode: "mock"``.
 """
 
 from __future__ import annotations
 
 import json
+import tempfile
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
@@ -36,8 +38,10 @@ PANCHAYATS = {
     "MP0412": "rain gauge only (other variables null), poorly drained soil",
     "MP0302": "no station: observed comes from synthetic truth",
 }
-RISK_DATES = {"heavy_rain": MAIN_DATE, "waterlogging": "2024-07-31", "heat": "2024-03-31",
-              "frost": "2024-12-24", "dry_spell": "2024-08-15"}
+# (issue date, lead day) per risk type: a demo date where that risk shows up.
+RISK_DATES = {"heavy_rain": (MAIN_DATE, 1), "waterlogging": ("2024-07-31", 1), "heat": ("2024-03-31", 1),
+              "frost": ("2024-12-24", 1), "dry_spell": ("2024-08-15", 5)}
+COLD_DATE = "2024-12-24"
 
 
 def _validate(model: type[BaseModel], payload: Any) -> None:
@@ -88,10 +92,15 @@ def _geojson(w: Writer, name: str, path: str, model: type[BaseModel]) -> None:
 
 def build(out: Path = OUT) -> list[dict]:
     """Write every example into ``out`` and return the index entries."""
+    with tempfile.TemporaryDirectory() as tmp:
+        return _build(out, Path(tmp) / "examples.sqlite")
+
+
+def _build(out: Path, db: Path) -> list[dict]:
     out.mkdir(parents=True, exist_ok=True)
     for old in list(out.glob("*.json")) + list(out.glob("*.geojson")):
         old.unlink()
-    svc = Service(clock=lambda: FIXED_NOW)
+    svc = Service(clock=lambda: FIXED_NOW, db_path=db)
     client = TestClient(create_app(svc))
     w = Writer(client, out)
     d = MAIN_DATE
@@ -113,26 +122,28 @@ def build(out: Path = OUT) -> list[dict]:
         w.get(f"explain_{pid}.json", f"/explain/{pid}?issue_date={d}&lead_day=1&var=tmax", s.Explain,
               "SHAP block contrast on the mean model; hi and pa null until written")
         w.get(f"forecast_changes_{pid}.json", f"/forecast/changes/{pid}?issue_date={d}", s.ForecastChanges,
-              "against the 2024-09-08 snapshot; advice_changed is null until the rules engine (S8)")
+              "against the 2024-09-08 snapshot; advice_changed compares the rules engine's advice")
 
-    for rtype, rdate in RISK_DATES.items():
-        w.get(f"risk_{rtype}.json", f"/risk?issue_date={rdate}&lead_day=1&type={rtype}", s.Risk,
-              "PROVISIONAL scores, placeholder thresholds")
+    for rtype, (rdate, lead) in RISK_DATES.items():
+        w.get(f"risk_{rtype}.json", f"/risk?issue_date={rdate}&lead_day={lead}&type={rtype}", s.Risk,
+              "rules.yaml risk scores, placeholder thresholds")
     w.get("priority.json", f"/priority?issue_date={d}&horizon_days=2", s.Priority,
-          "PROVISIONAL scores, placeholder thresholds")
-    w.get("priority_2024-12-24.json", "/priority?issue_date=2024-12-24&horizon_days=2", s.Priority,
+          "rules.yaml risk scores, placeholder thresholds; headlines from templates.yaml")
+    w.get(f"priority_{COLD_DATE}.json", f"/priority?issue_date={COLD_DATE}&horizon_days=2", s.Priority,
           "Cold December morning")
 
     queue = w.get("advisories.json", f"/advisories?status=draft&issue_date={d}", s.AdvisoryList,
-                  "PLACEHOLDER advisory generator until S8. Hindi and Punjabi need native review")
+                  "rules engine drafts, placeholder thresholds. Hindi and Punjabi need native review")
+    w.get(f"advisories_{COLD_DATE}.json", f"/advisories?status=draft&issue_date={COLD_DATE}", s.AdvisoryList,
+          "rules engine drafts on the cold date (frost and irrigation)")
     items = queue["items"]
     spray = next(a for a in items if a["category"] == "spray")
     w.get("advisory_detail.json", f"/advisories/{spray['id']}", s.Advisory, "one advisory with audit trail")
     w.post("advisory_review_response.json", f"/advisories/{spray['id']}/review",
            {"action": "edit", "reviewer": "Officer Demo", "note": "Shortened wording",
-            "edited": {"action": {"en": "No spraying before 10 September.",
-                                  "hi": "10 सितंबर से पहले छिड़काव न करें।",
-                                  "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"}}},
+            "edited": {"action": {"en": "No spraying on 10 September. Wait for a dry, calm day.",
+                                  "hi": "10 सितंबर को छिड़काव न करें। सूखे और शांत दिन का इंतज़ार करें।",
+                                  "pa": "10 ਸਤੰਬਰ ਨੂੰ ਛਿੜਕਾਅ ਨਾ ਕਰੋ। ਸੁੱਕੇ ਅਤੇ ਸ਼ਾਂਤ ਦਿਨ ਦੀ ਉਡੀਕ ਕਰੋ।"}}},
            s.Advisory, "advisory_review_request.json", s.ReviewRequest, "action: approve | edit | reject")
 
     farmers = [w.get(f"farmer_F{i:03d}.json", f"/farmers/F{i:03d}", s.Farmer, "demo farmer")

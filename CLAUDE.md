@@ -32,7 +32,11 @@ Shared: Docker Compose, GitHub Actions.
 - Regenerate mock data (incl. git-ignored oracle): `python data/generate_mock_data.py`
 - Baseline report (TRAIN fit, CALIB scores): `cd backend && python -m gramdrishti.verify.baseline_report`
 - Train models (writes git-ignored `backend/artifacts/`; add `--lobo` for leave-one-block-out): `cd backend && python -m gramdrishti.pipeline.train`
-- Build forecast snapshots (needs trained artifacts; the API reads them): `cd backend && python -m gramdrishti.pipeline.run_daily --all-demo-dates` (or `--issue-date YYYY-MM-DD`)
+- Build forecast snapshots and draft advisories (needs trained artifacts; the API reads them; drafts go to SQLite `backend/artifacts/gramdrishti.sqlite` or `GRAMDRISHTI_DB`, `--no-advisories` skips them): `cd backend && python -m gramdrishti.pipeline.run_daily --all-demo-dates` (or `--issue-date YYYY-MM-DD`)
+- Create or migrate the SQLite store (optional, run_daily and the API do it too): `cd backend && python -m gramdrishti.store.init_db`
+- Validate advisory rules and templates, write `rules.schema.json`: `cd backend && python -m gramdrishti.advisory.rules`
+- Expert thresholds table (writes `docs/thresholds_for_expert_review.md`; a test checks it is current): `cd backend && python -m gramdrishti.advisory.expert_table`
+- Read stored advisories in plain text: `cd backend && python -m gramdrishti.advisory.show --issue-date 2024-09-09` (`--panchayat MP0307 MP0311`, `--lang hi`, `--counts`)
 - Run API: `cd backend && uvicorn gramdrishti.api.main:app --reload --port 8000`
 - Export contract: `cd backend && python -m gramdrishti.export_openapi`
 - Contract examples (calls the app, validates, writes `contract/examples/`; needs the snapshots above): `cd backend && python -m gramdrishti.contract.make_examples`

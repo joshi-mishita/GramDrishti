@@ -10,7 +10,26 @@ Rules (see `CONTRIBUTING.md`):
 |---|---|---|---|---|
 | v0.1 | 2026-09-24 | superseded | Contract as written in Appendix A. Not yet implemented; `openapi.json` and examples arrive in S2. | n/a |
 | v0.1.1 | 2026-09-25 | superseded | First implementation (S2): `openapi.json`, `examples/`. Every Appendix A shape kept; additions and definitions listed below. | no (additive) |
-| v0.1.2 | 2026-09-26 | **current** | Forecast endpoints serve the S5 model through snapshots (S6). Optional fields only; see below. | no (additive) |
+| v0.1.2 | 2026-09-26 | superseded | Forecast endpoints serve the S5 model through snapshots (S6). Optional fields only; see below. | no (additive) |
+| v0.2.0 | 2026-09-26 | **current** | Risk, priority and advisories from the YAML rules engine; review state in SQLite (S8). Optional fields only; see below. | no (additive) |
+
+## v0.2.0 (2026-09-26, S8)
+
+Additive and optional: every v0.1.2 client and example still validates. `GET /meta` and `/health` return `api_version: "0.2.0"`. The minor step follows Appendix A1 ("contract changes bump the minor") and the S8 session plan.
+
+New optional fields:
+- `Advisory.rule_id`: the `rules.yaml` rule that produced the advisory (for example `irrigate_now`).
+- `AuditEntry.before` and `AuditEntry.after`: the fields a review changed, as JSON objects (`status`, and `action` / `reason` / `fallback` when edited). The `created` entry has `before: null`, `after: {"status": "draft"}`.
+- `Derived.spray_rating` (in `/forecast/panchayat` days): `good | caution | avoid`, a **whole-day** spray rating from P(rain >= 2.5 mm) that day and the next and the p90 wind. The data is daily, so there are no hour-level spray windows.
+
+Semantics changed in this version (shapes unchanged):
+- `/risk`, `/priority` and `/advisories` carry `provenance: "computed"` (rules engine output) and `thresholds_status: "placeholder"` (every threshold waits for expert review; `docs/thresholds_for_expert_review.md`). They were `provisional` / `placeholder` before.
+- Risk scores: `heavy_rain` is the calibrated P(rain >= 35 mm); `heat` and `frost` are the chance of crossing the heat or cold alert of the crops in season at that Panchayat (placeholder crop calendar), else a generic 40 C / 2 C; `waterlogging` is the agro waterlogging score; `dry_spell` grows with dry days in a row and soil water used. Levels come from the cuts in `rules.yaml`. A Panchayat whose waterlogging score is unknown (no soil state, real mode) has no waterlogging item.
+- `/priority`: one item per Panchayat (its worst risk within the horizon, moderate or above), ranked by level, then score, then Panchayat id. `crops_affected` lists crops with an advisory in a category linked to that risk (may be empty). `headline` is filled from `templates.yaml` in en, hi and pa (hi and pa need native review).
+- Advisories: ids stay `ADV-<issue>-<panchayat>-<crop>-<category>`; livestock advice uses crop `livestock`. At most one advisory per Panchayat, crop and category. `stage` can be `pre_sowing` for a crop sown within the next 10 days. `audio` stays `{}`.
+- `POST /advisories/{id}/review`: `edited` is only accepted with `action: "edit"` (400 otherwise). A language left out of an edited text becomes null, so a stale translation never survives a changed English text. A reviewed advisory can be reviewed again; each review appends one audit entry.
+- Review state and feedback persist in SQLite across restarts. `POST /feedback` ids count up from the database.
+- `/forecast/changes`: `advice_changed` is now `true` or `false` (the rules engine's advice for that Panchayat differs between the two issue dates by crop, category or rule); still `null` without a previous snapshot.
 
 ## v0.1.2 (2026-09-26, S6)
 

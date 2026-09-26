@@ -37,7 +37,7 @@ dev = [
 include = ["gramdrishti*"]
 
 [tool.setuptools.package-data]
-gramdrishti = ["contract/demo_dates.json"]
+gramdrishti = ["contract/demo_dates.json", "advisory/*.yaml", "advisory/rules.schema.json"]
 
 [tool.ruff]
 line-length = 110

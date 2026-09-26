@@ -192,7 +192,7 @@
       "current_prob": 0.54
     }
   ],
-  "advice_changed": null,
+  "advice_changed": false,
   "summary": {
     "en": "The forecast changed for 11 day and variable pairs since 8 September.",
     "hi": "8 सितंबर के पूर्वानुमान के बाद 11 जगह बदलाव हुआ है।",
