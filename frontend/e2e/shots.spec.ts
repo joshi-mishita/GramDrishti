@@ -4,8 +4,13 @@ import { expect, test } from "@playwright/test";
 
 /** Routes to capture. Edit this list to add screens. */
 const ROUTES: { name: string; path: string; langs: ("en" | "hi" | "pa")[] }[] = [
+  // Heavy-rain demo date in each view mode (S4 definition of done).
   { name: "map", path: "/map?date=2024-09-09&var=rain", langs: ["en", "hi", "pa"] },
+  { name: "map-block", path: "/map?date=2024-09-09&var=rain&view=block", langs: ["en"] },
+  { name: "map-delta", path: "/map?date=2024-09-09&var=rain&view=delta", langs: ["en"] },
+  { name: "map-tmax-delta", path: "/map?date=2024-09-09&var=tmax&view=delta", langs: ["en"] },
   { name: "map-selected", path: "/map?date=2024-09-09&var=rain&pid=MP0103", langs: ["en"] },
+  { name: "map-selected-wet", path: "/map?date=2024-09-09&var=rain&pid=MP0305", langs: ["en"] },
   { name: "map-no-demo-file", path: "/map?date=2024-01-12&var=tmin", langs: ["en"] },
   { name: "priority", path: "/priority?date=2024-09-09", langs: ["en", "hi"] },
   { name: "review", path: "/review?date=2024-09-09", langs: ["en"] },
@@ -35,6 +40,12 @@ for (const route of ROUTES) {
         // The ribbon is on every screen in mock mode; its presence means /meta has loaded.
         await expect(page.locator(".ribbon")).toBeVisible();
         await expect(page.locator(".skeleton")).toHaveCount(0, { timeout: 10_000 });
+        if (route.path.startsWith("/map")) {
+          // MapView sets data-painted once the current colours are drawn.
+          await expect(page.locator('.map-canvas[data-painted="true"]')).toHaveCount(1, {
+            timeout: 15_000,
+          });
+        }
         await page.evaluate(() => document.fonts.ready);
         await page.screenshot({
           path: `${OUT}/${route.name}-${lang}-${vp.name}.png`,

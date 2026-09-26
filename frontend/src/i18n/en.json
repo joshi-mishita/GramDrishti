@@ -1,5 +1,7 @@
 {
-  "app": { "name": "GramDrishti" },
+  "app": {
+    "name": "GramDrishti"
+  },
   "shell": {
     "district": "District",
     "issueDate": "Issue date",
@@ -34,9 +36,23 @@
     "rh": "Humidity",
     "wind": "Wind"
   },
-  "units": { "mm": "mm", "C": "°C", "%": "%", "km/h": "km/h" },
-  "levels": { "low": "Low", "moderate": "Moderate", "high": "High", "severe": "Severe" },
-  "viewModes": { "block": "Block", "panchayat": "Panchayat", "delta": "Difference from block" },
+  "units": {
+    "mm": "mm",
+    "C": "°C",
+    "%": "%",
+    "km/h": "km/h"
+  },
+  "levels": {
+    "low": "Low",
+    "moderate": "Moderate",
+    "high": "High",
+    "severe": "Severe"
+  },
+  "viewModes": {
+    "block": "Block",
+    "panchayat": "Panchayat",
+    "delta": "Difference from block"
+  },
   "states": {
     "loading": "Loading {{what}}",
     "retry": "Try again",
@@ -51,7 +67,9 @@
     "placeholder": "The API sends placeholder numbers for this screen. They are not results, so they are not shown.",
     "computed": "Computed by the verification job."
   },
-  "thresholds": { "placeholder": "Thresholds pending expert review." },
+  "thresholds": {
+    "placeholder": "Thresholds pending expert review."
+  },
   "what": {
     "meta": "the district details",
     "geo": "the Panchayat boundaries",
@@ -61,7 +79,8 @@
     "verification": "the verification summary",
     "impact": "the decision replay",
     "farmer": "the farmer profile",
-    "farmerAdvice": "today's advice"
+    "farmerAdvice": "today's advice",
+    "forecastPanchayat": "the Panchayat forecast"
   },
   "map": {
     "title": "Map explorer",
@@ -73,18 +92,23 @@
     "jumpTo": "Panchayat",
     "jumpNone": "None selected",
     "blockLabel": "Block {{block}}",
-    "notBuiltTitle": "The map is not drawn in this version yet",
-    "notBuiltBody": "Day, variable and view already work and are kept in the link. The coloured Panchayat map, legend and hover values come next.",
-    "loadedGeo": "Boundaries loaded: {{panchayats}} Panchayats in {{blocks}} blocks.",
-    "loadedValues_one": "{{count}} Panchayat value loaded. Block forecasts range from {{min}} to {{max}} {{unit}}.",
-    "loadedValues_other": "{{count}} Panchayat values loaded. Block forecasts range from {{min}} to {{max}} {{unit}}.",
     "noValues": "No Panchayat values for this day",
     "panelLabel": "Selected Panchayat",
     "panelEmptyTitle": "No Panchayat selected",
     "panelEmptyBody": "Choose a Panchayat to see its 5-day forecast, why it differs from its block, and its advisories.",
-    "panelNotBuilt": "The 5-day forecast, reasons and advisories for this Panchayat come in the next version.",
     "clearSelection": "Clear selection",
-    "unknownPid": "Panchayat {{pid}} is not in this district"
+    "unknownPid": "Panchayat {{pid}} is not in this district",
+    "heading": "{{variable}}, {{date}}: {{view}}",
+    "showTable": "Show as table",
+    "showMap": "Show as map",
+    "flatNote": "In this provisional forecast every Panchayat in a block has the same value, so the Panchayat view changes colour only between blocks. Variation within a block arrives with the downscaling model.",
+    "regionLabel": "Map of Panchayats coloured by {{variable}}. For keyboard use, choose Show as table.",
+    "noWebglTitle": "This browser cannot draw the map",
+    "noWebglBody": "WebGL is switched off or missing. Choose Show as table for the same values.",
+    "riskLayer": "Risk layer",
+    "riskNone": "None",
+    "riskHint": "Not connected yet. Risk layers on the map arrive with the risk screens in a later version.",
+    "tableCaption": "{{variable}} for every Panchayat, {{date}}"
   },
   "priority": {
     "title": "Panchayats needing attention",
@@ -155,5 +179,43 @@
     "title": "Page not found",
     "body": "There is no screen at {{path}}.",
     "back": "Open the map"
+  },
+  "legend": {
+    "noValue": "No value",
+    "summary": "Colour scale from {{from}} to {{to}} {{unit}}",
+    "deltaCaption": "Panchayat minus block. Zero is white."
+  },
+  "tooltip": {
+    "value": "Forecast",
+    "range": "Range",
+    "block": "Block",
+    "delta": "Difference"
+  },
+  "table": {
+    "panchayat": "Panchayat",
+    "block": "Block",
+    "panchayatValue": "Panchayat ({{unit}})",
+    "range": "Likely range ({{unit}})",
+    "blockValue": "Block forecast ({{unit}})",
+    "delta": "Difference ({{unit}})",
+    "sortAsc": "{{column}}: sort from low to high",
+    "sortDesc": "{{column}}: sort from high to low",
+    "variable": "Variable",
+    "panchayatShort": "Panchayat",
+    "blockShort": "Block"
+  },
+  "panel": {
+    "valueOn": "{{variable}} on {{date}}",
+    "rangeBetween": "likely between {{lo}} and {{hi}} {{unit}}",
+    "rangeAbout": "likely about {{value}} {{unit}}",
+    "rangeUnknown": "range not available",
+    "blockForecast": "Block forecast",
+    "difference": "Difference from block",
+    "allVars": "All variables, {{date}}",
+    "chartTitle": "5-day forecast",
+    "chartEmptyTitle": "Chart not built yet",
+    "chartEmptyBody": "The 5-day chart with the likely range and the block forecast comes in the next version.",
+    "notInLayer": "No value for this Panchayat on this day.",
+    "noDay": "No forecast for this day"
   }
 }

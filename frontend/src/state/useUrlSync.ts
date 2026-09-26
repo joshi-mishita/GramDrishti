@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppStore } from "./store";
-import { readUrlState, writeUrlState } from "./urlState";
+import { URL_DEFAULTS, readUrlState, writeUrlState } from "./urlState";
 
 /**
- * Two-way mirror between the store and the URL for issueDate, variable and selectedPid.
+ * Two-way mirror between the store and the URL for issueDate, variable, selectedPid,
+ * leadDay and viewMode.
  * URL -> store when the location changes (links, back button); store -> URL with
  * replace, so changing a control does not flood the history.
  */
@@ -18,11 +19,18 @@ export function useUrlSync(): void {
     if (fromUrl.issueDate && fromUrl.issueDate !== s.issueDate) s.setIssueDate(fromUrl.issueDate);
     if (fromUrl.variable && fromUrl.variable !== s.variable) s.setVariable(fromUrl.variable);
     if (fromUrl.selectedPid !== s.selectedPid) s.setSelectedPid(fromUrl.selectedPid);
+    // Day and view are omitted from the URL at their defaults, so absent means default.
+    const day = fromUrl.leadDay ?? URL_DEFAULTS.leadDay;
+    if (day !== s.leadDay) s.setLeadDay(day);
+    const view = fromUrl.viewMode ?? URL_DEFAULTS.viewMode;
+    if (view !== s.viewMode) s.setViewMode(view);
   }, [location.search]);
 
   const issueDate = useAppStore((s) => s.issueDate);
   const variable = useAppStore((s) => s.variable);
   const selectedPid = useAppStore((s) => s.selectedPid);
+  const leadDay = useAppStore((s) => s.leadDay);
+  const viewMode = useAppStore((s) => s.viewMode);
 
   useEffect(() => {
     // Read the live store, not this render's values: on first mount the effect above has
@@ -34,5 +42,5 @@ export function useUrlSync(): void {
     }
     // location is read, not watched: this effect reacts to store changes only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [issueDate, variable, selectedPid]);
+  }, [issueDate, variable, selectedPid, leadDay, viewMode]);
 }

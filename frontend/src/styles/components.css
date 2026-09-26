@@ -319,3 +319,97 @@ a.btn {
 .btn-primary:focus-visible {
   outline-color: var(--ink);
 }
+
+/* ---- DataTable (Guide 8): sortable, sticky header, 36 px rows ---- */
+.table-wrap {
+  overflow: auto;
+  max-height: 70vh;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-2);
+}
+.data-table th,
+.data-table td {
+  height: var(--row-h);
+  padding: 0 var(--gap-3);
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.data-table thead th {
+  white-space: normal;
+  vertical-align: bottom;
+  padding-top: var(--gap-1);
+  padding-bottom: var(--gap-1);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--canvas);
+  font-weight: 700;
+}
+.data-table tbody th {
+  font-weight: 500;
+  white-space: normal;
+}
+.data-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.data-table tbody tr:hover {
+  background: var(--surface-hover);
+}
+.data-table tr.is-current {
+  background: var(--brand-tint);
+}
+.data-table.compact th,
+.data-table.compact td {
+  padding: var(--gap-1) var(--gap-2);
+  white-space: normal;
+}
+.data-table.compact thead th {
+  position: static;
+}
+.data-table.compact td.num {
+  white-space: nowrap;
+}
+.cell-sub {
+  display: block;
+  font-size: var(--fs-1);
+  font-weight: 400;
+  color: var(--muted);
+}
+.th-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-1);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.num .th-sort {
+  flex-direction: row-reverse;
+}
+.th-sort:focus-visible,
+.link-btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.link-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  text-align: left;
+}

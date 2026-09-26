@@ -1,4 +1,4 @@
-import type { Lang } from "../api/types";
+import type { Lang, Var } from "../api/types";
 
 const LOCALES: Record<Lang, string> = { en: "en-IN", hi: "hi-IN", pa: "pa-IN" };
 
@@ -97,4 +97,50 @@ export function formatNumber(value: number | null | undefined, lang: Lang, digit
     maximumFractionDigits: digits,
     numberingSystem: "latn",
   }).format(value);
+}
+
+/** Decimal places shown per variable: humidity in whole percent, the rest to 0.1. */
+export const VAR_DIGITS: Record<Var, number> = { rain: 1, tmax: 1, tmin: 1, rh: 0, wind: 1 };
+
+/** Formats a value with its unit label ("9.8 mm", "35.7 °C"); a dash when there is none. */
+export function formatValue(
+  value: number | null | undefined,
+  unitLabel: string,
+  lang: Lang,
+  digits = 1,
+): string {
+  const n = formatNumber(value, lang, digits);
+  return n === "–" ? n : `${n} ${unitLabel}`;
+}
+
+/** Formats a difference with an explicit sign ("+0.9", "-4.5"); zero after rounding has none. */
+export function formatSigned(value: number | null | undefined, lang: Lang, digits = 1): string {
+  if (value === null || value === undefined || !Number.isFinite(value)) return "–";
+  return new Intl.NumberFormat(localeFor(lang), {
+    maximumFractionDigits: digits,
+    numberingSystem: "latn",
+    signDisplay: "exceptZero",
+  }).format(value);
+}
+
+export type RangeText =
+  | { kind: "between"; lo: string; hi: string }
+  | { kind: "about"; value: string }
+  | { kind: "unknown" };
+
+/**
+ * Turns a p10..p90 band into the parts of a plain-language range. When both ends round to
+ * the same number the band is "about" that number; a missing end gives "unknown".
+ */
+export function describeRange(
+  p10: number | null | undefined,
+  p90: number | null | undefined,
+  lang: Lang,
+  digits = 1,
+): RangeText {
+  const lo = formatNumber(p10, lang, digits);
+  const hi = formatNumber(p90, lang, digits);
+  if (lo === "–" || hi === "–") return { kind: "unknown" };
+  if (lo === hi) return { kind: "about", value: lo };
+  return { kind: "between", lo, hi };
 }
