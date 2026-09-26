@@ -71,21 +71,20 @@ export function addDays(value: string, days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
-type DateStyle = "day" | "long";
+type DateStyle = "short" | "day" | "long";
 
 /**
  * Formats an ISO date for display.
+ * "short" gives weekday and day ("Tue 10"), for chart axes where the month is shown once.
  * "day" gives weekday, day and month ("Tue 10 Sep"), for lead-day buttons.
  * "long" adds the year ("Tue 10 Sep 2024"). Hindi and Punjabi write the month in full
  * ("मंगल 10 सितंबर 2024"), as the API's advisory text does. Digits are Western everywhere.
  */
 export function formatDate(value: string, lang: Lang, style: DateStyle = "long"): string {
   const d = parseIsoDate(value);
-  const parts = [
-    WEEKDAYS[lang][d.getUTCDay()],
-    String(d.getUTCDate()),
-    MONTHS[lang][d.getUTCMonth()],
-  ];
+  const parts = [WEEKDAYS[lang][d.getUTCDay()], String(d.getUTCDate())];
+  if (style === "short") return parts.join(" ");
+  parts.push(MONTHS[lang][d.getUTCMonth()]);
   if (style === "long") parts.push(String(d.getUTCFullYear()));
   return parts.join(" ");
 }
