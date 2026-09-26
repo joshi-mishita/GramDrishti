@@ -11,7 +11,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S2 | Contract and API skeleton | backend | PR open | session-02-contract-api (stacked on S1) | |
 | S3 | Frontend foundation | frontend | not started | | |
 | S4 | Frontend map explorer | frontend | not started | | |
-| S5 | Backend model core | backend | not started | | |
+| S5 | Backend model core | backend | in progress (handoff below) | session-05-model-core | |
 | S6 | Agro-variables, snapshots, forecast APIs | backend | not started | | |
 | S7 | Frontend detail panel and first integration | frontend | not started | | |
 | S8 | Advisory engine and review APIs | backend | not started | | |
@@ -121,3 +121,10 @@ Merge order: S1, then S2 (S2 is stacked on S1).
 Frontend (S3/S4): the contract is **frozen at v0.1.1**. Build from `contract/examples/` (see `contract/examples/index.json` for file -> endpoint -> model) and generate types from `contract/openapi.json`. Mock file names follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json`, `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`; the main demo issue date is 2024-09-09. Show a notice when `provenance` is `placeholder`.
 
 Backend S5: models replace `provisional/forecast.py`. Keep `Service.table()`'s columns (`<var>_p10/p50/p90/block`) or change the builders in `api/service.py`. S6 snapshots should cover the dates in `demo_dates.json`. S8 replaces `_generate_advisories` and the in-memory store. S10 replaces `provisional/placeholders.py` and sets `provenance: "computed"`.
+
+## Handoff S5 (2026-09-26, stopped at usage limit)
+Branch `session-05-model-core` (worktree `../GramDrishti-s05`, from `origin/main`). Done and committed: `features/` (`make_table`), `models/{downscale,reconcile,conformal,humidity,artifacts}.py`, `pipeline/{predict,train}.py`, tests (`test_features.py`, `test_reconcile_conformal.py`, `test_model_core.py`), decisions D036-D045.
+Verified here: ruff clean; new tests 22 passed (features + reconcile/conformal 15, model core 7). A 40-tree run of `python -m gramdrishti.pipeline.train --trees 40 --no-save` completed (not the final model): CALIB out-of-time MAE vs B1 was rain -9.1 % (does NOT beat B1), tmax +9.8 %, tmin +0.8 %, rh +2.0 %, wind +1.3 %; coverage after calibration 0.71-0.99 by group, rain on wet days only 0.47-0.81; isotonic calibration made Brier worse than raw in 6 of 8 half-splits; block consistency ~1e-14; constraint violations 0.
+Not done: the full 400-tree `--lobo` run was still running at the stop, so there are no final numbers or artifacts. Full `pytest -q` was not run. PROGRESS/CLAUDE.md commands are not updated beyond this note. No PR yet.
+Next: rerun `cd backend && python -m gramdrishti.pipeline.train --lobo`, paste the report here, run `pytest -q`, add the train command to CLAUDE.md, decide on isotonic (D043 note) and the rain interval, then push and open the PR.
+Hypothesis for rain (measured on TRAIN truth): only 26 % of within-block rain variance is a persistent Panchayat x month offset, against 89-92 % for Tmax/Tmin/dew point and 70 % for wind, so rain placement inside a block is mostly day-to-day noise.
