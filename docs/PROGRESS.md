@@ -13,7 +13,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S4 | Frontend map explorer | frontend | merged | session-04-map-explorer (#6) | yes |
 | S5 | Backend model core | backend | merged | session-05-model-core (#7) | yes |
 | S6 | Agro-variables, snapshots, forecast APIs | backend | PR open | session-06-snapshots-forecast-api | |
-| S7 | Frontend detail panel and first integration | frontend | not started | | |
+| S7 | Frontend detail panel and first integration | frontend | PR open (stacked on S6) | session-07-detail-panel | |
 | S8 | Advisory engine and review APIs | backend | not started | | |
 | S9 | Frontend priority, risk and review | frontend | not started | | |
 | S10 | Verification and impact | backend | not started | | |
@@ -102,6 +102,32 @@ Explain texts that read awkwardly (demo dates, served reasons only):
 - "Its loam soil ..." / "Its moderate soil drainage ..." do not say why the class matters.
 - All sentences share one template ("..., so it is likely X than the block average.") and are English only.
 
+S7: detail panel on the real API (contract v0.1.2, no contract change). Built:
+- Hooks `useObserved` (only fetched when the overlay is on), `useExplain`, `useForecastChanges`; type aliases for the new schemas.
+- `lib/words.ts` (probability words and percents, D060; confidence words), `lib/fan.ts` (fan rows with nulls as gaps, y domain, D065), `lib/changes.ts` (event-change lines, D061), `formatDate(..., "short")` for chart ticks.
+- `FanChart` (Recharts): p10-p90 band as two stacked areas, p50 line, dashed block line, observed points, thin line on the chosen day, plain tooltip, unit label, legend by shape and colour, and a hidden table with the same numbers for screen readers. `ForecastChart`: variable switch (shared with the map, D059), "Show what happened" with the source label (station id or synthetic truth, D062), empty states.
+- `DayDetails`: variable table, rain chances in words ("Rain of 2.5 mm or more: likely, 80%"), farm values (ET0 mm a day, soil water % of capacity with the dry-to-wet range, waterlogging and frost chips, THI, dry forecast days) and the placeholder-thresholds note.
+- `ExplainList`: effect icon plus effect word, English fallback marked `lang="en"` with a note, empty state, and the model-average difference with a note on why it differs from the headline (D064).
+- `ChangeList`: grouped by day, "Yesterday: dry (4%). Now: rain possible (54%).", material value changes, empty states for no earlier forecast and no material change.
+- `ConfidenceLabel`: Likely / Possible / Uncertain with a hover and focus tooltip. No screen shows advisory confidence yet; S9 uses it in advisory cards.
+- `VITE_REAL_ENDPOINTS=meta,geo,forecast,observed,explain` in `.env.example` and `SHOTS_REAL=1 npm run shots` (D063).
+- 120 frontend tests (16 files, 34 new).
+
+Integration parity (real API, dev server, 2024-07-31, 2024-08-15, 2024-09-09, 2024-12-24, 2024-01-12; MP0101, MP0302, MP0305, MP0412, MP0514; every variable, lead days 1, 2, 4, 5, all view modes, English and Hindi): every request 200 in the API log, no error state in the panel, no console error or warning. Checked with the in-app browser console reader plus the uvicorn log, and again by the 12 `SHOTS_REAL` tests, which fail on any console error or warning. Bugs found and fixed:
+- Horizontal page overflow of 111 px: `.visually-hidden` does not clip an element displayed as a table. Now wrapped in a hidden div.
+- Tmax axis ran from 0 to 36 C (Recharts includes the stack baseline), flattening the band. Fixed with `allowDataOverflow` on the computed domain.
+- Last x-axis tick clipped ("Mon" for "Mon 5"). Axis padding added.
+- Variable switch wrapped 4 + 1. Now 3 + 2 equal buttons.
+- The map note for flat blocks still said "provisional forecast ... arrives with the downscaling model"; rewritten for the model forecast.
+- Headline difference (-1.9 mm) and explain difference (+12.5 mm) looked contradictory (D064).
+No null or date-format bugs appeared with real responses: MP0412's rain gauge returns null Tmax/Tmin/RH/wind and the chart shows a sentence instead of points.
+
+Screenshot review (`docs/screens/panel-*`, 3 Panchayats x 2 dates x desktop and phone, plus `-full` panel images):
+- 2024-07-31, lead day 1 (Thu 1 Aug): MP0305 station measured 40.2 mm, MP0302 synthetic truth about 40 mm, against a band of 0 to 12.4 and 0 to 15 mm. Yesterday's issue had said "rain likely (91%)", 46.9 mm. The chart and change list show this miss plainly.
+- 2024-09-09, lead day 1: MP0305 observed 127.8 mm inside a 0 to 154.3 mm band; MP0302 observed 153.9 mm just above its 149.4 mm p90.
+- Rain p10 is 0 mm on wet days, so rain bands always start at the axis.
+- On phone the page scrolls to the checkbox when it is ticked, so the ribbon is off-screen in the phone shots (it scrolls with the page, S3 layout).
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -159,6 +185,15 @@ Explain texts that read awkwardly (demo dates, served reasons only):
 - D054 Event probabilities from classifiers; risk and advisories still placeholder.
 - D055 Small-bundle test fixture; example freshness test needs matching local snapshots.
 - D056 Change summary counts event changes.
+- D057 S7 stacked on S6.
+- D058 Headline and chart middle line on p50.
+- D059 Chart variable switch shares the map variable.
+- D060 Probability and confidence words.
+- D061 Change list wording and merging.
+- D062 Observed overlay off by default, source labelled.
+- D063 Real endpoints in `.env.example`; `SHOTS_REAL` panel screenshots.
+- D064 Explain difference labelled apart from the headline difference.
+- D065 Fan chart y domain.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -182,6 +217,11 @@ Explain texts that read awkwardly (demo dates, served reasons only):
 - S6: Hindi and Punjabi explain texts do not exist (null); the new Hindi and Punjabi change summary ("No earlier forecast to compare with") is a draft needing native review.
 - S6: the frontend was not run against the new API in a browser this session (types, tests, lint and build only).
 
+- S7: CI has not run this branch (no `gh`). The `SHOTS_REAL` screenshots need the local API with snapshots and are not part of CI.
+- S7: keyboard use of the chart (the SVG is hidden from assistive tech; the table is the route) and the confidence tooltip were not tried with a real screen reader. Chart hover was checked with a dispatched mouse event; the in-app browser's hover emulation did not trigger it in a scaled viewport.
+- S7: Hindi and Punjabi panel strings are drafts (word order in "कल: सूखा (4%)। अब: ..." is built from parts and uses "." rather than "।").
+- S7: tested in Chrome only; not in Firefox, Safari or on a touch device.
+
 ## Known issues
 - `gh` CLI not installed, so pull requests are opened by hand from the compare URL.
 - `data/synthetic_oracle/` is git-ignored: a fresh clone must run `python data/generate_mock_data.py` (the default output is now `data/`).
@@ -203,6 +243,9 @@ Explain texts that read awkwardly (demo dates, served reasons only):
 - S3/S4 at phone width the officer map controls still fill most of the first screen; the map sits below them. One-finger drag on the map pans it rather than scrolling the page.
 - S4 the lazy map chunk is 1.0 MB (284 kB gzip) plus a 510 kB worker, all MapLibre; Vite prints a chunk-size warning. It loads only on `/map`.
 - S4 in mock mode only lead day 1 of 2024-09-09 has map files, and only MP0103, MP0302, MP0305, MP0412 have a Panchayat forecast; other days and Panchayats show "No demo file". Use the API for the rest.
+- S7 the map chunk grew from 1.0 MB to 1.43 MB (395 kB gzip) with Recharts. It loads only on `/map`; lazy-loading the chart would let the map paint first.
+- S7 rain event probabilities often repeat across thresholds (1, 2.5 and 10 mm all 28 % for MP0305 on 1 Aug 2024), a result of the S6 clamp. The panel shows them as they are.
+- S7 the ribbon scrolls off-screen on phone once the page is scrolled (it is not sticky).
 - S3 Vitest prints a Node warning about `--localstorage-file` (Node 25 with jsdom); harmless.
 
 ## Inputs needed from the team
@@ -226,6 +269,6 @@ Merge order: S6 is branched from `main` after S5 merged (#7); nothing else is st
 
 Backend (S7 integration support, S8): the forecast endpoints are real model output from snapshots. To run them locally: `cd backend && python -m gramdrishti.pipeline.train` (about 2 minutes, writes the git-ignored `backend/artifacts/`), then `python -m gramdrishti.pipeline.run_daily --all-demo-dates` (35 s), then start the API. S8: replace `_generate_advisories` and the placeholder risk scores with YAML rules; the signals are in the snapshot table (`Service.table()` columns: `<var>_{p10,p50,p90,mean,block,block_corrected}`, `prob_rain_ge_{1,2_5,10,35}`, `et0_mm`, `soil_moisture_frac{,_dry,_wet,_start}`, `depletion_frac`, `waterlog_score/_risk`, `thi`, `rh_afternoon`, `frost_prob/_risk`, `fog_proxy`, `dry_spell_days`, `gdd_<crop>`). Crop-specific frost thresholds and kc belong there. Set `advice_changed` in `/forecast/changes` once rules exist. S10 replaces `provisional/placeholders.py`.
 
-Frontend (S7): the contract is **v0.1.2** (additive; `contract/CHANGELOG.md`). `VITE_REAL_ENDPOINTS=meta,geo,forecast,observed,explain` now serves real model output (`forecast` covers `/forecast/map`, `/forecast/panchayat` and `/forecast/changes`); the backend needs the snapshots above. Decide what the map and panel headline show: `p50` (rain is almost flat inside a block) or `mean` (varies, and its block average equals `block_layer[].corrected`); see D048. `delta` still compares with the raw block forecast. `/explain` can return an empty `reasons` list (nothing to explain): show a plain empty state. Explain `text.hi` and `text.pa` are null, so fall back to English. Put the fan chart in the empty slot in `features/map/DetailPanel.tsx` (`useForecastPanchayat` is already loaded there), then "Why different?", "Forecast changed" and advisories. S9: enable `RiskLayerSelect` in `features/map/MapControls.tsx`; `RISK_TOKENS` in `lib/ramps.ts` maps levels to severity tokens, and `MapView` takes any Ramp. Reuse `components/DataTable.tsx` for priority and verification lists.
+Frontend (S9): the panel now ends with "Forecast changed". Add advisories for the selected Panchayat under it and use `components/ConfidenceLabel` in advisory cards. Enable `RiskLayerSelect` in `features/map/MapControls.tsx` (`RISK_TOKENS` in `lib/ramps.ts`); reuse `components/DataTable.tsx`. Add `risk,priority,advisories` to `VITE_REAL_ENDPOINTS` once S8 serves rules. Merge order: S6, then S7 (stacked, D057).
 
 Mock files (`contract/examples/`, main date 2024-09-09) follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json` (plus `explain_MP0305_rain.json` and `explain_MP0103_rain_dry_block.json`), `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`. Show a notice when `provenance` is `placeholder`.
