@@ -6,37 +6,41 @@
   "crop": "cotton",
   "stage": "boll_development_picking",
   "category": "spray",
-  "priority": "severe",
+  "priority": "moderate",
   "valid_from": "2024-09-10",
-  "valid_to": "2024-09-12",
+  "valid_to": "2024-09-11",
   "action": {
-    "en": "No spraying before 10 September.",
-    "hi": "10 सितंबर से पहले छिड़काव न करें।",
-    "pa": "10 ਸਤੰਬਰ ਤੋਂ ਪਹਿਲਾਂ ਛਿੜਕਾਅ ਨਾ ਕਰੋ।"
+    "en": "No spraying on 10 September. Wait for a dry, calm day.",
+    "hi": "10 सितंबर को छिड़काव न करें। सूखे और शांत दिन का इंतज़ार करें।",
+    "pa": "10 ਸਤੰਬਰ ਨੂੰ ਛਿੜਕਾਅ ਨਾ ਕਰੋ। ਸੁੱਕੇ ਅਤੇ ਸ਼ਾਂਤ ਦਿਨ ਦੀ ਉਡੀਕ ਕਰੋ।"
   },
   "reason": {
-    "en": "Heavy rain is likely on 10 September. It would wash the spray off.",
-    "hi": "10 सितंबर को भारी बारिश की संभावना है। छिड़काव धुल जाएगा।",
-    "pa": "10 ਸਤੰਬਰ ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ। ਛਿੜਕਾਅ ਧੁਲ ਜਾਵੇਗਾ।"
+    "en": "Rain or wind would waste the spray. Chance of rain is 80% on 10 September and less than 1% the day after, with wind up to 5 km/h.",
+    "hi": "बारिश या हवा से छिड़काव बेकार हो जाएगा। 10 सितंबर को बारिश की संभावना 80% और अगले दिन 1% से कम है, हवा 5 किमी प्रति घंटा तक।",
+    "pa": "ਮੀਂਹ ਜਾਂ ਹਵਾ ਨਾਲ ਛਿੜਕਾਅ ਬੇਕਾਰ ਹੋ ਜਾਵੇਗਾ। 10 ਸਤੰਬਰ ਨੂੰ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ 80% ਅਤੇ ਅਗਲੇ ਦਿਨ 1% ਤੋਂ ਘੱਟ ਹੈ, ਹਵਾ 5 ਕਿਲੋਮੀਟਰ ਪ੍ਰਤੀ ਘੰਟਾ ਤੱਕ।"
   },
   "fallback": {
-    "en": "If the sky stays clear for a full day, spray in the calm morning hours.",
-    "hi": "अगर पूरे दिन आसमान साफ़ रहे, तो सुबह हवा शांत होने पर छिड़काव करें।",
-    "pa": "ਜੇ ਪੂਰਾ ਦਿਨ ਅਸਮਾਨ ਸਾਫ਼ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਹਵਾ ਸ਼ਾਂਤ ਹੋਣ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।"
+    "en": "If the day turns out dry and calm, you can spray in the early morning.",
+    "hi": "अगर दिन सूखा और हवा शांत रहे, तो सुबह जल्दी छिड़काव कर सकते हैं।",
+    "pa": "ਜੇ ਦਿਨ ਸੁੱਕਾ ਅਤੇ ਹਵਾ ਸ਼ਾਂਤ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਜਲਦੀ ਛਿੜਕਾਅ ਕਰ ਸਕਦੇ ਹੋ।"
   },
   "confidence": "high",
   "evidence": [
     {
-      "label": "Chance of rain over 2.5 mm on 10 September",
-      "value": "89%"
+      "label": "Chance of 2.5 mm or more of rain on 10 Sep",
+      "value": "80%"
     },
     {
-      "label": "Rain expected on 10 September",
-      "value": "104 mm (range 0 to 150 mm)"
+      "label": "Chance of 2.5 mm or more of rain on 11 Sep",
+      "value": "less than 1%"
     },
     {
-      "label": "Crop stage (placeholder calendar)",
-      "value": "boll development picking"
+      "label": "Wind, upper estimate (p90), 10 Sep",
+      "value": "5 km/h"
+    },
+    {
+      "label": "Spray day ratings (whole days, not hours)",
+      "value": "10 Sep: avoid; 11 Sep: caution; 12 Sep: avoid; 13 Sep: avoid; 14 Sep: caution"
     }
   ],
   "thresholds_status": "placeholder",
@@ -48,17 +52,38 @@
       "at": "2024-09-09T08:00:00",
       "actor": "system",
       "action": "created",
-      "note": "Placeholder generator (S2). Rules engine arrives in S8."
+      "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+      "before": null,
+      "after": {
+        "status": "draft"
+      }
     },
     {
       "at": "2024-09-09T09:30:00",
       "actor": "Officer Demo",
       "action": "edited",
-      "note": "Shortened wording"
+      "note": "Shortened wording",
+      "before": {
+        "action": {
+          "en": "Do not spray pesticide or fertiliser on cotton on 10 September. The next good spray day is not within the 5-day forecast.",
+          "hi": "10 सितंबर को कपास पर कीटनाशक या खाद का छिड़काव न करें। छिड़काव का अगला अच्छा दिन अगले 5 दिनों के पूर्वानुमान में नहीं है।",
+          "pa": "10 ਸਤੰਬਰ ਨੂੰ ਨਰਮਾ ਤੇ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ। ਛਿੜਕਾਅ ਦਾ ਅਗਲਾ ਚੰਗਾ ਦਿਨ ਅਗਲੇ 5 ਦਿਨਾਂ ਦੀ ਭਵਿੱਖਬਾਣੀ ਵਿੱਚ ਨਹੀਂ ਹੈ।"
+        },
+        "status": "draft"
+      },
+      "after": {
+        "action": {
+          "en": "No spraying on 10 September. Wait for a dry, calm day.",
+          "hi": "10 सितंबर को छिड़काव न करें। सूखे और शांत दिन का इंतज़ार करें।",
+          "pa": "10 ਸਤੰਬਰ ਨੂੰ ਛਿੜਕਾਅ ਨਾ ਕਰੋ। ਸੁੱਕੇ ਅਤੇ ਸ਼ਾਂਤ ਦਿਨ ਦੀ ਉਡੀਕ ਕਰੋ।"
+        },
+        "status": "edited"
+      }
     }
   ],
   "audio": {},
   "data_mode": "mock",
-  "provenance": "placeholder",
-  "translation_status": "needs_native_review"
+  "provenance": "computed",
+  "translation_status": "needs_native_review",
+  "rule_id": "spray_hold"
 }

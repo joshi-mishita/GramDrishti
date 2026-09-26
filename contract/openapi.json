@@ -3,7 +3,7 @@
   "info": {
     "title": "GramDrishti API",
     "description": "Panchayat-level forecasts and advisories. Contract: Appendix A of the guides. Every response carries data_mode; 'mock' means synthetic data.",
-    "version": "0.1.2"
+    "version": "0.2.0"
   },
   "paths": {
     "/api/v1/health": {
@@ -1621,6 +1621,17 @@
           },
           "translation_status": {
             "$ref": "#/components/schemas/TranslationStatus"
+          },
+          "rule_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rule Id"
           }
         },
         "additionalProperties": false,
@@ -1701,6 +1712,30 @@
           "note": {
             "type": "string",
             "title": "Note"
+          },
+          "before": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Before"
+          },
+          "after": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "After"
           }
         },
         "additionalProperties": false,
@@ -2205,6 +2240,16 @@
               }
             ],
             "title": "Dry Spell Days"
+          },
+          "spray_rating": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SprayRating"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -4381,6 +4426,16 @@
           "test"
         ],
         "title": "Split"
+      },
+      "SprayRating": {
+        "type": "string",
+        "enum": [
+          "good",
+          "caution",
+          "avoid"
+        ],
+        "title": "SprayRating",
+        "description": "Day-level spray planner rating (v0.2.0). Whole days only: the data is daily, not hourly."
       },
       "StaleInput": {
         "properties": {

@@ -167,7 +167,7 @@
     }
   ],
   "event_changes": [],
-  "advice_changed": null,
+  "advice_changed": true,
   "summary": {
     "en": "The forecast changed for 7 day and variable pairs since 8 September.",
     "hi": "8 सितंबर के पूर्वानुमान के बाद 7 जगह बदलाव हुआ है।",

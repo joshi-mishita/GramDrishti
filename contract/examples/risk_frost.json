@@ -4,518 +4,518 @@
   "lead_day": 1,
   "type": "frost",
   "data_mode": "mock",
-  "provenance": "provisional",
+  "provenance": "computed",
   "thresholds_status": "placeholder",
   "items": [
     {
       "panchayat_id": "MP0101",
       "block_id": "MB01",
-      "level": "high",
-      "score": 0.7
+      "level": "severe",
+      "score": 0.89
     },
     {
       "panchayat_id": "MP0102",
       "block_id": "MB01",
-      "level": "high",
-      "score": 0.74
+      "level": "severe",
+      "score": 0.95
     },
     {
       "panchayat_id": "MP0103",
-      "block_id": "MB01",
-      "level": "high",
-      "score": 0.73
-    },
-    {
-      "panchayat_id": "MP0104",
       "block_id": "MB01",
       "level": "severe",
       "score": 0.94
     },
     {
+      "panchayat_id": "MP0104",
+      "block_id": "MB01",
+      "level": "severe",
+      "score": 0.7
+    },
+    {
       "panchayat_id": "MP0105",
       "block_id": "MB01",
-      "level": "high",
-      "score": 0.63
+      "level": "severe",
+      "score": 0.66
     },
     {
       "panchayat_id": "MP0106",
       "block_id": "MB01",
-      "level": "high",
-      "score": 0.72
+      "level": "severe",
+      "score": 1.0
     },
     {
       "panchayat_id": "MP0107",
       "block_id": "MB01",
       "level": "severe",
-      "score": 0.77
+      "score": 0.98
     },
     {
       "panchayat_id": "MP0108",
       "block_id": "MB01",
-      "level": "severe",
-      "score": 0.79
+      "level": "high",
+      "score": 0.31
     },
     {
       "panchayat_id": "MP0109",
       "block_id": "MB01",
       "level": "severe",
-      "score": 0.79
+      "score": 0.98
     },
     {
       "panchayat_id": "MP0110",
       "block_id": "MB01",
-      "level": "severe",
-      "score": 0.81
+      "level": "high",
+      "score": 0.37
     },
     {
       "panchayat_id": "MP0111",
       "block_id": "MB01",
       "level": "severe",
-      "score": 1.0
+      "score": 0.99
     },
     {
       "panchayat_id": "MP0112",
       "block_id": "MB01",
-      "level": "severe",
-      "score": 0.76
+      "level": "moderate",
+      "score": 0.24
     },
     {
       "panchayat_id": "MP0113",
       "block_id": "MB01",
-      "level": "high",
-      "score": 0.67
+      "level": "severe",
+      "score": 0.74
     },
     {
       "panchayat_id": "MP0201",
       "block_id": "MB02",
       "level": "severe",
-      "score": 0.78
+      "score": 0.96
     },
     {
       "panchayat_id": "MP0202",
       "block_id": "MB02",
-      "level": "high",
-      "score": 0.67
+      "level": "severe",
+      "score": 0.83
     },
     {
       "panchayat_id": "MP0203",
       "block_id": "MB02",
-      "level": "high",
-      "score": 0.7
+      "level": "severe",
+      "score": 0.9
     },
     {
       "panchayat_id": "MP0204",
       "block_id": "MB02",
       "level": "high",
-      "score": 0.5
+      "score": 0.3
     },
     {
       "panchayat_id": "MP0205",
       "block_id": "MB02",
-      "level": "high",
-      "score": 0.64
+      "level": "low",
+      "score": 0.08
     },
     {
       "panchayat_id": "MP0206",
       "block_id": "MB02",
       "level": "severe",
-      "score": 0.89
+      "score": 0.97
     },
     {
       "panchayat_id": "MP0207",
       "block_id": "MB02",
-      "level": "high",
-      "score": 0.57
+      "level": "low",
+      "score": 0.03
     },
     {
       "panchayat_id": "MP0208",
       "block_id": "MB02",
-      "level": "high",
-      "score": 0.65
+      "level": "severe",
+      "score": 0.79
     },
     {
       "panchayat_id": "MP0209",
       "block_id": "MB02",
       "level": "severe",
-      "score": 0.8
+      "score": 0.96
     },
     {
       "panchayat_id": "MP0210",
       "block_id": "MB02",
-      "level": "high",
-      "score": 0.74
+      "level": "severe",
+      "score": 0.94
     },
     {
       "panchayat_id": "MP0211",
       "block_id": "MB02",
       "level": "high",
-      "score": 0.54
+      "score": 0.4
     },
     {
       "panchayat_id": "MP0212",
       "block_id": "MB02",
-      "level": "high",
-      "score": 0.53
+      "level": "low",
+      "score": 0.03
     },
     {
       "panchayat_id": "MP0213",
       "block_id": "MB02",
       "level": "severe",
-      "score": 1.0
+      "score": 0.99
     },
     {
       "panchayat_id": "MP0214",
       "block_id": "MB02",
-      "level": "high",
-      "score": 0.61
+      "level": "low",
+      "score": 0.06
     },
     {
       "panchayat_id": "MP0215",
       "block_id": "MB02",
       "level": "severe",
-      "score": 0.77
+      "score": 0.95
     },
     {
       "panchayat_id": "MP0216",
       "block_id": "MB02",
       "level": "high",
-      "score": 0.59
+      "score": 0.56
     },
     {
       "panchayat_id": "MP0301",
       "block_id": "MB03",
-      "level": "moderate",
-      "score": 0.31
+      "level": "low",
+      "score": 0.0
     },
     {
       "panchayat_id": "MP0302",
       "block_id": "MB03",
       "level": "moderate",
-      "score": 0.4
+      "score": 0.19
     },
     {
       "panchayat_id": "MP0303",
       "block_id": "MB03",
-      "level": "high",
-      "score": 0.55
+      "level": "severe",
+      "score": 0.62
     },
     {
       "panchayat_id": "MP0304",
       "block_id": "MB03",
-      "level": "high",
-      "score": 0.68
+      "level": "severe",
+      "score": 0.99
     },
     {
       "panchayat_id": "MP0305",
       "block_id": "MB03",
-      "level": "high",
-      "score": 0.55
+      "level": "severe",
+      "score": 0.61
     },
     {
       "panchayat_id": "MP0306",
       "block_id": "MB03",
       "level": "moderate",
-      "score": 0.42
+      "score": 0.22
     },
     {
       "panchayat_id": "MP0307",
       "block_id": "MB03",
       "level": "severe",
-      "score": 0.9
+      "score": 0.89
     },
     {
       "panchayat_id": "MP0308",
       "block_id": "MB03",
       "level": "high",
-      "score": 0.52
+      "score": 0.55
     },
     {
       "panchayat_id": "MP0309",
       "block_id": "MB03",
-      "level": "moderate",
-      "score": 0.47
+      "level": "high",
+      "score": 0.33
     },
     {
       "panchayat_id": "MP0310",
       "block_id": "MB03",
       "level": "moderate",
-      "score": 0.43
+      "score": 0.24
     },
     {
       "panchayat_id": "MP0311",
       "block_id": "MB03",
-      "level": "high",
-      "score": 0.55
+      "level": "low",
+      "score": 0.01
     },
     {
       "panchayat_id": "MP0312",
       "block_id": "MB03",
-      "level": "high",
-      "score": 0.65
+      "level": "low",
+      "score": 0.08
     },
     {
       "panchayat_id": "MP0313",
       "block_id": "MB03",
-      "level": "moderate",
-      "score": 0.47
+      "level": "high",
+      "score": 0.33
     },
     {
       "panchayat_id": "MP0314",
       "block_id": "MB03",
-      "level": "moderate",
-      "score": 0.49
+      "level": "high",
+      "score": 0.37
     },
     {
       "panchayat_id": "MP0315",
       "block_id": "MB03",
       "level": "moderate",
-      "score": 0.41
+      "score": 0.21
     },
     {
       "panchayat_id": "MP0316",
       "block_id": "MB03",
-      "level": "moderate",
-      "score": 0.49
+      "level": "high",
+      "score": 0.37
     },
     {
       "panchayat_id": "MP0401",
       "block_id": "MB04",
-      "level": "high",
-      "score": 0.56
+      "level": "low",
+      "score": 0.03
     },
     {
       "panchayat_id": "MP0402",
       "block_id": "MB04",
       "level": "high",
-      "score": 0.5
+      "score": 0.34
     },
     {
       "panchayat_id": "MP0403",
       "block_id": "MB04",
       "level": "severe",
-      "score": 0.79
+      "score": 0.98
     },
     {
       "panchayat_id": "MP0404",
       "block_id": "MB04",
       "level": "high",
-      "score": 0.56
+      "score": 0.44
     },
     {
       "panchayat_id": "MP0405",
       "block_id": "MB04",
       "level": "severe",
-      "score": 0.86
+      "score": 0.97
     },
     {
       "panchayat_id": "MP0406",
       "block_id": "MB04",
-      "level": "high",
-      "score": 0.68
+      "level": "moderate",
+      "score": 0.11
     },
     {
       "panchayat_id": "MP0407",
       "block_id": "MB04",
       "level": "severe",
-      "score": 0.93
+      "score": 0.99
     },
     {
       "panchayat_id": "MP0408",
       "block_id": "MB04",
       "level": "severe",
-      "score": 0.75
+      "score": 0.93
     },
     {
       "panchayat_id": "MP0409",
       "block_id": "MB04",
-      "level": "high",
-      "score": 0.65
+      "level": "severe",
+      "score": 0.81
     },
     {
       "panchayat_id": "MP0410",
       "block_id": "MB04",
       "level": "high",
-      "score": 0.59
+      "score": 0.49
     },
     {
       "panchayat_id": "MP0411",
       "block_id": "MB04",
-      "level": "high",
-      "score": 0.67
+      "level": "severe",
+      "score": 0.82
     },
     {
       "panchayat_id": "MP0412",
       "block_id": "MB04",
       "level": "severe",
-      "score": 1.0
+      "score": 0.99
     },
     {
       "panchayat_id": "MP0413",
       "block_id": "MB04",
-      "level": "high",
-      "score": 0.65
+      "level": "low",
+      "score": 0.08
     },
     {
       "panchayat_id": "MP0414",
       "block_id": "MB04",
       "level": "severe",
-      "score": 0.97
+      "score": 0.99
     },
     {
       "panchayat_id": "MP0415",
       "block_id": "MB04",
       "level": "high",
-      "score": 0.54
+      "score": 0.41
     },
     {
       "panchayat_id": "MP0501",
       "block_id": "MB05",
       "level": "high",
-      "score": 0.56
+      "score": 0.53
     },
     {
       "panchayat_id": "MP0502",
       "block_id": "MB05",
       "level": "moderate",
-      "score": 0.47
+      "score": 0.26
     },
     {
       "panchayat_id": "MP0503",
       "block_id": "MB05",
       "level": "high",
-      "score": 0.53
+      "score": 0.41
     },
     {
       "panchayat_id": "MP0504",
       "block_id": "MB05",
-      "level": "high",
-      "score": 0.73
+      "level": "severe",
+      "score": 0.87
     },
     {
       "panchayat_id": "MP0505",
       "block_id": "MB05",
       "level": "high",
-      "score": 0.55
+      "score": 0.4
     },
     {
       "panchayat_id": "MP0506",
       "block_id": "MB05",
       "level": "high",
-      "score": 0.59
+      "score": 0.48
     },
     {
       "panchayat_id": "MP0507",
       "block_id": "MB05",
       "level": "high",
-      "score": 0.5
+      "score": 0.31
     },
     {
       "panchayat_id": "MP0508",
       "block_id": "MB05",
       "level": "high",
-      "score": 0.55
+      "score": 0.5
     },
     {
       "panchayat_id": "MP0509",
       "block_id": "MB05",
-      "level": "high",
-      "score": 0.66
+      "level": "low",
+      "score": 0.09
     },
     {
       "panchayat_id": "MP0510",
       "block_id": "MB05",
-      "level": "high",
-      "score": 0.69
+      "level": "severe",
+      "score": 0.81
     },
     {
       "panchayat_id": "MP0511",
       "block_id": "MB05",
-      "level": "high",
-      "score": 0.67
+      "level": "moderate",
+      "score": 0.1
     },
     {
       "panchayat_id": "MP0512",
       "block_id": "MB05",
-      "level": "high",
-      "score": 0.59
+      "level": "severe",
+      "score": 0.64
     },
     {
       "panchayat_id": "MP0513",
       "block_id": "MB05",
-      "level": "high",
-      "score": 0.64
+      "level": "severe",
+      "score": 0.76
     },
     {
       "panchayat_id": "MP0514",
       "block_id": "MB05",
       "level": "high",
-      "score": 0.54
+      "score": 0.42
     },
     {
       "panchayat_id": "MP0515",
       "block_id": "MB05",
       "level": "severe",
-      "score": 0.77
+      "score": 0.92
     },
     {
       "panchayat_id": "MP0516",
       "block_id": "MB05",
-      "level": "high",
-      "score": 0.57
+      "level": "low",
+      "score": 0.04
     },
     {
       "panchayat_id": "MP0601",
       "block_id": "MB06",
-      "level": "high",
-      "score": 0.7
+      "level": "moderate",
+      "score": 0.15
     },
     {
       "panchayat_id": "MP0602",
       "block_id": "MB06",
-      "level": "high",
-      "score": 0.55
+      "level": "low",
+      "score": 0.03
     },
     {
       "panchayat_id": "MP0603",
       "block_id": "MB06",
       "level": "high",
-      "score": 0.58
+      "score": 0.56
     },
     {
       "panchayat_id": "MP0604",
       "block_id": "MB06",
       "level": "severe",
-      "score": 0.95
+      "score": 0.99
     },
     {
       "panchayat_id": "MP0605",
       "block_id": "MB06",
       "level": "severe",
-      "score": 0.75
+      "score": 0.97
     },
     {
       "panchayat_id": "MP0606",
       "block_id": "MB06",
       "level": "severe",
-      "score": 0.88
+      "score": 0.99
     },
     {
       "panchayat_id": "MP0607",
       "block_id": "MB06",
       "level": "severe",
-      "score": 0.81
+      "score": 0.98
     },
     {
       "panchayat_id": "MP0608",
       "block_id": "MB06",
-      "level": "high",
-      "score": 0.7
+      "level": "severe",
+      "score": 0.95
     },
     {
       "panchayat_id": "MP0609",
       "block_id": "MB06",
       "level": "high",
-      "score": 0.56
+      "score": 0.43
     },
     {
       "panchayat_id": "MP0610",
@@ -527,25 +527,25 @@
       "panchayat_id": "MP0611",
       "block_id": "MB06",
       "level": "severe",
-      "score": 0.75
+      "score": 0.95
     },
     {
       "panchayat_id": "MP0612",
       "block_id": "MB06",
-      "level": "high",
-      "score": 0.61
+      "level": "low",
+      "score": 0.06
     },
     {
       "panchayat_id": "MP0613",
       "block_id": "MB06",
-      "level": "high",
-      "score": 0.69
+      "level": "severe",
+      "score": 0.95
     },
     {
       "panchayat_id": "MP0614",
       "block_id": "MB06",
-      "level": "high",
-      "score": 0.69
+      "level": "severe",
+      "score": 0.94
     }
   ]
 }
