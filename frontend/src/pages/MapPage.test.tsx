@@ -62,8 +62,8 @@ describe("map explorer", () => {
     renderWithProviders(<MapPage />);
 
     const map = await screen.findByTestId("mapview");
-    // MP0301 is in MB03, the wettest block on 10 Sep 2024: p50 101.28, block 105.78 mm.
-    await waitFor(() => expect(map).toHaveAttribute("data-mp0301", "101.28"));
+    // MP0301 is in MB03, the wettest block on 10 Sep 2024: p50 103.84, block 105.78 mm.
+    await waitFor(() => expect(map).toHaveAttribute("data-mp0301", "103.84"));
     expect(map).toHaveAttribute("data-ramp", "sequential");
     const before = counts.get("forecast_map_rain.json");
     expect(before).toBe(1);
@@ -72,11 +72,11 @@ describe("map explorer", () => {
     expect(map).toHaveAttribute("data-mp0301", "105.78");
 
     await user.click(screen.getByRole("radio", { name: "Difference from block" }));
-    expect(map).toHaveAttribute("data-mp0301", "-4.5");
+    expect(map).toHaveAttribute("data-mp0301", "-1.93");
     expect(map).toHaveAttribute("data-ramp", "diverging");
 
     await user.click(screen.getByRole("radio", { name: "Panchayat" }));
-    expect(map).toHaveAttribute("data-mp0301", "101.28");
+    expect(map).toHaveAttribute("data-mp0301", "103.84");
     expect(counts.get("forecast_map_rain.json")).toBe(before);
   });
 
@@ -85,7 +85,7 @@ describe("map explorer", () => {
     const user = userEvent.setup();
     renderWithProviders(<MapPage />);
     await waitFor(() =>
-      expect(screen.getByTestId("mapview")).toHaveAttribute("data-mp0301", "101.28"),
+      expect(screen.getByTestId("mapview")).toHaveAttribute("data-mp0301", "103.84"),
     );
 
     await user.click(screen.getByRole("button", { name: "Show as table" }));
@@ -111,9 +111,9 @@ describe("map explorer", () => {
 
     expect(useAppStore.getState().selectedPid).toMatch(/^MP03/);
     const panel = screen.getByRole("complementary", { name: "Selected Panchayat" });
-    expect(await within(panel).findByText("101.3 mm")).toBeInTheDocument();
-    expect(within(panel).getByText("likely between 40 and 193.2 mm")).toBeInTheDocument();
-    expect(within(panel).getByText("-4.5 mm")).toBeInTheDocument();
+    expect(await within(panel).findByText("103.8 mm")).toBeInTheDocument();
+    expect(within(panel).getByText("likely between 0 and 149.6 mm")).toBeInTheDocument();
+    expect(within(panel).getByText("-1.9 mm")).toBeInTheDocument();
   });
 
   it("keeps the risk layer selector visible but disabled with a reason", async () => {

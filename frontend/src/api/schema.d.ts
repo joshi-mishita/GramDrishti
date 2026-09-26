@@ -153,7 +153,7 @@ export interface paths {
     };
     /**
      * Explain
-     * @description Top reasons this Panchayat differs from its block (placeholder static contrast until SHAP).
+     * @description Top 3 SHAP reasons this Panchayat differs from its corrected block forecast (none if negligible).
      */
     get: operations["explain_api_v1_explain__panchayat_id__get"];
     put?: never;
@@ -591,6 +591,8 @@ export interface components {
       block_id: string;
       /** Value */
       value: number | null;
+      /** Corrected */
+      corrected?: number | null;
     };
     /** BlockProperties */
     BlockProperties: {
@@ -696,6 +698,23 @@ export interface components {
       /** Thi */
       thi: number | null;
       waterlog_risk: components["schemas"]["Level"] | null;
+      /** Soil Moisture Frac Dry */
+      soil_moisture_frac_dry?: number | null;
+      /** Soil Moisture Frac Wet */
+      soil_moisture_frac_wet?: number | null;
+      /** Depletion Frac */
+      depletion_frac?: number | null;
+      /** Gdd */
+      gdd?: {
+        [key: string]: number;
+      } | null;
+      /** Frost Prob */
+      frost_prob?: number | null;
+      frost_risk?: components["schemas"]["Level"] | null;
+      /** Fog Proxy */
+      fog_proxy?: boolean | null;
+      /** Dry Spell Days */
+      dry_spell_days?: number | null;
     };
     /** EditedFields */
     EditedFields: {
@@ -788,6 +807,8 @@ export interface components {
       provenance: components["schemas"]["Provenance"];
       /** Method */
       method: string;
+      /** Model Version */
+      model_version?: string | null;
     };
     /** ExplainReason */
     ExplainReason: {
@@ -892,6 +913,8 @@ export interface components {
       /** Advice Changed */
       advice_changed: boolean | null;
       summary: components["schemas"]["LocalizedText"];
+      /** Model Version */
+      model_version?: string | null;
     };
     /** ForecastDay */
     ForecastDay: {
@@ -931,6 +954,8 @@ export interface components {
       provenance: components["schemas"]["Provenance"];
       /** Block Layer */
       block_layer: components["schemas"]["BlockMapValue"][];
+      /** Model Version */
+      model_version?: string | null;
       /** Panchayat Layer */
       panchayat_layer: components["schemas"]["PanchayatMapValue"][];
     };
@@ -1141,6 +1166,9 @@ export interface components {
       static: components["schemas"]["StaticInfo"];
       /** Days */
       days: components["schemas"]["ForecastDay"][];
+      /** Model Version */
+      model_version?: string | null;
+      thresholds_status?: components["schemas"]["ThresholdsStatus"] | null;
     };
     /** PanchayatMapValue */
     PanchayatMapValue: {
@@ -1161,6 +1189,8 @@ export interface components {
       /** Prob Event */
       prob_event: number | null;
       event: components["schemas"]["RainEvent"] | null;
+      /** Mean */
+      mean?: number | null;
     };
     /** PanchayatProperties */
     PanchayatProperties: {
@@ -1248,6 +1278,10 @@ export interface components {
       p90: number | null;
       /** Block */
       block: number | null;
+      /** Mean */
+      mean?: number | null;
+      /** Block Corrected */
+      block_corrected?: number | null;
     };
     /**
      * RainEvent
@@ -1600,6 +1634,15 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
+      /** @description No forecast snapshot, or placeholder in real mode */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
     };
   };
   forecast_panchayat_api_v1_forecast_panchayat__panchayat_id__get: {
@@ -1636,6 +1679,15 @@ export interface operations {
       };
       /** @description Invalid parameters */
       422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description No forecast snapshot, or placeholder in real mode */
+      503: {
         headers: {
           [name: string]: unknown;
         };
@@ -1741,7 +1793,7 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
-      /** @description Not computed for real data yet */
+      /** @description No forecast snapshot, or placeholder in real mode */
       503: {
         headers: {
           [name: string]: unknown;
@@ -1793,6 +1845,15 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
+      /** @description No forecast snapshot, or placeholder in real mode */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
     };
   };
   risk_api_v1_risk_get: {
@@ -1835,6 +1896,15 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
+      /** @description No forecast snapshot, or placeholder in real mode */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
     };
   };
   priority_api_v1_priority_get: {
@@ -1869,6 +1939,15 @@ export interface operations {
       };
       /** @description Invalid parameters */
       422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description No forecast snapshot, or placeholder in real mode */
+      503: {
         headers: {
           [name: string]: unknown;
         };
@@ -1918,6 +1997,15 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
+      /** @description No forecast snapshot, or placeholder in real mode */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
     };
   };
   advisory_api_v1_advisories__advisory_id__get: {
@@ -1951,6 +2039,15 @@ export interface operations {
       };
       /** @description Invalid parameters */
       422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description No forecast snapshot, or placeholder in real mode */
+      503: {
         headers: {
           [name: string]: unknown;
         };
@@ -2135,6 +2232,15 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
+      /** @description No forecast snapshot, or placeholder in real mode */
+      503: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
     };
   };
   feedback_api_v1_feedback_post: {
@@ -2215,7 +2321,7 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
-      /** @description Not computed for real data yet */
+      /** @description No forecast snapshot, or placeholder in real mode */
       503: {
         headers: {
           [name: string]: unknown;
@@ -2264,7 +2370,7 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
-      /** @description Not computed for real data yet */
+      /** @description No forecast snapshot, or placeholder in real mode */
       503: {
         headers: {
           [name: string]: unknown;
@@ -2311,7 +2417,7 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
-      /** @description Not computed for real data yet */
+      /** @description No forecast snapshot, or placeholder in real mode */
       503: {
         headers: {
           [name: string]: unknown;
@@ -2358,7 +2464,7 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
-      /** @description Not computed for real data yet */
+      /** @description No forecast snapshot, or placeholder in real mode */
       503: {
         headers: {
           [name: string]: unknown;
@@ -2408,7 +2514,7 @@ export interface operations {
           "application/json": components["schemas"]["ErrorResponse"];
         };
       };
-      /** @description Not computed for real data yet */
+      /** @description No forecast snapshot, or placeholder in real mode */
       503: {
         headers: {
           [name: string]: unknown;
