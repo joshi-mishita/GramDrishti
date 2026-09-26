@@ -1,0 +1,461 @@
+# GramDrishti advisory rules (Backend Guide 9.3 and 9.4).
+#
+# EVERY NUMBER IN THIS FILE IS A PLACEHOLDER written by the development team, not by an agronomist.
+# A KVK or SAU expert reviews them using docs/thresholds_for_expert_review.md (generated from this file:
+# `cd backend && python -m gramdrishti.advisory.expert_table`). After review, change `value`, fill
+# `source` with the reference, and set `thresholds_status: reviewed` on the rule.
+#
+# How a rule works
+# - `when` is a plain expression evaluated with simpleeval (no Python code runs). It may use the
+#   signals listed in gramdrishti/advisory/signals.py (SIGNALS) and the rule's own `thresholds`.
+#   Probabilities are 0..1 (0.35 = 35 %). Temperatures in C, rain in mm, wind in km/h.
+# - `crop`: a crop name, `any` (every crop in season at that Panchayat) or `livestock` (once per Panchayat).
+# - `stage` names and the crop-stage alert temperatures (tmax_alert_c, tmin_alert_c) and sensitivities
+#   come from data/crop_calendar_PLACEHOLDER.csv, also placeholders.
+# - `priority` is the base level. It goes up one level when the stage is highly sensitive to the rule's
+#   `sensitivity` (calendar column) and down one level when the stage has low sensitivity or the
+#   confidence is low.
+# - `confidence` lists the key signals: how far each is beyond its threshold (Guide 9.5).
+# - `supersedes`: when this rule fires for a crop, the listed rules' advisories for that crop are dropped.
+# - A rule whose `when` needs a missing number (for example soil water in real mode) is skipped.
+
+version: 1
+thresholds_status: placeholder
+
+# Crops sown within this many days after the issue date get sowing advice (stage `pre_sowing`).
+context:
+  sowing_lookahead_days:
+    value: 10
+    unit: days
+    meaning: Look this many days ahead for a planned sowing date; those fields get sowing advice.
+  low_lying_tpi_z:
+    value: -0.7
+    unit: z-score of topographic position
+    meaning: A Panchayat below this is low-lying (cold air and water collect there). Guide 8 value.
+
+# Day-level spray planner (Guide 9.7). Data is daily, so this rates whole days, never hours.
+spray_planner:
+  avoid_rain_today:
+    value: 0.5
+    unit: probability
+    meaning: Chance of 2.5 mm or more on the day itself at or above this makes the day Avoid.
+  avoid_rain_next_day:
+    value: 0.6
+    unit: probability
+    meaning: Chance of 2.5 mm or more on the following day at or above this makes the day Avoid (wash-off).
+  avoid_wind:
+    value: 15
+    unit: km/h
+    meaning: Upper estimate (p90) of daily wind at or above this makes the day Avoid (drift).
+  caution_rain_today:
+    value: 0.25
+    unit: probability
+    meaning: Chance of 2.5 mm or more on the day at or above this makes the day Caution.
+  caution_rain_next_day:
+    value: 0.35
+    unit: probability
+    meaning: Chance of 2.5 mm or more on the following day at or above this makes the day Caution.
+  caution_wind:
+    value: 10
+    unit: km/h
+    meaning: Upper estimate (p90) of daily wind at or above this makes the day Caution.
+
+# Risk map and priority list (GET /risk, GET /priority). Scores are 0..1; `cuts` turn a score into
+# moderate, high and severe (below the first cut is low). Frost and waterlogging levels shown in the
+# Panchayat forecast use the agro placeholders in agro/derived.py (listed in the expert table too).
+risk:
+  heavy_rain:
+    score: Chance of 35 mm or more on the day (calibrated rain classifier).
+    cuts: [0.1, 0.3, 0.6]
+    thresholds: {}
+  heat:
+    score: Chance that the day's maximum reaches the lowest heat alert of the crops in season there.
+    cuts: [0.1, 0.3, 0.6]
+    thresholds:
+      generic_heat_c:
+        value: 40
+        unit: C
+        meaning: Heat threshold for a Panchayat with no crop in season, or no crop with a heat alert.
+  frost:
+    score: Chance that the day's minimum falls to the highest cold alert of the crops in season there.
+    cuts: [0.1, 0.3, 0.6]
+    thresholds:
+      generic_frost_c:
+        value: 2
+        unit: C
+        meaning: Frost threshold for a Panchayat with no crop in season, or no crop with a cold alert.
+  waterlogging:
+    score: Waterlogging score from agro/derived.py (heavy rain chance x drainage x soil wetness).
+    cuts: [0.1, 0.25, 0.5]
+    thresholds: {}
+  dry_spell:
+    score: Dry days in a row from tomorrow, divided by full_days, times (0.5 + 0.5 x soil water used).
+    cuts: [0.25, 0.5, 0.75]
+    thresholds:
+      full_days:
+        value: 5
+        unit: days
+        meaning: This many forecast dry days in a row gives the full dry-spell score.
+
+# Confidence (Guide 9.5): score = margin - lead_penalty x (lead day - 1) - width_weight x width ratio.
+# The width ratio is the key day's p90 - p10 spread divided by the reference width below (capped at 1).
+confidence:
+  lead_penalty: {value: 0.08, unit: per lead day, meaning: Confidence lost per day of lead time (Guide 9.5).}
+  width_weight: {value: 0.3, unit: score, meaning: Weight of forecast spread in the confidence score (Guide 9.5).}
+  high_above: {value: 0.25, unit: score, meaning: A score above this is high confidence (Guide 9.5).}
+  medium_above: {value: 0.05, unit: score, meaning: A score above this is medium confidence (Guide 9.5).}
+  reference_width:
+    rain: {value: 40, unit: mm, meaning: A rain spread this wide counts as fully uncertain.}
+    tmax: {value: 6, unit: C, meaning: A maximum-temperature spread this wide counts as fully uncertain.}
+    tmin: {value: 6, unit: C, meaning: A minimum-temperature spread this wide counts as fully uncertain.}
+    wind: {value: 15, unit: km/h, meaning: A wind spread this wide counts as fully uncertain.}
+    rh: {value: 30, unit: "%", meaning: A humidity spread this wide counts as fully uncertain.}
+    soil: {value: 0.5, unit: fraction, meaning: A soil-water spread (dry vs wet rain path) this wide counts as fully uncertain.}
+
+rules:
+  # ---------------------------------------------------------------- sowing
+  - id: sowing_heavy_rain_wait
+    crop: any
+    category: sowing
+    priority: high
+    when: "stage == 'pre_sowing' and p_rain_35_3d >= heavy_rain_prob"
+    thresholds:
+      heavy_rain_prob:   # chance of 35 mm or more on at least one of the next 3 days
+        value: 0.3
+        unit: probability
+        meaning: Delay sowing when the chance of heavy rain (35 mm or more) in the next 3 days reaches this.
+    template: sowing_wait_rain
+    window_days: 3
+    confidence:
+      - {signal: p_rain_35_3d, threshold: heavy_rain_prob, direction: above, interval: rain}
+    evidence: [p_rain_35_3d, rain_p50_3d, days_to_sowing]
+    sensitivity: none
+    supersedes: [sowing_go, sowing_dry_soil]
+    thresholds_status: placeholder
+    source: ""
+
+  - id: sowing_dry_soil
+    crop: any
+    category: sowing
+    priority: moderate
+    when: "stage == 'pre_sowing' and soil_moisture_start < min_soil_moisture"
+    thresholds:
+      min_soil_moisture:   # root-zone water as a share of what the soil can hold
+        value: 0.3
+        unit: fraction of capacity
+        meaning: Below this soil water the seed bed is too dry to sow without a pre-sowing irrigation.
+    template: sowing_presow_irrigation
+    window_days: 5
+    confidence:
+      - {signal: soil_moisture_start, threshold: min_soil_moisture, direction: below, scale: 0.3, interval: soil}
+    evidence: [soil_moisture_start, p_rain_10_3d, days_to_sowing]
+    sensitivity: none
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""
+
+  - id: sowing_go
+    crop: any
+    category: sowing
+    priority: low
+    when: "stage == 'pre_sowing' and soil_moisture_start >= min_soil_moisture and p_rain_35_3d < heavy_rain_prob"
+    thresholds:
+      min_soil_moisture:
+        value: 0.3
+        unit: fraction of capacity
+        meaning: At or above this soil water the seed bed is moist enough to sow.
+      heavy_rain_prob:
+        value: 0.3
+        unit: probability
+        meaning: Sowing is advised only while the chance of heavy rain in the next 3 days stays below this.
+    template: sowing_go
+    window_days: 3
+    confidence:
+      - {signal: soil_moisture_start, threshold: min_soil_moisture, direction: above, scale: 0.4, interval: soil}
+    evidence: [soil_moisture_start, p_rain_35_3d, days_to_sowing]
+    sensitivity: none
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- irrigation
+  - id: irrigate_now
+    crop: any
+    category: irrigation
+    priority: moderate   # high sensitivity of the stage raises it to high
+    when: "depletion >= depletion_trigger and p_rain_10_3d < useful_rain_prob and drought_sensitivity in ['high', 'medium']"
+    thresholds:
+      depletion_trigger:   # share of root-zone water already used (1 - soil water / capacity)
+        value: 0.55
+        unit: fraction of capacity
+        meaning: Irrigate when this share of the root-zone water is used up (Guide 9.3 example).
+      useful_rain_prob:   # chance of 10 mm or more on at least one of the next 3 days
+        value: 0.25
+        unit: probability
+        meaning: Irrigate only if the chance of useful rain (10 mm or more) in the next 3 days is below this.
+    day_signal: depletion   # irrigate by tomorrow; the rain chance covers three days
+    template: irrigate
+    window_days: 3
+    confidence:
+      - {signal: depletion, threshold: depletion_trigger, direction: above, scale: 0.45, interval: soil}
+      - {signal: p_rain_10_3d, threshold: useful_rain_prob, direction: below, interval: rain}
+    evidence: [depletion, p_rain_10_3d, rain_p50_3d, et0_3d, stage]
+    sensitivity: drought
+    supersedes: [dry_spell_protect]
+    thresholds_status: placeholder
+    source: ""
+
+  - id: irrigation_hold_rain
+    crop: any
+    category: irrigation
+    priority: moderate
+    when: "depletion >= depletion_watch and p_rain_10_3d >= useful_rain_prob"
+    thresholds:
+      depletion_watch:
+        value: 0.4
+        unit: fraction of capacity
+        meaning: Only fields this dry would be irrigated soon, so only they get the hold message.
+      useful_rain_prob:
+        value: 0.5
+        unit: probability
+        meaning: Hold irrigation when the chance of 10 mm or more in the next 3 days reaches this.
+    template: irrigation_hold
+    window_days: 3
+    confidence:
+      - {signal: p_rain_10_3d, threshold: useful_rain_prob, direction: above, interval: rain}
+    evidence: [p_rain_10_3d, rain_p50_3d, depletion]
+    sensitivity: none
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- spray
+  - id: spray_hold
+    crop: any
+    category: spray
+    priority: moderate
+    # spray_d1 comes from the day-level spray planner (spray_planner thresholds above).
+    when: "spray_d1 == 'avoid'"
+    thresholds: {}
+    day_signal: spray_d1   # the advice is about spraying on day 1, even when day 2's rain is the reason
+    template: spray_hold
+    window_days: 2
+    confidence:
+      - {signal: p_rain_2_5_d1, threshold: avoid_rain_today, direction: above, interval: rain}
+      - {signal: p_rain_2_5_d2, threshold: avoid_rain_next_day, direction: above, interval: rain}
+      - {signal: wind_p90_d1, threshold: avoid_wind, direction: above, scale: 10, interval: wind}
+    evidence: [p_rain_2_5_d1, p_rain_2_5_d2, wind_p90_d1, spray_days]
+    sensitivity: none
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- fertilizer
+  - id: fertilizer_postpone
+    crop: any
+    category: fertilizer
+    priority: moderate
+    # topdress_stage: the calendar lists nitrogen top-dressing as a key operation for this stage.
+    when: "topdress_stage and (p_rain_10_d1 >= rain_prob or waterlog_score_3d >= waterlog_score_min)"
+    thresholds:
+      rain_prob:
+        value: 0.4
+        unit: probability
+        meaning: Postpone urea when the chance of 10 mm or more tomorrow reaches this (washing and loss).
+      waterlog_score_min:
+        value: 0.25
+        unit: score 0..1
+        meaning: Postpone urea when the waterlogging score in the next 3 days reaches this ("high").
+    template: fertilizer_postpone
+    window_days: 2
+    confidence:
+      - {signal: p_rain_10_d1, threshold: rain_prob, direction: above, interval: rain}
+      - {signal: waterlog_score_3d, threshold: waterlog_score_min, direction: above, scale: 0.5, interval: rain}
+    evidence: [p_rain_10_d1, rain_p50_3d, waterlog_score_3d, stage]
+    sensitivity: waterlog
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- heat stress
+  - id: heat_stress_crop
+    crop: any
+    category: heat_stress
+    priority: high
+    # tmax_alert_c is the crop-stage heat alert from the crop calendar (for example wheat grain fill 34 C).
+    when: "tmax_p90_3d >= tmax_alert_c"
+    thresholds: {}
+    template: heat_stress
+    window_days: 3
+    confidence:
+      - {signal: tmax_p90_3d, threshold: tmax_alert_c, direction: above, scale: 4, interval: tmax}
+    evidence: [tmax_p90_3d, tmax_alert_c, stage]
+    sensitivity: drought
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- frost and cold
+  - id: frost_protect
+    crop: any
+    category: frost
+    priority: high
+    # tmin_alert_c is the crop-stage cold alert from the crop calendar.
+    when: "tmin_p10_3d <= tmin_alert_c or (low_lying and tmin_p10_3d <= tmin_alert_c + low_lying_margin_c)"
+    thresholds:
+      low_lying_margin_c:
+        value: 1.5
+        unit: C
+        meaning: Low-lying Panchayats get frost advice this many degrees above the crop's cold alert.
+    template: frost_protect
+    window_days: 3
+    confidence:
+      - {signal: tmin_p10_3d, threshold: tmin_alert_c, direction: below, scale: 3, interval: tmin}
+    evidence: [tmin_p10_3d, tmin_alert_c, low_lying, stage]
+    sensitivity: none
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- waterlogging
+  - id: waterlogging_drain
+    crop: any
+    category: waterlogging
+    priority: high
+    when: "p_rain_35_3d >= heavy_rain_prob and (drain_poor or low_lying) and waterlog_sensitivity != 'low'"
+    thresholds:
+      heavy_rain_prob:
+        value: 0.3
+        unit: probability
+        meaning: Advise drain clearing when the chance of 35 mm or more in the next 3 days reaches this.
+    template: waterlogging
+    window_days: 3
+    confidence:
+      - {signal: p_rain_35_3d, threshold: heavy_rain_prob, direction: above, interval: rain}
+    evidence: [p_rain_35_3d, rain_p90_max_3d, drainage, low_lying]
+    sensitivity: waterlog
+    supersedes: [fertilizer_postpone]
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- dry spell
+  - id: dry_spell_protect
+    crop: any
+    category: dry_spell
+    priority: moderate   # high sensitivity of the stage raises it to high
+    when: "dry_days >= min_dry_days and et0_3d >= min_et0 and drought_sensitivity == 'high'"
+    thresholds:
+      min_dry_days:   # the forecast covers 5 days, so 5 is the longest spell it can show
+        value: 5
+        unit: days
+        meaning: Dry-spell advice when this many days in a row from tomorrow are dry (chance of 1 mm below 20 %).
+      min_et0:
+        value: 4
+        unit: mm/day
+        meaning: Only when crops lose at least this much water a day (reference evapotranspiration, 3-day mean).
+    template: dry_spell
+    window_days: 5
+    confidence:
+      - {signal: et0_3d, threshold: min_et0, direction: above, scale: 3, interval: none}
+    evidence: [dry_days, et0_3d, depletion, stage]
+    sensitivity: drought
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- harvest
+  - id: harvest_rain_risk
+    crop: any
+    category: harvest
+    priority: high
+    when: "days_to_harvest <= harvest_window_days and p_rain_10_3d >= rain_prob"
+    thresholds:
+      harvest_window_days:
+        value: 10
+        unit: days
+        meaning: Harvest advice applies from this many days before the expected harvest date.
+      rain_prob:
+        value: 0.4
+        unit: probability
+        meaning: Warn when the chance of 10 mm or more in the next 3 days reaches this.
+    template: harvest_rain
+    window_days: 3
+    confidence:
+      - {signal: p_rain_10_3d, threshold: rain_prob, direction: above, interval: rain}
+    evidence: [p_rain_10_3d, rain_p50_3d, days_to_harvest]
+    sensitivity: none
+    supersedes: [spray_hold, fertilizer_postpone]
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- pest and disease
+  - id: pest_disease_humid
+    crop: any
+    category: pest_disease
+    priority: moderate
+    # A generic warm-humid watch. An expert should replace it with crop- and pest-specific rules.
+    # pest_watch_stage: the calendar lists disease, pest or aphid watch as a key operation for this stage.
+    when: "pest_watch_stage and rh_mean_3d >= humid_rh and warm_min_c <= tmean_3d <= warm_max_c"
+    thresholds:
+      humid_rh:
+        value: 80
+        unit: "%"
+        meaning: Scouting advice when the 3-day mean humidity reaches this.
+      warm_min_c:
+        value: 20
+        unit: C
+        meaning: Lowest 3-day mean temperature at which the warm-humid watch applies.
+      warm_max_c:
+        value: 32
+        unit: C
+        meaning: Highest 3-day mean temperature at which the warm-humid watch applies.
+    template: pest_scout
+    window_days: 3
+    confidence:
+      - {signal: rh_mean_3d, threshold: humid_rh, direction: above, scale: 15, interval: rh}
+    evidence: [rh_mean_3d, tmean_3d, stage]
+    sensitivity: none
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""
+
+  # ---------------------------------------------------------------- livestock
+  - id: livestock_heat_severe
+    crop: livestock
+    category: livestock
+    priority: high
+    when: "thi_p90 >= thi_severe"
+    thresholds:
+      thi_severe:   # THI = 0.8 T + (RH/100)(T - 14.4) + 46.4 with the upper maximum temperature
+        value: 90
+        unit: THI
+        meaning: Severe heat stress for cattle and buffalo at or above this index.
+    template: livestock_heat_severe
+    window_days: 3
+    confidence:
+      - {signal: thi_p90, threshold: thi_severe, direction: above, scale: 8, interval: tmax}
+    evidence: [thi_p90, tmax_p90_3d]
+    sensitivity: none
+    supersedes: [livestock_heat]
+    thresholds_status: placeholder
+    source: ""
+
+  - id: livestock_heat
+    crop: livestock
+    category: livestock
+    priority: moderate
+    when: "thi_p90 >= thi_moderate"
+    thresholds:
+      thi_moderate:
+        value: 80
+        unit: THI
+        meaning: Moderate heat stress for cattle and buffalo at or above this index.
+    template: livestock_heat
+    window_days: 3
+    confidence:
+      - {signal: thi_p90, threshold: thi_moderate, direction: above, scale: 8, interval: tmax}
+    evidence: [thi_p90, tmax_p90_3d]
+    sensitivity: none
+    supersedes: []
+    thresholds_status: placeholder
+    source: ""

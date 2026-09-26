@@ -1,0 +1,377 @@
+{
+  "$defs": {
+    "ConfidenceConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "lead_penalty": {
+          "$ref": "#/$defs/Threshold"
+        },
+        "width_weight": {
+          "$ref": "#/$defs/Threshold"
+        },
+        "high_above": {
+          "$ref": "#/$defs/Threshold"
+        },
+        "medium_above": {
+          "$ref": "#/$defs/Threshold"
+        },
+        "reference_width": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Threshold"
+          },
+          "propertyNames": {
+            "enum": [
+              "rain",
+              "tmax",
+              "tmin",
+              "wind",
+              "rh",
+              "soil"
+            ]
+          },
+          "title": "Reference Width",
+          "type": "object"
+        }
+      },
+      "required": [
+        "lead_penalty",
+        "width_weight",
+        "high_above",
+        "medium_above",
+        "reference_width"
+      ],
+      "title": "ConfidenceConfig",
+      "type": "object"
+    },
+    "ConfidenceKey": {
+      "additionalProperties": false,
+      "description": "A key signal for confidence (Guide 9.5): how far it is beyond ``threshold``.\n\n``threshold`` is a number, the name of one of the rule's thresholds, a spray-planner threshold, or a\nsignal (for example the calendar's ``tmax_alert_c``). ``scale`` turns the distance into a 0..1 margin;\nfor probabilities it defaults to the room left between the threshold and 1 (or 0).",
+      "properties": {
+        "signal": {
+          "title": "Signal",
+          "type": "string"
+        },
+        "threshold": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Threshold"
+        },
+        "direction": {
+          "enum": [
+            "above",
+            "below"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "scale": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scale"
+        },
+        "interval": {
+          "enum": [
+            "rain",
+            "tmax",
+            "tmin",
+            "wind",
+            "rh",
+            "soil",
+            "none"
+          ],
+          "title": "Interval",
+          "type": "string"
+        }
+      },
+      "required": [
+        "signal",
+        "threshold",
+        "direction",
+        "interval"
+      ],
+      "title": "ConfidenceKey",
+      "type": "object"
+    },
+    "RiskConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "score": {
+          "title": "Score",
+          "type": "string"
+        },
+        "cuts": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "title": "Cuts",
+          "type": "array"
+        },
+        "thresholds": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Threshold"
+          },
+          "default": {},
+          "title": "Thresholds",
+          "type": "object"
+        }
+      },
+      "required": [
+        "score",
+        "cuts"
+      ],
+      "title": "RiskConfig",
+      "type": "object"
+    },
+    "Rule": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "crop": {
+          "title": "Crop",
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "sowing",
+            "irrigation",
+            "spray",
+            "fertilizer",
+            "harvest",
+            "heat_stress",
+            "frost",
+            "waterlogging",
+            "dry_spell",
+            "pest_disease",
+            "livestock"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "priority": {
+          "enum": [
+            "low",
+            "moderate",
+            "high",
+            "severe"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "when": {
+          "title": "When",
+          "type": "string"
+        },
+        "thresholds": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Threshold"
+          },
+          "default": {},
+          "title": "Thresholds",
+          "type": "object"
+        },
+        "template": {
+          "title": "Template",
+          "type": "string"
+        },
+        "window_days": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Window Days",
+          "type": "integer"
+        },
+        "confidence": {
+          "items": {
+            "$ref": "#/$defs/ConfidenceKey"
+          },
+          "minItems": 1,
+          "title": "Confidence",
+          "type": "array"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "sensitivity": {
+          "enum": [
+            "drought",
+            "waterlog",
+            "none"
+          ],
+          "title": "Sensitivity",
+          "type": "string"
+        },
+        "supersedes": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Supersedes",
+          "type": "array"
+        },
+        "day_signal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Day Signal"
+        },
+        "thresholds_status": {
+          "enum": [
+            "placeholder",
+            "reviewed"
+          ],
+          "title": "Thresholds Status",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "crop",
+        "category",
+        "priority",
+        "when",
+        "template",
+        "window_days",
+        "confidence",
+        "evidence",
+        "sensitivity",
+        "thresholds_status",
+        "source"
+      ],
+      "title": "Rule",
+      "type": "object"
+    },
+    "Threshold": {
+      "additionalProperties": false,
+      "description": "One placeholder number with its unit and a one-line meaning for the expert.",
+      "properties": {
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "meaning": {
+          "minLength": 10,
+          "title": "Meaning",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "meaning"
+      ],
+      "title": "Threshold",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "title": "Version",
+      "type": "integer"
+    },
+    "thresholds_status": {
+      "enum": [
+        "placeholder",
+        "reviewed"
+      ],
+      "title": "Thresholds Status",
+      "type": "string"
+    },
+    "context": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Threshold"
+      },
+      "propertyNames": {
+        "enum": [
+          "sowing_lookahead_days",
+          "low_lying_tpi_z"
+        ]
+      },
+      "title": "Context",
+      "type": "object"
+    },
+    "spray_planner": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Threshold"
+      },
+      "title": "Spray Planner",
+      "type": "object"
+    },
+    "risk": {
+      "additionalProperties": {
+        "$ref": "#/$defs/RiskConfig"
+      },
+      "propertyNames": {
+        "enum": [
+          "heavy_rain",
+          "heat",
+          "frost",
+          "waterlogging",
+          "dry_spell"
+        ]
+      },
+      "title": "Risk",
+      "type": "object"
+    },
+    "confidence": {
+      "$ref": "#/$defs/ConfidenceConfig"
+    },
+    "rules": {
+      "items": {
+        "$ref": "#/$defs/Rule"
+      },
+      "minItems": 1,
+      "title": "Rules",
+      "type": "array"
+    }
+  },
+  "required": [
+    "version",
+    "thresholds_status",
+    "context",
+    "spray_planner",
+    "risk",
+    "confidence",
+    "rules"
+  ],
+  "title": "RuleFile",
+  "type": "object"
+}
