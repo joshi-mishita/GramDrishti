@@ -18,6 +18,11 @@ python ../data/generate_mock_data.py     # recreates data/synthetic_oracle/ (git
 | Tests | `pytest -q` |
 | Lint | `ruff check .` |
 | Baseline report (TRAIN fit, CALIB scores) | `python -m gramdrishti.verify.baseline_report` |
+| Snapshots and draft advisories | `python -m gramdrishti.pipeline.run_daily --all-demo-dates` |
+| Validate advisory rules, write `rules.schema.json` | `python -m gramdrishti.advisory.rules` |
+| Expert thresholds table | `python -m gramdrishti.advisory.expert_table` |
+| Read stored advisories | `python -m gramdrishti.advisory.show --issue-date 2024-09-09` |
+| Create or migrate the SQLite store | `python -m gramdrishti.store.init_db` |
 
 Tests that need `data/synthetic_oracle/` are skipped with a message when it is missing. CI regenerates it.
 
@@ -28,7 +33,9 @@ Tests that need `data/synthetic_oracle/` are skipped with a message when it is m
 | `gramdrishti/data/` | `config.py` (mode, paths, variables, windows), `loaders.py`, `qc.py` | S1 |
 | `gramdrishti/models/` | `bias.py` (bias correction), `baselines.py` (B0, B1, B2) | S1 |
 | `gramdrishti/verify/` | `metrics.py`, `baseline_report.py` | S1 |
-| `gramdrishti/features/`, `agro/`, `advisory/`, `store/`, `pipeline/`, `api/` | empty packages | later sessions |
+| `gramdrishti/features/`, `agro/`, `pipeline/`, `api/` | see `docs/PROGRESS.md` | S2-S6 |
+| `gramdrishti/advisory/` | `rules.yaml` and `templates.yaml` (placeholder thresholds, hi/pa drafts), `signals.py`, `spray.py` (day level), `engine.py`, `risk.py`, `rules.py` (schema and checks), `expert_table.py`, `show.py` | S8 |
+| `gramdrishti/store/` | `db.py` (SQLite: advisories, audit_log, feedback, farmers), `init_db.py` | S8 |
 
 ## Data mode
 

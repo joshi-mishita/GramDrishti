@@ -1,0 +1,297 @@
+# Advisory text for every rule in rules.yaml (Backend Guide 9.6).
+#
+# English is the source text. The Hindi (hi) and Punjabi (pa) lines are DRAFTS written by Claude Code,
+# not by a native speaker or an agriculture officer. They NEED NATIVE REVIEW before any farmer sees them;
+# every advisory carries `translation_status: needs_native_review` until this file says `reviewed`.
+# Agronomy terms we were unsure about are listed in docs/translation_notes.md.
+#
+# Placeholders in {braces} are filled by the engine:
+# - any signal from gramdrishti/advisory/signals.py, already formatted with its unit ("34%", "36.2 C");
+# - {day}: the day the key signal refers to, {valid_to_day}: the last day the advice covers;
+# - {crop_name} and {stage_name}: from the crops and stages tables below, in the same language;
+# - {next_spray_day}: the first Good day from the spray planner, or the `no_good_spray_day` phrase.
+# Numbers use Western digits in all three languages.
+
+translation_status: needs_native_review
+
+crops:
+  wheat: {en: wheat, hi: गेहूं, pa: ਕਣਕ}
+  mustard: {en: mustard, hi: सरसों, pa: ਸਰ੍ਹੋਂ}
+  gram: {en: gram, hi: चना, pa: ਛੋਲੇ}
+  bajra: {en: bajra, hi: बाजरा, pa: ਬਾਜਰਾ}
+  cotton: {en: cotton, hi: कपास, pa: ਨਰਮਾ}
+  paddy: {en: paddy, hi: धान, pa: ਝੋਨਾ}
+  livestock: {en: animals, hi: पशु, pa: ਪਸ਼ੂ}
+
+stages:
+  pre_sowing: {en: before sowing, hi: बुवाई से पहले, pa: ਬਿਜਾਈ ਤੋਂ ਪਹਿਲਾਂ}
+  germination_crown_root: {en: germination and crown root, hi: अंकुरण और शीर्ष जड़, pa: ਪੁੰਗਰਨ ਅਤੇ ਤਾਜ ਜੜ੍ਹ}
+  tillering: {en: tillering, hi: कल्ले निकलने, pa: ਬੂਝੇ ਮਾਰਨ}
+  jointing_booting: {en: jointing and booting, hi: गांठ बनने और गभोट, pa: ਗੰਢਾਂ ਬਣਨ ਅਤੇ ਗੋਭ}
+  flowering_grain_fill: {en: flowering and grain filling, hi: फूल आने और दाना भरने, pa: ਫੁੱਲ ਆਉਣ ਅਤੇ ਦਾਣਾ ਭਰਨ}
+  maturity_harvest: {en: maturity, hi: पकने, pa: ਪੱਕਣ}
+  transplant_establishment: {en: transplanting, hi: रोपाई, pa: ਲੁਆਈ}
+  panicle_flowering: {en: panicle and flowering, hi: बाली और फूल आने, pa: ਮੁੰਜਰਾਂ ਅਤੇ ਫੁੱਲ ਆਉਣ}
+  grain_fill_maturity: {en: grain filling and maturity, hi: दाना भरने और पकने, pa: ਦਾਣਾ ਭਰਨ ਅਤੇ ਪੱਕਣ}
+  germination_seedling: {en: seedling, hi: अंकुरण और पौध, pa: ਪੁੰਗਰਨ ਅਤੇ ਬੂਟੇ}
+  squaring_flowering: {en: squaring and flowering, hi: कली और फूल आने, pa: ਡੋਡੀ ਅਤੇ ਫੁੱਲ ਆਉਣ}
+  boll_development_picking: {en: boll development and picking, hi: टिंडे बनने और चुनाई, pa: ਟੀਂਡੇ ਬਣਨ ਅਤੇ ਚੁਗਾਈ}
+  vegetative: {en: vegetative growth, hi: बढ़वार, pa: ਵਾਧੇ}
+  flowering_pod: {en: flowering and pod, hi: फूल और फली बनने, pa: ਫੁੱਲ ਅਤੇ ਫਲੀਆਂ ਬਣਨ}
+  maturity: {en: maturity, hi: पकने, pa: ਪੱਕਣ}
+  establishment: {en: establishment, hi: जमाव, pa: ਜੰਮ}
+  tillering_boot: {en: tillering and booting, hi: कल्ले और गभोट, pa: ਬੂਝੇ ਅਤੇ ਗੋਭ}
+  flowering_grain: {en: flowering and grain, hi: फूल और दाना बनने, pa: ਫੁੱਲ ਅਤੇ ਦਾਣਾ ਬਣਨ}
+  unknown: {en: current, hi: मौजूदा, pa: ਮੌਜੂਦਾ}
+
+no_good_spray_day:
+  en: not within the 5-day forecast
+  hi: अगले 5 दिनों के पूर्वानुमान में नहीं है
+  pa: ਅਗਲੇ 5 ਦਿਨਾਂ ਦੀ ਭਵਿੱਖਬਾਣੀ ਵਿੱਚ ਨਹੀਂ ਹੈ
+
+templates:
+  sowing_wait_rain:
+    action:
+      en: Wait before sowing {crop_name}. Sow after the heavy rain has passed and the field can be worked.
+      hi: "{crop_name} की बुवाई अभी रोकें। भारी बारिश निकल जाने और खेत तैयार होने के बाद बुवाई करें।"
+      pa: "{crop_name} ਦੀ ਬਿਜਾਈ ਹਾਲੇ ਰੋਕੋ। ਭਾਰੀ ਮੀਂਹ ਲੰਘ ਜਾਣ ਅਤੇ ਖੇਤ ਤਿਆਰ ਹੋਣ ਤੋਂ ਬਾਅਦ ਬਿਜਾਈ ਕਰੋ।"
+    reason:
+      en: The chance of heavy rain (35 mm or more) by {valid_to_day} is {p_rain_35_3d}. Seed sown now could be washed out or rot in wet soil.
+      hi: "{valid_to_day} तक भारी बारिश (35 मिमी या अधिक) की {p_rain_35_3d} संभावना है। अभी बोया बीज बह सकता है या गीली मिट्टी में सड़ सकता है।"
+      pa: "{valid_to_day} ਤੱਕ ਭਾਰੀ ਮੀਂਹ (35 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ) ਦੀ {p_rain_35_3d} ਸੰਭਾਵਨਾ ਹੈ। ਹੁਣ ਬੀਜਿਆ ਬੀਜ ਰੁੜ੍ਹ ਸਕਦਾ ਹੈ ਜਾਂ ਗਿੱਲੀ ਮਿੱਟੀ ਵਿੱਚ ਗਲ ਸਕਦਾ ਹੈ।"
+    fallback:
+      en: If the heavy rain does not come, sow as soon as the soil is workable.
+      hi: अगर भारी बारिश नहीं होती, तो मिट्टी तैयार होते ही बुवाई करें।
+      pa: ਜੇ ਭਾਰੀ ਮੀਂਹ ਨਹੀਂ ਪੈਂਦਾ, ਤਾਂ ਮਿੱਟੀ ਤਿਆਰ ਹੁੰਦੇ ਹੀ ਬਿਜਾਈ ਕਰੋ।
+
+  sowing_presow_irrigation:
+    action:
+      en: Give a pre-sowing irrigation before you sow {crop_name}, then sow when the soil is moist but workable.
+      hi: "{crop_name} की बुवाई से पहले पलेवा (बुवाई-पूर्व सिंचाई) करें, फिर मिट्टी नम और तैयार होने पर बुवाई करें।"
+      pa: "{crop_name} ਦੀ ਬਿਜਾਈ ਤੋਂ ਪਹਿਲਾਂ ਰੌਣੀ (ਬਿਜਾਈ ਤੋਂ ਪਹਿਲਾਂ ਦੀ ਸਿੰਚਾਈ) ਕਰੋ, ਫਿਰ ਮਿੱਟੀ ਵੱਤਰ ਆਉਣ ਤੇ ਬਿਜਾਈ ਕਰੋ।"
+    reason:
+      en: The seed bed is dry. The root zone holds only {soil_moisture_start} of the water it can hold, and the chance of useful rain (10 mm or more) in the next 3 days is {p_rain_10_3d}.
+      hi: "बीज की क्यारी सूखी है। जड़ क्षेत्र में केवल {soil_moisture_start} नमी है, और अगले 3 दिनों में काम की बारिश (10 मिमी या अधिक) की संभावना {p_rain_10_3d} है।"
+      pa: "ਬੀਜ ਵਾਲੀ ਜ਼ਮੀਨ ਸੁੱਕੀ ਹੈ। ਜੜ੍ਹਾਂ ਵਾਲੇ ਹਿੱਸੇ ਵਿੱਚ ਸਿਰਫ਼ {soil_moisture_start} ਨਮੀ ਹੈ, ਅਤੇ ਅਗਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਦੇ ਮੀਂਹ (10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ) ਦੀ ਸੰਭਾਵਨਾ {p_rain_10_3d} ਹੈ।"
+    fallback:
+      en: If 10 mm or more of rain falls, skip the pre-sowing irrigation and sow once the soil is workable.
+      hi: अगर 10 मिमी या अधिक बारिश हो जाए, तो पलेवा न करें और मिट्टी तैयार होने पर बुवाई करें।
+      pa: ਜੇ 10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ ਮੀਂਹ ਪੈ ਜਾਵੇ, ਤਾਂ ਰੌਣੀ ਨਾ ਕਰੋ ਅਤੇ ਵੱਤਰ ਆਉਣ ਤੇ ਬਿਜਾਈ ਕਰੋ।
+
+  sowing_go:
+    action:
+      en: Conditions suit sowing {crop_name} in the next 3 days.
+      hi: अगले 3 दिन {crop_name} की बुवाई के लिए ठीक हैं।
+      pa: ਅਗਲੇ 3 ਦਿਨ {crop_name} ਦੀ ਬਿਜਾਈ ਲਈ ਠੀਕ ਹਨ।
+    reason:
+      en: The soil holds {soil_moisture_start} of the water it can hold, and the chance of heavy rain until {valid_to_day} is {p_rain_35_3d}.
+      hi: "मिट्टी में {soil_moisture_start} नमी है, और {valid_to_day} तक भारी बारिश की संभावना {p_rain_35_3d} है।"
+      pa: "ਮਿੱਟੀ ਵਿੱਚ {soil_moisture_start} ਨਮੀ ਹੈ, ਅਤੇ {valid_to_day} ਤੱਕ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ {p_rain_35_3d} ਹੈ।"
+    fallback:
+      en: If heavy rain is forecast later, wait until it has passed.
+      hi: अगर बाद में भारी बारिश का अनुमान आए, तो उसके निकल जाने तक रुकें।
+      pa: ਜੇ ਬਾਅਦ ਵਿੱਚ ਭਾਰੀ ਮੀਂਹ ਦੀ ਭਵਿੱਖਬਾਣੀ ਆਵੇ, ਤਾਂ ਉਸ ਦੇ ਲੰਘ ਜਾਣ ਤੱਕ ਰੁਕੋ।
+
+  irrigate:
+    action:
+      en: Irrigate {crop_name} by {day}. Skip it if you irrigated in the last 3 days.
+      hi: "{day} तक {crop_name} की सिंचाई करें। अगर पिछले 3 दिनों में सिंचाई की है, तो न करें।"
+      pa: "{day} ਤੱਕ {crop_name} ਦੀ ਸਿੰਚਾਈ ਕਰੋ। ਜੇ ਪਿਛਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਸਿੰਚਾਈ ਕੀਤੀ ਹੈ, ਤਾਂ ਨਾ ਕਰੋ।"
+    reason:
+      en: The soil is drying. About {depletion} of the root-zone water is used, and the chance of useful rain (10 mm or more) in the next 3 days is {p_rain_10_3d}.
+      hi: "मिट्टी सूख रही है। जड़ क्षेत्र की लगभग {depletion} नमी खत्म हो चुकी है, और अगले 3 दिनों में काम की बारिश (10 मिमी या अधिक) की संभावना {p_rain_10_3d} है।"
+      pa: "ਮਿੱਟੀ ਸੁੱਕ ਰਹੀ ਹੈ। ਜੜ੍ਹਾਂ ਵਾਲੇ ਹਿੱਸੇ ਦੀ ਲਗਭਗ {depletion} ਨਮੀ ਖ਼ਤਮ ਹੋ ਚੁੱਕੀ ਹੈ, ਅਤੇ ਅਗਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਦੇ ਮੀਂਹ (10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ) ਦੀ ਸੰਭਾਵਨਾ {p_rain_10_3d} ਹੈ।"
+    fallback:
+      en: If more than 10 mm of rain falls before you irrigate, skip this irrigation.
+      hi: अगर सिंचाई से पहले 10 मिमी से अधिक बारिश हो जाए, तो यह सिंचाई न करें।
+      pa: ਜੇ ਸਿੰਚਾਈ ਤੋਂ ਪਹਿਲਾਂ 10 ਮਿਲੀਮੀਟਰ ਤੋਂ ਵੱਧ ਮੀਂਹ ਪੈ ਜਾਵੇ, ਤਾਂ ਇਹ ਸਿੰਚਾਈ ਨਾ ਕਰੋ।
+
+  irrigation_hold:
+    action:
+      en: Hold irrigation of {crop_name} for now and check again on {valid_to_day}.
+      hi: "{crop_name} की सिंचाई अभी रोकें और {valid_to_day} को फिर देखें।"
+      pa: "{crop_name} ਦੀ ਸਿੰਚਾਈ ਹਾਲੇ ਰੋਕੋ ਅਤੇ {valid_to_day} ਨੂੰ ਫਿਰ ਦੇਖੋ।"
+    reason:
+      en: The chance of useful rain (10 mm or more) in the next 3 days is {p_rain_10_3d}, so irrigating now may waste water and pump energy.
+      hi: "अगले 3 दिनों में काम की बारिश (10 मिमी या अधिक) की {p_rain_10_3d} संभावना है, इसलिए अभी सिंचाई से पानी और बिजली बर्बाद हो सकती है।"
+      pa: "ਅਗਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਦੇ ਮੀਂਹ (10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ) ਦੀ {p_rain_10_3d} ਸੰਭਾਵਨਾ ਹੈ, ਇਸ ਲਈ ਹੁਣ ਸਿੰਚਾਈ ਨਾਲ ਪਾਣੀ ਅਤੇ ਬਿਜਲੀ ਬਰਬਾਦ ਹੋ ਸਕਦੀ ਹੈ।"
+    fallback:
+      en: If no rain has fallen by {valid_to_day} and the soil is dry, irrigate then.
+      hi: "अगर {valid_to_day} तक बारिश न हो और मिट्टी सूखी हो, तो तब सिंचाई करें।"
+      pa: "ਜੇ {valid_to_day} ਤੱਕ ਮੀਂਹ ਨਾ ਪਵੇ ਅਤੇ ਮਿੱਟੀ ਸੁੱਕੀ ਹੋਵੇ, ਤਾਂ ਉਦੋਂ ਸਿੰਚਾਈ ਕਰੋ।"
+
+  spray_hold:
+    action:
+      en: Do not spray pesticide or fertiliser on {crop_name} on {day}. The next good spray day is {next_spray_day}.
+      hi: "{day} को {crop_name} पर कीटनाशक या खाद का छिड़काव न करें। छिड़काव का अगला अच्छा दिन {next_spray_day}।"
+      pa: "{day} ਨੂੰ {crop_name} ਤੇ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ। ਛਿੜਕਾਅ ਦਾ ਅਗਲਾ ਚੰਗਾ ਦਿਨ {next_spray_day}।"
+    reason:
+      en: Rain or wind would waste the spray. Chance of rain is {p_rain_2_5_d1} on {day} and {p_rain_2_5_d2} the day after, with wind up to {wind_p90_d1}.
+      hi: "बारिश या हवा से छिड़काव बेकार हो जाएगा। {day} को बारिश की संभावना {p_rain_2_5_d1} और अगले दिन {p_rain_2_5_d2} है, हवा {wind_p90_d1} तक।"
+      pa: "ਮੀਂਹ ਜਾਂ ਹਵਾ ਨਾਲ ਛਿੜਕਾਅ ਬੇਕਾਰ ਹੋ ਜਾਵੇਗਾ। {day} ਨੂੰ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ {p_rain_2_5_d1} ਅਤੇ ਅਗਲੇ ਦਿਨ {p_rain_2_5_d2} ਹੈ, ਹਵਾ {wind_p90_d1} ਤੱਕ।"
+    fallback:
+      en: If the day turns out dry and calm, you can spray in the early morning.
+      hi: अगर दिन सूखा और हवा शांत रहे, तो सुबह जल्दी छिड़काव कर सकते हैं।
+      pa: ਜੇ ਦਿਨ ਸੁੱਕਾ ਅਤੇ ਹਵਾ ਸ਼ਾਂਤ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਜਲਦੀ ਛਿੜਕਾਅ ਕਰ ਸਕਦੇ ਹੋ।
+
+  fertilizer_postpone:
+    action:
+      en: Postpone the urea top-dressing of {crop_name}. Apply it on a day when no rain is forecast.
+      hi: "{crop_name} में यूरिया की टॉप ड्रेसिंग अभी टालें। इसे उस दिन डालें जब बारिश का अनुमान न हो।"
+      pa: "{crop_name} ਵਿੱਚ ਯੂਰੀਆ ਦੀ ਟਾਪ ਡਰੈਸਿੰਗ ਹਾਲੇ ਟਾਲੋ। ਇਸ ਨੂੰ ਉਸ ਦਿਨ ਪਾਓ ਜਦੋਂ ਮੀਂਹ ਦੀ ਭਵਿੱਖਬਾਣੀ ਨਾ ਹੋਵੇ।"
+    reason:
+      en: Rain is likely soon ({p_rain_10_d1} chance of 10 mm or more on {day}). Rain can wash urea away or leave water standing in the field.
+      hi: "जल्द बारिश की संभावना है ({day} को 10 मिमी या अधिक की {p_rain_10_d1} संभावना)। बारिश यूरिया बहा सकती है या खेत में पानी भर सकता है।"
+      pa: "ਜਲਦੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ ਹੈ ({day} ਨੂੰ 10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ ਦੀ {p_rain_10_d1} ਸੰਭਾਵਨਾ)। ਮੀਂਹ ਯੂਰੀਆ ਰੋੜ੍ਹ ਸਕਦਾ ਹੈ ਜਾਂ ਖੇਤ ਵਿੱਚ ਪਾਣੀ ਖੜ੍ਹ ਸਕਦਾ ਹੈ।"
+    fallback:
+      en: If no rain falls, apply urea on the first dry day.
+      hi: अगर बारिश न हो, तो पहले सूखे दिन यूरिया डालें।
+      pa: ਜੇ ਮੀਂਹ ਨਾ ਪਵੇ, ਤਾਂ ਪਹਿਲੇ ਸੁੱਕੇ ਦਿਨ ਯੂਰੀਆ ਪਾਓ।
+
+  heat_stress:
+    action:
+      en: Give {crop_name} a light irrigation in the evening, and avoid spraying or other field work in the afternoon heat until {valid_to_day}.
+      hi: "{crop_name} में शाम को हल्की सिंचाई करें, और {valid_to_day} तक दोपहर की गर्मी में छिड़काव या खेत का दूसरा काम न करें।"
+      pa: "{crop_name} ਨੂੰ ਸ਼ਾਮ ਨੂੰ ਹਲਕਾ ਪਾਣੀ ਲਾਓ, ਅਤੇ {valid_to_day} ਤੱਕ ਦੁਪਹਿਰ ਦੀ ਗਰਮੀ ਵਿੱਚ ਛਿੜਕਾਅ ਜਾਂ ਖੇਤ ਦਾ ਹੋਰ ਕੰਮ ਨਾ ਕਰੋ।"
+    reason:
+      en: The maximum temperature may reach {tmax_p90_3d} on {day}. That is above the {tmax_alert_c} heat alert for {crop_name} at the {stage_name} stage.
+      hi: "{day} को अधिकतम तापमान {tmax_p90_3d} तक जा सकता है। यह {stage_name} अवस्था में {crop_name} के लिए {tmax_alert_c} की गर्मी सीमा से ऊपर है।"
+      pa: "{day} ਨੂੰ ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ {tmax_p90_3d} ਤੱਕ ਜਾ ਸਕਦਾ ਹੈ। ਇਹ {stage_name} ਅਵਸਥਾ ਵਿੱਚ {crop_name} ਲਈ {tmax_alert_c} ਦੀ ਗਰਮੀ ਹੱਦ ਤੋਂ ਉੱਪਰ ਹੈ।"
+    fallback:
+      en: If the day stays below {tmax_alert_c}, normal care is enough.
+      hi: "अगर दिन का तापमान {tmax_alert_c} से कम रहे, तो सामान्य देखभाल काफ़ी है।"
+      pa: "ਜੇ ਦਿਨ ਦਾ ਤਾਪਮਾਨ {tmax_alert_c} ਤੋਂ ਘੱਟ ਰਹੇ, ਤਾਂ ਆਮ ਦੇਖਭਾਲ ਕਾਫ਼ੀ ਹੈ।"
+
+  frost_protect:
+    action:
+      en: Give {crop_name} a light irrigation on the evening before {day}, and cover nurseries and young plants overnight.
+      hi: "{day} से पहले की शाम {crop_name} में हल्की सिंचाई करें, और रात में नर्सरी और छोटे पौधों को ढकें।"
+      pa: "{day} ਤੋਂ ਪਹਿਲਾਂ ਦੀ ਸ਼ਾਮ {crop_name} ਨੂੰ ਹਲਕਾ ਪਾਣੀ ਲਾਓ, ਅਤੇ ਰਾਤ ਨੂੰ ਪਨੀਰੀ ਅਤੇ ਛੋਟੇ ਬੂਟਿਆਂ ਨੂੰ ਢੱਕੋ।"
+    reason:
+      en: The night temperature may fall to {tmin_p10_3d} on {day}, at or near the {tmin_alert_c} cold alert for {crop_name} at the {stage_name} stage.
+      hi: "{day} को रात का तापमान {tmin_p10_3d} तक गिर सकता है, जो {stage_name} अवस्था में {crop_name} के लिए {tmin_alert_c} की ठंड सीमा पर या उसके पास है।"
+      pa: "{day} ਨੂੰ ਰਾਤ ਦਾ ਤਾਪਮਾਨ {tmin_p10_3d} ਤੱਕ ਡਿੱਗ ਸਕਦਾ ਹੈ, ਜੋ {stage_name} ਅਵਸਥਾ ਵਿੱਚ {crop_name} ਲਈ {tmin_alert_c} ਦੀ ਠੰਢ ਹੱਦ ਤੇ ਜਾਂ ਉਸ ਦੇ ਨੇੜੇ ਹੈ।"
+    fallback:
+      en: If the night stays above {tmin_alert_c}, no frost protection is needed.
+      hi: "अगर रात का तापमान {tmin_alert_c} से ऊपर रहे, तो पाले से बचाव की ज़रूरत नहीं।"
+      pa: "ਜੇ ਰਾਤ ਦਾ ਤਾਪਮਾਨ {tmin_alert_c} ਤੋਂ ਉੱਪਰ ਰਹੇ, ਤਾਂ ਕੋਰੇ ਤੋਂ ਬਚਾਅ ਦੀ ਲੋੜ ਨਹੀਂ।"
+
+  waterlogging:
+    action:
+      en: Clear the field drains before the heavy rain expected around {day} so rainwater can run off, and hold fertiliser until the field has drained.
+      hi: "{day} के आसपास संभावित भारी बारिश से पहले खेत की नालियाँ साफ़ करें ताकि बारिश का पानी निकल सके, और खेत से पानी निकलने तक खाद न डालें।"
+      pa: "{day} ਦੇ ਆਸ-ਪਾਸ ਸੰਭਾਵੀ ਭਾਰੀ ਮੀਂਹ ਤੋਂ ਪਹਿਲਾਂ ਖੇਤ ਦੀਆਂ ਨਾਲੀਆਂ ਸਾਫ਼ ਕਰੋ ਤਾਂ ਜੋ ਮੀਂਹ ਦਾ ਪਾਣੀ ਨਿਕਲ ਸਕੇ, ਅਤੇ ਖੇਤ ਵਿੱਚੋਂ ਪਾਣੀ ਨਿਕਲਣ ਤੱਕ ਖਾਦ ਨਾ ਪਾਓ।"
+    reason:
+      en: The chance of heavy rain (35 mm or more) by {valid_to_day} is {p_rain_35_3d}, and water drains slowly from these fields or collects in them.
+      hi: "{valid_to_day} तक भारी बारिश (35 मिमी या अधिक) की {p_rain_35_3d} संभावना है, और इन खेतों से पानी धीरे निकलता है या यहाँ जमा होता है।"
+      pa: "{valid_to_day} ਤੱਕ ਭਾਰੀ ਮੀਂਹ (35 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ) ਦੀ {p_rain_35_3d} ਸੰਭਾਵਨਾ ਹੈ, ਅਤੇ ਇਨ੍ਹਾਂ ਖੇਤਾਂ ਵਿੱਚੋਂ ਪਾਣੀ ਹੌਲੀ ਨਿਕਲਦਾ ਹੈ ਜਾਂ ਇੱਥੇ ਇਕੱਠਾ ਹੁੰਦਾ ਹੈ।"
+    fallback:
+      en: If less than 20 mm of rain falls, no drain work is needed.
+      hi: अगर 20 मिमी से कम बारिश हो, तो नाली का काम ज़रूरी नहीं।
+      pa: ਜੇ 20 ਮਿਲੀਮੀਟਰ ਤੋਂ ਘੱਟ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਨਾਲੀ ਦਾ ਕੰਮ ਜ਼ਰੂਰੀ ਨਹੀਂ।
+
+  dry_spell:
+    action:
+      en: Plan irrigation for {crop_name}, which is at the {stage_name} stage, and mulch where you can to keep moisture in the soil.
+      hi: "{crop_name} की सिंचाई की योजना बनाएं, जो अभी {stage_name} अवस्था में है, और जहाँ हो सके मल्च (पलवार) बिछाएं ताकि मिट्टी में नमी बनी रहे।"
+      pa: "{crop_name} ਦੀ ਸਿੰਚਾਈ ਦੀ ਯੋਜਨਾ ਬਣਾਓ, ਜੋ ਹੁਣ {stage_name} ਅਵਸਥਾ ਵਿੱਚ ਹੈ, ਅਤੇ ਜਿੱਥੇ ਹੋ ਸਕੇ ਮਲਚ ਵਿਛਾਓ ਤਾਂ ਜੋ ਮਿੱਟੀ ਵਿੱਚ ਨਮੀ ਬਣੀ ਰਹੇ।"
+    reason:
+      en: No useful rain is expected for {dry_days} in a row, and fields are losing about {et0_3d} of water a day.
+      hi: "लगातार {dry_days} तक काम की बारिश की उम्मीद नहीं है, और फसल रोज़ लगभग {et0_3d} पानी खो रही है।"
+      pa: "ਲਗਾਤਾਰ {dry_days} ਤੱਕ ਕੰਮ ਦੇ ਮੀਂਹ ਦੀ ਉਮੀਦ ਨਹੀਂ ਹੈ, ਅਤੇ ਫ਼ਸਲ ਰੋਜ਼ ਲਗਭਗ {et0_3d} ਪਾਣੀ ਗੁਆ ਰਹੀ ਹੈ।"
+    fallback:
+      en: If 10 mm or more of rain falls, check the soil again before irrigating.
+      hi: अगर 10 मिमी या अधिक बारिश हो जाए, तो सिंचाई से पहले मिट्टी फिर जाँचें।
+      pa: ਜੇ 10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ ਮੀਂਹ ਪੈ ਜਾਵੇ, ਤਾਂ ਸਿੰਚਾਈ ਤੋਂ ਪਹਿਲਾਂ ਮਿੱਟੀ ਦੁਬਾਰਾ ਜਾਂਚੋ।
+
+  harvest_rain:
+    action:
+      en: Plan the {crop_name} harvest around the rain. If the crop is ready, harvest before the rain expected on {day}, and keep harvested produce covered and off the ground.
+      hi: "{crop_name} की कटाई बारिश को देखकर करें। फसल तैयार हो तो {day} को संभावित बारिश से पहले काटें, और कटी फसल को ढककर ज़मीन से ऊपर रखें।"
+      pa: "{crop_name} ਦੀ ਕਟਾਈ ਮੀਂਹ ਨੂੰ ਦੇਖ ਕੇ ਕਰੋ। ਫ਼ਸਲ ਤਿਆਰ ਹੋਵੇ ਤਾਂ {day} ਨੂੰ ਸੰਭਾਵੀ ਮੀਂਹ ਤੋਂ ਪਹਿਲਾਂ ਕੱਟੋ, ਅਤੇ ਕੱਟੀ ਫ਼ਸਲ ਨੂੰ ਢੱਕ ਕੇ ਜ਼ਮੀਨ ਤੋਂ ਉੱਪਰ ਰੱਖੋ।"
+    reason:
+      en: The chance of 10 mm or more of rain by {valid_to_day} is {p_rain_10_3d}, and the harvest is due in about {days_to_harvest}.
+      hi: "{valid_to_day} तक 10 मिमी या अधिक बारिश की {p_rain_10_3d} संभावना है, और कटाई लगभग {days_to_harvest} में होनी है।"
+      pa: "{valid_to_day} ਤੱਕ 10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ ਮੀਂਹ ਦੀ {p_rain_10_3d} ਸੰਭਾਵਨਾ ਹੈ, ਅਤੇ ਕਟਾਈ ਲਗਭਗ {days_to_harvest} ਵਿੱਚ ਹੋਣੀ ਹੈ।"
+    fallback:
+      en: If the crop is not yet mature, wait and harvest after the rain.
+      hi: अगर फसल अभी पकी नहीं है, तो रुकें और बारिश के बाद कटाई करें।
+      pa: ਜੇ ਫ਼ਸਲ ਹਾਲੇ ਪੱਕੀ ਨਹੀਂ, ਤਾਂ ਰੁਕੋ ਅਤੇ ਮੀਂਹ ਤੋਂ ਬਾਅਦ ਕਟਾਈ ਕਰੋ।
+
+  pest_scout:
+    action:
+      en: Check {crop_name} fields for pests and disease from {day}. Spray only if an agriculture officer confirms a problem.
+      hi: "{day} से {crop_name} के खेतों में कीट और रोग की जाँच करें। छिड़काव तभी करें जब कृषि अधिकारी समस्या की पुष्टि करें।"
+      pa: "{day} ਤੋਂ {crop_name} ਦੇ ਖੇਤਾਂ ਵਿੱਚ ਕੀੜਿਆਂ ਅਤੇ ਬਿਮਾਰੀ ਦੀ ਜਾਂਚ ਕਰੋ। ਛਿੜਕਾਅ ਉਦੋਂ ਹੀ ਕਰੋ ਜਦੋਂ ਖੇਤੀਬਾੜੀ ਅਧਿਕਾਰੀ ਸਮੱਸਿਆ ਦੀ ਪੁਸ਼ਟੀ ਕਰੇ।"
+    reason:
+      en: Warm, humid weather is expected, with humidity about {rh_mean_3d} and temperature about {tmean_3d} over the next 3 days. This favours pests and disease at the {stage_name} stage.
+      hi: "गर्म और नम मौसम की उम्मीद है: अगले 3 दिनों में नमी लगभग {rh_mean_3d} और तापमान लगभग {tmean_3d}। {stage_name} अवस्था में यह कीट और रोग के लिए अनुकूल है।"
+      pa: "ਗਰਮ ਅਤੇ ਸਿੱਲ੍ਹੇ ਮੌਸਮ ਦੀ ਉਮੀਦ ਹੈ: ਅਗਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਨਮੀ ਲਗਭਗ {rh_mean_3d} ਅਤੇ ਤਾਪਮਾਨ ਲਗਭਗ {tmean_3d}। {stage_name} ਅਵਸਥਾ ਵਿੱਚ ਇਹ ਕੀੜਿਆਂ ਅਤੇ ਬਿਮਾਰੀ ਲਈ ਅਨੁਕੂਲ ਹੈ।"
+    fallback:
+      en: If the weather turns dry, routine checks are enough.
+      hi: अगर मौसम सूखा हो जाए, तो सामान्य जाँच काफ़ी है।
+      pa: ਜੇ ਮੌਸਮ ਸੁੱਕਾ ਹੋ ਜਾਵੇ, ਤਾਂ ਆਮ ਜਾਂਚ ਕਾਫ਼ੀ ਹੈ।
+
+  livestock_heat_severe:
+    action:
+      en: Keep cattle and buffalo in shade from late morning to evening, give plenty of fresh water, and avoid grazing or work in the midday heat until {valid_to_day}.
+      hi: "{valid_to_day} तक गाय-भैंस को देर सुबह से शाम तक छाया में रखें, भरपूर ताज़ा पानी दें, और दोपहर की गर्मी में चराई या काम न कराएं।"
+      pa: "{valid_to_day} ਤੱਕ ਗਾਂ-ਮੱਝਾਂ ਨੂੰ ਦੇਰ ਸਵੇਰ ਤੋਂ ਸ਼ਾਮ ਤੱਕ ਛਾਂ ਵਿੱਚ ਰੱਖੋ, ਭਰਪੂਰ ਤਾਜ਼ਾ ਪਾਣੀ ਦਿਓ, ਅਤੇ ਦੁਪਹਿਰ ਦੀ ਗਰਮੀ ਵਿੱਚ ਚਰਾਈ ਜਾਂ ਕੰਮ ਨਾ ਕਰਾਓ।"
+    reason:
+      en: The heat index for animals may reach {thi_p90} on {day}, with a maximum temperature up to {tmax_p90_3d}. Heat at this level is hard on cattle and buffalo.
+      hi: "{day} को पशुओं के लिए गर्मी सूचकांक {thi_p90} तक जा सकता है, अधिकतम तापमान {tmax_p90_3d} तक। इतनी गर्मी गाय-भैंस के लिए कठिन होती है।"
+      pa: "{day} ਨੂੰ ਪਸ਼ੂਆਂ ਲਈ ਗਰਮੀ ਸੂਚਕਾਂਕ {thi_p90} ਤੱਕ ਜਾ ਸਕਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ {tmax_p90_3d} ਤੱਕ। ਇੰਨੀ ਗਰਮੀ ਗਾਂ-ਮੱਝਾਂ ਲਈ ਔਖੀ ਹੁੰਦੀ ਹੈ।"
+    fallback:
+      en: If the day is cooler than forecast, shade and water as usual are enough.
+      hi: अगर दिन अनुमान से ठंडा रहे, तो सामान्य छाया और पानी काफ़ी है।
+      pa: ਜੇ ਦਿਨ ਅਨੁਮਾਨ ਨਾਲੋਂ ਠੰਢਾ ਰਹੇ, ਤਾਂ ਆਮ ਵਾਂਗ ਛਾਂ ਅਤੇ ਪਾਣੀ ਕਾਫ਼ੀ ਹੈ।
+
+  livestock_heat:
+    action:
+      en: Give animals shade and plenty of fresh water, and graze them in the cooler morning and evening hours until {valid_to_day}.
+      hi: "{valid_to_day} तक पशुओं को छाया और भरपूर ताज़ा पानी दें, और उन्हें सुबह-शाम की ठंडक में चराएं।"
+      pa: "{valid_to_day} ਤੱਕ ਪਸ਼ੂਆਂ ਨੂੰ ਛਾਂ ਅਤੇ ਭਰਪੂਰ ਤਾਜ਼ਾ ਪਾਣੀ ਦਿਓ, ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸਵੇਰੇ-ਸ਼ਾਮ ਦੀ ਠੰਢਕ ਵਿੱਚ ਚਰਾਓ।"
+    reason:
+      en: The heat index for animals may reach {thi_p90} on {day}, with a maximum temperature up to {tmax_p90_3d}.
+      hi: "{day} को पशुओं के लिए गर्मी सूचकांक {thi_p90} तक जा सकता है, अधिकतम तापमान {tmax_p90_3d} तक।"
+      pa: "{day} ਨੂੰ ਪਸ਼ੂਆਂ ਲਈ ਗਰਮੀ ਸੂਚਕਾਂਕ {thi_p90} ਤੱਕ ਜਾ ਸਕਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ {tmax_p90_3d} ਤੱਕ।"
+    fallback:
+      en: If the day is cooler than forecast, shade and water as usual are enough.
+      hi: अगर दिन अनुमान से ठंडा रहे, तो सामान्य छाया और पानी काफ़ी है।
+      pa: ਜੇ ਦਿਨ ਅਨੁਮਾਨ ਨਾਲੋਂ ਠੰਢਾ ਰਹੇ, ਤਾਂ ਆਮ ਵਾਂਗ ਛਾਂ ਅਤੇ ਪਾਣੀ ਕਾਫ਼ੀ ਹੈ।
+
+# Priority list headlines (GET /priority), one per risk type. Placeholders: {day}, {score} (the chance
+# behind the score), {tmax_p90}, {tmin_p10}, {dry_days}.
+headlines:
+  heavy_rain:
+    en: Heavy rain likely on {day} ({score} chance of 35 mm or more)
+    hi: "{day} को भारी बारिश की संभावना (35 मिमी या अधिक की {score} संभावना)"
+    pa: "{day} ਨੂੰ ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ (35 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ ਦੀ {score} ਸੰਭਾਵਨਾ)"
+  heat:
+    en: Hot day for crops on {day}, maximum up to {tmax_p90}
+    hi: "{day} को फसलों के लिए गर्म दिन, अधिकतम तापमान {tmax_p90} तक"
+    pa: "{day} ਨੂੰ ਫ਼ਸਲਾਂ ਲਈ ਗਰਮ ਦਿਨ, ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ {tmax_p90} ਤੱਕ"
+  frost:
+    en: Cold night on {day}, minimum down to {tmin_p10}
+    hi: "{day} को ठंडी रात, न्यूनतम तापमान {tmin_p10} तक"
+    pa: "{day} ਨੂੰ ਠੰਢੀ ਰਾਤ, ਘੱਟੋ-ਘੱਟ ਤਾਪਮਾਨ {tmin_p10} ਤੱਕ"
+  waterlogging:
+    en: Heavy rain on slow-draining or low-lying fields around {day}
+    hi: "{day} के आसपास धीमी निकासी वाले या निचले खेतों में भारी बारिश"
+    pa: "{day} ਦੇ ਆਸ-ਪਾਸ ਹੌਲੀ ਨਿਕਾਸੀ ਵਾਲੇ ਜਾਂ ਨੀਵੇਂ ਖੇਤਾਂ ਵਿੱਚ ਭਾਰੀ ਮੀਂਹ"
+  dry_spell:
+    en: "{dry_days} dry in a row up to {day}, soil drying"
+    hi: "{day} तक लगातार {dry_days} सूखे, मिट्टी सूख रही है"
+    pa: "{day} ਤੱਕ ਲਗਾਤਾਰ {dry_days} ਸੁੱਕੇ, ਮਿੱਟੀ ਸੁੱਕ ਰਹੀ ਹੈ"
+
+# Units written after a number in advisory text ("36.2 C", "5 days"). Evidence rows are English only.
+units:
+  C: {en: C, hi: डिग्री सेल्सियस, pa: ਡਿਗਰੀ ਸੈਲਸੀਅਸ}
+  mm: {en: mm, hi: मिमी, pa: ਮਿਲੀਮੀਟਰ}
+  mm/day: {en: mm, hi: मिमी, pa: ਮਿਲੀਮੀਟਰ}
+  km/h: {en: km/h, hi: किमी प्रति घंटा, pa: ਕਿਲੋਮੀਟਰ ਪ੍ਰਤੀ ਘੰਟਾ}
+  days: {en: days, hi: दिन, pa: ਦਿਨ}
+  day: {en: day, hi: दिन, pa: ਦਿਨ}
+  n/a: {en: not available, hi: उपलब्ध नहीं, pa: ਉਪਲਬਧ ਨਹੀਂ}
+  under_1_pct: {en: less than 1%, hi: 1% से कम, pa: 1% ਤੋਂ ਘੱਟ}
+  over_99_pct: {en: more than 99%, hi: 99% से अधिक, pa: 99% ਤੋਂ ਵੱਧ}

@@ -75,7 +75,8 @@
         "frost_prob": 0.0,
         "frost_risk": "low",
         "fog_proxy": false,
-        "dry_spell_days": 1
+        "dry_spell_days": 1,
+        "spray_rating": "good"
       }
     },
     {
@@ -141,7 +142,8 @@
         "frost_prob": 0.0,
         "frost_risk": "low",
         "fog_proxy": false,
-        "dry_spell_days": 2
+        "dry_spell_days": 2,
+        "spray_rating": "avoid"
       }
     },
     {
@@ -207,7 +209,8 @@
         "frost_prob": 0.0,
         "frost_risk": "low",
         "fog_proxy": false,
-        "dry_spell_days": 3
+        "dry_spell_days": 3,
+        "spray_rating": "caution"
       }
     },
     {
@@ -273,7 +276,8 @@
         "frost_prob": 0.0,
         "frost_risk": "low",
         "fog_proxy": false,
-        "dry_spell_days": 4
+        "dry_spell_days": 4,
+        "spray_rating": "good"
       }
     },
     {
@@ -339,7 +343,8 @@
         "frost_prob": 0.0,
         "frost_risk": "low",
         "fog_proxy": false,
-        "dry_spell_days": 5
+        "dry_spell_days": 5,
+        "spray_rating": "caution"
       }
     }
   ],

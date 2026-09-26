@@ -1,12 +1,13 @@
-"""Builds every API response from forecast snapshots, the data files and placeholder generators.
+"""Builds every API response from forecast snapshots, the rules engine, the SQLite store and the data files.
 
 Forecast values come from the snapshots written by ``pipeline/run_daily.py`` (model output, agro-variables
 and SHAP reasons; no model inference per request). A missing snapshot is a 503 ``not_computed``.
-Risk, priority and advisories still use PROVISIONAL placeholder thresholds on top of the snapshot table
-(S8 replaces them); verification and impact are PLACEHOLDER (S10).
+Risk, priority and advisories come from the YAML rules engine (``advisory/``) on top of the snapshot; every
+threshold is a placeholder until expert review (``thresholds_status: "placeholder"``). Advisories, the
+review audit log and farmer feedback live in SQLite (``store/db.py``); ``run_daily`` writes the drafts, and
+the API writes them on first use when they are missing. Verification and impact are PLACEHOLDER (S10).
 
 Nothing is loaded at import time; snapshots are read on first use and cached per issue date.
-Advisory review state and farmer feedback live in memory until the SQLite store arrives (S8, S12).
 """
 
 from __future__ import annotations
@@ -14,13 +15,18 @@ from __future__ import annotations
 import os
 import threading
 from collections.abc import Callable
-from datetime import date, datetime, time, timedelta
+from datetime import date, datetime, timedelta
 from functools import cached_property
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
+from gramdrishti.advisory import spray
+from gramdrishti.advisory.drafts import create_drafts
+from gramdrishti.advisory.engine import EngineResult, fmt, generate
+from gramdrishti.advisory.risk import RISK_TYPES, risk_scores
+from gramdrishti.advisory.rules import RuleFile, TemplateFile, load_checked
 from gramdrishti.api import schemas as s
 from gramdrishti.api.errors import ApiError, not_found
 from gramdrishti.contract.pick_demo_dates import DemoDate, load_demo_dates
@@ -30,8 +36,7 @@ from gramdrishti.data.qc import clean_values, run_qc
 from gramdrishti.explain.shap_explain import NEGLIGIBLE_DELTA
 from gramdrishti.pipeline.run_daily import SNAPSHOTS, Snapshot, read_snapshot
 from gramdrishti.provisional import agro, placeholders, texts
-from gramdrishti.provisional.forecast import prob_exceed
-from gramdrishti.provisional.risk import RISK_TYPES, risk_scores
+from gramdrishti.store.db import VISIBLE_TO_FARMERS, Store
 
 QS = ("p10", "p50", "p90", "block", "mean", "block_corrected")
 # rain_ge_2_5mm -> snapshot column prob_rain_ge_2_5
@@ -46,9 +51,13 @@ MAX_OBSERVED_DAYS = 62
 N_DEMO_FARMERS = 6
 FARMER_SEASONS = ("kharif_2024", "rabi_2024_25")
 FARMER_LANGS = ("hi", "pa", "en")
-ADVISORY_HORIZON = 3
-ADVISORY_MIN_LEVELS = ("high", "severe")
 LEVEL_RANK = {"low": 0, "moderate": 1, "high": 2, "severe": 3}
+RISK_ORDER = {t: i for i, t in enumerate(RISK_TYPES)}
+# Advisory categories that count as "affected" by each risk type in /priority.
+RISK_CATEGORIES = {"heavy_rain": {"spray", "fertilizer", "harvest", "sowing", "waterlogging", "irrigation"},
+                   "heat": {"heat_stress"}, "frost": {"frost"},
+                   "waterlogging": {"waterlogging", "fertilizer"}, "dry_spell": {"dry_spell", "irrigation"}}
+ADVISORY_ID_DATE = slice(4, 14)  # "ADV-2024-09-09-..." -> "2024-09-09"
 
 
 def num(x: object, nd: int = 2) -> float | None:
@@ -76,15 +85,18 @@ class Service:
     """All response builders. One instance per app; thread-safe for the in-memory stores."""
 
     def __init__(self, demo_dates: list[DemoDate] | None = None,
-                 clock: Callable[[], datetime] = _now, snapshot_dir: Path | None = None) -> None:
+                 clock: Callable[[], datetime] = _now, snapshot_dir: Path | None = None,
+                 db_path: Path | None = None) -> None:
         self._demo = demo_dates
         self.clock = clock
         self.snapshot_dir = snapshot_dir or Path(os.environ.get(SNAPSHOT_ENV, SNAPSHOTS))
+        self._db_path = db_path
         self._lock = threading.Lock()
+        self._drafts_lock = threading.Lock()
         self._snaps: dict[date, Snapshot] = {}
         self._tables: dict[date, pd.DataFrame] = {}
-        self._advisories: dict[str, dict] | None = None
-        self._feedback: list[s.FeedbackResponse] = []
+        self._engine: dict[date, EngineResult] = {}
+        self._risk: dict[date, pd.DataFrame] = {}
 
     # ------------------------------------------------------------ data
     @property
@@ -138,6 +150,16 @@ class Service:
     @cached_property
     def pids(self) -> set[str]:
         return set(self.static["panchayat_id"])
+
+    @cached_property
+    def rules(self) -> tuple[RuleFile, TemplateFile]:
+        """Checked rules.yaml and templates.yaml (a broken file fails loudly on first use)."""
+        return load_checked()
+
+    @cached_property
+    def store(self) -> Store:
+        """SQLite store: ``db_path`` if given, else ``GRAMDRISHTI_DB`` or ``artifacts/gramdrishti.sqlite``."""
+        return Store(self._db_path)
 
     # ------------------------------------------------------------ checks
     def check_issue(self, issue: date) -> date:
@@ -198,6 +220,9 @@ class Service:
         st = self.static[["panchayat_id", "lat", "drainage_class"]]
         t = f.merge(st, on="panchayat_id", how="left").sort_values(["panchayat_id", "lead_day"])
         t = t.reset_index(drop=True)
+        th = self.rules[0].spray_thresholds()
+        t["spray_rating"] = [r for _, g in t.groupby("panchayat_id", sort=False) for r in spray.plan(
+            [prob(x) for x in g["prob_rain_ge_2_5"]], [num(x) for x in g["wind_p90"]], th)]
         with self._lock:
             return self._tables.setdefault(issue, t)
 
@@ -288,7 +313,8 @@ class Service:
             depletion_frac=num(r["depletion_frac"]),
             gdd={c: v for c in crops_now if (v := num(r[f"gdd_{c}"], 1)) is not None},
             frost_prob=prob(r["frost_prob"]), frost_risk=level(r["frost_risk"]),
-            fog_proxy=bool(r["fog_proxy"]), dry_spell_days=whole(r["dry_spell_days"]))
+            fog_proxy=bool(r["fog_proxy"]), dry_spell_days=whole(r["dry_spell_days"]),
+            spray_rating=r["spray_rating"])
 
     def forecast_panchayat(self, pid: str, issue: date) -> s.PanchayatForecast:
         st = self.check_panchayat(pid)
@@ -361,11 +387,11 @@ class Service:
         cur = cur[cur["panchayat_id"] == pid].set_index("valid_date")
         prev_issue = issue - timedelta(days=1)
         common = {"panchayat_id": pid, "issue_date": issue, "data_mode": self.mode,
-                  "provenance": s.Provenance.computed, "advice_changed": None,
-                  "model_version": self.model_version(issue)}
+                  "provenance": s.Provenance.computed, "model_version": self.model_version(issue)}
         if self.snapshot(prev_issue, required=False) is None:
-            return s.ForecastChanges(**common, previous_issue_date=None, changes=[], event_changes=[],
-                                     summary=s.LocalizedText(**texts.CHANGES_NO_PREVIOUS))
+            return s.ForecastChanges(**common, advice_changed=None, previous_issue_date=None, changes=[],
+                                     event_changes=[], summary=s.LocalizedText(**texts.CHANGES_NO_PREVIOUS))
+        common["advice_changed"] = self._advice_keys(issue, pid) != self._advice_keys(prev_issue, pid)
         prev = self.table(prev_issue)
         prev = prev[prev["panchayat_id"] == pid].set_index("valid_date")
         changes, events = [], []
@@ -386,9 +412,31 @@ class Service:
         return s.ForecastChanges(**common, previous_issue_date=prev_issue, changes=changes,
                                  event_changes=events, summary=s.LocalizedText(**summary))
 
-    # ------------------------------------------------------------ risk and priority
+    # ------------------------------------------------------------ rules engine, risk and priority
+    def engine(self, issue: date) -> EngineResult:
+        """Rules engine output for any date with a snapshot (cached). Not stored; see ``ensure_drafts``."""
+        with self._lock:
+            cached = self._engine.get(issue)
+        if cached is not None:
+            return cached
+        snap = self.snapshot(issue)
+        res = generate(issue, snap.forecast, self.static, self.crops, self.calendar, *self.rules)
+        with self._lock:
+            return self._engine.setdefault(issue, res)
+
+    def _advice_keys(self, issue: date, pid: str) -> set[tuple[str, str, str]]:
+        return {(a["crop"], a["category"], a["rule_id"]) for a in self.engine(issue).advisories
+                if a["panchayat_id"] == pid}
+
     def _risks(self, issue: date) -> pd.DataFrame:
-        return risk_scores(self.table(issue))
+        with self._lock:
+            cached = self._risk.get(issue)
+        if cached is not None:
+            return cached
+        ctxs = self.engine(issue).contexts
+        r = risk_scores(self.snapshot(issue).forecast, self.static, ctxs, self.rules[0])
+        with self._lock:
+            return self._risk.setdefault(issue, r)
 
     def risk(self, issue: date, lead: int, rtype: s.RiskType) -> s.Risk:
         self.check_issue(issue)
@@ -398,149 +446,113 @@ class Service:
                             score=prob(x.score))
                  for x in r.itertuples(index=False)]
         return s.Risk(issue_date=issue, valid_date=issue + timedelta(days=lead), lead_day=lead, type=rtype,
-                      data_mode=self.mode, provenance=s.Provenance.provisional,
+                      data_mode=self.mode, provenance=s.Provenance.computed,
                       thresholds_status=s.ThresholdsStatus.placeholder, items=items)
 
     def _top_risks(self, issue: date, horizon: int) -> pd.DataFrame:
-        """One row per Panchayat: its highest risk within the horizon, moderate or above only."""
+        """One row per Panchayat: its worst risk within the horizon (level, then score, then the earlier day),
+        moderate or above only, ranked by level, then score, then Panchayat id."""
         r = self._risks(issue)
-        r = r[r["lead_day"] <= horizon].sort_values(["panchayat_id", "score", "lead_day", "type"],
-                                                    ascending=[True, False, True, True])
+        r = r[(r["lead_day"] <= horizon) & (r["level"] != "low")].copy()
+        r["rank"] = r["level"].map(LEVEL_RANK)
+        r["order"] = r["type"].map(RISK_ORDER)
+        r = r.sort_values(["panchayat_id", "rank", "score", "lead_day", "order"],
+                          ascending=[True, False, False, True, True])
         top = r.drop_duplicates("panchayat_id")
-        top = top[top["level"] != "low"]
-        return top.sort_values(["score", "panchayat_id"], ascending=[False, True]).reset_index(drop=True)
+        return top.sort_values(["rank", "score", "panchayat_id"], ascending=[False, False, True]).reset_index(
+            drop=True)
 
     def _crops_now(self, pid: str, on: date) -> pd.DataFrame:
         return agro.crops_in_season(self.crops, pid, pd.Timestamp(on))
 
     def _headline(self, issue: date, row: pd.Series) -> s.LocalizedText:
+        """Plain one-line headline from templates.yaml with the numbers behind the risk."""
+        tf = self.rules[1]
         f = self._row(issue, row["panchayat_id"], int(row["lead_day"]))
-        vals = {"tmax": f"{f['tmax_p90']:.0f}", "tmin": f"{f['tmin_p10']:.0f}"}
-        return s.LocalizedText(**texts.fill(texts.HEADLINE[row["type"]], row["valid_date"].date(), **vals))
+        out = {}
+        for lang in ("en", "hi", "pa"):
+            vals = {"day": texts.day_text(row["valid_date"].date(), lang),
+                    "score": fmt(row["score"], "prob", lang, tf),
+                    "tmax_p90": fmt(f["tmax_p90"], "C", lang, tf),
+                    "tmin_p10": fmt(f["tmin_p10"], "C", lang, tf),
+                    "dry_days": fmt(f["dry_spell_days"], "days", lang, tf)}
+            out[lang] = getattr(tf.headlines[row["type"]], lang).format_map(vals)
+        return s.LocalizedText(**out)
 
     def priority(self, issue: date, horizon: int) -> s.Priority:
         self.check_issue(issue)
+        advs = self.engine(issue).advisories
         items = []
         for _, row in self._top_risks(issue, horizon).iterrows():
-            crops = sorted(self._crops_now(row["panchayat_id"], issue)["crop"].unique().tolist())
+            cats = RISK_CATEGORIES[row["type"]]
+            crops = sorted({a["crop"] for a in advs if a["panchayat_id"] == row["panchayat_id"]
+                            and a["category"] in cats and a["crop"] != "livestock"})
             items.append(s.PriorityItem(
                 panchayat_id=row["panchayat_id"], block_id=row["block_id"], top_risk=row["type"],
                 level=row["level"], score=prob(row["score"]), crops_affected=crops,
                 headline=self._headline(issue, row), valid_date=row["valid_date"].date()))
         return s.Priority(issue_date=issue, horizon_days=horizon, data_mode=self.mode,
-                          provenance=s.Provenance.provisional,
+                          provenance=s.Provenance.computed,
                           thresholds_status=s.ThresholdsStatus.placeholder, items=items)
 
-    # ------------------------------------------------------------ advisories (placeholder generator)
-    def _evidence(self, issue: date, category: str, row: pd.Series, stage: str | None) -> list[dict]:
-        f = self._row(issue, row["panchayat_id"], int(row["lead_day"]))
-        day = texts.day_text(row["valid_date"].date(), "en")
-        ev: list[dict] = []
-        if category == "spray":
-            p = prob_exceed(2.5, f["rain_p10"], f["rain_p50"], f["rain_p90"]) or 0.0
-            ev += [{"label": f"Chance of rain over 2.5 mm on {day}", "value": f"{p:.0%}"},
-                   {"label": f"Rain expected on {day}",
-                    "value": f"{f['rain_p50']:.0f} mm (range {f['rain_p10']:.0f} to {f['rain_p90']:.0f} mm)"}]
-        elif category == "waterlogging":
-            p = prob_exceed(10.0, f["rain_p10"], f["rain_p50"], f["rain_p90"]) or 0.0
-            ev += [{"label": f"Chance of rain over 10 mm on {day}", "value": f"{p:.0%}"},
-                   {"label": "Soil drainage", "value": str(f["drainage_class"])}]
-        elif category == "heat_stress":
-            ev.append({"label": f"Highest temperature, upper estimate, {day}",
-                       "value": f"{f['tmax_p90']:.1f} C"})
-        elif category == "frost":
-            ev.append({"label": f"Lowest temperature, lower estimate, {day}",
-                       "value": f"{f['tmin_p10']:.1f} C"})
-        else:
-            ev.append({"label": "Rain expected over the next 5 days",
-                       "value": f"{self._rain5(issue, row):.0f} mm"})
-        if stage:
-            ev.append({"label": "Crop stage (placeholder calendar)", "value": stage.replace("_", " ")})
-        return ev
-
-    def _rain5(self, issue: date, row: pd.Series) -> float:
-        t = self.table(issue)
-        return float(t.loc[t["panchayat_id"] == row["panchayat_id"], "rain_p50"].sum())
-
-    def _generate_advisories(self, issue: date) -> list[dict]:
-        out = []
-        created = datetime.combine(issue, time(8, 0, 0))
-        top = self._top_risks(issue, ADVISORY_HORIZON)
-        for _, row in top[top["level"].isin(ADVISORY_MIN_LEVELS)].iterrows():
-            category = texts.CATEGORY_FOR_RISK[row["type"]]
-            f = self._row(issue, row["panchayat_id"], int(row["lead_day"]))
-            vals = {"tmax": f"{f['tmax_p90']:.0f}", "tmin": f"{f['tmin_p10']:.0f}",
-                    "rain5": f"{self._rain5(issue, row):.0f}"}
-            tpl = texts.ADVISORY[category]
-            vd = row["valid_date"].date()
-            lead = int(row["lead_day"])
-            for _, c in self._crops_now(row["panchayat_id"], issue).sort_values("crop").iterrows():
-                stage = agro.crop_stage(self.calendar, c["crop"], c["sowing_date"], pd.Timestamp(issue))
-                adv_id = f"ADV-{issue.isoformat()}-{row['panchayat_id']}-{c['crop']}-{category}"
-                out.append({
-                    "id": adv_id, "issue_date": issue, "panchayat_id": row["panchayat_id"],
-                    "block_id": row["block_id"], "crop": c["crop"], "stage": stage, "category": category,
-                    "priority": row["level"], "valid_from": issue + timedelta(days=1),
-                    "valid_to": issue + timedelta(days=ADVISORY_HORIZON),
-                    **{k: texts.fill(tpl[k], vd, **vals) for k in ("action", "reason", "fallback")},
-                    "confidence": "high" if lead == 1 else "medium" if lead <= 3 else "low",
-                    "evidence": self._evidence(issue, category, row, stage),
-                    "thresholds_status": "placeholder", "status": "draft",
-                    "reviewed_by": None, "reviewed_at": None,
-                    "audit": [{"at": created, "actor": "system", "action": "created",
-                               "note": "Placeholder generator (S2). Rules engine arrives in S8."}],
-                    "audio": {}, "provenance": "placeholder", "translation_status": "needs_native_review"})
-        return out
-
-    def _store(self) -> dict[str, dict]:
-        with self._lock:
-            store = self._advisories
-        if store is None:
-            store = {a["id"]: a for d in self.issue_dates for a in self._generate_advisories(d)}
-            with self._lock:
-                if self._advisories is None:
-                    self._advisories = store
-                store = self._advisories
-        return store
+    # ------------------------------------------------------------ advisories (rules engine + SQLite)
+    def ensure_drafts(self, issue: date) -> None:
+        """Write the engine's drafts for ``issue`` into the store unless a run already did."""
+        info = self.store.run_info(issue)
+        if info is None:
+            with self._drafts_lock:
+                if self.store.run_info(issue) is None:
+                    snap = self.snapshot(issue)
+                    create_drafts(self.store, issue, snap.forecast, self.static, self.crops, self.calendar,
+                                  data_mode=self.mode.value, model_version=snap.manifest.get("model_version"),
+                                  rules=self.rules)
+                    info = self.store.run_info(issue)
+        if info is not None and info["data_mode"] != self.mode.value:
+            raise ApiError(503, "not_computed", f"Advisories for {issue.isoformat()} were built in "
+                           f"{info['data_mode']} mode, the API runs in {self.mode.value}")
 
     def _advisory(self, a: dict) -> s.Advisory:
-        return s.Advisory(**a, data_mode=self.mode)
+        return s.Advisory(**a, audio={}, data_mode=self.mode, provenance=s.Provenance.computed)
 
     def advisories(self, status: s.Status | None, pid: str | None, issue: date | None) -> s.AdvisoryList:
         if pid is not None:
             self.check_panchayat(pid)
         if issue is not None:
             self.check_issue(issue)
-        items = [a for a in self._store().values()
-                 if (status is None or a["status"] == status.value)
-                 and (pid is None or a["panchayat_id"] == pid)
-                 and (issue is None or a["issue_date"] == issue)]
+        for d in [issue] if issue is not None else self.issue_dates:
+            self.ensure_drafts(d)
+        items = self.store.list(status.value if status else None, pid, issue)
         items.sort(key=lambda a: (a["issue_date"], -LEVEL_RANK[a["priority"]], a["id"]))
-        return s.AdvisoryList(data_mode=self.mode, provenance=s.Provenance.placeholder, total=len(items),
+        return s.AdvisoryList(data_mode=self.mode, provenance=s.Provenance.computed, total=len(items),
                               items=[self._advisory(a) for a in items])
 
+    def _issue_of(self, adv_id: str) -> date:
+        try:
+            issue = date.fromisoformat(adv_id[ADVISORY_ID_DATE])
+        except ValueError:
+            raise not_found(f"Advisory {adv_id} does not exist") from None
+        if issue not in self.issue_dates:
+            raise not_found(f"Advisory {adv_id} does not exist")
+        return issue
+
     def advisory(self, adv_id: str) -> s.Advisory:
-        a = self._store().get(adv_id)
+        self.ensure_drafts(self._issue_of(adv_id))
+        a = self.store.get(adv_id)
         if a is None:
             raise not_found(f"Advisory {adv_id} does not exist")
         return self._advisory(a)
 
     def review(self, adv_id: str, req: s.ReviewRequest) -> s.Advisory:
-        store = self._store()
-        if adv_id not in store:
-            raise not_found(f"Advisory {adv_id} does not exist")
+        self.ensure_drafts(self._issue_of(adv_id))
         edited = req.edited.model_dump(exclude_none=True) if req.edited else {}
         if req.action == s.ReviewAction.edit and not edited:
             raise ApiError(400, "bad_request", "An edit needs at least one of edited.action, edited.reason, "
                                                "edited.fallback")
-        status = {"approve": "approved", "edit": "edited", "reject": "rejected"}[req.action.value]
-        now = self.clock()
-        with self._lock:
-            a = store[adv_id]
-            for field, text in edited.items():
-                a[field] = {**a[field], **text}
-            a["status"], a["reviewed_by"], a["reviewed_at"] = status, req.reviewer, now
-            a["audit"] = [*a["audit"], {"at": now, "actor": req.reviewer, "action": status, "note": req.note}]
+        if req.action != s.ReviewAction.edit and edited:
+            raise ApiError(400, "bad_request", "Only an edit may change the text; send action 'edit'")
+        a = self.store.review(adv_id, req.action.value, req.reviewer, req.note, edited, self.clock())
+        if a is None:
+            raise not_found(f"Advisory {adv_id} does not exist")
         return self._advisory(a)
 
     # ------------------------------------------------------------ farmers and feedback
@@ -577,9 +589,8 @@ class Service:
     def farmer_advice(self, fid: str, issue: date) -> s.FarmerAdvice:
         f = self._farmer(fid)
         self.check_issue(issue)
-        items = [a for a in self._store().values()
-                 if a["panchayat_id"] == f["panchayat_id"] and a["issue_date"] == issue
-                 and a["status"] in ("approved", "edited")]
+        self.ensure_drafts(issue)
+        items = self.store.list(panchayat_id=f["panchayat_id"], issue=issue, statuses=VISIBLE_TO_FARMERS)
         items.sort(key=lambda a: (-LEVEL_RANK[a["priority"]], a["id"]))
         return s.FarmerAdvice(farmer_id=fid, panchayat_id=f["panchayat_id"], issue_date=issue,
                               language=f["language"], data_mode=self.mode,
@@ -587,13 +598,11 @@ class Service:
 
     def feedback(self, req: s.FeedbackRequest) -> s.FeedbackResponse:
         self.check_panchayat(req.panchayat_id)
-        with self._lock:
-            resp = s.FeedbackResponse(id=f"FB-{len(self._feedback) + 1:05d}", stored=True,
-                                      received_at=self.clock(),
-                                      data_mode=self.mode, feedback=req,
-                                      message=s.LocalizedText(**texts.FEEDBACK_THANKS))
-            self._feedback.append(resp)
-        return resp
+        now = self.clock()
+        fid = self.store.add_feedback(req.panchayat_id, req.date, req.reported_rain, req.intensity.value,
+                                      req.channel.value, now)
+        return s.FeedbackResponse(id=f"FB-{fid:05d}", stored=True, received_at=now, data_mode=self.mode,
+                                  feedback=req, message=s.LocalizedText(**texts.FEEDBACK_THANKS))
 
     # ------------------------------------------------------------ verification and impact (placeholders)
     def verification_summary(self) -> s.VerificationSummary:
