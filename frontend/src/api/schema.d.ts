@@ -538,6 +538,8 @@ export interface components {
       data_mode: components["schemas"]["DataMode"];
       provenance: components["schemas"]["Provenance"];
       translation_status: components["schemas"]["TranslationStatus"];
+      /** Rule Id */
+      rule_id?: string | null;
     };
     /** AdvisoryList */
     AdvisoryList: {
@@ -561,6 +563,14 @@ export interface components {
       action: string;
       /** Note */
       note: string;
+      /** Before */
+      before?: {
+        [key: string]: unknown;
+      } | null;
+      /** After */
+      after?: {
+        [key: string]: unknown;
+      } | null;
     };
     /** BlockCollection */
     BlockCollection: {
@@ -715,6 +725,7 @@ export interface components {
       fog_proxy?: boolean | null;
       /** Dry Spell Days */
       dry_spell_days?: number | null;
+      spray_rating?: components["schemas"]["SprayRating"] | null;
     };
     /** EditedFields */
     EditedFields: {
@@ -1397,6 +1408,12 @@ export interface components {
      * @enum {string}
      */
     Split: "train" | "calib" | "test";
+    /**
+     * SprayRating
+     * @description Day-level spray planner rating (v0.2.0). Whole days only: the data is daily, not hourly.
+     * @enum {string}
+     */
+    SprayRating: "good" | "caution" | "avoid";
     /** StaleInput */
     StaleInput: {
       /** Input */
