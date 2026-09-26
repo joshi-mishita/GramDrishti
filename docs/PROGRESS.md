@@ -10,7 +10,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S1 | Backend data layer and baselines | backend | PR open | session-01-backend-data-baselines | |
 | S2 | Contract and API skeleton | backend | PR open | session-02-contract-api (stacked on S1) | |
 | S3 | Frontend foundation | frontend | PR open | session-03-frontend-foundation (stacked on S2) | |
-| S4 | Frontend map explorer | frontend | not started | | |
+| S4 | Frontend map explorer | frontend | PR open | session-04-map-explorer (stacked on S3) | |
 | S5 | Backend model core | backend | not started | | |
 | S6 | Agro-variables, snapshots, forecast APIs | backend | not started | | |
 | S7 | Frontend detail panel and first integration | frontend | not started | | |
@@ -66,6 +66,22 @@ S3: `frontend/` app shell on the frozen contract. Built:
 - i18n: en/hi/pa UI strings (hi and pa are drafts needing native review, `src/i18n/README.md`), parity test.
 - 49 frontend tests (7 files). CI frontend job now uses Node 22 and checks generated types.
 
+S4: map explorer on the frozen contract (no contract change). Built:
+- `lib/ramps.ts`: one config for ramps and breaks (Blues rain 0/1/5/15/35/65, YlOrRd Tmax and reversed YlGnBu Tmin in 3 C steps, GnBu humidity, Greys wind, RdBu difference, severity tokens for risk) plus `fillColorExpression` for MapLibre. `Legend` is built from the same Ramp, with units and a "No value" key.
+- `features/map/MapView.tsx`: MapLibre GL, no basemap, GeoJSON sources with `promoteId: "panchayat_id"`, fill by feature-state, white Panchayat outlines, dark block outlines, hover and selection outlines. Sources and layers are added once; new values call `setFeatureState` and a new ramp calls `setPaintProperty`. Fits the district, and re-fits on resize until the user moves the map. Falls back to a message if WebGL is missing.
+- Controls: day buttons with dates, variable, view mode (Block, Panchayat, Difference from block), risk layer selector disabled with a reason, Panchayat picker.
+- Hover tooltip (name, forecast, range, block or difference); click selects, updates `pid` in the URL and opens the panel. `day` and `view` are in the URL too.
+- Right panel v1: name and block, the chosen day's value with a plain-language range, block value and difference, an empty fan-chart slot, all variables for the day.
+- "Show as table": sortable `DataTable` (sticky header, 36 px rows, keyboard sort buttons with `aria-sort`), name buttons select a Panchayat.
+- Toggling view mode is instant: view mode is not in the query key; a test checks no second request.
+- 86 frontend tests (11 files, 35 new). Screenshots: `map`, `map-block`, `map-delta`, `map-tmax-delta`, `map-selected`, `map-selected-wet` at desktop and phone.
+
+Screenshot review (2024-09-09, rain, lead day 1):
+- Block and Panchayat views look almost identical. Correct for the provisional data: p50 differs from the block forecast by a flat -4.5 mm in MB03 (101.3 vs 105.8 mm) and +0.9 mm in MB05, which is invisible on the rain scale. The Difference view shows it clearly (MB03 red, MB05 pale blue, others white). The map says so in a note (D043). The demo moment needs S5 data to be convincing.
+- Tmax difference is one-sided: every Panchayat is 0 to 0.4 C cooler than its block (bias correction), so the whole map is shades of blue.
+- Panchayat outlines are hard to see on the palest rain colour; block outlines are clear.
+- At phone width the controls still come before the map (now wrapped into rows).
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -102,6 +118,15 @@ S3: `frontend/` app shell on the frozen contract. Built:
 - D033 Placeholder numbers never displayed.
 - D034 Screenshots can use installed Chrome.
 - D035 Map, chart and PWA packages installed for later sessions.
+- D036 S4 branch stacked on S3.
+- D037 Linear colour interpolation, one ramp config for map and legend.
+- D038 Temperature breaks 3 C over the values on screen; shared block/Panchayat ramp.
+- D039 Difference ramp: symmetric, nice half-width with a floor, five stops.
+- D040 URL keys `day` and `view`, omitted at defaults.
+- D041 MapLibre worker handling in dev and production.
+- D042 Panel headline from the map layer, variables table from `/forecast/panchayat`.
+- D043 Note when values are flat within blocks.
+- D044 Fixed-height map layout on wide screens; re-fit on resize.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -115,6 +140,9 @@ S3: `frontend/` app shell on the frozen contract. Built:
 - S3: CI has not run the frontend job (no `gh`), including Node 22 via `.nvmrc` and `npm run check:types` on Linux.
 - S3: `VITE_SNAPSHOT=1` is unit-tested with contract examples only; no backend snapshot export exists yet.
 - S3: screenshots came from the installed Google Chrome, not Playwright's Chromium (download blocked here, D034). Keyboard use and a screen reader were not tried by hand.
+- S4: map hover, click, view toggle, table sort and lead-day switching were tried by hand in the in-app browser (dev server) on mock data and against the local API (`VITE_REAL_ENDPOINTS=meta,geo,forecast`, dates 2024-09-09 and 2024-07-31). Screenshots come from the production build in installed Chrome. Not tried on a touch device, in Firefox or Safari, or with a screen reader; the map canvas itself is not keyboard-operable beyond MapLibre's own pan and zoom keys (the table is the keyboard route).
+- S4: the WebGL fallback message was not triggered (no browser without WebGL here).
+- S4: CI has not run this branch.
 - S2: `DATA_MODE=real` was tested only for the 503 answers of placeholder endpoints; the rest of real mode needs real files.
 
 ## Known issues
@@ -131,7 +159,9 @@ S3: `frontend/` app shell on the frozen contract. Built:
 - `starlette.testclient` prints a deprecation warning about `httpx`; harmless for now.
 - S3 most mock files exist only for issue date 2024-09-09, so other dates show "No demo file" on most screens in mock mode. Use `VITE_REAL_ENDPOINTS` for other dates.
 - S3 demo-date labels from `/meta.issue_date_info` are English only, also in the Hindi and Punjabi UI.
-- S3 at phone width the officer map controls fill the first screen; the map sits below them.
+- S3/S4 at phone width the officer map controls still fill most of the first screen; the map sits below them. One-finger drag on the map pans it rather than scrolling the page.
+- S4 the lazy map chunk is 1.0 MB (284 kB gzip) plus a 510 kB worker, all MapLibre; Vite prints a chunk-size warning. It loads only on `/map`.
+- S4 in mock mode only lead day 1 of 2024-09-09 has map files, and only MP0103, MP0302, MP0305, MP0412 have a Panchayat forecast; other days and Panchayats show "No demo file". Use the API for the rest.
 - S3 Vitest prints a Node warning about `--localstorage-file` (Node 25 with jsdom); harmless.
 
 ## Inputs needed from the team
@@ -146,6 +176,8 @@ S3: `frontend/` app shell on the frozen contract. Built:
 | 2026-09-25 | provisional API forecast (S2) | fit TRAIN; applied to issued forecasts on the 8 demo dates | No scoring. The demo date picker reads issued forecasts in the TEST period, not outcomes. `/observed` displays TEST-period truth on request; no metric uses it. TEST window opened for evaluation: never |
 
 ## Handoff for the next session
+S7 (detail panel): put the fan chart in the empty slot in `features/map/DetailPanel.tsx` (`useForecastPanchayat` is already loaded there), then "Why different?", "Forecast changed" and advisories. S9: enable `RiskLayerSelect` in `features/map/MapControls.tsx`; `RISK_TOKENS` in `lib/ramps.ts` maps levels to severity tokens, and `MapView` takes any Ramp. Reuse `components/DataTable.tsx` for priority and verification lists.
+
 Merge order: S1, then S2 (S2 is stacked on S1).
 
 Frontend (S3/S4): the contract is **frozen at v0.1.1**. Build from `contract/examples/` (see `contract/examples/index.json` for file -> endpoint -> model) and generate types from `contract/openapi.json`. Mock file names follow `forecast_panchayat_<id>.json`, `observed_panchayat_<id>.json`, `explain_<id>.json`, `forecast_changes_<id>.json`, `risk_<type>.json`, `farmer_<id>.json`; the main demo issue date is 2024-09-09. Show a notice when `provenance` is `placeholder`.
