@@ -1,0 +1,32 @@
+/* Print stub (Frontend Guide 10.3). The bulletin page (S13) fills this in. */
+@media print {
+  .topbar,
+  .sidenav,
+  .farmer-nav,
+  .toolbar,
+  button {
+    display: none !important;
+  }
+
+  body,
+  html {
+    background: #fff;
+    color: #000;
+    font-size: 12pt;
+  }
+
+  /* The mock notice stays on paper (Guide 7.1), as plain text without a fill. */
+  .ribbon {
+    background: none !important;
+    border: 1px solid #000 !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  .bulletin-day {
+    break-inside: avoid;
+  }
+}
