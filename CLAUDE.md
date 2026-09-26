@@ -31,6 +31,7 @@ Shared: Docker Compose, GitHub Actions.
 - Backend setup: `cd backend && python -m venv .venv && .venv/bin/pip install -e ".[dev]"`
 - Regenerate mock data (incl. git-ignored oracle): `python data/generate_mock_data.py`
 - Baseline report (TRAIN fit, CALIB scores): `cd backend && python -m gramdrishti.verify.baseline_report`
+- Train models + dev report (TRAIN fit, CALIB calibration, writes `backend/artifacts/`; ~6 min, add `--lobo` for leave-one-block-out, ~9 min): `cd backend && python -m gramdrishti.pipeline.train --lobo`
 - Run API: `cd backend && uvicorn gramdrishti.api.main:app --reload --port 8000`
 - Export contract: `cd backend && python -m gramdrishti.export_openapi`
 - Contract examples (calls the app, validates, writes `contract/examples/`): `cd backend && python -m gramdrishti.contract.make_examples`
