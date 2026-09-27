@@ -38,7 +38,7 @@ from gramdrishti.api.main import PREFIX, create_app
 from gramdrishti.api.service import LEAD_MAX, LEAD_MIN, Service
 from gramdrishti.contract.make_examples import PANCHAYATS as EXAMPLE_PANCHAYATS
 from gramdrishti.data.config import ROOT
-from gramdrishti.provisional.placeholders import IMPACT_SEASONS
+from gramdrishti.verify.impact import SEASONS as IMPACT_SEASONS
 
 OUT = ROOT / "contract" / "snapshot"
 LEADS = range(LEAD_MIN, LEAD_MAX + 1)
