@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { sharedSearch } from "../state/urlState";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppStore, type Role } from "../state/store";
 import { SegmentedControl } from "./SegmentedControl";
@@ -13,7 +14,7 @@ export function RoleSwitch() {
   const navigate = useNavigate();
   const { search } = useLocation();
   const onChange = (next: Role) => {
-    navigate({ pathname: next === "farmer" ? "/farmer" : "/map", search });
+    navigate({ pathname: next === "farmer" ? "/farmer" : "/map", search: sharedSearch(search) });
   };
   return (
     <SegmentedControl
