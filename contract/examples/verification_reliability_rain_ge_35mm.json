@@ -1,61 +1,72 @@
 {
   "event": "rain_ge_35mm",
   "data_mode": "mock",
-  "provenance": "placeholder",
+  "provenance": "computed",
   "points": [
     {
       "forecast_prob": 0.05,
-      "observed_freq": 0.18,
-      "n": 557
+      "observed_freq": 0.000670344,
+      "n": 71605,
+      "mean_forecast_prob": 0.00239923
     },
     {
       "forecast_prob": 0.15,
-      "observed_freq": 0.11,
-      "n": 771
+      "observed_freq": 0.126812,
+      "n": 276,
+      "mean_forecast_prob": 0.161388
     },
     {
       "forecast_prob": 0.25,
-      "observed_freq": 0.21,
-      "n": 249
+      "observed_freq": 0.122605,
+      "n": 522,
+      "mean_forecast_prob": 0.224273
     },
     {
       "forecast_prob": 0.35,
-      "observed_freq": 0.33,
-      "n": 616
+      "observed_freq": 0.191643,
+      "n": 694,
+      "mean_forecast_prob": 0.348829
     },
     {
       "forecast_prob": 0.45,
-      "observed_freq": 0.44,
-      "n": 115
+      "observed_freq": 0.27931,
+      "n": 290,
+      "mean_forecast_prob": 0.46288
     },
     {
       "forecast_prob": 0.55,
-      "observed_freq": 0.52,
-      "n": 142
+      "observed_freq": 0.222222,
+      "n": 36,
+      "mean_forecast_prob": 0.556117
     },
     {
       "forecast_prob": 0.65,
-      "observed_freq": 0.66,
-      "n": 167
+      "observed_freq": 0.258359,
+      "n": 329,
+      "mean_forecast_prob": 0.642951
     },
     {
       "forecast_prob": 0.75,
-      "observed_freq": 0.6,
-      "n": 128
+      "observed_freq": 0.5,
+      "n": 6,
+      "mean_forecast_prob": 0.737754
     },
     {
       "forecast_prob": 0.85,
-      "observed_freq": 0.9,
-      "n": 243
+      "observed_freq": 0.354839,
+      "n": 31,
+      "mean_forecast_prob": 0.855469
     },
     {
       "forecast_prob": 0.95,
-      "observed_freq": 0.85,
-      "n": 162
+      "observed_freq": 0.181818,
+      "n": 11,
+      "mean_forecast_prob": 0.910906
     }
   ],
   "notes": [
-    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
-    "Proxy validation on synthetic truth. Real-station validation follows when data is available."
+    "Synthetic demo data: every number comes from the mock data generator, not real weather. This is proxy validation on synthetic truth, not evidence of real-world skill.",
+    "Evaluation window TEST 2024-07-17..2024-12-31, 164 issue dates, lead days 1-5, model s5-lgbm-9b632a7b1b. TEST first opened 2026-09-27T15:14:23 for this model version.",
+    "Model probabilities from the calibrated classifiers; 10 equal bins; forecast_prob is the bin centre. 73800 forecasts."
   ]
 }

@@ -3,7 +3,7 @@
   "info": {
     "title": "GramDrishti API",
     "description": "Panchayat-level forecasts and advisories. Contract: Appendix A of the guides. Every response carries data_mode; 'mock' means synthetic data.",
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "paths": {
     "/api/v1/health": {
@@ -1315,7 +1315,7 @@
           "verification"
         ],
         "summary": "Regions",
-        "description": "Error per held-out block.",
+        "description": "Error per held-out block (leave-one-block-out) and per station (station check).",
         "operationId": "regions_api_v1_verification_regions_get",
         "responses": {
           "200": {
@@ -1895,6 +1895,49 @@
         ],
         "title": "Channel"
       },
+      "CheckSummary": {
+        "properties": {
+          "check": {
+            "type": "string",
+            "enum": [
+              "temporal_holdout",
+              "leave_one_block_out",
+              "station"
+            ],
+            "title": "Check"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "truth": {
+            "type": "string",
+            "title": "Truth"
+          },
+          "n": {
+            "type": "integer",
+            "title": "N"
+          },
+          "variables": {
+            "items": {
+              "$ref": "#/components/schemas/VariableSummary"
+            },
+            "type": "array",
+            "title": "Variables"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "check",
+          "description",
+          "truth",
+          "n",
+          "variables"
+        ],
+        "title": "CheckSummary",
+        "description": "One validation check (v0.3.0): temporal holdout, leave-one-block-out or station check."
+      },
       "Confidence": {
         "type": "string",
         "enum": [
@@ -1986,6 +2029,17 @@
               }
             ],
             "title": "N"
+          },
+          "stratum": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stratum"
           }
         },
         "additionalProperties": false,
@@ -2102,7 +2156,8 @@
           "wasted_wait",
           "washed_off"
         ],
-        "title": "DecisionCounts"
+        "title": "DecisionCounts",
+        "description": "Replay outcomes. For heat alerts and irrigation waits the same names mean: ``wasted_wait`` = acted\n(alert, wait) and the event did not happen; ``washed_off`` = did not act and the event happened."
       },
       "Derived": {
         "properties": {
@@ -2346,6 +2401,86 @@
         "title": "ErrorResponse",
         "description": "Every 4xx/5xx body: ``{\"error\": {\"code\", \"message\"}}``."
       },
+      "EventBaselineScores": {
+        "properties": {
+          "baseline": {
+            "type": "string",
+            "enum": [
+              "b0",
+              "b1",
+              "b2"
+            ],
+            "title": "Baseline"
+          },
+          "pod": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pod"
+          },
+          "far": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Far"
+          },
+          "csi": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Csi"
+          },
+          "frequency_bias": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Frequency Bias"
+          },
+          "brier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brier"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "baseline",
+          "pod",
+          "far",
+          "csi",
+          "frequency_bias",
+          "brier"
+        ],
+        "title": "EventBaselineScores",
+        "description": "A baseline's yes/no event forecast (block value >= threshold) scored like the model (v0.3.0)."
+      },
       "EventChange": {
         "properties": {
           "valid_date": {
@@ -2517,6 +2652,58 @@
               }
             ],
             "title": "Brier Skill Vs Climatology"
+          },
+          "n": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "N"
+          },
+          "base_rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Rate"
+          },
+          "frequency_bias": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Frequency Bias"
+          },
+          "yes_rule": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Yes Rule"
+          },
+          "baselines": {
+            "items": {
+              "$ref": "#/components/schemas/EventBaselineScores"
+            },
+            "type": "array",
+            "title": "Baselines",
+            "default": []
           }
         },
         "additionalProperties": false,
@@ -3119,6 +3306,70 @@
             "type": "array",
             "title": "Notes",
             "default": []
+          },
+          "block_corrected": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecisionCounts"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "events_observed": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Events Observed"
+          },
+          "period": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Period"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lead_day": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lead Day"
+          },
+          "threshold": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Threshold"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
           }
         },
         "additionalProperties": false,
@@ -3392,6 +3643,33 @@
               }
             ],
             "title": "Skill Ci95"
+          },
+          "skill_vs_b1": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Vs B1"
+          },
+          "skill_vs_b1_ci95": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Vs B1 Ci95"
           }
         },
         "additionalProperties": false,
@@ -3406,7 +3684,8 @@
           "skill_vs_b0",
           "skill_ci95"
         ],
-        "title": "MetricRow"
+        "title": "MetricRow",
+        "description": "One score for the model and the baselines. Skills are 1 - score / baseline score (null for bias).\n\nv0.3.0 adds ``skill_vs_b1`` and ``skill_vs_b1_ci95``: B1 is the corrected block forecast the model is\nreconciled to, so it is the baseline that isolates what the Panchayat model adds."
       },
       "MultiPolygonGeometry": {
         "properties": {
@@ -4158,6 +4437,28 @@
               }
             ],
             "title": "N"
+          },
+          "b1": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "B1"
+          },
+          "b2": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "B2"
           }
         },
         "additionalProperties": false,
@@ -4273,6 +4574,19 @@
           "n": {
             "type": "integer",
             "title": "N"
+          },
+          "mean_forecast_prob": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Forecast Prob"
           }
         },
         "additionalProperties": false,
@@ -4613,6 +4927,157 @@
         ],
         "title": "Status"
       },
+      "StratumRow": {
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "lead_day",
+              "season",
+              "rain_intensity",
+              "drainage_class"
+            ],
+            "title": "Dimension"
+          },
+          "stratum": {
+            "type": "string",
+            "title": "Stratum"
+          },
+          "var": {
+            "$ref": "#/components/schemas/Var"
+          },
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "n": {
+            "type": "integer",
+            "title": "N"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "b0": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "B0"
+          },
+          "b1": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "B1"
+          },
+          "b2": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "B2"
+          },
+          "skill_vs_b0": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Vs B0"
+          },
+          "skill_ci95": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Ci95"
+          },
+          "skill_vs_b1": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Vs B1"
+          },
+          "skill_vs_b1_ci95": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Vs B1 Ci95"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "dimension",
+          "stratum",
+          "var",
+          "metric",
+          "unit",
+          "n",
+          "model",
+          "b0",
+          "b1",
+          "b2",
+          "skill_vs_b0",
+          "skill_ci95",
+          "skill_vs_b1",
+          "skill_vs_b1_ci95"
+        ],
+        "title": "StratumRow",
+        "description": "MAE of model and baselines inside one stratum (v0.3.0), temporal holdout."
+      },
       "ThresholdsStatus": {
         "type": "string",
         "enum": [
@@ -4751,6 +5216,95 @@
         ],
         "title": "VariableSummary"
       },
+      "Verdict": {
+        "properties": {
+          "check": {
+            "type": "string",
+            "enum": [
+              "temporal_holdout",
+              "leave_one_block_out",
+              "station"
+            ],
+            "title": "Check"
+          },
+          "var": {
+            "$ref": "#/components/schemas/Var"
+          },
+          "dimension": {
+            "type": "string",
+            "title": "Dimension"
+          },
+          "stratum": {
+            "type": "string",
+            "title": "Stratum"
+          },
+          "baseline": {
+            "type": "string",
+            "enum": [
+              "b0",
+              "b1",
+              "b2"
+            ],
+            "title": "Baseline"
+          },
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "skill": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill"
+          },
+          "ci95": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ci95"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "win",
+              "tie",
+              "loss",
+              "too_few_days"
+            ],
+            "title": "Result"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "check",
+          "var",
+          "dimension",
+          "stratum",
+          "baseline",
+          "metric",
+          "skill",
+          "ci95",
+          "result"
+        ],
+        "title": "Verdict",
+        "description": "Win, tie or loss against one baseline from the 95 % interval of MAE skill (v0.3.0)."
+      },
       "VerificationSummary": {
         "properties": {
           "data_mode": {
@@ -4803,6 +5357,74 @@
             },
             "type": "array",
             "title": "Notes"
+          },
+          "model_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Version"
+          },
+          "window": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Split"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "test_first_opened_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Test First Opened At"
+          },
+          "test_reused": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Test Reused"
+          },
+          "checks": {
+            "items": {
+              "$ref": "#/components/schemas/CheckSummary"
+            },
+            "type": "array",
+            "title": "Checks",
+            "default": []
+          },
+          "strata": {
+            "items": {
+              "$ref": "#/components/schemas/StratumRow"
+            },
+            "type": "array",
+            "title": "Strata",
+            "default": []
+          },
+          "verdicts": {
+            "items": {
+              "$ref": "#/components/schemas/Verdict"
+            },
+            "type": "array",
+            "title": "Verdicts",
+            "default": []
           }
         },
         "additionalProperties": false,

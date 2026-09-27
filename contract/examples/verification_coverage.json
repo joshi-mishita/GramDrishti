@@ -1,50 +1,425 @@
 {
   "data_mode": "mock",
-  "provenance": "placeholder",
+  "provenance": "computed",
   "items": [
     {
       "var": "rain",
       "unit": "mm",
       "nominal": 0.8,
-      "empirical": 0.7,
-      "mean_width": 12.22,
-      "n": 14079
+      "empirical": 0.934485,
+      "mean_width": 5.15759,
+      "n": 73800,
+      "stratum": "all"
+    },
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.945528,
+      "mean_width": 2.13016,
+      "n": 14760,
+      "stratum": "lead_day=1"
+    },
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.929065,
+      "mean_width": 3.15706,
+      "n": 14760,
+      "stratum": "lead_day=2"
+    },
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.944512,
+      "mean_width": 3.76967,
+      "n": 14760,
+      "stratum": "lead_day=3"
+    },
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.923035,
+      "mean_width": 4.91467,
+      "n": 14760,
+      "stratum": "lead_day=4"
+    },
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.930285,
+      "mean_width": 11.8164,
+      "n": 14760,
+      "stratum": "lead_day=5"
+    },
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.926426,
+      "mean_width": 6.11791,
+      "n": 33300,
+      "stratum": "season=monsoon"
+    },
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.961639,
+      "mean_width": 5.60983,
+      "n": 27450,
+      "stratum": "season=post_monsoon"
+    },
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.897931,
+      "mean_width": 1.75584,
+      "n": 13050,
+      "stratum": "season=winter"
     },
     {
       "var": "tmax",
       "unit": "C",
       "nominal": 0.8,
-      "empirical": 0.8,
-      "mean_width": 3.06,
-      "n": 12908
+      "empirical": 0.775705,
+      "mean_width": 3.73157,
+      "n": 73800,
+      "stratum": "all"
+    },
+    {
+      "var": "tmax",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.825949,
+      "mean_width": 2.4359,
+      "n": 14760,
+      "stratum": "lead_day=1"
+    },
+    {
+      "var": "tmax",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.756369,
+      "mean_width": 2.84191,
+      "n": 14760,
+      "stratum": "lead_day=2"
+    },
+    {
+      "var": "tmax",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.804878,
+      "mean_width": 4.10022,
+      "n": 14760,
+      "stratum": "lead_day=3"
+    },
+    {
+      "var": "tmax",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.783062,
+      "mean_width": 4.48953,
+      "n": 14760,
+      "stratum": "lead_day=4"
+    },
+    {
+      "var": "tmax",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.708266,
+      "mean_width": 4.7903,
+      "n": 14760,
+      "stratum": "lead_day=5"
+    },
+    {
+      "var": "tmax",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.778048,
+      "mean_width": 3.74508,
+      "n": 33300,
+      "stratum": "season=monsoon"
+    },
+    {
+      "var": "tmax",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.769472,
+      "mean_width": 3.68186,
+      "n": 27450,
+      "stratum": "season=post_monsoon"
+    },
+    {
+      "var": "tmax",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.782835,
+      "mean_width": 3.80166,
+      "n": 13050,
+      "stratum": "season=winter"
     },
     {
       "var": "tmin",
       "unit": "C",
       "nominal": 0.8,
-      "empirical": 0.75,
-      "mean_width": 2.98,
-      "n": 12896
+      "empirical": 0.813984,
+      "mean_width": 4.01352,
+      "n": 73800,
+      "stratum": "all"
+    },
+    {
+      "var": "tmin",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.856911,
+      "mean_width": 2.54844,
+      "n": 14760,
+      "stratum": "lead_day=1"
+    },
+    {
+      "var": "tmin",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.767751,
+      "mean_width": 2.96466,
+      "n": 14760,
+      "stratum": "lead_day=2"
+    },
+    {
+      "var": "tmin",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.878997,
+      "mean_width": 4.5786,
+      "n": 14760,
+      "stratum": "lead_day=3"
+    },
+    {
+      "var": "tmin",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.811789,
+      "mean_width": 4.88373,
+      "n": 14760,
+      "stratum": "lead_day=4"
+    },
+    {
+      "var": "tmin",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.754472,
+      "mean_width": 5.09216,
+      "n": 14760,
+      "stratum": "lead_day=5"
+    },
+    {
+      "var": "tmin",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.794955,
+      "mean_width": 3.89169,
+      "n": 33300,
+      "stratum": "season=monsoon"
+    },
+    {
+      "var": "tmin",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.821166,
+      "mean_width": 4.05013,
+      "n": 27450,
+      "stratum": "season=post_monsoon"
+    },
+    {
+      "var": "tmin",
+      "unit": "C",
+      "nominal": 0.8,
+      "empirical": 0.847433,
+      "mean_width": 4.24738,
+      "n": 13050,
+      "stratum": "season=winter"
     },
     {
       "var": "rh",
       "unit": "%",
       "nominal": 0.8,
-      "empirical": 0.71,
-      "mean_width": 14.12,
-      "n": 13664
+      "empirical": 0.852656,
+      "mean_width": 22.2053,
+      "n": 73800,
+      "stratum": "all"
+    },
+    {
+      "var": "rh",
+      "unit": "%",
+      "nominal": 0.8,
+      "empirical": 0.891802,
+      "mean_width": 15.1083,
+      "n": 14760,
+      "stratum": "lead_day=1"
+    },
+    {
+      "var": "rh",
+      "unit": "%",
+      "nominal": 0.8,
+      "empirical": 0.834011,
+      "mean_width": 17.2738,
+      "n": 14760,
+      "stratum": "lead_day=2"
+    },
+    {
+      "var": "rh",
+      "unit": "%",
+      "nominal": 0.8,
+      "empirical": 0.887602,
+      "mean_width": 25.5204,
+      "n": 14760,
+      "stratum": "lead_day=3"
+    },
+    {
+      "var": "rh",
+      "unit": "%",
+      "nominal": 0.8,
+      "empirical": 0.856978,
+      "mean_width": 26.2938,
+      "n": 14760,
+      "stratum": "lead_day=4"
+    },
+    {
+      "var": "rh",
+      "unit": "%",
+      "nominal": 0.8,
+      "empirical": 0.792886,
+      "mean_width": 26.8301,
+      "n": 14760,
+      "stratum": "lead_day=5"
+    },
+    {
+      "var": "rh",
+      "unit": "%",
+      "nominal": 0.8,
+      "empirical": 0.85979,
+      "mean_width": 22.6553,
+      "n": 33300,
+      "stratum": "season=monsoon"
+    },
+    {
+      "var": "rh",
+      "unit": "%",
+      "nominal": 0.8,
+      "empirical": 0.839964,
+      "mean_width": 21.6257,
+      "n": 27450,
+      "stratum": "season=post_monsoon"
+    },
+    {
+      "var": "rh",
+      "unit": "%",
+      "nominal": 0.8,
+      "empirical": 0.861149,
+      "mean_width": 22.2761,
+      "n": 13050,
+      "stratum": "season=winter"
     },
     {
       "var": "wind",
       "unit": "km/h",
       "nominal": 0.8,
-      "empirical": 0.73,
-      "mean_width": 4.78,
-      "n": 14560
+      "empirical": 0.898875,
+      "mean_width": 4.81557,
+      "n": 73800,
+      "stratum": "all"
+    },
+    {
+      "var": "wind",
+      "unit": "km/h",
+      "nominal": 0.8,
+      "empirical": 0.922154,
+      "mean_width": 3.58439,
+      "n": 14760,
+      "stratum": "lead_day=1"
+    },
+    {
+      "var": "wind",
+      "unit": "km/h",
+      "nominal": 0.8,
+      "empirical": 0.87561,
+      "mean_width": 3.87107,
+      "n": 14760,
+      "stratum": "lead_day=2"
+    },
+    {
+      "var": "wind",
+      "unit": "km/h",
+      "nominal": 0.8,
+      "empirical": 0.933875,
+      "mean_width": 5.30198,
+      "n": 14760,
+      "stratum": "lead_day=3"
+    },
+    {
+      "var": "wind",
+      "unit": "km/h",
+      "nominal": 0.8,
+      "empirical": 0.88374,
+      "mean_width": 5.63801,
+      "n": 14760,
+      "stratum": "lead_day=4"
+    },
+    {
+      "var": "wind",
+      "unit": "km/h",
+      "nominal": 0.8,
+      "empirical": 0.878997,
+      "mean_width": 5.68241,
+      "n": 14760,
+      "stratum": "lead_day=5"
+    },
+    {
+      "var": "wind",
+      "unit": "km/h",
+      "nominal": 0.8,
+      "empirical": 0.850931,
+      "mean_width": 5.30893,
+      "n": 33300,
+      "stratum": "season=monsoon"
+    },
+    {
+      "var": "wind",
+      "unit": "km/h",
+      "nominal": 0.8,
+      "empirical": 0.937705,
+      "mean_width": 4.46066,
+      "n": 27450,
+      "stratum": "season=post_monsoon"
+    },
+    {
+      "var": "wind",
+      "unit": "km/h",
+      "nominal": 0.8,
+      "empirical": 0.93954,
+      "mean_width": 4.30319,
+      "n": 13050,
+      "stratum": "season=winter"
+    },
+    {
+      "var": "rain",
+      "unit": "mm",
+      "nominal": 0.8,
+      "empirical": 0.509421,
+      "mean_width": 28.6671,
+      "n": 4458,
+      "stratum": "observed_rain>=1mm"
     }
   ],
   "notes": [
-    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
-    "Proxy validation on synthetic truth. Real-station validation follows when data is available."
+    "Synthetic demo data: every number comes from the mock data generator, not real weather. This is proxy validation on synthetic truth, not evidence of real-world skill.",
+    "Evaluation window TEST 2024-07-17..2024-12-31, 164 issue dates, lead days 1-5, model s5-lgbm-9b632a7b1b. TEST first opened 2026-09-27T15:14:23 for this model version.",
+    "Nominal 80% interval [p10, p90]. Report width next to coverage: a wide interval covers easily."
   ]
 }

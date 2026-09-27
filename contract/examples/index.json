@@ -1,8 +1,9 @@
 {
-  "contract_version": "0.2.0",
+  "contract_version": "0.3.0",
   "data_mode": "mock",
   "main_issue_date": "2024-09-09",
   "model_version": "s5-lgbm-9b632a7b1b",
+  "verification_model_version": "s5-lgbm-9b632a7b1b",
   "generated_by": "python -m gramdrishti.contract.make_examples",
   "files": [
     {
@@ -379,7 +380,7 @@
       "path": "/api/v1/verification/summary",
       "status": 200,
       "model": "VerificationSummary",
-      "note": "PLACEHOLDER numbers, not results (S10)"
+      "note": "verification job output (TEST window, synthetic proxy validation)"
     },
     {
       "file": "verification_reliability_rain_ge_1mm.json",
@@ -387,7 +388,7 @@
       "path": "/api/v1/verification/reliability?event=rain_ge_1mm",
       "status": 200,
       "model": "Reliability",
-      "note": "PLACEHOLDER numbers, not results (S10)"
+      "note": "verification job output (TEST window, synthetic proxy validation)"
     },
     {
       "file": "verification_reliability_rain_ge_2_5mm.json",
@@ -395,7 +396,7 @@
       "path": "/api/v1/verification/reliability?event=rain_ge_2_5mm",
       "status": 200,
       "model": "Reliability",
-      "note": "PLACEHOLDER numbers, not results (S10)"
+      "note": "verification job output (TEST window, synthetic proxy validation)"
     },
     {
       "file": "verification_reliability_rain_ge_10mm.json",
@@ -403,7 +404,7 @@
       "path": "/api/v1/verification/reliability?event=rain_ge_10mm",
       "status": 200,
       "model": "Reliability",
-      "note": "PLACEHOLDER numbers, not results (S10)"
+      "note": "verification job output (TEST window, synthetic proxy validation)"
     },
     {
       "file": "verification_reliability_rain_ge_35mm.json",
@@ -411,7 +412,7 @@
       "path": "/api/v1/verification/reliability?event=rain_ge_35mm",
       "status": 200,
       "model": "Reliability",
-      "note": "PLACEHOLDER numbers, not results (S10)"
+      "note": "verification job output (TEST window, synthetic proxy validation)"
     },
     {
       "file": "verification_coverage.json",
@@ -419,7 +420,7 @@
       "path": "/api/v1/verification/coverage",
       "status": 200,
       "model": "Coverage",
-      "note": "PLACEHOLDER numbers (S10)"
+      "note": "verification job output (TEST window, synthetic proxy validation)"
     },
     {
       "file": "verification_regions.json",
@@ -427,7 +428,7 @@
       "path": "/api/v1/verification/regions",
       "status": 200,
       "model": "Regions",
-      "note": "PLACEHOLDER numbers (S10)"
+      "note": "verification job output (TEST window, synthetic proxy validation)"
     },
     {
       "file": "impact_spray.json",
@@ -435,7 +436,7 @@
       "path": "/api/v1/impact?season=monsoon_2024&decision=spray",
       "status": 200,
       "model": "Impact",
-      "note": "PLACEHOLDER counts, not results (S10)"
+      "note": "decision replay, monsoon_2024, lead day 1, placeholder thresholds"
     },
     {
       "file": "impact_heat_alert.json",
@@ -443,7 +444,7 @@
       "path": "/api/v1/impact?season=monsoon_2024&decision=heat_alert",
       "status": 200,
       "model": "Impact",
-      "note": "PLACEHOLDER counts, not results (S10)"
+      "note": "decision replay, monsoon_2024, lead day 1, placeholder thresholds"
     },
     {
       "file": "impact_irrigation_wait.json",
@@ -451,7 +452,79 @@
       "path": "/api/v1/impact?season=monsoon_2024&decision=irrigation_wait",
       "status": 200,
       "model": "Impact",
-      "note": "PLACEHOLDER counts, not results (S10)"
+      "note": "decision replay, monsoon_2024, lead day 1, placeholder thresholds"
+    },
+    {
+      "file": "impact_post_monsoon_2024_spray.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=post_monsoon_2024&decision=spray",
+      "status": 200,
+      "model": "Impact",
+      "note": "decision replay, post_monsoon_2024, lead day 1, placeholder thresholds"
+    },
+    {
+      "file": "impact_post_monsoon_2024_heat_alert.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=post_monsoon_2024&decision=heat_alert",
+      "status": 200,
+      "model": "Impact",
+      "note": "decision replay, post_monsoon_2024, lead day 1, placeholder thresholds"
+    },
+    {
+      "file": "impact_post_monsoon_2024_irrigation_wait.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=post_monsoon_2024&decision=irrigation_wait",
+      "status": 200,
+      "model": "Impact",
+      "note": "decision replay, post_monsoon_2024, lead day 1, placeholder thresholds"
+    },
+    {
+      "file": "impact_winter_2024_spray.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=winter_2024&decision=spray",
+      "status": 200,
+      "model": "Impact",
+      "note": "decision replay, winter_2024, lead day 1, placeholder thresholds"
+    },
+    {
+      "file": "impact_winter_2024_heat_alert.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=winter_2024&decision=heat_alert",
+      "status": 200,
+      "model": "Impact",
+      "note": "decision replay, winter_2024, lead day 1, placeholder thresholds"
+    },
+    {
+      "file": "impact_winter_2024_irrigation_wait.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=winter_2024&decision=irrigation_wait",
+      "status": 200,
+      "model": "Impact",
+      "note": "decision replay, winter_2024, lead day 1, placeholder thresholds"
+    },
+    {
+      "file": "impact_test_2024_spray.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=test_2024&decision=spray",
+      "status": 200,
+      "model": "Impact",
+      "note": "decision replay, test_2024, lead day 1, placeholder thresholds"
+    },
+    {
+      "file": "impact_test_2024_heat_alert.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=test_2024&decision=heat_alert",
+      "status": 200,
+      "model": "Impact",
+      "note": "decision replay, test_2024, lead day 1, placeholder thresholds"
+    },
+    {
+      "file": "impact_test_2024_irrigation_wait.json",
+      "method": "GET",
+      "path": "/api/v1/impact?season=test_2024&decision=irrigation_wait",
+      "status": 200,
+      "model": "Impact",
+      "note": "decision replay, test_2024, lead day 1, placeholder thresholds"
     },
     {
       "file": "data_quality.json",

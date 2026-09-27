@@ -11,7 +11,28 @@ Rules (see `CONTRIBUTING.md`):
 | v0.1 | 2026-09-24 | superseded | Contract as written in Appendix A. Not yet implemented; `openapi.json` and examples arrive in S2. | n/a |
 | v0.1.1 | 2026-09-25 | superseded | First implementation (S2): `openapi.json`, `examples/`. Every Appendix A shape kept; additions and definitions listed below. | no (additive) |
 | v0.1.2 | 2026-09-26 | superseded | Forecast endpoints serve the S5 model through snapshots (S6). Optional fields only; see below. | no (additive) |
-| v0.2.0 | 2026-09-26 | **current** | Risk, priority and advisories from the YAML rules engine; review state in SQLite (S8). Optional fields only; see below. | no (additive) |
+| v0.2.0 | 2026-09-26 | superseded | Risk, priority and advisories from the YAML rules engine; review state in SQLite (S8). Optional fields only; see below. | no (additive) |
+| v0.3.0 | 2026-09-27 | **current** | Verification and impact from the verification job on the TEST window (S10). Optional fields only; see below. | no (additive) |
+
+## v0.3.0 (2026-09-27, S10)
+
+Additive and optional: every v0.2.0 client and example still validates. `GET /meta` and `/health` return `api_version: "0.3.0"`.
+
+Semantics changed (shapes unchanged):
+- `/verification/summary`, `/verification/reliability`, `/verification/coverage`, `/verification/regions` and `/impact` now serve the files written by `python -m gramdrishti.verify.run_validation` (`backend/artifacts/verification.json`, `impact.json`) with `provenance: "computed"`. The seeded placeholder numbers are gone. A missing file, or one built in another data mode, answers 503 `not_computed`. The API never computes or changes a score.
+- `/verification/summary.variables` is the temporal holdout on TEST (the production model). `method` is `temporal_holdout + leave_one_block_out + station_check`. `period` is the valid dates scored (2024-07-17..2024-12-31).
+- `/verification/regions`: `region_type: "block"` rows are leave-one-block-out MAE for the held-out block; `"station"` rows are the production forecast against each station (rain only for rain gauges).
+- `/impact`: seasons `monsoon_2024` (default), `post_monsoon_2024`, `winter_2024`, `test_2024`. For `heat_alert` and `irrigation_wait` the count names keep the spray wording: `wasted_wait` = acted (alert, wait) and the event did not come; `washed_off` = did not act and the event came. `block_baseline` uses the raw block forecast B0.
+- `/data-quality` carries `provenance: "computed"` (was `provisional`); numbers unchanged.
+
+New optional fields:
+- `MetricRow.skill_vs_b1`, `MetricRow.skill_vs_b1_ci95`: skill against the corrected block forecast B1 (what the model is reconciled to) with its 95 % interval. Metric names now include `quantile_loss` (not for leave-one-block-out) and, for rain, `MAE_wet_days_obs_ge_1mm`.
+- `EventSummary.n`, `base_rate`, `frequency_bias`, `yes_rule`, `baselines[]` (`EventBaselineScores`: B0 and B1 yes/no scores: pod, far, csi, frequency_bias, brier).
+- `VerificationSummary.model_version`, `window`, `test_first_opened_at`, `test_reused`, `checks[]` (`CheckSummary`: temporal_holdout, leave_one_block_out, station, each with `variables`), `strata[]` (`StratumRow`: MAE by lead_day, season, rain_intensity, drainage_class with skills and intervals), `verdicts[]` (`Verdict`: win / tie / loss / too_few_days from the MAE-skill interval).
+- `ReliabilityPoint.mean_forecast_prob`: the mean forecast inside the bin (`forecast_prob` stays the bin centre).
+- `CoverageItem.stratum`: `all`, `lead_day=<n>`, `season=<name>` or `observed_rain>=1mm`. `items` now has one row per variable and stratum; filter `stratum == "all"` for the old view.
+- `RegionItem.b1`, `RegionItem.b2`.
+- `Impact.block_corrected` (the block rule on B1), `events_observed`, `period`, `lead_day`, `threshold`, `unit`.
 
 ## v0.2.0 (2026-09-26, S8)
 

@@ -1,7 +1,7 @@
 {
   "as_of": "2024-12-24",
   "data_mode": "mock",
-  "provenance": "provisional",
+  "provenance": "computed",
   "stations_total": 24,
   "stations_reporting_24h": 24,
   "missing_share_30d": 0.05,

@@ -1,19 +1,19 @@
 {
-  "season": "monsoon_2024",
+  "season": "test_2024",
   "decision": "spray",
   "data_mode": "mock",
   "provenance": "computed",
   "model": {
-    "correct": 6511,
+    "correct": 14364,
     "wasted_wait": 217,
-    "washed_off": 112
+    "washed_off": 179
   },
   "block_baseline": {
-    "correct": 6437,
-    "wasted_wait": 357,
-    "washed_off": 46
+    "correct": 14138,
+    "wasted_wait": 554,
+    "washed_off": 68
   },
-  "n_decisions": 6840,
+  "n_decisions": 14760,
   "rule": {
     "model": {
       "en": "Advise spraying tomorrow when the chance of 2.5 mm rain or more is under 30%.",
@@ -36,14 +36,14 @@
     "Thresholds are placeholders awaiting expert review."
   ],
   "block_corrected": {
-    "correct": 6460,
-    "wasted_wait": 294,
-    "washed_off": 86
+    "correct": 14224,
+    "wasted_wait": 399,
+    "washed_off": 137
   },
-  "events_observed": 563,
+  "events_observed": 656,
   "period": {
     "start": "2024-07-17",
-    "end": "2024-09-30"
+    "end": "2024-12-31"
   },
   "lead_day": 1,
   "threshold": 2.5,
