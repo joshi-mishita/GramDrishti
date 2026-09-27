@@ -110,4 +110,20 @@
   .bulletin-actions > li {
     break-inside: avoid;
   }
+  /* Tighter than on screen so a normal bulletin fits one A4 page. */
+  .bulletin > * + *,
+  .bulletin section > * + * {
+    margin-top: 6pt;
+  }
+  .bulletin section + section,
+  .bulletin-foot {
+    margin-top: 12pt;
+  }
+  .bulletin-actions > li + li {
+    margin-top: 8pt;
+  }
+  .bulletin-table th,
+  .bulletin-table td {
+    padding: 4pt 6pt;
+  }
 }

@@ -32,10 +32,12 @@ describe("publishedInOrder", () => {
   it("keeps approved and edited only, most urgent first", () => {
     const list = load<AdvisoryList>("advisories.json"); // all drafts
     expect(publishedInOrder(list.items)).toEqual([]);
-    const items = list.items.slice(0, 4).map((a, i) => ({
+    const statuses: Advisory["status"][] = ["approved", "edited", "rejected", "approved"];
+    const levels: Advisory["priority"][] = ["low", "severe", "severe", "moderate"];
+    const items: Advisory[] = list.items.slice(0, 4).map((a, i) => ({
       ...a,
-      status: (["approved", "edited", "rejected", "approved"] as const)[i],
-      priority: (["low", "severe", "severe", "moderate"] as const)[i],
+      status: statuses[i] ?? "draft",
+      priority: levels[i] ?? "low",
     }));
     expect(publishedInOrder(items).map((a) => [a.status, a.priority])).toEqual([
       ["edited", "severe"],
