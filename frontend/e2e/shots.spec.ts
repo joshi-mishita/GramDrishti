@@ -20,7 +20,7 @@ const ROUTES: { name: string; path: string; langs: ("en" | "hi" | "pa")[] }[] = 
     path: "/review?date=2024-09-09&adv=ADV-2024-09-09-MP0301-cotton-spray",
     langs: ["en", "hi"],
   },
-  { name: "verification", path: "/verification?date=2024-09-09", langs: ["en"] },
+  { name: "verification", path: "/verification?date=2024-09-09", langs: ["en", "hi"] },
   { name: "impact", path: "/impact?date=2024-09-09", langs: ["en", "pa"] },
   { name: "farmer-today", path: "/farmer?date=2024-09-09", langs: ["en", "hi", "pa"] },
   { name: "farmer-farm", path: "/farmer/farm?date=2024-09-09", langs: ["en", "hi"] },
