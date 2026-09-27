@@ -156,3 +156,16 @@ export function formatDateTime(value: string, lang: Lang): string {
   if (!m?.[1]) return value;
   return `${formatDate(m[1], lang)}, ${m[2]}:${m[3]}`;
 }
+
+/**
+ * Formats a full ISO timestamp with a zone (such as the service worker's
+ * "2024-12-16T02:40:00.000Z") in the phone's own time zone: "Mon 16 Dec, 08:10".
+ * Returns null for anything that is not a valid timestamp.
+ */
+export function formatStamp(value: string, lang: Lang): string | null {
+  const d = new Date(value);
+  if (!value || Number.isNaN(d.getTime())) return null;
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const day = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  return `${formatDate(day, lang, "day")}, ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}

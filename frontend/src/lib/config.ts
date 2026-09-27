@@ -28,8 +28,14 @@ export const config: ClientConfig = {
 /** Issue date opened when the URL has none. The main demo date of contract v0.1.1. */
 export const DEFAULT_ISSUE_DATE = import.meta.env.VITE_DEFAULT_ISSUE_DATE || "2024-09-09";
 
-/** Demo farmer shown in the farmer app. There is no login in the prototype. */
+/** Demo farmer shown first in the farmer app. There is no login in the prototype. */
 export const DEMO_FARMER_ID = "F001";
+
+/**
+ * The five demo profiles seeded by the backend (store/seed_demo.py). There is no list
+ * endpoint, so the demo control offers these ids and loads each profile from /farmers/{id}.
+ */
+export const DEMO_FARMER_IDS = ["F001", "F002", "F003", "F004", "F005"] as const;
 
 /** Lead days offered by the forecast (Appendix A: 5-day detail). */
 export const LEAD_DAYS = [1, 2, 3, 4, 5] as const;

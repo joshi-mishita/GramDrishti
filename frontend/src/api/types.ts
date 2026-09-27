@@ -67,6 +67,12 @@ export type Decision = Schemas["Decision"];
 export type DecisionCounts = Schemas["DecisionCounts"];
 export type Farmer = Schemas["Farmer"];
 export type FarmerAdvice = Schemas["FarmerAdvice"];
+export type FarmerCrop = Schemas["FarmerCrop"];
+export type SprayDay = Schemas["SprayDay"];
+export type SprayRating = Schemas["SprayRating"];
+export type FeedbackRequest = Schemas["FeedbackRequest"];
+export type FeedbackResponse = Schemas["FeedbackResponse"];
+export type Intensity = Schemas["Intensity"];
 
 export const VARS: readonly Var[] = ["rain", "tmax", "tmin", "rh", "wind"];
 export const LANGS: readonly Lang[] = ["en", "hi", "pa"];
