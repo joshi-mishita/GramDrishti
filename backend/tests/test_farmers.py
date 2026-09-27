@@ -280,10 +280,10 @@ def _key(path: str) -> str:
 
 
 @needs_oracle
-def test_snapshot_export_files_validate(snapshot_dir, tmp_path: Path) -> None:
+def test_snapshot_export_files_validate(snapshot_dir, verification_dir, tmp_path: Path) -> None:  # noqa: ANN001
     main = [d for d in load_demo_dates() if d.date == MAIN]
     svc = Service(demo_dates=main, clock=lambda: NOW, snapshot_dir=snapshot_dir,
-                  db_path=tmp_path / "snap.sqlite", synth=offline)
+                  db_path=tmp_path / "snap.sqlite", verification_dir=verification_dir, synth=offline)
     out = tmp_path / "snapshot"
     index = export_snapshot.export(out, svc, panchayats="demo", log=lambda *_: None)
     meta = json.loads((out / "index.json").read_text())
