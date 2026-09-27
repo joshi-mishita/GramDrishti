@@ -104,6 +104,8 @@ def requests(svc: Service, pids: list[str]) -> Iterator[Req]:
                       s.PanchayatForecast)
             yield Req(f"forecast_changes_{pid}_{d}.json", f"/forecast/changes/{pid}{_q(issue_date=d)}",
                       s.ForecastChanges)
+            yield Req(f"advisories_{pid}_{d}.json", f"/advisories{_q(panchayat_id=pid, issue_date=d)}",
+                      s.AdvisoryList)
             yield Req(f"observed_panchayat_{pid}_{first}_{last}.json",
                       f"/observed/panchayat/{pid}{_q(**{'from': first, 'to': last})}", s.Observed)
             for lead in LEADS:

@@ -1,0 +1,240 @@
+{
+  "data_mode": "mock",
+  "provenance": "computed",
+  "total": 3,
+  "items": [
+    {
+      "id": "ADV-2024-09-09-MP0311-bajra-harvest",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0311",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "harvest",
+      "priority": "high",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Plan the bajra harvest around the rain. If the crop is ready, harvest before the rain expected on 10 September, and keep harvested produce covered and off the ground.",
+        "hi": "बाजरा की कटाई बारिश को देखकर करें। फसल तैयार हो तो 10 सितंबर को संभावित बारिश से पहले काटें, और कटी फसल को ढककर ज़मीन से ऊपर रखें।",
+        "pa": "ਬਾਜਰਾ ਦੀ ਕਟਾਈ ਮੀਂਹ ਨੂੰ ਦੇਖ ਕੇ ਕਰੋ। ਫ਼ਸਲ ਤਿਆਰ ਹੋਵੇ ਤਾਂ 10 ਸਤੰਬਰ ਨੂੰ ਸੰਭਾਵੀ ਮੀਂਹ ਤੋਂ ਪਹਿਲਾਂ ਕੱਟੋ, ਅਤੇ ਕੱਟੀ ਫ਼ਸਲ ਨੂੰ ਢੱਕ ਕੇ ਜ਼ਮੀਨ ਤੋਂ ਉੱਪਰ ਰੱਖੋ।"
+      },
+      "reason": {
+        "en": "The chance of 10 mm or more of rain by 12 September is 80%, and the harvest is due in about 10 days.",
+        "hi": "12 सितंबर तक 10 मिमी या अधिक बारिश की 80% संभावना है, और कटाई लगभग 10 दिन में होनी है।",
+        "pa": "12 ਸਤੰਬਰ ਤੱਕ 10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ ਮੀਂਹ ਦੀ 80% ਸੰਭਾਵਨਾ ਹੈ, ਅਤੇ ਕਟਾਈ ਲਗਭਗ 10 ਦਿਨ ਵਿੱਚ ਹੋਣੀ ਹੈ।"
+      },
+      "fallback": {
+        "en": "If the crop is not yet mature, wait and harvest after the rain.",
+        "hi": "अगर फसल अभी पकी नहीं है, तो रुकें और बारिश के बाद कटाई करें।",
+        "pa": "ਜੇ ਫ਼ਸਲ ਹਾਲੇ ਪੱਕੀ ਨਹੀਂ, ਤਾਂ ਰੁਕੋ ਅਤੇ ਮੀਂਹ ਤੋਂ ਬਾਅਦ ਕਟਾਈ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of 10 mm or more on at least one day, 10 Sep to 12 Sep",
+          "value": "80%"
+        },
+        {
+          "label": "Expected rain, total 10 Sep to 12 Sep (median)",
+          "value": "104 mm"
+        },
+        {
+          "label": "Days to the expected harvest date",
+          "value": "10 days"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0311-bajra-harvest?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0311-bajra-harvest?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0311-bajra-harvest?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "harvest_rain_risk"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0311-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0311",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "moderate",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Hold irrigation of bajra for now and check again on 12 September.",
+        "hi": "बाजरा की सिंचाई अभी रोकें और 12 सितंबर को फिर देखें।",
+        "pa": "ਬਾਜਰਾ ਦੀ ਸਿੰਚਾਈ ਹਾਲੇ ਰੋਕੋ ਅਤੇ 12 ਸਤੰਬਰ ਨੂੰ ਫਿਰ ਦੇਖੋ।"
+      },
+      "reason": {
+        "en": "The chance of useful rain (10 mm or more) in the next 3 days is 80%, so irrigating now may waste water and pump energy.",
+        "hi": "अगले 3 दिनों में काम की बारिश (10 मिमी या अधिक) की 80% संभावना है, इसलिए अभी सिंचाई से पानी और बिजली बर्बाद हो सकती है।",
+        "pa": "ਅਗਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਦੇ ਮੀਂਹ (10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ) ਦੀ 80% ਸੰਭਾਵਨਾ ਹੈ, ਇਸ ਲਈ ਹੁਣ ਸਿੰਚਾਈ ਨਾਲ ਪਾਣੀ ਅਤੇ ਬਿਜਲੀ ਬਰਬਾਦ ਹੋ ਸਕਦੀ ਹੈ।"
+      },
+      "fallback": {
+        "en": "If no rain has fallen by 12 September and the soil is dry, irrigate then.",
+        "hi": "अगर 12 सितंबर तक बारिश न हो और मिट्टी सूखी हो, तो तब सिंचाई करें।",
+        "pa": "ਜੇ 12 ਸਤੰਬਰ ਤੱਕ ਮੀਂਹ ਨਾ ਪਵੇ ਅਤੇ ਮਿੱਟੀ ਸੁੱਕੀ ਹੋਵੇ, ਤਾਂ ਉਦੋਂ ਸਿੰਚਾਈ ਕਰੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of 10 mm or more on at least one day, 10 Sep to 12 Sep",
+          "value": "80%"
+        },
+        {
+          "label": "Expected rain, total 10 Sep to 12 Sep (median)",
+          "value": "104 mm"
+        },
+        {
+          "label": "Share of root-zone water already used, start of 10 Sep",
+          "value": "84%"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0311-bajra-irrigation?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0311-bajra-irrigation?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0311-bajra-irrigation?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "irrigation_hold_rain"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0311-livestock-livestock",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0311",
+      "block_id": "MB03",
+      "crop": "livestock",
+      "stage": null,
+      "category": "livestock",
+      "priority": "low",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Give animals shade and plenty of fresh water, and graze them in the cooler morning and evening hours until 12 September.",
+        "hi": "12 सितंबर तक पशुओं को छाया और भरपूर ताज़ा पानी दें, और उन्हें सुबह-शाम की ठंडक में चराएं।",
+        "pa": "12 ਸਤੰਬਰ ਤੱਕ ਪਸ਼ੂਆਂ ਨੂੰ ਛਾਂ ਅਤੇ ਭਰਪੂਰ ਤਾਜ਼ਾ ਪਾਣੀ ਦਿਓ, ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸਵੇਰੇ-ਸ਼ਾਮ ਦੀ ਠੰਢਕ ਵਿੱਚ ਚਰਾਓ।"
+      },
+      "reason": {
+        "en": "The heat index for animals may reach 82 on 11 September, with a maximum temperature up to 32.5 C.",
+        "hi": "11 सितंबर को पशुओं के लिए गर्मी सूचकांक 82 तक जा सकता है, अधिकतम तापमान 32.5 डिग्री सेल्सियस तक।",
+        "pa": "11 ਸਤੰਬਰ ਨੂੰ ਪਸ਼ੂਆਂ ਲਈ ਗਰਮੀ ਸੂਚਕਾਂਕ 82 ਤੱਕ ਜਾ ਸਕਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ 32.5 ਡਿਗਰੀ ਸੈਲਸੀਅਸ ਤੱਕ।"
+      },
+      "fallback": {
+        "en": "If the day is cooler than forecast, shade and water as usual are enough.",
+        "hi": "अगर दिन अनुमान से ठंडा रहे, तो सामान्य छाया और पानी काफ़ी है।",
+        "pa": "ਜੇ ਦਿਨ ਅਨੁਮਾਨ ਨਾਲੋਂ ਠੰਢਾ ਰਹੇ, ਤਾਂ ਆਮ ਵਾਂਗ ਛਾਂ ਅਤੇ ਪਾਣੀ ਕਾਫ਼ੀ ਹੈ।"
+      },
+      "confidence": "low",
+      "evidence": [
+        {
+          "label": "Livestock heat index (THI) with the upper maximum temperature, highest 10 Sep to 12 Sep",
+          "value": "82"
+        },
+        {
+          "label": "Highest maximum temperature, upper estimate (p90), 10 Sep to 12 Sep",
+          "value": "32.5 C"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0311-livestock-livestock?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0311-livestock-livestock?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0311-livestock-livestock?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "livestock_heat"
+    }
+  ]
+}

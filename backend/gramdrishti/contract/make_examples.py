@@ -156,16 +156,25 @@ def _build(out: Path, db: Path) -> list[dict]:
 
     farmers = [w.get(f"farmer_{f.id}.json", f"/farmers/{f.id}", s.Farmer, f"demo profile, not a real "
                      f"person: {f.why}") for f in DEMO_FARMERS]
-    # F001 and F002 share block MB03: approve every draft in both Panchayats, then show each farmer's view.
+    # F001 and F002 share block MB03. Approve every draft in the demo farmers' Panchayats, then show each
+    # farmer's view, the Panchayat forecast the farmer app reads and the list the bulletin reads.
+    farmer_pids = sorted({f["panchayat_id"] for f in farmers})
     for a in items:
-        if a["panchayat_id"] in {farmers[0]["panchayat_id"], farmers[1]["panchayat_id"]}:
+        if a["panchayat_id"] in farmer_pids:
             r = client.post(f"{PREFIX}/advisories/{a['id']}/review",
                             json={"action": "approve", "reviewer": "Officer Demo", "note": ""})
             assert r.status_code == 200, r.text
-    for f in farmers[:2]:
+    for f in farmers:
         w.get(f"farmer_advice_{f['farmer_id']}.json", f"/farmers/{f['farmer_id']}/advice?issue_date={d}",
               s.FarmerAdvice, f"after the officer approved every draft in {f['panchayat_id']}; only this "
               "farmer's crops (and livestock if kept), most urgent first, with whole-day spray ratings")
+    for pid in farmer_pids:
+        if pid not in PANCHAYATS:
+            w.get(f"forecast_panchayat_{pid}.json", f"/forecast/panchayat/{pid}?issue_date={d}",
+                  s.PanchayatForecast, "a demo farmer's Panchayat (farmer app forecast screen)")
+        w.get(f"advisories_{pid}.json", f"/advisories?panchayat_id={pid}&issue_date={d}", s.AdvisoryList,
+              "every status for one Panchayat after the approvals above; the bulletin prints approved and "
+              "edited ones")
     w.post("feedback_response.json", "/feedback",
            {"panchayat_id": "MP0307", "date": "2024-09-08", "reported_rain": True, "intensity": "moderate",
             "channel": "app"},

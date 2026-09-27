@@ -1,0 +1,273 @@
+{
+  "farmer_id": "F004",
+  "panchayat_id": "MP0508",
+  "issue_date": "2024-09-09",
+  "language": "hi",
+  "data_mode": "mock",
+  "items": [
+    {
+      "id": "ADV-2024-09-09-MP0508-bajra-irrigation",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0508",
+      "block_id": "MB05",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "irrigation",
+      "priority": "moderate",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Hold irrigation of bajra for now and check again on 12 September.",
+        "hi": "बाजरा की सिंचाई अभी रोकें और 12 सितंबर को फिर देखें।",
+        "pa": "ਬਾਜਰਾ ਦੀ ਸਿੰਚਾਈ ਹਾਲੇ ਰੋਕੋ ਅਤੇ 12 ਸਤੰਬਰ ਨੂੰ ਫਿਰ ਦੇਖੋ।"
+      },
+      "reason": {
+        "en": "The chance of useful rain (10 mm or more) in the next 3 days is 75%, so irrigating now may waste water and pump energy.",
+        "hi": "अगले 3 दिनों में काम की बारिश (10 मिमी या अधिक) की 75% संभावना है, इसलिए अभी सिंचाई से पानी और बिजली बर्बाद हो सकती है।",
+        "pa": "ਅਗਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਕੰਮ ਦੇ ਮੀਂਹ (10 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ) ਦੀ 75% ਸੰਭਾਵਨਾ ਹੈ, ਇਸ ਲਈ ਹੁਣ ਸਿੰਚਾਈ ਨਾਲ ਪਾਣੀ ਅਤੇ ਬਿਜਲੀ ਬਰਬਾਦ ਹੋ ਸਕਦੀ ਹੈ।"
+      },
+      "fallback": {
+        "en": "If no rain has fallen by 12 September and the soil is dry, irrigate then.",
+        "hi": "अगर 12 सितंबर तक बारिश न हो और मिट्टी सूखी हो, तो तब सिंचाई करें।",
+        "pa": "ਜੇ 12 ਸਤੰਬਰ ਤੱਕ ਮੀਂਹ ਨਾ ਪਵੇ ਅਤੇ ਮਿੱਟੀ ਸੁੱਕੀ ਹੋਵੇ, ਤਾਂ ਉਦੋਂ ਸਿੰਚਾਈ ਕਰੋ।"
+      },
+      "confidence": "medium",
+      "evidence": [
+        {
+          "label": "Chance of 10 mm or more on at least one day, 10 Sep to 12 Sep",
+          "value": "75%"
+        },
+        {
+          "label": "Expected rain, total 10 Sep to 12 Sep (median)",
+          "value": "12 mm"
+        },
+        {
+          "label": "Share of root-zone water already used, start of 10 Sep",
+          "value": "78%"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0508-bajra-irrigation?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0508-bajra-irrigation?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0508-bajra-irrigation?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "irrigation_hold_rain"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0508-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0508",
+      "block_id": "MB05",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "moderate",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-11",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser on bajra on 10 September. The next good spray day is 12 September.",
+        "hi": "10 सितंबर को बाजरा पर कीटनाशक या खाद का छिड़काव न करें। छिड़काव का अगला अच्छा दिन 12 सितंबर।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਬਾਜਰਾ ਤੇ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ। ਛਿੜਕਾਅ ਦਾ ਅਗਲਾ ਚੰਗਾ ਦਿਨ 12 ਸਤੰਬਰ।"
+      },
+      "reason": {
+        "en": "Rain or wind would waste the spray. Chance of rain is 80% on 10 September and 2% the day after, with wind up to 5 km/h.",
+        "hi": "बारिश या हवा से छिड़काव बेकार हो जाएगा। 10 सितंबर को बारिश की संभावना 80% और अगले दिन 2% है, हवा 5 किमी प्रति घंटा तक।",
+        "pa": "ਮੀਂਹ ਜਾਂ ਹਵਾ ਨਾਲ ਛਿੜਕਾਅ ਬੇਕਾਰ ਹੋ ਜਾਵੇਗਾ। 10 ਸਤੰਬਰ ਨੂੰ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ 80% ਅਤੇ ਅਗਲੇ ਦਿਨ 2% ਹੈ, ਹਵਾ 5 ਕਿਲੋਮੀਟਰ ਪ੍ਰਤੀ ਘੰਟਾ ਤੱਕ।"
+      },
+      "fallback": {
+        "en": "If the day turns out dry and calm, you can spray in the early morning.",
+        "hi": "अगर दिन सूखा और हवा शांत रहे, तो सुबह जल्दी छिड़काव कर सकते हैं।",
+        "pa": "ਜੇ ਦਿਨ ਸੁੱਕਾ ਅਤੇ ਹਵਾ ਸ਼ਾਂਤ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਜਲਦੀ ਛਿੜਕਾਅ ਕਰ ਸਕਦੇ ਹੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of 2.5 mm or more of rain on 10 Sep",
+          "value": "80%"
+        },
+        {
+          "label": "Chance of 2.5 mm or more of rain on 11 Sep",
+          "value": "2%"
+        },
+        {
+          "label": "Wind, upper estimate (p90), 10 Sep",
+          "value": "5 km/h"
+        },
+        {
+          "label": "Spray day ratings (whole days, not hours)",
+          "value": "10 Sep: avoid; 11 Sep: caution; 12 Sep: good; 13 Sep: good; 14 Sep: caution"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0508-bajra-spray?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0508-bajra-spray?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0508-bajra-spray?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "spray_hold"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0508-livestock-livestock",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0508",
+      "block_id": "MB05",
+      "crop": "livestock",
+      "stage": null,
+      "category": "livestock",
+      "priority": "low",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Give animals shade and plenty of fresh water, and graze them in the cooler morning and evening hours until 12 September.",
+        "hi": "12 सितंबर तक पशुओं को छाया और भरपूर ताज़ा पानी दें, और उन्हें सुबह-शाम की ठंडक में चराएं।",
+        "pa": "12 ਸਤੰਬਰ ਤੱਕ ਪਸ਼ੂਆਂ ਨੂੰ ਛਾਂ ਅਤੇ ਭਰਪੂਰ ਤਾਜ਼ਾ ਪਾਣੀ ਦਿਓ, ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸਵੇਰੇ-ਸ਼ਾਮ ਦੀ ਠੰਢਕ ਵਿੱਚ ਚਰਾਓ।"
+      },
+      "reason": {
+        "en": "The heat index for animals may reach 81 on 12 September, with a maximum temperature up to 33.1 C.",
+        "hi": "12 सितंबर को पशुओं के लिए गर्मी सूचकांक 81 तक जा सकता है, अधिकतम तापमान 33.1 डिग्री सेल्सियस तक।",
+        "pa": "12 ਸਤੰਬਰ ਨੂੰ ਪਸ਼ੂਆਂ ਲਈ ਗਰਮੀ ਸੂਚਕਾਂਕ 81 ਤੱਕ ਜਾ ਸਕਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ 33.1 ਡਿਗਰੀ ਸੈਲਸੀਅਸ ਤੱਕ।"
+      },
+      "fallback": {
+        "en": "If the day is cooler than forecast, shade and water as usual are enough.",
+        "hi": "अगर दिन अनुमान से ठंडा रहे, तो सामान्य छाया और पानी काफ़ी है।",
+        "pa": "ਜੇ ਦਿਨ ਅਨੁਮਾਨ ਨਾਲੋਂ ਠੰਢਾ ਰਹੇ, ਤਾਂ ਆਮ ਵਾਂਗ ਛਾਂ ਅਤੇ ਪਾਣੀ ਕਾਫ਼ੀ ਹੈ।"
+      },
+      "confidence": "low",
+      "evidence": [
+        {
+          "label": "Livestock heat index (THI) with the upper maximum temperature, highest 10 Sep to 12 Sep",
+          "value": "81"
+        },
+        {
+          "label": "Highest maximum temperature, upper estimate (p90), 10 Sep to 12 Sep",
+          "value": "33.1 C"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0508-livestock-livestock?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0508-livestock-livestock?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0508-livestock-livestock?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "livestock_heat"
+    }
+  ],
+  "spray_days": [
+    {
+      "date": "2024-09-10",
+      "lead_day": 1,
+      "rating": "avoid"
+    },
+    {
+      "date": "2024-09-11",
+      "lead_day": 2,
+      "rating": "caution"
+    },
+    {
+      "date": "2024-09-12",
+      "lead_day": 3,
+      "rating": "good"
+    },
+    {
+      "date": "2024-09-13",
+      "lead_day": 4,
+      "rating": "good"
+    },
+    {
+      "date": "2024-09-14",
+      "lead_day": 5,
+      "rating": "caution"
+    }
+  ]
+}

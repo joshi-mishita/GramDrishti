@@ -1,0 +1,248 @@
+{
+  "data_mode": "mock",
+  "provenance": "computed",
+  "total": 3,
+  "items": [
+    {
+      "id": "ADV-2024-09-09-MP0307-bajra-spray",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0307",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "spray",
+      "priority": "moderate",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-11",
+      "action": {
+        "en": "Do not spray pesticide or fertiliser on bajra on 10 September. The next good spray day is not within the 5-day forecast.",
+        "hi": "10 सितंबर को बाजरा पर कीटनाशक या खाद का छिड़काव न करें। छिड़काव का अगला अच्छा दिन अगले 5 दिनों के पूर्वानुमान में नहीं है।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਬਾਜਰਾ ਤੇ ਕੀਟਨਾਸ਼ਕ ਜਾਂ ਖਾਦ ਦਾ ਛਿੜਕਾਅ ਨਾ ਕਰੋ। ਛਿੜਕਾਅ ਦਾ ਅਗਲਾ ਚੰਗਾ ਦਿਨ ਅਗਲੇ 5 ਦਿਨਾਂ ਦੀ ਭਵਿੱਖਬਾਣੀ ਵਿੱਚ ਨਹੀਂ ਹੈ।"
+      },
+      "reason": {
+        "en": "Rain or wind would waste the spray. Chance of rain is 82% on 10 September and 1% the day after, with wind up to 4 km/h.",
+        "hi": "बारिश या हवा से छिड़काव बेकार हो जाएगा। 10 सितंबर को बारिश की संभावना 82% और अगले दिन 1% है, हवा 4 किमी प्रति घंटा तक।",
+        "pa": "ਮੀਂਹ ਜਾਂ ਹਵਾ ਨਾਲ ਛਿੜਕਾਅ ਬੇਕਾਰ ਹੋ ਜਾਵੇਗਾ। 10 ਸਤੰਬਰ ਨੂੰ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ 82% ਅਤੇ ਅਗਲੇ ਦਿਨ 1% ਹੈ, ਹਵਾ 4 ਕਿਲੋਮੀਟਰ ਪ੍ਰਤੀ ਘੰਟਾ ਤੱਕ।"
+      },
+      "fallback": {
+        "en": "If the day turns out dry and calm, you can spray in the early morning.",
+        "hi": "अगर दिन सूखा और हवा शांत रहे, तो सुबह जल्दी छिड़काव कर सकते हैं।",
+        "pa": "ਜੇ ਦਿਨ ਸੁੱਕਾ ਅਤੇ ਹਵਾ ਸ਼ਾਂਤ ਰਹੇ, ਤਾਂ ਸਵੇਰੇ ਜਲਦੀ ਛਿੜਕਾਅ ਕਰ ਸਕਦੇ ਹੋ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Chance of 2.5 mm or more of rain on 10 Sep",
+          "value": "82%"
+        },
+        {
+          "label": "Chance of 2.5 mm or more of rain on 11 Sep",
+          "value": "1%"
+        },
+        {
+          "label": "Wind, upper estimate (p90), 10 Sep",
+          "value": "4 km/h"
+        },
+        {
+          "label": "Spray day ratings (whole days, not hours)",
+          "value": "10 Sep: avoid; 11 Sep: caution; 12 Sep: avoid; 13 Sep: avoid; 14 Sep: caution"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0307-bajra-spray?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0307-bajra-spray?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0307-bajra-spray?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "spray_hold"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0307-bajra-waterlogging",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0307",
+      "block_id": "MB03",
+      "crop": "bajra",
+      "stage": "flowering_grain",
+      "category": "waterlogging",
+      "priority": "moderate",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Clear the field drains before the heavy rain expected around 10 September so rainwater can run off, and hold fertiliser until the field has drained.",
+        "hi": "10 सितंबर के आसपास संभावित भारी बारिश से पहले खेत की नालियाँ साफ़ करें ताकि बारिश का पानी निकल सके, और खेत से पानी निकलने तक खाद न डालें।",
+        "pa": "10 ਸਤੰਬਰ ਦੇ ਆਸ-ਪਾਸ ਸੰਭਾਵੀ ਭਾਰੀ ਮੀਂਹ ਤੋਂ ਪਹਿਲਾਂ ਖੇਤ ਦੀਆਂ ਨਾਲੀਆਂ ਸਾਫ਼ ਕਰੋ ਤਾਂ ਜੋ ਮੀਂਹ ਦਾ ਪਾਣੀ ਨਿਕਲ ਸਕੇ, ਅਤੇ ਖੇਤ ਵਿੱਚੋਂ ਪਾਣੀ ਨਿਕਲਣ ਤੱਕ ਖਾਦ ਨਾ ਪਾਓ।"
+      },
+      "reason": {
+        "en": "The chance of heavy rain (35 mm or more) by 12 September is 48%, and water drains slowly from these fields or collects in them.",
+        "hi": "12 सितंबर तक भारी बारिश (35 मिमी या अधिक) की 48% संभावना है, और इन खेतों से पानी धीरे निकलता है या यहाँ जमा होता है।",
+        "pa": "12 ਸਤੰਬਰ ਤੱਕ ਭਾਰੀ ਮੀਂਹ (35 ਮਿਲੀਮੀਟਰ ਜਾਂ ਵੱਧ) ਦੀ 48% ਸੰਭਾਵਨਾ ਹੈ, ਅਤੇ ਇਨ੍ਹਾਂ ਖੇਤਾਂ ਵਿੱਚੋਂ ਪਾਣੀ ਹੌਲੀ ਨਿਕਲਦਾ ਹੈ ਜਾਂ ਇੱਥੇ ਇਕੱਠਾ ਹੁੰਦਾ ਹੈ।"
+      },
+      "fallback": {
+        "en": "If less than 20 mm of rain falls, no drain work is needed.",
+        "hi": "अगर 20 मिमी से कम बारिश हो, तो नाली का काम ज़रूरी नहीं।",
+        "pa": "ਜੇ 20 ਮਿਲੀਮੀਟਰ ਤੋਂ ਘੱਟ ਮੀਂਹ ਪਵੇ, ਤਾਂ ਨਾਲੀ ਦਾ ਕੰਮ ਜ਼ਰੂਰੀ ਨਹੀਂ।"
+      },
+      "confidence": "low",
+      "evidence": [
+        {
+          "label": "Chance of 35 mm or more on at least one day, 10 Sep to 12 Sep",
+          "value": "48%"
+        },
+        {
+          "label": "Wettest day, upper estimate (p90), 10 Sep to 12 Sep",
+          "value": "156 mm"
+        },
+        {
+          "label": "Soil drainage class",
+          "value": "moderate"
+        },
+        {
+          "label": "Low-lying Panchayat",
+          "value": "yes"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0307-bajra-waterlogging?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0307-bajra-waterlogging?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0307-bajra-waterlogging?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "waterlogging_drain"
+    },
+    {
+      "id": "ADV-2024-09-09-MP0307-livestock-livestock",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0307",
+      "block_id": "MB03",
+      "crop": "livestock",
+      "stage": null,
+      "category": "livestock",
+      "priority": "low",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Give animals shade and plenty of fresh water, and graze them in the cooler morning and evening hours until 12 September.",
+        "hi": "12 सितंबर तक पशुओं को छाया और भरपूर ताज़ा पानी दें, और उन्हें सुबह-शाम की ठंडक में चराएं।",
+        "pa": "12 ਸਤੰਬਰ ਤੱਕ ਪਸ਼ੂਆਂ ਨੂੰ ਛਾਂ ਅਤੇ ਭਰਪੂਰ ਤਾਜ਼ਾ ਪਾਣੀ ਦਿਓ, ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸਵੇਰੇ-ਸ਼ਾਮ ਦੀ ਠੰਢਕ ਵਿੱਚ ਚਰਾਓ।"
+      },
+      "reason": {
+        "en": "The heat index for animals may reach 82 on 11 September, with a maximum temperature up to 32.7 C.",
+        "hi": "11 सितंबर को पशुओं के लिए गर्मी सूचकांक 82 तक जा सकता है, अधिकतम तापमान 32.7 डिग्री सेल्सियस तक।",
+        "pa": "11 ਸਤੰਬਰ ਨੂੰ ਪਸ਼ੂਆਂ ਲਈ ਗਰਮੀ ਸੂਚਕਾਂਕ 82 ਤੱਕ ਜਾ ਸਕਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ 32.7 ਡਿਗਰੀ ਸੈਲਸੀਅਸ ਤੱਕ।"
+      },
+      "fallback": {
+        "en": "If the day is cooler than forecast, shade and water as usual are enough.",
+        "hi": "अगर दिन अनुमान से ठंडा रहे, तो सामान्य छाया और पानी काफ़ी है।",
+        "pa": "ਜੇ ਦਿਨ ਅਨੁਮਾਨ ਨਾਲੋਂ ਠੰਢਾ ਰਹੇ, ਤਾਂ ਆਮ ਵਾਂਗ ਛਾਂ ਅਤੇ ਪਾਣੀ ਕਾਫ਼ੀ ਹੈ।"
+      },
+      "confidence": "low",
+      "evidence": [
+        {
+          "label": "Livestock heat index (THI) with the upper maximum temperature, highest 10 Sep to 12 Sep",
+          "value": "82"
+        },
+        {
+          "label": "Highest maximum temperature, upper estimate (p90), 10 Sep to 12 Sep",
+          "value": "32.7 C"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0307-livestock-livestock?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0307-livestock-livestock?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0307-livestock-livestock?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "livestock_heat"
+    }
+  ]
+}
