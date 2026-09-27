@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { CloudSun, House, Sprout } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { sharedSearch } from "../state/urlState";
 
 const ITEMS: { to: string; key: string; icon: LucideIcon; end?: boolean }[] = [
   { to: "/farmer", key: "today", icon: House, end: true },
@@ -18,7 +19,11 @@ export function FarmerNav() {
       <ul>
         {ITEMS.map(({ to, key, icon: Icon, end }) => (
           <li key={key}>
-            <NavLink to={{ pathname: to, search }} end={end} className="farmer-nav-link">
+            <NavLink
+              to={{ pathname: to, search: sharedSearch(search) }}
+              end={end}
+              className="farmer-nav-link"
+            >
               <Icon size={22} aria-hidden="true" />
               <span>{t(`farmerNav.${key}`)}</span>
             </NavLink>

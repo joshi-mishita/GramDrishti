@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { ChartScatter, ClipboardCheck, ListOrdered, Map, Scale } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { sharedSearch } from "../state/urlState";
 
 const ITEMS: { to: string; key: string; icon: LucideIcon }[] = [
   { to: "/map", key: "map", icon: Map },
@@ -20,7 +21,7 @@ export function SideNav() {
       <ul>
         {ITEMS.map(({ to, key, icon: Icon }) => (
           <li key={key}>
-            <NavLink to={{ pathname: to, search }} className="sidenav-link">
+            <NavLink to={{ pathname: to, search: sharedSearch(search) }} className="sidenav-link">
               <Icon size={18} aria-hidden="true" />
               <span>{t(`nav.${key}`)}</span>
             </NavLink>

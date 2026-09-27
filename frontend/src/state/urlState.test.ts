@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { readUrlState, writeUrlState } from "./urlState";
+import { readUrlState, sharedSearch, writeUrlState } from "./urlState";
 
 describe("URL state", () => {
   it("reads date, var and pid", () => {
@@ -78,5 +78,12 @@ describe("URL state", () => {
       riskType: "frost" as const,
     };
     expect(readUrlState(writeUrlState("", state))).toEqual(state);
+  });
+
+  it("keeps only shared keys when moving to another screen", () => {
+    expect(sharedSearch("?date=2024-09-09&pid=MP0101&block=MB01&status=all&risk=heat")).toBe(
+      "?date=2024-09-09&pid=MP0101&risk=heat",
+    );
+    expect(sharedSearch("?type=frost")).toBe("");
   });
 });

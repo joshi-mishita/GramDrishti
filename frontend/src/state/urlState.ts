@@ -72,3 +72,15 @@ export function writeUrlState(search: string, state: MirroredState): string {
   const s = q.toString();
   return s ? `?${s}` : "";
 }
+
+/**
+ * The query string with only the keys shared by every screen (the store mirror). Screen
+ * filters such as the priority list's block stay on their own screen when navigating.
+ */
+export function sharedSearch(search: string): string {
+  const keep = new Set<string>(Object.values(URL_KEYS));
+  const q = new URLSearchParams(search);
+  for (const key of [...q.keys()]) if (!keep.has(key)) q.delete(key);
+  const s = q.toString();
+  return s ? `?${s}` : "";
+}
