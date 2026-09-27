@@ -11,6 +11,7 @@ import {
   rowDigits,
 } from "../../lib/verify";
 import { useAppStore } from "../../state/store";
+import { TableScroll } from "../../components/TableScroll";
 
 interface Props {
   variables: readonly VariableSummary[];
@@ -30,7 +31,7 @@ export function ComparisonTable({ variables, caption }: Props) {
   const lang = useAppStore((s) => s.lang);
 
   return (
-    <div className="table-wrap verify-table-wrap">
+    <TableScroll label={caption} className="verify-table-wrap">
       <table className="data-table verify-table">
         <caption className="visually-hidden">{caption}</caption>
         <thead>
@@ -72,7 +73,7 @@ export function ComparisonTable({ variables, caption }: Props) {
           </tbody>
         ))}
       </table>
-    </div>
+    </TableScroll>
   );
 }
 

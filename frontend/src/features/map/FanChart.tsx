@@ -53,7 +53,11 @@ export function FanChart({ rows, variable, unit, lang, showObserved, selectedDat
           height={HEIGHT}
           initialDimension={{ width: 288, height: HEIGHT }}
         >
-          <ComposedChart data={rows as FanRow[]} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
+          <ComposedChart
+            accessibilityLayer={false}
+            data={rows as FanRow[]}
+            margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+          >
             <CartesianGrid vertical={false} stroke="var(--line)" />
             <XAxis
               dataKey="date"

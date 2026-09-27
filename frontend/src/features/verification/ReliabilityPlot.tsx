@@ -12,6 +12,7 @@ import {
 import type { Lang, ReliabilityPoint } from "../../api/types";
 import { formatCount, formatPercent } from "../../lib/verify";
 import { binEnds, reliabilityDots, type Dot } from "./verifyData";
+import { TableScroll } from "../../components/TableScroll";
 
 interface Props {
   points: readonly ReliabilityPoint[];
@@ -45,7 +46,10 @@ export function ReliabilityPlot({ points, eventLabel, lang }: Props) {
           height={HEIGHT}
           initialDimension={{ width: 320, height: HEIGHT }}
         >
-          <ScatterChart margin={{ top: 8, right: 16, bottom: 28, left: 8 }}>
+          <ScatterChart
+            accessibilityLayer={false}
+            margin={{ top: 8, right: 16, bottom: 28, left: 8 }}
+          >
             <CartesianGrid stroke="var(--line)" />
             <XAxis
               type="number"
@@ -125,7 +129,10 @@ export function ReliabilityPlot({ points, eventLabel, lang }: Props) {
         </ResponsiveContainer>
         <p className="axis-y-label">{t("verification.reliabilityY")}</p>
       </figure>
-      <div className="table-wrap chart-table">
+      <TableScroll
+        label={t("verification.reliabilityCaption", { event: eventLabel })}
+        className="chart-table"
+      >
         <table className="data-table compact">
           <caption className="visually-hidden">
             {t("verification.reliabilityCaption", { event: eventLabel })}
@@ -155,7 +162,7 @@ export function ReliabilityPlot({ points, eventLabel, lang }: Props) {
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </div>
   );
 }

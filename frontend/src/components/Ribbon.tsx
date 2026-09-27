@@ -7,9 +7,10 @@ export function Ribbon({ dataMode }: { dataMode: DataMode | undefined }) {
   const { t } = useTranslation();
   if (dataMode !== "mock") return null;
   return (
-    <div className="ribbon" role="note">
+    // A named region, so the notice sits in a landmark and screen-reader users can jump to it.
+    <section className="ribbon" aria-labelledby="ribbon-text">
       <Info size={16} aria-hidden="true" />
-      <span>{t("shell.ribbon")}</span>
-    </div>
+      <span id="ribbon-text">{t("shell.ribbon")}</span>
+    </section>
   );
 }

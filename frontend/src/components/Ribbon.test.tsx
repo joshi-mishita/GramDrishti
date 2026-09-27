@@ -6,7 +6,9 @@ import { Ribbon } from "./Ribbon";
 describe("Ribbon", () => {
   it("shows the guide's wording when data is mock", () => {
     renderWithProviders(<Ribbon dataMode="mock" />);
-    expect(screen.getByRole("note")).toHaveTextContent("Synthetic demo data. Not real weather.");
+    expect(
+      screen.getByRole("region", { name: "Synthetic demo data. Not real weather." }),
+    ).toBeInTheDocument();
   });
 
   it("is absent for real data and while data_mode is unknown", () => {
@@ -16,6 +18,6 @@ describe("Ribbon", () => {
         <Ribbon dataMode={undefined} />
       </>,
     );
-    expect(screen.queryByRole("note")).not.toBeInTheDocument();
+    expect(screen.queryByRole("region")).not.toBeInTheDocument();
   });
 });

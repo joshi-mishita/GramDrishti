@@ -23,7 +23,10 @@
     height: calc(100vh - var(--topbar-h) - var(--ribbon-h));
     min-height: 560px;
   }
-  .map-page > * {
+  /* Each column scrolls on its own; relative keeps hidden captions inside it (they would
+     otherwise stretch the page below the window). */
+  .map-page > :not(.visually-hidden) {
+    position: relative;
     overflow-y: auto;
   }
 }

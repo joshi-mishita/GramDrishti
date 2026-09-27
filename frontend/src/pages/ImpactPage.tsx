@@ -12,6 +12,7 @@ import { formatDate, formatNumber } from "../lib/format";
 import { pickText } from "../lib/text";
 import { OUTCOMES, bestIndexes, formatCount, formatPercent, segments } from "../lib/verify";
 import { useAppStore } from "../state/store";
+import { TableScroll } from "../components/TableScroll";
 
 const DECISIONS: readonly Decision[] = ["spray", "heat_alert", "irrigation_wait"];
 
@@ -116,7 +117,8 @@ function ImpactBody({ impact: i }: { impact: Impact }) {
         <p className="small">{t("thresholds.placeholder")}</p>
       </section>
 
-      <section className="panel panel-pad stack" aria-labelledby="impact-table">
+      {/* Not a named landmark: the table inside is the named region (axe landmark-unique). */}
+      <section className="panel panel-pad stack">
         <h2 id="impact-table">{t("impact.tableCaption")}</h2>
         <p className="small muted">{t("impact.tableHelp")}</p>
         <OutcomeTable rows={tableRows} decision={i.decision} />
@@ -156,7 +158,7 @@ function OutcomeTable({ rows, decision }: { rows: readonly BarSpec[]; decision: 
   ) as Record<keyof DecisionCounts, Set<number>>;
 
   return (
-    <div className="table-wrap">
+    <TableScroll label={t("impact.tableCaption")}>
       <table className="data-table">
         <caption className="visually-hidden">{t("impact.tableCaption")}</caption>
         <thead>
@@ -195,7 +197,7 @@ function OutcomeTable({ rows, decision }: { rows: readonly BarSpec[]; decision: 
           })}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }
 

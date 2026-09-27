@@ -152,7 +152,7 @@ function MapArea() {
         </h2>
         <button
           type="button"
-          className="btn"
+          className="btn map-table-toggle"
           aria-pressed={showTable}
           onClick={() => setShowTable((v) => !v)}
           disabled={!geo.data || !data}

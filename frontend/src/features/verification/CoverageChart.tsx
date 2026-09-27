@@ -15,6 +15,7 @@ import { SegmentedControl } from "../../components/SegmentedControl";
 import { VAR_DIGITS } from "../../lib/format";
 import { formatCount, formatFixed, formatPercent, parseStratum } from "../../lib/verify";
 import { chartItems, tableItems, type CoverageGroup as Group } from "./verifyData";
+import { TableScroll } from "../../components/TableScroll";
 
 const GROUPS: readonly Group[] = ["all", "lead_day", "season"];
 
@@ -70,6 +71,7 @@ export function CoverageChart({ items, lang }: { items: readonly CoverageItem[];
             initialDimension={{ width: 320, height: bars.length * BAR_H + 48 }}
           >
             <BarChart
+              accessibilityLayer={false}
               data={data}
               layout="vertical"
               margin={{ top: 20, right: 16, bottom: 8, left: 0 }}
@@ -134,7 +136,7 @@ export function CoverageChart({ items, lang }: { items: readonly CoverageItem[];
             }))}
             onChange={setGroup}
           />
-          <div className="table-wrap">
+          <TableScroll label={t("verification.coverageCaption")}>
             <table className="data-table compact">
               <caption className="visually-hidden">{t("verification.coverageCaption")}</caption>
               <thead>
@@ -171,7 +173,7 @@ export function CoverageChart({ items, lang }: { items: readonly CoverageItem[];
                 ))}
               </tbody>
             </table>
-          </div>
+          </TableScroll>
         </div>
       </div>
     </div>

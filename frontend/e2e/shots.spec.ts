@@ -2,30 +2,33 @@ import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
 
-/** Routes to capture. Edit this list to add screens. */
+const ALL: ("en" | "hi" | "pa")[] = ["en", "hi", "pa"];
+
+/** Routes to capture: every screen in all three languages, map variants in English. */
 const ROUTES: { name: string; path: string; langs: ("en" | "hi" | "pa")[] }[] = [
   // Heavy-rain demo date in each view mode (S4 definition of done).
-  { name: "map", path: "/map?date=2024-09-09&var=rain", langs: ["en", "hi", "pa"] },
+  { name: "map", path: "/map?date=2024-09-09&var=rain", langs: ALL },
   { name: "map-block", path: "/map?date=2024-09-09&var=rain&view=block", langs: ["en"] },
   { name: "map-delta", path: "/map?date=2024-09-09&var=rain&view=delta", langs: ["en"] },
   { name: "map-tmax-delta", path: "/map?date=2024-09-09&var=tmax&view=delta", langs: ["en"] },
-  { name: "map-selected", path: "/map?date=2024-09-09&var=rain&pid=MP0103", langs: ["en"] },
+  { name: "map-selected", path: "/map?date=2024-09-09&var=rain&pid=MP0103", langs: ALL },
   { name: "map-selected-wet", path: "/map?date=2024-09-09&var=rain&pid=MP0305", langs: ["en"] },
   { name: "map-no-demo-file", path: "/map?date=2024-01-12&var=tmin", langs: ["en"] },
-  { name: "priority", path: "/priority?date=2024-09-09", langs: ["en", "hi"] },
+  { name: "priority", path: "/priority?date=2024-09-09", langs: ALL },
   { name: "map-risk", path: "/map?date=2024-09-09&var=rain&risk=heavy_rain", langs: ["en"] },
-  { name: "review", path: "/review?date=2024-09-09", langs: ["en"] },
+  { name: "review", path: "/review?date=2024-09-09", langs: ALL },
   {
     name: "review-open",
     path: "/review?date=2024-09-09&adv=ADV-2024-09-09-MP0301-cotton-spray",
-    langs: ["en", "hi"],
+    langs: ALL,
   },
-  { name: "verification", path: "/verification?date=2024-09-09", langs: ["en", "hi"] },
-  { name: "impact", path: "/impact?date=2024-09-09", langs: ["en", "pa"] },
-  { name: "farmer-today", path: "/farmer?date=2024-09-09", langs: ["en", "hi", "pa"] },
-  { name: "farmer-farm", path: "/farmer/farm?date=2024-09-09", langs: ["en", "hi"] },
-  { name: "bulletin", path: "/bulletin/MP0103?date=2024-09-09", langs: ["en"] },
-  { name: "not-found", path: "/nowhere", langs: ["en"] },
+  { name: "verification", path: "/verification?date=2024-09-09", langs: ALL },
+  { name: "impact", path: "/impact?date=2024-09-09", langs: ALL },
+  { name: "farmer-today", path: "/farmer?date=2024-09-09", langs: ALL },
+  { name: "farmer-forecast", path: "/farmer/forecast?date=2024-09-09", langs: ALL },
+  { name: "farmer-farm", path: "/farmer/farm?date=2024-09-09", langs: ALL },
+  { name: "bulletin", path: "/bulletin/MP0103?date=2024-09-09", langs: ALL },
+  { name: "not-found", path: "/nowhere", langs: ALL },
 ];
 
 /**
@@ -43,10 +46,12 @@ const REAL = process.env.SHOTS_REAL === "1";
 
 const VIEWPORTS = [
   { name: "desktop", width: 1366, height: 768 },
+  { name: "wide", width: 1920, height: 1080 },
   { name: "phone", width: 360, height: 740 },
 ];
 
-const OUT = resolve(import.meta.dirname, "../../docs/screens");
+/** SHOTS_SET=before|after writes to docs/screens/<set>/ (S15 before and after pairs). */
+const OUT = resolve(import.meta.dirname, "../../docs/screens", process.env.SHOTS_SET ?? "");
 mkdirSync(OUT, { recursive: true });
 
 if (REAL) {
