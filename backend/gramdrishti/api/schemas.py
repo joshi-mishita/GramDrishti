@@ -1,4 +1,4 @@
-"""Pydantic models for every endpoint of the API contract (Appendix A, contract v0.2.0).
+"""Pydantic models for every endpoint of the API contract (Appendix A, contract v0.3.0).
 
 Rules that hold for every model:
 - Missing numbers are ``null``. NaN and Infinity are rejected (``allow_inf_nan=False``).
@@ -18,7 +18,7 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-API_VERSION = "0.2.0"
+API_VERSION = "0.3.0"
 
 
 class ApiModel(BaseModel):
@@ -606,12 +606,24 @@ class FeedbackResponse(ApiModel):
 
 
 # ---------------------------------------------------------------- verification and impact
+# Filled only by the verification job (verify/run_validation.py, verify/impact.py). Nobody types numbers.
+CI = Annotated[list[float], Field(min_length=2, max_length=2)]
+Baseline = Literal["b0", "b1", "b2"]
+VerdictResult = Literal["win", "tie", "loss", "too_few_days"]
+
+
 class Period(ApiModel):
     start: date
     end: date
 
 
 class MetricRow(ApiModel):
+    """One score for the model and the baselines. Skills are 1 - score / baseline score (null for bias).
+
+    v0.3.0 adds ``skill_vs_b1`` and ``skill_vs_b1_ci95``: B1 is the corrected block forecast the model is
+    reconciled to, so it is the baseline that isolates what the Panchayat model adds.
+    """
+
     name: str
     unit: str
     model: Num
@@ -619,13 +631,26 @@ class MetricRow(ApiModel):
     b1: Num
     b2: Num
     skill_vs_b0: Num
-    skill_ci95: Annotated[list[float], Field(min_length=2, max_length=2)] | None
+    skill_ci95: CI | None
+    skill_vs_b1: Num = None
+    skill_vs_b1_ci95: CI | None = None
 
 
 class VariableSummary(ApiModel):
     var: Var
     n: int | None
     metrics: list[MetricRow]
+
+
+class EventBaselineScores(ApiModel):
+    """A baseline's yes/no event forecast (block value >= threshold) scored like the model (v0.3.0)."""
+
+    baseline: Baseline
+    pod: Num
+    far: Num
+    csi: Num
+    frequency_bias: Num
+    brier: Num
 
 
 class EventSummary(ApiModel):
@@ -635,6 +660,54 @@ class EventSummary(ApiModel):
     csi: Num
     brier: Num
     brier_skill_vs_climatology: Num
+    n: int | None = None
+    base_rate: Num = None
+    frequency_bias: Num = None
+    yes_rule: str | None = None
+    baselines: list[EventBaselineScores] = []
+
+
+class CheckSummary(ApiModel):
+    """One validation check (v0.3.0): temporal holdout, leave-one-block-out or station check."""
+
+    check: Literal["temporal_holdout", "leave_one_block_out", "station"]
+    description: str
+    truth: str
+    n: int
+    variables: list[VariableSummary]
+
+
+class StratumRow(ApiModel):
+    """MAE of model and baselines inside one stratum (v0.3.0), temporal holdout."""
+
+    dimension: Literal["lead_day", "season", "rain_intensity", "drainage_class"]
+    stratum: str
+    var: Var
+    metric: str
+    unit: str
+    n: int
+    model: Num
+    b0: Num
+    b1: Num
+    b2: Num
+    skill_vs_b0: Num
+    skill_ci95: CI | None
+    skill_vs_b1: Num
+    skill_vs_b1_ci95: CI | None
+
+
+class Verdict(ApiModel):
+    """Win, tie or loss against one baseline from the 95 % interval of MAE skill (v0.3.0)."""
+
+    check: Literal["temporal_holdout", "leave_one_block_out", "station"]
+    var: Var
+    dimension: str
+    stratum: str
+    baseline: Baseline
+    metric: str
+    skill: Num
+    ci95: CI | None
+    result: VerdictResult
 
 
 class VerificationSummary(ApiModel):
@@ -646,12 +719,20 @@ class VerificationSummary(ApiModel):
     events: list[EventSummary]
     block_mean_error: dict[Var, Num]
     notes: list[str]
+    model_version: str | None = None
+    window: Split | None = None
+    test_first_opened_at: datetime | None = None
+    test_reused: bool | None = None
+    checks: list[CheckSummary] = []
+    strata: list[StratumRow] = []
+    verdicts: list[Verdict] = []
 
 
 class ReliabilityPoint(ApiModel):
     forecast_prob: Prob
     observed_freq: Prob | None
     n: int
+    mean_forecast_prob: Prob | None = None
 
 
 class Reliability(ApiModel):
@@ -669,6 +750,7 @@ class CoverageItem(ApiModel):
     empirical: Prob | None
     mean_width: Num
     n: int | None
+    stratum: str | None = None
 
 
 class Coverage(ApiModel):
@@ -687,6 +769,8 @@ class RegionItem(ApiModel):
     model: Num
     b0: Num
     n: int | None
+    b1: Num = None
+    b2: Num = None
 
 
 class Regions(ApiModel):
@@ -698,6 +782,9 @@ class Regions(ApiModel):
 
 
 class DecisionCounts(ApiModel):
+    """Replay outcomes. For heat alerts and irrigation waits the same names mean: ``wasted_wait`` = acted
+    (alert, wait) and the event did not happen; ``washed_off`` = did not act and the event happened."""
+
     correct: int
     wasted_wait: int
     washed_off: int
@@ -718,6 +805,12 @@ class Impact(ApiModel):
     n_decisions: int
     rule: ImpactRule | None = None
     notes: list[str] = []
+    block_corrected: DecisionCounts | None = None
+    events_observed: int | None = None
+    period: Period | None = None
+    lead_day: int | None = None
+    threshold: Num = None
+    unit: str | None = None
 
 
 # ---------------------------------------------------------------- data quality
