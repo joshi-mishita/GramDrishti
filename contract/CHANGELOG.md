@@ -11,7 +11,25 @@ Rules (see `CONTRIBUTING.md`):
 | v0.1 | 2026-09-24 | superseded | Contract as written in Appendix A. Not yet implemented; `openapi.json` and examples arrive in S2. | n/a |
 | v0.1.1 | 2026-09-25 | superseded | First implementation (S2): `openapi.json`, `examples/`. Every Appendix A shape kept; additions and definitions listed below. | no (additive) |
 | v0.1.2 | 2026-09-26 | superseded | Forecast endpoints serve the S5 model through snapshots (S6). Optional fields only; see below. | no (additive) |
-| v0.2.0 | 2026-09-26 | **current** | Risk, priority and advisories from the YAML rules engine; review state in SQLite (S8). Optional fields only; see below. | no (additive) |
+| v0.2.0 | 2026-09-26 | superseded | Risk, priority and advisories from the YAML rules engine; review state in SQLite (S8). Optional fields only; see below. | no (additive) |
+| v0.4.0 | 2026-09-27 | **current** | Farmer side (S12): demo farmers in SQLite, farmer advice filtered by crop with spray days, feedback checks, gTTS audio, offline snapshot export. Optional fields only; see below. v0.3.0 is taken by S10 (verification and impact) on its own branch. | no (additive) |
+
+## v0.4.0 (2026-09-27, S12)
+
+Additive and optional: every v0.2.0 client and example still validates. `GET /meta` and `/health` return `api_version: "0.4.0"`. The number skips v0.3.0 because the S10 branch (verification and impact, not merged when S12 started) already uses it; when both are merged the two entries stand side by side.
+
+New optional fields:
+- `Farmer.livestock` (boolean): the demo farmer keeps livestock, so livestock advisories reach them.
+- `FarmerAdvice.spray_days`: `[{date, lead_day, rating}]` for the five forecast days at the farmer's Panchayat, `rating` = `good | caution | avoid` (the same whole-day rating as `derived.spray_rating` in `/forecast/panchayat`; no hour-level windows).
+
+Semantics changed in this version (shapes unchanged):
+- Demo farmers are five profiles stored in SQLite (`store/seed_demo.py`), `F001` to `F005`, named "Demo farmer N" (not real people). `F006` is gone (404). F001 (MP0307) and F002 (MP0311) share block MB03. `crops` lists the Panchayat's own crop rows for rabi 2023-24, kharif 2024 and rabi 2024-25 that this farmer grows.
+- `/farmers/{id}/advice`: only `approved` and `edited` advisories for the farmer's Panchayat **and crops** (livestock advice only when `livestock` is true), ordered by priority (severe first), then `valid_from`, then id. Drafts and rejected advisories never appear.
+- `POST /feedback`: 400 `bad_request` when `date` is outside the days the block forecast covers or after today, or when `reported_rain` and `intensity` contradict each other (`true` with `none`, `false` with anything but `none`). An identical report (same Panchayat, date, answer, intensity and channel) within 10 minutes is not stored again: 200 with `stored: false`, the first report's `id` and a "we already have this report" message. The thank-you text no longer says the report "improves the forecast"; it now says it helps check it.
+- `GET /audio/{advisory_id}?lang=`: MP3 (`audio/mpeg`) of the advisory's action, reason and fallback in that language, made with gTTS on first request and cached (a new file after an edit). 404 `audio_not_available` (contract error shape) when gTTS is not installed, the language has no text (for example after an English-only edit), or the file cannot be made (no internet). 404 `not_found` for an unknown advisory.
+- `Advisory.audio`: approved and edited advisories now list `{lang: "/api/v1/audio/<id>?lang=<lang>"}` for each language with text that the installed gTTS supports (en, hi and pa with gTTS 2.5.4). Drafts and rejected advisories keep `{}`. A listed link can still answer 404 when the server has no internet; the UI then uses browser speech.
+
+New, outside the API: `contract/snapshot/` (git-ignored) from `python -m gramdrishti.export_snapshot` holds every GET response the frontend asks for on the demo dates, with an `index.json` in the same format as `contract/examples/index.json` (one entry per request: `file`, `method`, `path` with query, `status`, `model`). Top-level keys: `contract_version`, `data_mode`, `issue_dates`, `model_versions`, `panchayats`, `generated_on`, `generated_by`, `files`. File names follow the example names with the date and lead day added, for example `forecast_map_rain_2024-09-09_lead1.json`, `explain_MP0307_tmax_2024-09-09_lead1.json`, `farmer_advice_F001_2024-09-09.json`.
 
 ## v0.2.0 (2026-09-26, S8)
 

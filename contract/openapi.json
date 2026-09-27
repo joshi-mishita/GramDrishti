@@ -3,7 +3,7 @@
   "info": {
     "title": "GramDrishti API",
     "description": "Panchayat-level forecasts and advisories. Contract: Appendix A of the guides. Every response carries data_mode; 'mock' means synthetic data.",
-    "version": "0.2.0"
+    "version": "0.4.0"
   },
   "paths": {
     "/api/v1/health": {
@@ -914,7 +914,7 @@
           "advisories"
         ],
         "summary": "Audio",
-        "description": "MP3 of the advisory text, or 404 when no audio exists (the UI then falls back to browser speech).",
+        "description": "MP3 of the advisory's action, reason and fallback in one language (gTTS, cached).\n\n404 ``not_found`` for an unknown advisory; 404 ``audio_not_available`` when the audio cannot be made\n(gTTS missing, language not supported, no text in that language, or no internet). The UI then falls\nback to the browser's own speech.",
         "operationId": "audio_api_v1_audio__advisory_id__get",
         "parameters": [
           {
@@ -971,7 +971,7 @@
           "farmers"
         ],
         "summary": "Farmer",
-        "description": "Demo farmer profile: Panchayat, language, crops with sowing dates.",
+        "description": "Demo farmer profile (not a real person): Panchayat, language, crops with sowing dates, livestock.",
         "operationId": "farmer_api_v1_farmers__farmer_id__get",
         "parameters": [
           {
@@ -1024,7 +1024,7 @@
           "farmers"
         ],
         "summary": "Farmer Advice",
-        "description": "Approved (or edited and approved) advisories for the farmer's Panchayat on this issue date.",
+        "description": "Approved or edited advisories for the farmer's Panchayat and crops, most urgent first, with\nwhole-day spray ratings for the next days. Drafts and rejected advisories never appear.",
         "operationId": "farmer_advice_api_v1_farmers__farmer_id__advice_get",
         "parameters": [
           {
@@ -1097,7 +1097,7 @@
           "farmers"
         ],
         "summary": "Feedback",
-        "description": "Farmer tapped \"Did it rain?\".",
+        "description": "Farmer tapped \"Did it rain?\". 400 for a date outside the data period or a contradictory report;\nan identical report within 10 minutes answers ``stored: false`` with the first report's id.",
         "operationId": "feedback_api_v1_feedback_post",
         "requestBody": {
           "content": {
@@ -1132,6 +1132,16 @@
           },
           "422": {
             "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
             "content": {
               "application/json": {
                 "schema": {
@@ -2675,6 +2685,17 @@
           },
           "data_mode": {
             "$ref": "#/components/schemas/DataMode"
+          },
+          "livestock": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Livestock"
           }
         },
         "additionalProperties": false,
@@ -2717,6 +2738,20 @@
             },
             "type": "array",
             "title": "Items"
+          },
+          "spray_days": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SprayDay"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spray Days"
           }
         },
         "additionalProperties": false,
@@ -4426,6 +4461,38 @@
           "test"
         ],
         "title": "Split"
+      },
+      "SprayDay": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "lead_day": {
+            "type": "integer",
+            "title": "Lead Day"
+          },
+          "rating": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SprayRating"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "lead_day",
+          "rating"
+        ],
+        "title": "SprayDay",
+        "description": "v0.4.0: day-level spray rating for one forecast day (whole days only; the data is daily)."
       },
       "SprayRating": {
         "type": "string",
