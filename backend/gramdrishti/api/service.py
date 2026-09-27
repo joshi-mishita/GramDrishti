@@ -34,7 +34,7 @@ from gramdrishti.api import schemas as s
 from gramdrishti.api.errors import ApiError, not_found
 from gramdrishti.contract.pick_demo_dates import DemoDate, load_demo_dates
 from gramdrishti.data import loaders
-from gramdrishti.data.config import ART, COLS, LEADS, VARS, data_mode
+from gramdrishti.data.config import COLS, LEADS, VARS, data_mode
 from gramdrishti.data.qc import clean_values, run_qc
 from gramdrishti.explain.shap_explain import NEGLIGIBLE_DELTA
 from gramdrishti.pipeline.run_daily import SNAPSHOTS, Snapshot, read_snapshot
