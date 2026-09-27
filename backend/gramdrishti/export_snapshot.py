@@ -38,7 +38,6 @@ from gramdrishti.api.main import PREFIX, create_app
 from gramdrishti.api.service import LEAD_MAX, LEAD_MIN, Service
 from gramdrishti.contract.make_examples import PANCHAYATS as EXAMPLE_PANCHAYATS
 from gramdrishti.data.config import ROOT
-from gramdrishti.verify.impact import SEASONS as IMPACT_SEASONS
 
 OUT = ROOT / "contract" / "snapshot"
 LEADS = range(LEAD_MIN, LEAD_MAX + 1)
@@ -69,7 +68,7 @@ def requests(svc: Service, pids: list[str]) -> Iterator[Req]:
                   f"/verification/reliability{_q(event=ev.value)}", s.Reliability)
     yield Req("verification_coverage.json", "/verification/coverage", s.Coverage)
     yield Req("verification_regions.json", "/verification/regions", s.Regions)
-    for season in IMPACT_SEASONS:
+    for season in svc.impact_seasons():
         for dec in s.Decision:
             yield Req(f"impact_{dec.value}_{season}.json", f"/impact{_q(season=season, decision=dec.value)}",
                       s.Impact)
@@ -104,8 +103,6 @@ def requests(svc: Service, pids: list[str]) -> Iterator[Req]:
                       s.PanchayatForecast)
             yield Req(f"forecast_changes_{pid}_{d}.json", f"/forecast/changes/{pid}{_q(issue_date=d)}",
                       s.ForecastChanges)
-            yield Req(f"advisories_{pid}_{d}.json", f"/advisories{_q(panchayat_id=pid, issue_date=d)}",
-                      s.AdvisoryList)
             yield Req(f"observed_panchayat_{pid}_{first}_{last}.json",
                       f"/observed/panchayat/{pid}{_q(**{'from': first, 'to': last})}", s.Observed)
             for lead in LEADS:

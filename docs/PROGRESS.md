@@ -13,6 +13,12 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S4 | Frontend map explorer | frontend | merged | session-04-map-explorer (#6) | yes |
 | S5 | Backend model core | backend | merged | session-05-model-core (#7) | yes |
 | S6 | Agro-variables, snapshots, forecast APIs | backend | merged | session-06-snapshots-forecast-api (#9) | yes |
+| S7 | Frontend detail panel and first integration | frontend | PR open | session-07-detail-panel | |
+| S8 | Advisory engine and review APIs | backend | merged | session-08-advisory-engine (#11) | yes |
+| S9 | Frontend priority, risk and review | frontend | not started | | |
+| S10 | Verification and impact | backend | not started | | |
+| S11 | Frontend verification and impact | frontend | not started | | |
+| S12 | Farmer-side backend and snapshot export | backend | PR open | session-12-farmer-backend | |
 | S7 | Frontend detail panel and first integration | frontend | merged | session-07-detail-panel (#10) | yes |
 | S8 | Advisory engine and review APIs | backend | merged | session-08-advisory-engine (#11) | yes |
 | S9 | Frontend priority, risk and review | frontend | merged | session-09-priority-review (#13) | yes |
@@ -142,6 +148,16 @@ Same block, same crop, different advice (2024-09-09, bajra, block MB03): MP0307 
 
 Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms, `/risk` 2.5 ms, `/advisories?issue_date` 10.5 ms, `/advisories/{id}` 1.5 ms. The first risk or priority request per issue date takes 0.45 to 0.7 s (engine and risk scores, then cached).
 
+S12: farmer side, feedback loop demo, audio and the offline snapshot. Contract v0.4.0 (additive; v0.3.0 is S10's). Built:
+- `store/seed_demo.py`: five demo profiles (D093), migration 2 (`farmers.livestock`, D094). The API seeds an empty table.
+- `/farmers/{id}` from SQLite; `/farmers/{id}/advice`: approved or edited only, farmer's Panchayat and crops (livestock only for F001 and F004), severe first, plus optional `spray_days` (D095).
+- `POST /feedback`: date inside the data period and not in the future, answer and intensity must agree (400), identical report within 10 minutes answers `stored: false` with the first id (D096). Thank-you text no longer claims the forecast improves (D098).
+- `advisory/audio.py` + `/audio/{id}?lang=`: gTTS, cached by text hash under `artifacts/audio/`, 404 `audio_not_available` on any failure; `Advisory.audio` links for approved and edited advisories. **Punjabi works with gTTS 2.5.4** (D097).
+- `verify/feedback_report.py` writes `docs/feedback_loop_demo.md`: 2023-08 had 40 reports, rain yes/no agrees 92 % (37 of 40) with station or synthetic truth, and Panchayats with any ground check go from 24 (stations) to 48 of 90 with reports. Demo of the loop, no retraining, no forecast scoring, TEST months refused; no observation nudge (D099).
+- `gramdrishti/export_snapshot.py`: 21,965 validated GET responses for the 8 demo dates, all 90 Panchayats and the 5 farmers, 39 MB, 64 s, into git-ignored `contract/snapshot/`; `npm run sync:mock` copies it to `frontend/public/snapshot/` (D100). Checked in the browser with the API stopped: farmer screen shows F001's three approved advisories, the map shows 27 Dec 2024 lead 3 Tmin.
+- Tests: 375 backend (16 new in `test_farmers.py`, 2 in `test_store.py`), 120 frontend.
+
+Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6 advisories): F001 (MP0307, hi, keeps livestock) sees spray hold, clear drains, livestock heat; F002 (MP0311, pa, no livestock) sees harvest before the rain, hold irrigation, and not the approved livestock item. F005 (MP0103, wheat only) sees nothing on that date.
 S10: verification and impact on the TEST window, once, for `s5-lgbm-9b632a7b1b` (protocol in `docs/validation_protocol.md`, report in `docs/validation_report.md`). Contract v0.3.0 (additive). Built:
 - `verify/metrics.py`: contingency with frequency bias, Brier and Brier skill, reliability, interval coverage, pinball and quantile loss, daily sums, moving-block bootstrap CI (7-day blocks), win/tie/loss.
 - `verify/run_validation.py`: temporal holdout, leave-one-block-out (6 refits on TRAIN) and station check against B0, B1 and B2; strata by lead day, season, observed rain intensity and drainage class; events; reliability; coverage; block-mean error; notes listing every place the model does not beat B0 or B1. `--window CALIB` dry run. About 90 s.
@@ -361,6 +377,11 @@ Screenshot review (all three languages, 360 px, read at full size) and fixes mad
 - S7: Hindi and Punjabi panel strings are drafts (word order in "कल: सूखा (4%)। अब: ..." is built from parts and uses "." rather than "।").
 - S7: tested in Chrome only; not in Firefox, Safari or on a touch device.
 
+- S12: CI has not run this branch (no `gh`). The examples freshness test needs local snapshots.
+- S12: nobody has listened to the generated Hindi or Punjabi audio; only the file type (MPEG layer III, 24 kHz) and size were checked. Pronunciation of numbers and units ("मिमी", "ਮਿਲੀਮੀਟਰ") is unknown.
+- S12: snapshot mode was checked in the in-app browser on two screens (farmer Today, map with detail panel), not screen by screen; the full export was not built in production mode (`npm run build` copies 104 MB of snapshot into `dist/`).
+- S12: the new hi/pa feedback texts are drafts needing native review.
+- S12: the feedback report used the mock file only (`--no-store`); with API reports it adds them the same way (unit-tested).
 - S10: CI has not run this branch (no `gh`). In CI there is no trained model or `verification.json`: the job's tests run on CALIB with the small bundle, and the example and report freshness tests are skipped.
 - S10: real mode is not verified: the job raises in real mode (no Panchayat truth); leave-one-station-out against real stations is future work.
 - S10: the frontend verification and impact screens were not run against the new endpoints (types regenerated; frontend tests pass).

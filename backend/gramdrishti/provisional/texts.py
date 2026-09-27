@@ -51,3 +51,11 @@ FEEDBACK_THANKS = {"en": "Thank you. Your report helps us check the forecast for
 FEEDBACK_DUPLICATE = {"en": "We already have this report. Thank you.",
                       "hi": "यह जानकारी हमें पहले ही मिल चुकी है। धन्यवाद।",
                       "pa": "ਇਹ ਜਾਣਕਾਰੀ ਸਾਨੂੰ ਪਹਿਲਾਂ ਹੀ ਮਿਲ ਚੁੱਕੀ ਹੈ। ਧੰਨਵਾਦ।"}
+IMPACT_RULES = {
+    "spray": ("Advise spraying when the chance of 2.5 mm rain is under 30%.",
+              "Advise spraying when the block forecast is under 2.5 mm."),
+    "heat_alert": ("Alert when the 90th percentile of Tmax reaches the heat threshold.",
+                   "Alert when the block Tmax forecast reaches the heat threshold."),
+    "irrigation_wait": ("Wait to irrigate when the chance of 5 mm rain is 50% or more.",
+                        "Wait to irrigate when the block forecast is 5 mm or more."),
+}

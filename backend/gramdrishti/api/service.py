@@ -696,6 +696,14 @@ class Service:
     def regions(self) -> s.Regions:
         return s.Regions.model_validate(self._verification_file("verification")["regions"])
 
+    def impact_seasons(self) -> list[str]:
+        """Seasons in the impact file, sorted; empty when the file is missing or from the other mode."""
+        try:
+            items = self._verification_file("impact")["items"]
+        except ApiError:
+            return []
+        return sorted({k.split("/")[0] for k in items})
+
     def impact(self, season: str, decision: s.Decision) -> s.Impact:
         items = self._verification_file("impact")["items"]
         found = items.get(f"{season}/{decision.value}")

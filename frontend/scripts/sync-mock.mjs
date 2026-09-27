@@ -6,6 +6,8 @@
 // VITE_SNAPSHOT=1 is set or `--snapshot` is passed (`npm run sync:snapshot`). Otherwise
 // public/snapshot/ is removed, so a normal build does not carry about 100 MB of files.
 // Both targets are git-ignored.
+// Also copies contract/snapshot/ (from `python -m gramdrishti.export_snapshot`) into
+// public/snapshot/ when it exists, for VITE_SNAPSHOT=1. Both targets are git-ignored.
 import { cpSync, existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
