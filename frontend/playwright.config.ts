@@ -15,6 +15,7 @@ const real = process.env.SHOTS_REAL === "1";
 
 export default defineConfig({
   testDir: "./e2e",
+  testMatch: "shots.spec.ts",
   outputDir: "./test-results",
   fullyParallel: true,
   reporter: "list",

@@ -241,7 +241,8 @@
     "auditBefore": "पहले:",
     "auditAfter": "बाद में:",
     "auditNone": "(कुछ नहीं)",
-    "whereNamed": "{{name}}, ब्लॉक {{block}}"
+    "whereNamed": "{{name}}, ब्लॉक {{block}}",
+    "shortNameNoCrop": "{{pid}} {{category}}"
   },
   "verification": {
     "title": "पूर्वानुमान की सटीकता की जाँच",

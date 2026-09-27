@@ -1,8 +1,9 @@
 import { MousePointerClick, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useForecastMap, useGeoPanchayats } from "../../api/hooks";
+import { useForecastMap, useGeoPanchayats, useRisk } from "../../api/hooks";
 import type { PanchayatMapValue } from "../../api/types";
 import { ProvenanceNote } from "../../components/ProvenanceNote";
+import { RiskChip } from "../../components/RiskChip";
 import { QueryBoundary } from "../../components/QueryBoundary";
 import { EmptyState } from "../../components/states";
 import { VAR_DIGITS, formatDate, formatSigned, formatValue } from "../../lib/format";
@@ -16,7 +17,8 @@ import { useRangeText } from "./useRangeText";
 /**
  * Right panel (Guide 6.1), top to bottom: name and block, the chosen day's value with a
  * plain range, the 5-day fan chart, all variables for the day, why it differs from the
- * block, and what changed since the previous forecast. Advisories follow in S9.
+ * block, and what changed since the previous forecast. With a risk layer on, the
+ * headline also gives this Panchayat's level.
  */
 export function DetailPanel() {
   const { t } = useTranslation();
@@ -75,7 +77,12 @@ function Headline({ pid }: { pid: string }) {
   const issueDate = useAppStore((s) => s.issueDate);
   const leadDay = useAppStore((s) => s.leadDay);
   const variable = useAppStore((s) => s.variable);
+  const riskType = useAppStore((s) => s.riskType);
   const forecast = useForecastMap(issueDate, leadDay, variable);
+  const risk = useRisk(issueDate, leadDay, riskType);
+  const riskLevel = riskType
+    ? risk.data?.items.find((i) => i.panchayat_id === pid)?.level
+    : undefined;
   const rangeText = useRangeText();
 
   return (
@@ -103,6 +110,14 @@ function Headline({ pid }: { pid: string }) {
                     <dt>{t("panel.blockForecast")}</dt>
                     <dd>{formatValue(row.block_value, unit, lang, digits)}</dd>
                   </div>
+                  {riskType && riskLevel ? (
+                    <div>
+                      <dt>{t("risk.tooltip", { risk: t(`risks.${riskType}`) })}</dt>
+                      <dd>
+                        <RiskChip level={riskLevel} />
+                      </dd>
+                    </div>
+                  ) : null}
                   <div>
                     <dt>{t("panel.difference")}</dt>
                     <dd>

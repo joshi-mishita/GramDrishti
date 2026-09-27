@@ -200,3 +200,26 @@ describe("queue", () => {
     expect(q.get("adv")).toBe("ADV-1");
   });
 });
+
+describe("labels", () => {
+  it("does not repeat livestock as crop and category", async () => {
+    const { advisoryTitle, shortName } = await import("./labels");
+    const t = ((k: string, o?: Record<string, string>) =>
+      k === "review.shortName"
+        ? `${o?.pid} ${o?.crop} ${o?.category}`
+        : k === "review.shortNameNoCrop"
+          ? `${o?.pid} ${o?.category}`
+          : k === "review.cropStage"
+            ? `${o?.crop}, ${o?.stage}`
+            : k.split(".").pop()) as never;
+    expect(advisoryTitle(t, { crop: "livestock", stage: null, category: "livestock" })).toBe(
+      "livestock",
+    );
+    expect(advisoryTitle(t, { crop: "cotton", stage: "maturity", category: "spray" })).toBe(
+      "spray: cotton, maturity",
+    );
+    expect(shortName(t, { panchayat_id: "MP0101", crop: "livestock", category: "livestock" })).toBe(
+      "MP0101 livestock",
+    );
+  });
+});

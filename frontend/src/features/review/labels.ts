@@ -1,6 +1,15 @@
 import type { TFunction } from "i18next";
 import type { Advisory } from "../../api/types";
 
+/** Advisory title: "Spray: Cotton, boll development and picking"; livestock has no crop. */
+export function advisoryTitle(
+  t: TFunction,
+  a: Pick<Advisory, "crop" | "stage" | "category">,
+): string {
+  const category = t(`categories.${a.category}`);
+  return a.crop === a.category ? category : `${category}: ${cropStage(t, a)}`;
+}
+
 /** "Cotton, boll development and picking" in the UI language. */
 export function cropStage(t: TFunction, a: Pick<Advisory, "crop" | "stage">): string {
   const crop = t(`crops.${a.crop}`, { defaultValue: a.crop });
@@ -17,6 +26,12 @@ export function shortName(
   t: TFunction,
   a: Pick<Advisory, "panchayat_id" | "crop" | "category">,
 ): string {
+  if (a.crop === a.category) {
+    return t("review.shortNameNoCrop", {
+      pid: a.panchayat_id,
+      category: t(`categories.${a.category}`),
+    });
+  }
   return t("review.shortName", {
     pid: a.panchayat_id,
     crop: t(`crops.${a.crop}`, { defaultValue: a.crop }),

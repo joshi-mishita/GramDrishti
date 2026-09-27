@@ -12,7 +12,7 @@ import { LANG_OPTIONS } from "../../lib/langs";
 import { useAppStore } from "../../state/store";
 import { AuditTrail } from "./AuditTrail";
 import { StatusChip } from "./StatusChip";
-import { cropStage, placeLabel, shortName } from "./labels";
+import { advisoryTitle, placeLabel, shortName } from "./labels";
 import {
   FIELDS,
   TOAST_KEY,
@@ -124,9 +124,7 @@ export function AdvisoryEditor({ advisory: a, panchayatName, reviewer, writable 
   return (
     <article className="editor" aria-labelledby={`${id}-title`}>
       <header className="editor-head">
-        <h2 id={`${id}-title`}>
-          {t(`categories.${a.category}`)}: {cropStage(t, a)}
-        </h2>
+        <h2 id={`${id}-title`}>{advisoryTitle(t, a)}</h2>
         <p className="muted">
           {placeLabel(panchayatName, a.panchayat_id).id
             ? t("review.where", { name: panchayatName, pid: a.panchayat_id, block: a.block_id })
@@ -253,7 +251,7 @@ export function AdvisoryEditor({ advisory: a, panchayatName, reviewer, writable 
             {a.evidence.map((e) => (
               <div key={e.label}>
                 <dt lang="en">{e.label}</dt>
-                <dd lang="en" className="num">
+                <dd lang="en" className={e.value.length <= 16 ? "num nowrap" : "num"}>
                   {e.value}
                 </dd>
               </div>
@@ -341,7 +339,7 @@ export function AdvisoryEditor({ advisory: a, panchayatName, reviewer, writable 
         )}
         {hint ? <p className="muted small">{t(`review.blocked.${hint}`)}</p> : null}
         {dirty && !hint ? <p className="muted small">{t("review.blocked.hasEdits")}</p> : null}
-        <p className="muted small">{t("review.keys")}</p>
+        <p className="muted small keys-hint">{t("review.keys")}</p>
         {error ? (
           <p className="inline-error" role="alert">
             <CircleAlert size={16} aria-hidden="true" />

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { Advisory } from "../../api/types";
 import { RiskChip } from "../../components/RiskChip";
 import { StatusChip } from "./StatusChip";
-import { cropStage, placeLabel } from "./labels";
+import { advisoryTitle, placeLabel } from "./labels";
 import { moveIndex } from "./reviewState";
 
 interface Props {
@@ -88,9 +88,7 @@ export function ReviewQueue({ items, openId, active, onActive, onOpen, names, la
                 {place.name}
                 {place.id ? <span className="muted"> {place.id}</span> : null}
               </span>
-              <span className="queue-sub">
-                {t(`categories.${a.category}`)} · {cropStage(t, a)}
-              </span>
+              <span className="queue-sub">{advisoryTitle(t, a).replace(": ", " · ")}</span>
             </span>
             <span className="queue-side">
               <RiskChip level={a.priority} />
