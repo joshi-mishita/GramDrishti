@@ -17,7 +17,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S8 | Advisory engine and review APIs | backend | merged | session-08-advisory-engine (#11) | yes |
 | S9 | Frontend priority, risk and review | frontend | not started | | |
 | S10 | Verification and impact | backend | PR open | session-10-verification-impact | |
-| S11 | Frontend verification and impact | frontend | not started | | |
+| S11 | Frontend verification and impact | frontend | PR open (stacked on S10) | session-11-verification-impact-ui | |
 | S12 | Farmer-side backend and snapshot export | backend | not started | | |
 | S13 | Frontend farmer app, languages, bulletin, offline | frontend | not started | | |
 | S14 | Integration, Docker and end-to-end tests | both | not started | | |
@@ -166,6 +166,15 @@ Leave-one-block-out and the station check give the same verdicts (rain vs B1: -3
 - Decisions (whole TEST, lead day 1, 14,760 per decision): spray hold is correct more often (97.3 % vs 95.8 % B0) with fewer wasted waits (217 vs 554) but more wash-offs (179 vs 68). The p90 heat alert is correct less often (88.8 % vs 94.6 %: 1,628 false alarms vs 527, 22 misses vs 275). Irrigation wait is correct less often (97.8 % vs 98.4 %) with more misses (192 vs 80). December has no rain or heat events.
 - Block consistency: largest block-mean error 1.4e-14.
 
+S11: verification and impact screens on contract v0.3.0 (no contract change). Built:
+- `lib/verify.ts`: fixed decimals per metric with a row-level widening when rounding would hide a difference, best value per row (lower, higher, nearest 0, nearest 1; ties share), signed skill percents that never print a non-zero value as 0, interval readings (better, worse, no clear difference), outcome shares, strata parsing, loss-note split.
+- Verification screen: one-sentence method summary (model, period, truth, checks) with the synthetic notice, TEST opening and block-consistency line; comparison table for the held-out period, held-out block or stations (Model, B0, B1, B2, skill vs B0 and vs B1 with 95 % intervals and a word), best value bold, losing rows unchanged; rain-event yes/no table (POD, FAR, CSI, frequency bias, Brier; model, B0, B1); reliability plot (event selector, diagonal, dot size by count) with its table; coverage bars against the 80 % aim with a strata table and widths; regions table per variable with model minus B0; "Where the model does not help" from the job's notes; footnotes from the API notes.
+- Impact screen: decision and period selectors, two stacked bars (model, B0) with numbers on or directly under the segments, the two rules in words, what each mistake means for the chosen decision, placeholder-threshold line, counts table with B1, API notes.
+- Every chart has a table next to it; bars carry an `aria-label` with every number.
+- Tests: 202 frontend (39 new: formatting, best-value highlighting, strata, page tests against the contract examples, including a losing row read in words).
+- Screenshots `verification-{en,hi}-{desktop,phone}.png`, `impact-{en,pa}-{desktop,phone}.png` reviewed; fixes made from the review (empty space above the summary, mixed decimals in the regions columns, a coverage label on the 80 % line, a capitalised decision name mid-sentence, narrow row names on phone).
+- Checked against the job's files: with the API on `backend/artifacts/verification.json` and `impact.json`, the screen showed rain MAE 1.070 / 1.240 / 1.031 / 1.032, skill vs B1 on wet days -7.2 % (-12.0 % to -0.04 %, worse), wet-day rain coverage 50.9 % at 28.7 mm, MB01 rain 0.941 (-0.092 vs B0) and spray counts 14,364 / 217 / 179 against 14,138 / 554 / 68; the files hold 1.07045, 1.23993, 1.03107, 1.03153, -0.071987 (-0.120287 to -0.000365), 0.509421, 28.6671, 0.940999 (-0.091651) and the same counts.
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -255,6 +264,13 @@ Leave-one-block-out and the station check give the same verdicts (rain vs B1: -3
 - D077 Contract v0.3.0; files or 503; placeholders removed.
 - D078 Observed rain-intensity strata.
 - D079 Data quality stays a 30-day view, provenance computed.
+- D080 S11 worktree stacked on S10.
+- D081 Skill against B0 and B1, words from the interval.
+- D082 Number rules: fixed decimals, widening only to show a difference, best-value rules.
+- D083 Loss notes split by the job's wording.
+- D084 Reliability dots at mean probability, coverage chart rows.
+- D085 Impact bars: true widths, labels under narrow segments, decision-specific outcome names.
+- D086 `.env.example` serves verification and impact from the API.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -292,6 +308,10 @@ Leave-one-block-out and the station check give the same verdicts (rain vs B1: -3
 - S10: real mode is not verified: the job raises in real mode (no Panchayat truth); leave-one-station-out against real stations is future work.
 - S10: the frontend verification and impact screens were not run against the new endpoints (types regenerated; frontend tests pass).
 - S10: `docs/validation_report.md` was checked as Markdown text, not seen rendered on GitHub.
+- S11: CI has not run this branch (no `gh`). The branch is stacked on S10; its PR diff includes S9 and S10 until they merge.
+- S11: the screens were checked against the real API in the in-app browser (dev server, English) and in screenshots from the production build on mock files (Chrome). Not tried with a screen reader, on a touch device, in Firefox or Safari. Chart tooltips were not hovered by hand; the tables carry the same numbers.
+- S11: the Hindi and Punjabi strings for both screens are drafts needing native review. API notes, rules and check descriptions stay English (the API has no translations for them).
+- S11: in this worktree's dev server the Devanagari and Gurmukhi fonts answer 403, because `node_modules` is a symlink to the main checkout and Vite refuses files outside its root. The production build and the main checkout are not affected.
 
 ## Known issues
 - S5 rain does not beat B1 (LOBO -0.7 %, CALIB -15.8 % MAE). The rain CQR offset is 0 because dry days dominate, and wet-day coverage is 0.42..0.72. Options for discussion (not tuning): serve B1 rain amount with model event probabilities, or a wet-day-conditional interval.
@@ -333,6 +353,9 @@ Leave-one-block-out and the station check give the same verdicts (rain vs B1: -3
 - S10 intervals: Tmax under-covers (0.776), wind and RH over-cover (0.899, 0.853); rain on wet days 0.509.
 - S10 decisions: the p90 heat rule trades misses for many false alarms (1,628 vs 527 at B0); spray and irrigation replays wash off more often than the block rule. Costs are needed from an expert before calling any trade-off better.
 - S10 `verification_summary.json` example is 130 kB (strata and verdicts); the frontend may want to fetch strata lazily.
+- S11 the reliability plot's 0-10 % dot holds 94 % of forecasts, so the other dots are drawn near the minimum size; the table gives the counts.
+- S11 the impact bars are dominated by "correct" (83 to 99 %); the differences between forecasts are in the small segments and the table. Without expert costs the screen does not say which forecast is better overall.
+- S11 the method sentence inserts the API's English truth text ("synthetic Panchayat truth (mock data generator)") into Hindi and Punjabi sentences.
 - S10 another session committed S9 frontend work (`b8d86b0`, `35c056e`) on `session-10-verification-impact`, because both sessions share this checkout. The S10 pull request therefore contains those commits.
 
 ## Inputs needed from the team
@@ -362,6 +385,8 @@ Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`
 | 2026-09-27 | s5-lgbm-9b632a7b1b (S10) | models TRAIN; isotonic + CQR CALIB; evaluated on TEST (issue dates 2024-07-16..2024-12-26) | `python -m gramdrishti.verify.run_validation`. **TEST window first opened 2026-09-27T15:14:23** for this version (ledger `docs/test_window_ledger.json`); rerun at 15:23:42 gave identical numbers. Dry run of the same code on CALIB earlier the same day. Report: `docs/validation_report.md`. TEST reused: no |
 
 ## Handoff for the next session
+Frontend (S11 done): `/verification` and `/impact` are built on contract v0.3.0 and read the job's files when `verification,impact` are in `VITE_REAL_ENDPOINTS`. Number rules live in `lib/verify.ts` (reuse `formatFixed`, `rowDigits`, `bestIndexes`, `formatSkill` wherever scores are shown, for example in the bulletin or README figures). If the job changes the wording of its loss notes, `splitNotes` puts them under "About these numbers" instead; a contract field would be sturdier. S15: check both screens with a screen reader and at 200 % zoom. When an expert supplies costs, the impact screen can weigh wasted waits against wash-offs (D085). Merge order: S10, then S11.
+
 Frontend (S11): contract **v0.3.0**. `/verification/summary` has `checks[]` (temporal_holdout, leave_one_block_out, station), `strata[]`, `verdicts[]` (win / tie / loss / too_few_days) and per metric `skill_vs_b1` with `skill_vs_b1_ci95`; show B1 next to B0, because B1 is what isolates the Panchayat model. `/verification/coverage` items have `stratum` (`all`, `lead_day=n`, `season=x`, `observed_rain>=1mm`). `/verification/regions` has block (leave-one-block-out) and station rows with `b1`, `b2`. `/impact?season=monsoon_2024|post_monsoon_2024|winter_2024|test_2024&decision=...` has `block_corrected`, `events_observed`, `threshold`, `unit`; for heat and irrigation, `wasted_wait` means a false alarm and `washed_off` a miss (say so on screen). Every number is in `notes` and `docs/validation_report.md`; show the "Where the model does not help" notes, not only wins. Mock files: `verification_*.json`, `impact_<decision>.json` (monsoon) and `impact_<season>_<decision>.json`.
 Backend: run order is now train, run_daily, run_validation (writes `verification.json`, `impact.json`), then `verify.report` and `make_examples`. A new model version must go through `docs/validation_protocol.md` (the ledger will mark TEST as reused).
 
