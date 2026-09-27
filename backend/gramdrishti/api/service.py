@@ -34,7 +34,7 @@ from gramdrishti.api import schemas as s
 from gramdrishti.api.errors import ApiError, not_found
 from gramdrishti.contract.pick_demo_dates import DemoDate, load_demo_dates
 from gramdrishti.data import loaders
-from gramdrishti.data.config import COLS, LEADS, VARS, data_mode
+from gramdrishti.data.config import ART, COLS, LEADS, VARS, data_mode
 from gramdrishti.data.qc import clean_values, run_qc
 from gramdrishti.explain.shap_explain import NEGLIGIBLE_DELTA
 from gramdrishti.pipeline.run_daily import SNAPSHOTS, Snapshot, read_snapshot
@@ -89,23 +89,41 @@ def _now() -> datetime:
 class Service:
     """All response builders. One instance per app; thread-safe for the in-memory stores."""
 
-    def __init__(self, demo_dates: list[DemoDate] | None = None,
-                 clock: Callable[[], datetime] = _now, snapshot_dir: Path | None = None,
-                 db_path: Path | None = None, audio_dir: Path | None = None,
-                 synth: audio.Synth = audio.gtts_synth) -> None:
-        self._demo = demo_dates
-        self.clock = clock
-        self.snapshot_dir = snapshot_dir or Path(os.environ.get(SNAPSHOT_ENV, SNAPSHOTS))
-        self._db_path = db_path
-        self.audio_dir = audio_dir or audio.AUDIO_DIR
-        self.synth = synth
-        self._lock = threading.Lock()
-        self._drafts_lock = threading.Lock()
-        self._snaps: dict[date, Snapshot] = {}
-        self._tables: dict[date, pd.DataFrame] = {}
-        self._engine: dict[date, EngineResult] = {}
-        self._risk: dict[date, pd.DataFrame] = {}
+    def __init__(
+    self,
+    demo_dates: list[DemoDate] | None = None,
+    clock: Callable[[], datetime] = _now,
+    snapshot_dir: Path | None = None,
+    db_path: Path | None = None,
+    audio_dir: Path | None = None,
+    verification_dir: Path | None = None,
+    synth: audio.Synth = audio.gtts_synth,
+) -> None:
+    self._demo = demo_dates
+    self.clock = clock
 
+    self.snapshot_dir = (
+        snapshot_dir
+        or Path(os.environ.get(SNAPSHOT_ENV, SNAPSHOTS))
+    )
+
+    self._db_path = db_path
+
+    # Farmer/audio support
+    self.audio_dir = audio_dir or audio.AUDIO_DIR
+    self.synth = synth
+
+    # Verification/impact support
+    self.verification_dir = (
+        verification_dir
+        or Path(os.environ.get(VERIFICATION_ENV, ART))
+    )
+    self._verif: dict[str, tuple[int, dict]] = {}
+
+    self._lock = threading.Lock()
+    self._drafts_lock = threading.Lock()
+    self._snaps: dict[date, Snapshot] = {}
+    self._tables: dict[date, pd.DataFrame] = {}
     # ------------------------------------------------------------ data
     @property
     def mode(self) -> s.DataMode:
