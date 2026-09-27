@@ -246,9 +246,132 @@
   },
   "verification": {
     "title": "Forecast accuracy check",
-    "method": "Method: {{method}}. Period: {{start}} to {{end}}.",
-    "notesTitle": "Notes from the verification job",
-    "notBuilt": "No accuracy numbers are shown until the verification job has produced them."
+    "sentence": "Panchayat forecasts from model {{model}} for every issue date from {{start}} to {{end}} (lead days 1 to 5), compared with {{truth}} by three checks: {{checks}}.",
+    "sentenceNoModel": "Panchayat forecasts for every issue date from {{start}} to {{end}} (lead days 1 to 5), compared with {{truth}} by these checks: {{checks}}.",
+    "mockNotice": "Synthetic demo data, not real weather: this shows how the checks work, not real-world skill.",
+    "testOpened": "Test period first opened {{when}}. Reused after tuning: {{reused}}.",
+    "yes": "yes",
+    "no": "no",
+    "consistency": "Panchayat values average back to the block forecast: largest gap {{gap}}.",
+    "checkNames": {
+      "temporal_holdout": "a held-out period",
+      "leave_one_block_out": "leaving one block out",
+      "station": "station comparison"
+    },
+    "checkLabels": {
+      "temporal_holdout": "Held-out period",
+      "leave_one_block_out": "Held-out block",
+      "station": "Stations"
+    },
+    "compareTitle": "Compared with the block forecast",
+    "checkLegend": "Check",
+    "checkTruth": "Truth: {{truth}}. {{n}} forecast-truth pairs.",
+    "tableCaption": "Scores of the model and three baselines, {{check}}",
+    "howToRead": "Bold marks the best value in each row. Skill is 1 minus the model score divided by the baseline score: above 0 the model is better. The words better, worse and no clear difference come from the 95% interval.",
+    "colMetric": "Score",
+    "colModel": "Model",
+    "colB0": "Block forecast B0",
+    "colB1": "Corrected block B1",
+    "colB2": "Simple physical B2",
+    "colSkillB0": "Skill vs B0 (95% interval)",
+    "colSkillB1": "Skill vs B1 (95% interval)",
+    "varGroup": "{{variable}}, {{n}} forecasts",
+    "interval": "{{lo}} to {{hi}}",
+    "readings": {
+      "better": "better",
+      "worse": "worse",
+      "unclear": "no clear difference",
+      "unknown": "no interval"
+    },
+    "metrics": {
+      "MAE": "Mean absolute error",
+      "RMSE": "Root mean square error",
+      "bias": "Bias (mean error)",
+      "quantile_loss": "Quantile loss (p10, p50, p90)",
+      "MAE_wet_days_obs_ge_1mm": "Mean absolute error on wet days (1 mm or more observed)",
+      "pod": "Hit rate (POD)",
+      "far": "False alarm ratio (FAR)",
+      "csi": "Critical success index (CSI)",
+      "frequency_bias": "Frequency bias (1 is best)",
+      "brier": "Brier score"
+    },
+    "baselineNames": {
+      "b0": "Block forecast B0",
+      "b1": "Corrected block B1",
+      "b2": "Simple physical B2"
+    },
+    "eventsTitle": "Rain events: yes or no",
+    "eventsCaption": "Yes/no scores for rain events, model and block forecasts",
+    "eventGroup": "{{event}}: happened in {{rate}} of {{n}} forecasts. Brier skill vs monthly climatology {{bss}}.",
+    "events": {
+      "rain_ge_1mm": "Rain 1 mm or more",
+      "rain_ge_2_5mm": "Rain 2.5 mm or more",
+      "rain_ge_10mm": "Rain 10 mm or more",
+      "rain_ge_35mm": "Rain 35 mm or more"
+    },
+    "eventsShort": {
+      "rain_ge_1mm": "1 mm",
+      "rain_ge_2_5mm": "2.5 mm",
+      "rain_ge_10mm": "10 mm",
+      "rain_ge_35mm": "35 mm"
+    },
+    "reliabilityTitle": "Are the rain chances honest?",
+    "reliabilityEvent": "Rain event",
+    "reliabilityHelp": "Each dot is a group of forecasts with similar chances. On the diagonal, rain came as often as forecast. Bigger dots hold more forecasts.",
+    "reliabilityX": "Forecast chance",
+    "reliabilityY": "How often it rained",
+    "reliabilityCaption": "Forecast chance against observed frequency, {{event}}",
+    "colBin": "Forecast chance",
+    "colMeanProb": "Mean forecast chance",
+    "colObserved": "How often it rained",
+    "colForecasts": "Forecasts",
+    "binRange": "{{lo}} to {{hi}}",
+    "tipBin": "Chances {{range}}",
+    "tipMean": "Mean forecast {{value}}",
+    "tipObserved": "Rained {{value}}",
+    "tipCount": "{{count}} forecasts",
+    "noPoints": "No reliability points for this event",
+    "coverageTitle": "Do 80% ranges hold 80% of outcomes?",
+    "coverageHelp": "The likely range (p10 to p90) should contain what happened 8 times in 10. Above the line the range is wider than it needs to be; below it the range is too narrow.",
+    "coverageAim": "Aim 80%",
+    "coverageAxis": "Share of outcomes inside the range",
+    "coverageCaption": "Interval coverage per variable",
+    "coverageGroup": "Strata",
+    "coverageGroups": {
+      "all": "All days",
+      "lead_day": "By lead day",
+      "season": "By season"
+    },
+    "colVariable": "Variable",
+    "colStratum": "Days",
+    "colNominal": "Aim",
+    "colEmpirical": "Inside the range",
+    "colWidth": "Mean width",
+    "strata": {
+      "all": "All days",
+      "wet_days": "Wet days (1 mm or more observed)",
+      "lead_day": "Lead day {{value}}",
+      "season": "{{value}}"
+    },
+    "seasons": {
+      "monsoon": "Monsoon",
+      "post_monsoon": "Post-monsoon",
+      "winter": "Winter"
+    },
+    "wetDaysVar": "Rain, wet days",
+    "regionsTitle": "Where it works",
+    "regionsHelp": "Blocks: the model was refitted without that block and forecast it. Stations: forecasts at the station's Panchayat against the station.",
+    "regionsVar": "Variable",
+    "regionsCaption": "Mean absolute error by held-out block and station, {{variable}}",
+    "colRegion": "Held out",
+    "colForecastsShort": "Forecasts",
+    "colDiffB0": "Model minus B0",
+    "regionBlock": "Block {{id}}",
+    "regionStation": "Station {{id}}",
+    "lossesTitle": "Where the model does not help",
+    "lossesEmpty": "The verification job reported no score where the model is worse than or level with a baseline.",
+    "notesTitle": "About these numbers",
+    "sectionNotes": "Notes"
   },
   "impact": {
     "title": "Decision replay",
@@ -258,9 +381,49 @@
       "heat_alert": "Heat alert",
       "irrigation_wait": "Wait to irrigate"
     },
+    "season": "Period",
+    "seasons": {
+      "test_2024": "Whole test period",
+      "monsoon_2024": "Monsoon 2024",
+      "post_monsoon_2024": "Post-monsoon 2024",
+      "winter_2024": "Winter 2024"
+    },
+    "summary": "{{n}} decisions: one per Panchayat for the next day, on each issue date from {{start}} to {{end}}. The event happened {{events}} times.",
+    "summaryNoPeriod": "{{n}} decisions, one per Panchayat for the next day. The event happened {{events}} times.",
+    "barsCaption": "{{decision}}: what happened with each forecast",
+    "barModel": "GramDrishti model",
+    "barBlock": "Block forecast B0",
+    "barBlockCorrected": "Corrected block B1",
+    "outcomes": {
+      "spray": {
+        "correct": "Correct",
+        "wasted_wait": "Wasted wait",
+        "washed_off": "Washed off"
+      },
+      "heat_alert": {
+        "correct": "Correct",
+        "wasted_wait": "False alarm",
+        "washed_off": "Missed heat"
+      },
+      "irrigation_wait": {
+        "correct": "Correct",
+        "wasted_wait": "Waited, no rain",
+        "washed_off": "Irrigated, then rain"
+      }
+    },
+    "meanings": {
+      "spray": "Wasted wait: spraying was held and less than {{threshold}} {{unit}} of rain came. Washed off: spraying went ahead and {{threshold}} {{unit}} or more came.",
+      "heat_alert": "False alarm (wasted wait in the data): an alert was given and the maximum stayed below {{threshold}} {{unit}}. Missed heat (washed off): no alert and the maximum reached {{threshold}} {{unit}}.",
+      "irrigation_wait": "Waited, no rain (wasted wait): irrigation was held and less than {{threshold}} {{unit}} of rain came. Irrigated, then rain (washed off): irrigation went ahead and {{threshold}} {{unit}} or more came."
+    },
     "ruleModel": "GramDrishti rule",
     "ruleBlock": "Block forecast rule",
-    "notBuilt": "Counts of correct, wasted-wait and washed-off decisions are shown once the verification job has produced them."
+    "segmentLabel": "{{outcome}}: {{count}} ({{share}})",
+    "tableCaption": "Counts of each outcome",
+    "colForecast": "Forecast used",
+    "colTotal": "Decisions",
+    "tableHelp": "Bold marks the most correct and the fewest of each mistake. The two mistakes do not cost the same; no costs are applied until an expert supplies them.",
+    "notesTitle": "About these numbers"
   },
   "farmer": {
     "village": "Panchayat {{pid}}",
