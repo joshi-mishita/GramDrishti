@@ -187,6 +187,39 @@ export async function apiGet<T>(
   return getFromFiles<T>(source === "snapshot" ? SNAPSHOT_ROOT : MOCK_ROOT, path, params);
 }
 
+/**
+ * POST a JSON body. Only the real API can store anything: for a group served from demo
+ * files (or a snapshot) this throws ApiError code "read_only" without a network call.
+ */
+export async function apiPost<T>(
+  path: string,
+  body: unknown,
+  cfg: ClientConfig = defaultConfig,
+): Promise<T> {
+  if (sourceFor(groupOf(path), cfg) !== "real") {
+    throw new ApiError({
+      status: 0,
+      url: path,
+      code: "read_only",
+      message: `POST ${path} needs the API; the demo files are read-only`,
+    });
+  }
+  return fetchJson<T>(cfg.apiBase + path, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "X-Role": requestRole,
+    },
+    body: JSON.stringify(body),
+  });
+}
+
+/** True when this group's requests go to the real API (so writes are possible). */
+export function isReal(group: EndpointGroup, cfg: ClientConfig = defaultConfig): boolean {
+  return sourceFor(group, cfg) === "real";
+}
+
 /** Test helper: forget cached index files. */
 export function clearIndexCache(): void {
   indexCache.clear();
