@@ -19,13 +19,15 @@ command -v docker >/dev/null || die "docker not found. Install Docker Desktop, O
 docker compose version >/dev/null 2>&1 || die "'docker compose' (Compose v2) not found."
 docker info >/dev/null 2>&1 || die "the Docker daemon is not running (Colima: colima start)."
 
-WEB_PORT=${WEB_PORT:-8080}
-OFFLINE_PORT=${OFFLINE_PORT:-8081}
-API_PORT=${API_PORT:-8000}
-if [ -f .env ]; then
-  # Ports from .env, so the printed URLs match what compose binds.
-  eval "$(grep -E '^(WEB_PORT|OFFLINE_PORT|API_PORT)=[0-9]+$' .env || true)"
-fi
+# Ports as compose resolves them: the environment first, then .env, then the defaults.
+env_port() {  # name default
+  local v="${!1:-}"
+  if [ -z "$v" ] && [ -f .env ]; then v=$(grep -E "^$1=[0-9]+$" .env | tail -1 | cut -d= -f2 || true); fi
+  printf '%s' "${v:-$2}"
+}
+WEB_PORT=$(env_port WEB_PORT 8080)
+OFFLINE_PORT=$(env_port OFFLINE_PORT 8081)
+API_PORT=$(env_port API_PORT 8000)
 
 t0=$(now)
 say "1/3 building images"
