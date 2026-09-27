@@ -17,8 +17,11 @@ interface Props<T extends string> {
   value: T;
   options: readonly SegmentOption<T>[];
   onChange: (value: T) => void;
-  /** "bar": inline segments on the top bar. "list": stacked rows. "wrap": wrapping pills. */
-  variant?: "bar" | "list" | "wrap";
+  /**
+   * "bar": inline segments on the top bar. "list": stacked rows. "wrap": wrapping pills.
+   * "days": one row of equal columns, for the five lead days.
+   */
+  variant?: "bar" | "list" | "wrap" | "days";
   /** Disables every option (native fieldset disabled). */
   disabled?: boolean;
   /** Short text under the options, read with the group (for example why it is disabled). */

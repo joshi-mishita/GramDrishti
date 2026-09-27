@@ -10,7 +10,14 @@ import { SegmentedControl } from "../components/SegmentedControl";
 import { DecisionBars, type BarSpec } from "../features/impact/DecisionBars";
 import { formatDate, formatNumber } from "../lib/format";
 import { pickText } from "../lib/text";
-import { OUTCOMES, bestIndexes, formatCount, formatPercent, segments } from "../lib/verify";
+import {
+  OUTCOMES,
+  bestIndexes,
+  formatCount,
+  formatPercent,
+  readableNote,
+  segments,
+} from "../lib/verify";
 import { useAppStore } from "../state/store";
 import { TableScroll } from "../components/TableScroll";
 
@@ -129,7 +136,7 @@ function ImpactBody({ impact: i }: { impact: Impact }) {
           <h2 id="impact-notes">{t("impact.notesTitle")}</h2>
           <ul className="notes" lang="en">
             {i.notes.map((n) => (
-              <li key={n}>{n}</li>
+              <li key={n}>{readableNote(n)}</li>
             ))}
           </ul>
         </footer>

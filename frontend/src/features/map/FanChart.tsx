@@ -11,7 +11,7 @@ import {
   YAxis,
 } from "recharts";
 import type { Lang, Var } from "../../api/types";
-import { fanDomain, type FanRow } from "../../lib/fan";
+import { fanScale, type FanRow } from "../../lib/fan";
 import { VAR_DIGITS, formatDate, formatNumber } from "../../lib/format";
 
 interface Props {
@@ -35,7 +35,7 @@ const HEIGHT = 200;
 export function FanChart({ rows, variable, unit, lang, showObserved, selectedDate }: Props) {
   const { t } = useTranslation();
   const digits = VAR_DIGITS[variable];
-  const domain = fanDomain(
+  const scale = fanScale(
     showObserved ? rows : rows.map((r) => ({ ...r, observed: null })),
     variable,
   );
@@ -69,14 +69,14 @@ export function FanChart({ rows, variable, unit, lang, showObserved, selectedDat
               padding={{ left: 14, right: 18 }}
             />
             <YAxis
-              domain={domain ?? [0, 1]}
-              tickCount={5}
+              domain={scale?.domain ?? [0, 1]}
+              ticks={scale?.ticks}
               width={40}
               tick={{ fontSize: 12, fill: "var(--muted)" }}
               tickFormatter={(v: number) => formatNumber(v, lang, digits)}
               tickLine={false}
               axisLine={false}
-              // fanDomain already covers every plotted value. Without this Recharts widens
+              // fanScale already covers every plotted value. Without this Recharts widens
               // the axis to the stack's 0 baseline and a 30 C band becomes a flat line.
               allowDataOverflow
             />

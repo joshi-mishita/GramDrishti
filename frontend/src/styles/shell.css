@@ -76,6 +76,15 @@
   font-weight: 500;
 }
 
+/* Farmer screens keep the ribbon inside the phone-width column, under its own top bar */
+.shell-phone > .ribbon {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
 /* ---- Officer layout ---- */
 .officer {
   flex: 1;

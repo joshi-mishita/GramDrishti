@@ -14,7 +14,7 @@ import { EventTable } from "../features/verification/EventTable";
 import { RegionsTable } from "../features/verification/RegionsTable";
 import { ReliabilityPlot } from "../features/verification/ReliabilityPlot";
 import { formatDate, formatDateTime } from "../lib/format";
-import { formatCount, splitNotes } from "../lib/verify";
+import { formatCount, readableNote, splitLossNote, splitNotes } from "../lib/verify";
 import { useAppStore } from "../state/store";
 
 type CheckId = CheckSummary["check"];
@@ -138,10 +138,29 @@ function VerificationBody({ s }: { s: VerificationSummary }) {
       <section className="panel panel-pad stack" aria-labelledby="verify-losses">
         <h2 id="verify-losses">{t("verification.lossesTitle")}</h2>
         {losses.length ? (
-          <ul className="notes loss-notes" lang="en">
-            {losses.map((n) => (
-              <li key={n}>{n}</li>
-            ))}
+          <ul className="loss-notes" lang="en">
+            {losses.map((n) => {
+              const { head, items } = splitLossNote(readableNote(n));
+              return (
+                <li key={n}>
+                  {items.length ? (
+                    <>
+                      <p className="loss-head">{head}</p>
+                      <ul className="loss-items">
+                        {items.map((it) => (
+                          // A real loss (interval below 0) is set apart from ties.
+                          <li key={it} className={/: loss \(/.test(it) ? "is-loss" : undefined}>
+                            {it}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : (
+                    <p>{head}</p>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <p>{t("verification.lossesEmpty")}</p>
@@ -153,7 +172,7 @@ function VerificationBody({ s }: { s: VerificationSummary }) {
           <h2 id="verify-notes">{t("verification.notesTitle")}</h2>
           <ul className="notes" lang="en">
             {other.map((n) => (
-              <li key={n}>{n}</li>
+              <li key={n}>{readableNote(n)}</li>
             ))}
           </ul>
         </footer>
@@ -253,7 +272,7 @@ function Footnotes({ notes }: { notes: readonly string[] }) {
       <h3 className="visually-hidden">{t("verification.sectionNotes")}</h3>
       <ul className="notes small" lang="en">
         {notes.map((n) => (
-          <li key={n}>{n}</li>
+          <li key={n}>{readableNote(n)}</li>
         ))}
       </ul>
     </div>

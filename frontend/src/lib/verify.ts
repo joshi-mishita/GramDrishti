@@ -213,3 +213,59 @@ export function splitNotes(notes: readonly string[]): { losses: string[]; other:
   for (const n of notes) (LOSS_NOTE.test(n) ? losses : other).push(n);
   return { losses, other };
 }
+
+/**
+ * Job terms in the API's notes, in plain English (the notes are English only). Numbers and
+ * verdicts are left exactly as the job wrote them; only names change.
+ */
+const NOTE_TERMS: [RegExp, string | ((...m: string[]) => string)][] = [
+  [/\bDoes NOT beat\b/g, "Does not beat"],
+  [/\b95% CI\b/g, "95% interval"],
+  [/\btemporal_holdout\b/g, "held-out period"],
+  [/\bleave_one_block_out\b/g, "held-out block"],
+  [/\blead_day (\d)/g, "lead day $1"],
+  [/\bseason (\w+)/g, (_, s) => `${s.replace(/_/g, "-")} season`],
+  [/\brain_intensity dry_lt_1mm\b/g, "dry days (under 1 mm)"],
+  [/\brain_intensity light_1_10mm\b/g, "light rain days (1 to 10 mm)"],
+  [/\brain_intensity moderate_10_35mm\b/g, "moderate rain days (10 to 35 mm)"],
+  [/\brain_intensity heavy_ge_35mm\b/g, "heavy rain days (35 mm or more)"],
+  [/\bdrainage_class (\w+)/g, "$1 drainage"],
+  [/\btoo_few_days\b/g, "too few days"],
+  [/\bMAE_wet_days_obs_ge_1mm\b/g, "mean absolute error on wet days (1 mm or more observed)"],
+  [/\bMAE\b/g, "mean absolute error"],
+  [/\bRMSE\b/g, "root mean square error"],
+  [/\brain_ge_(\d+)(?:_(\d+))?mm\b/g, (_, a, b) => `Rain ${b ? `${a}.${b}` : a} mm or more`],
+  [/\bon rh\b/g, "on humidity"],
+  [/\bon tmax\b/g, "on max temperature"],
+  [/\bon tmin\b/g, "on min temperature"],
+  [/\bforecast_prob\b/g, "the forecast chance"],
+  [/\bscore_model\b/g, "model score"],
+  [/\bscore_baseline\b/g, "baseline score"],
+  [/\bwasted_wait\b/g, "wasted wait"],
+  [/\bwashed_off\b/g, "washed off"],
+  [/\bblock_baseline\b/g, "block baseline"],
+  [/\bblock_corrected\b/g, "corrected block"],
+  [/ >= /g, " ≥ "],
+];
+
+/** One API note in plain words, starting with a capital letter. */
+export function readableNote(note: string): string {
+  let out = note;
+  for (const [re, to] of NOTE_TERMS) {
+    // Two calls because TypeScript's replace overloads take a string or a function, not both.
+    out = typeof to === "string" ? out.replace(re, to) : out.replace(re, to);
+  }
+  return out.charAt(0).toUpperCase() + out.slice(1);
+}
+
+/**
+ * Splits a loss note "Does not beat B1 on rain ... (held-out period): overall: tie (...);
+ * lead day 1: tie (...)" into its headline and one item per stratum, so a long line of
+ * results reads as a list. Notes without that shape come back whole, with no items.
+ */
+export function splitLossNote(note: string): { head: string; items: string[] } {
+  const m = /^(.*?\)): (.*)$/.exec(note);
+  // "overall: tie (...)" is a stratum result; "skill -4.3%." is a single number and stays inline.
+  if (!m?.[1] || !m[2] || !/^[^:]+: /.test(m[2])) return { head: note, items: [] };
+  return { head: m[1], items: m[2].replace(/\.$/, "").split("; ") };
+}

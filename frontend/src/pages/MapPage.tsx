@@ -146,7 +146,7 @@ function MapArea() {
               ? t("map.heading", {
                   variable: varLabel,
                   date: validDate,
-                  view: t(`viewModes.${viewMode}`),
+                  view: t(`map.headingView.${viewMode}`),
                 })
               : varLabel}
         </h2>

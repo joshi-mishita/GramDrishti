@@ -21,10 +21,26 @@ export function MapControls() {
   const setViewMode = useAppStore((s) => s.setViewMode);
   const riskOn = useAppStore((s) => s.riskType !== null);
 
-  const dayOptions = LEAD_DAYS.map((d) => ({
-    value: String(d),
-    label: issueDate ? formatDate(addDays(issueDate, d), lang, "day") : String(d),
-  }));
+  // Weekday over the day number in one row of five; the full date is what screen readers hear.
+  const dayOptions = LEAD_DAYS.map((d) => {
+    if (!issueDate) return { value: String(d), label: String(d) };
+    const date = addDays(issueDate, d);
+    const [weekday, dayNum] = formatDate(date, lang, "short").split(" ");
+    return {
+      value: String(d),
+      label: (
+        <>
+          <span className="day-wd" aria-hidden="true">
+            {weekday}
+          </span>
+          <span className="day-num" aria-hidden="true">
+            {dayNum}
+          </span>
+          <span className="visually-hidden">{formatDate(date, lang, "day")}</span>
+        </>
+      ),
+    };
+  });
   const varOptions = (meta.data?.vars ?? []).map((v) => ({
     value: v.var,
     label: t(`vars.${v.var}`),
@@ -37,7 +53,7 @@ export function MapControls() {
         legend={t("map.day")}
         showLegend
         name="lead-day"
-        variant="wrap"
+        variant="days"
         value={String(leadDay)}
         options={dayOptions}
         onChange={(v) => setLeadDay(Number(v))}

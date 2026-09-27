@@ -382,8 +382,34 @@
   max-height: none;
 }
 .section-notes .notes,
+/* Losses: one headline per comparison, then one line per stratum, divided like a table */
 .loss-notes {
-  margin-top: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 90ch;
+}
+.loss-notes > li {
+  padding: var(--gap-2) 0;
+  border-top: 1px solid var(--line);
+}
+.loss-notes > li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.loss-head {
+  font-weight: 600;
+}
+.loss-items .is-loss {
+  color: var(--ink);
+  font-weight: 600;
+}
+.loss-items {
+  margin: var(--gap-1) 0 0;
+  padding-left: var(--gap-4);
+  font-size: var(--fs-2);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 .verify-footnote {
   font-size: var(--fs-2);
@@ -647,12 +673,10 @@
 .change-list p + p {
   margin-top: 2px;
 }
-/* Five variables do not fit on one row of the panel: three, then two, all equal width. */
-.fan-vars .seg-opt {
-  flex: 1 0 30%;
-}
+/* Five variables at their natural width; they wrap left-aligned when the panel is narrow,
+   instead of an equal-width 3 + 2 grid of heavy buttons. */
 .fan-vars .seg-face {
-  justify-content: center;
+  min-height: 30px;
 }
 
 /* ---- Risk layer (S9) ---- */

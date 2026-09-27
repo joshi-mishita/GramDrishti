@@ -111,7 +111,12 @@
     "panelEmptyBody": "Choose a Panchayat to see its 5-day forecast, why it differs from its block, and its advisories.",
     "clearSelection": "Clear selection",
     "unknownPid": "Panchayat {{pid}} is not in this district",
-    "heading": "{{variable}}, {{date}}: {{view}}",
+    "heading": "{{variable}} on {{date}}, {{view}}",
+    "headingView": {
+      "block": "block forecast",
+      "panchayat": "Panchayat forecast",
+      "delta": "Panchayat minus block"
+    },
     "showTable": "Show as table",
     "showMap": "Show as map",
     "flatNote": "Every Panchayat in a block has the same middle estimate for this variable on this day, so this view changes colour only between blocks. Choose Difference from block to see the rest.",
