@@ -1,27 +1,27 @@
 {
-  "season": "monsoon_2024",
-  "decision": "spray",
+  "season": "winter_2024",
+  "decision": "heat_alert",
   "data_mode": "mock",
   "provenance": "computed",
   "model": {
-    "correct": 6511,
-    "wasted_wait": 217,
-    "washed_off": 112
+    "correct": 2430,
+    "wasted_wait": 0,
+    "washed_off": 0
   },
   "block_baseline": {
-    "correct": 6437,
-    "wasted_wait": 357,
-    "washed_off": 46
+    "correct": 2430,
+    "wasted_wait": 0,
+    "washed_off": 0
   },
-  "n_decisions": 6840,
+  "n_decisions": 2430,
   "rule": {
     "model": {
-      "en": "Advise spraying tomorrow when the chance of 2.5 mm rain or more is under 30%.",
+      "en": "Alert when the upper estimate (p90) of tomorrow's maximum is 35 C or more.",
       "hi": null,
       "pa": null
     },
     "block": {
-      "en": "Advise spraying tomorrow when the block forecast is under 2.5 mm.",
+      "en": "Alert when the block forecast of tomorrow's maximum is 35 C or more.",
       "hi": null,
       "pa": null
     }
@@ -36,16 +36,16 @@
     "Thresholds are placeholders awaiting expert review."
   ],
   "block_corrected": {
-    "correct": 6460,
-    "wasted_wait": 294,
-    "washed_off": 86
+    "correct": 2430,
+    "wasted_wait": 0,
+    "washed_off": 0
   },
-  "events_observed": 563,
+  "events_observed": 0,
   "period": {
-    "start": "2024-07-17",
-    "end": "2024-09-30"
+    "start": "2024-12-01",
+    "end": "2024-12-31"
   },
   "lead_day": 1,
-  "threshold": 2.5,
-  "unit": "mm"
+  "threshold": 35.0,
+  "unit": "C"
 }

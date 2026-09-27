@@ -64,10 +64,11 @@ def load_inputs() -> Inputs:
                   stations=loaders.load_stations())
 
 
-def window_issue_dates(fc: pd.DataFrame, window: str) -> pd.DatetimeIndex:
-    """Issue dates whose five lead days all fall inside ``window``. TEST raises (D009)."""
+def window_issue_dates(fc: pd.DataFrame, window: str, *, allow_test: bool = False) -> pd.DatetimeIndex:
+    """Issue dates whose five lead days all fall inside ``window``. TEST raises (D009) unless the
+    verification job passes ``allow_test``."""
     start, end = window_bounds(window)
-    in_window = select_window(fc, window, "valid_date")          # raises for TEST
+    in_window = select_window(fc, window, "valid_date", allow_test=allow_test)
     issues = pd.DatetimeIndex(sorted(in_window["issue_date"].unique()))
     return issues[(issues >= start) & (issues + pd.Timedelta(days=max(LEADS)) <= end)]
 

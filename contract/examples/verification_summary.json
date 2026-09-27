@@ -1,168 +1,386 @@
 {
   "data_mode": "mock",
-  "provenance": "placeholder",
-  "method": "leave_one_block_out + temporal_holdout",
+  "provenance": "computed",
+  "method": "temporal_holdout + leave_one_block_out + station_check",
   "period": {
-    "start": "2024-07-16",
+    "start": "2024-07-17",
     "end": "2024-12-31"
   },
   "variables": [
     {
       "var": "rain",
-      "n": 12510,
+      "n": 73800,
       "metrics": [
         {
           "name": "MAE",
           "unit": "mm",
-          "model": 3.42,
-          "b0": 3.8,
-          "b1": 3.47,
-          "b2": 3.41,
-          "skill_vs_b0": 0.1,
+          "model": 1.07045,
+          "b0": 1.23993,
+          "b1": 1.03107,
+          "b2": 1.03153,
+          "skill_vs_b0": 0.136683,
           "skill_ci95": [
-            0.052,
-            0.147
+            0.0397179,
+            0.27946
+          ],
+          "skill_vs_b1": -0.0381941,
+          "skill_vs_b1_ci95": [
+            -0.0807198,
+            0.00790451
           ]
         },
         {
           "name": "RMSE",
           "unit": "mm",
-          "model": 4.97,
-          "b0": 5.33,
-          "b1": 4.75,
-          "b2": 4.8,
-          "skill_vs_b0": 0.066,
+          "model": 7.32779,
+          "b0": 9.43563,
+          "b1": 7.02656,
+          "b2": 6.98101,
+          "skill_vs_b0": 0.223392,
           "skill_ci95": [
-            0.026,
-            0.105
+            -0.189998,
+            0.371379
+          ],
+          "skill_vs_b1": -0.0428691,
+          "skill_vs_b1_ci95": [
+            -0.264578,
+            0.0239213
+          ]
+        },
+        {
+          "name": "bias",
+          "unit": "mm",
+          "model": 0.0201088,
+          "b0": 0.356873,
+          "b1": 0.0201088,
+          "b2": 0.0572351,
+          "skill_vs_b0": null,
+          "skill_ci95": null,
+          "skill_vs_b1": null,
+          "skill_vs_b1_ci95": null
+        },
+        {
+          "name": "quantile_loss",
+          "unit": "mm",
+          "model": 0.411868,
+          "b0": 0.619966,
+          "b1": 0.515537,
+          "b2": 0.515763,
+          "skill_vs_b0": 0.335661,
+          "skill_ci95": [
+            0.0845649,
+            0.458988
+          ],
+          "skill_vs_b1": 0.201089,
+          "skill_vs_b1_ci95": [
+            -0.181483,
+            0.327078
+          ]
+        },
+        {
+          "name": "MAE_wet_days_obs_ge_1mm",
+          "unit": "mm",
+          "model": 11.1084,
+          "b0": 11.4236,
+          "b1": 10.3624,
+          "b2": 10.3199,
+          "skill_vs_b0": 0.0275962,
+          "skill_ci95": [
+            -0.150055,
+            0.253499
+          ],
+          "skill_vs_b1": -0.071987,
+          "skill_vs_b1_ci95": [
+            -0.120287,
+            -0.000365054
           ]
         }
       ]
     },
     {
       "var": "tmax",
-      "n": 12642,
+      "n": 73800,
       "metrics": [
         {
           "name": "MAE",
           "unit": "C",
-          "model": 1.05,
-          "b0": 1.1,
-          "b1": 1.01,
-          "b2": 1.01,
-          "skill_vs_b0": 0.042,
+          "model": 1.07609,
+          "b0": 1.15412,
+          "b1": 1.1344,
+          "b2": 1.13835,
+          "skill_vs_b0": 0.0676104,
           "skill_ci95": [
-            0.019,
-            0.064
+            0.050567,
+            0.0843683
+          ],
+          "skill_vs_b1": 0.0514053,
+          "skill_vs_b1_ci95": [
+            0.0378031,
+            0.0659328
           ]
         },
         {
           "name": "RMSE",
           "unit": "C",
-          "model": 1.36,
-          "b0": 1.61,
-          "b1": 1.43,
-          "b2": 1.43,
-          "skill_vs_b0": 0.16,
+          "model": 1.41629,
+          "b0": 1.4993,
+          "b1": 1.48009,
+          "b2": 1.48599,
+          "skill_vs_b0": 0.0553673,
           "skill_ci95": [
-            0.111,
-            0.209
+            0.042373,
+            0.0686833
+          ],
+          "skill_vs_b1": 0.0431067,
+          "skill_vs_b1_ci95": [
+            0.0316663,
+            0.0551596
+          ]
+        },
+        {
+          "name": "bias",
+          "unit": "C",
+          "model": 0.00414335,
+          "b0": 0.0771343,
+          "b1": 0.00414335,
+          "b2": -0.0347676,
+          "skill_vs_b0": null,
+          "skill_ci95": null,
+          "skill_vs_b1": null,
+          "skill_vs_b1_ci95": null
+        },
+        {
+          "name": "quantile_loss",
+          "unit": "C",
+          "model": 0.367217,
+          "b0": 0.577059,
+          "b1": 0.567201,
+          "b2": 0.569175,
+          "skill_vs_b0": 0.36364,
+          "skill_ci95": [
+            0.353102,
+            0.375665
+          ],
+          "skill_vs_b1": 0.35258,
+          "skill_vs_b1_ci95": [
+            0.34243,
+            0.363956
           ]
         }
       ]
     },
     {
       "var": "tmin",
-      "n": 12224,
+      "n": 73800,
       "metrics": [
         {
           "name": "MAE",
           "unit": "C",
-          "model": 1.03,
-          "b0": 1.16,
-          "b1": 1.12,
-          "b2": 1.14,
-          "skill_vs_b0": 0.106,
+          "model": 1.09858,
+          "b0": 1.28642,
+          "b1": 1.14244,
+          "b2": 1.15343,
+          "skill_vs_b0": 0.146012,
           "skill_ci95": [
-            0.055,
-            0.158
+            0.131615,
+            0.161895
+          ],
+          "skill_vs_b1": 0.0383886,
+          "skill_vs_b1_ci95": [
+            0.0214099,
+            0.054769
           ]
         },
         {
           "name": "RMSE",
           "unit": "C",
-          "model": 1.09,
-          "b0": 1.43,
-          "b1": 1.25,
-          "b2": 1.21,
-          "skill_vs_b0": 0.236,
+          "model": 1.44617,
+          "b0": 1.65946,
+          "b1": 1.49691,
+          "b2": 1.51075,
+          "skill_vs_b0": 0.128528,
           "skill_ci95": [
-            0.199,
-            0.273
+            0.114024,
+            0.143383
+          ],
+          "skill_vs_b1": 0.0338955,
+          "skill_vs_b1_ci95": [
+            0.0185972,
+            0.048275
+          ]
+        },
+        {
+          "name": "bias",
+          "unit": "C",
+          "model": -0.0234269,
+          "b0": 0.698691,
+          "b1": -0.0234269,
+          "b2": -0.0187794,
+          "skill_vs_b0": null,
+          "skill_ci95": null,
+          "skill_vs_b1": null,
+          "skill_vs_b1_ci95": null
+        },
+        {
+          "name": "quantile_loss",
+          "unit": "C",
+          "model": 0.372946,
+          "b0": 0.643209,
+          "b1": 0.571221,
+          "b2": 0.576716,
+          "skill_vs_b0": 0.420179,
+          "skill_ci95": [
+            0.407816,
+            0.432257
+          ],
+          "skill_vs_b1": 0.347107,
+          "skill_vs_b1_ci95": [
+            0.332194,
+            0.360545
           ]
         }
       ]
     },
     {
       "var": "rh",
-      "n": 14573,
+      "n": 73800,
       "metrics": [
         {
           "name": "MAE",
           "unit": "%",
-          "model": 4.98,
-          "b0": 5.81,
-          "b1": 5.01,
-          "b2": 5.06,
-          "skill_vs_b0": 0.143,
+          "model": 5.66805,
+          "b0": 5.98665,
+          "b1": 5.9142,
+          "b2": 5.93963,
+          "skill_vs_b0": 0.0532183,
           "skill_ci95": [
-            0.092,
-            0.194
+            0.0478658,
+            0.0584711
+          ],
+          "skill_vs_b1": 0.0416196,
+          "skill_vs_b1_ci95": [
+            0.0373297,
+            0.0457039
           ]
         },
         {
           "name": "RMSE",
           "unit": "%",
-          "model": 6.41,
-          "b0": 8.23,
-          "b1": 7.12,
-          "b2": 6.9,
-          "skill_vs_b0": 0.221,
+          "model": 7.30015,
+          "b0": 7.67652,
+          "b1": 7.57945,
+          "b2": 7.61028,
+          "skill_vs_b0": 0.0490289,
           "skill_ci95": [
-            0.187,
-            0.256
+            0.043134,
+            0.0550037
+          ],
+          "skill_vs_b1": 0.0368499,
+          "skill_vs_b1_ci95": [
+            0.0329687,
+            0.0407603
+          ]
+        },
+        {
+          "name": "bias",
+          "unit": "%",
+          "model": -0.121389,
+          "b0": -1.10445,
+          "b1": -0.121389,
+          "b2": -0.303694,
+          "skill_vs_b0": null,
+          "skill_ci95": null,
+          "skill_vs_b1": null,
+          "skill_vs_b1_ci95": null
+        },
+        {
+          "name": "quantile_loss",
+          "unit": "%",
+          "model": 1.88694,
+          "b0": 2.99333,
+          "b1": 2.9571,
+          "b2": 2.96982,
+          "skill_vs_b0": 0.369617,
+          "skill_ci95": [
+            0.363799,
+            0.376322
+          ],
+          "skill_vs_b1": 0.361895,
+          "skill_vs_b1_ci95": [
+            0.355791,
+            0.36816
           ]
         }
       ]
     },
     {
       "var": "wind",
-      "n": 12440,
+      "n": 73800,
       "metrics": [
         {
           "name": "MAE",
           "unit": "km/h",
-          "model": 1.91,
-          "b0": 2.02,
-          "b1": 1.92,
-          "b2": 1.92,
-          "skill_vs_b0": 0.056,
+          "model": 1.07387,
+          "b0": 1.68425,
+          "b1": 1.09477,
+          "b2": 1.09663,
+          "skill_vs_b0": 0.362407,
           "skill_ci95": [
-            0.015,
-            0.096
+            0.349028,
+            0.374031
+          ],
+          "skill_vs_b1": 0.0190943,
+          "skill_vs_b1_ci95": [
+            0.0175239,
+            0.0204919
           ]
         },
         {
           "name": "RMSE",
           "unit": "km/h",
-          "model": 2.17,
-          "b0": 2.67,
-          "b1": 2.57,
-          "b2": 2.49,
-          "skill_vs_b0": 0.186,
+          "model": 1.53282,
+          "b0": 2.41705,
+          "b1": 1.55742,
+          "b2": 1.55158,
+          "skill_vs_b0": 0.365829,
           "skill_ci95": [
-            0.148,
-            0.225
+            0.355629,
+            0.374718
+          ],
+          "skill_vs_b1": 0.0157944,
+          "skill_vs_b1_ci95": [
+            0.0142802,
+            0.0170124
+          ]
+        },
+        {
+          "name": "bias",
+          "unit": "km/h",
+          "model": 0.0171445,
+          "b0": 1.37996,
+          "b1": 0.0171445,
+          "b2": -0.056706,
+          "skill_vs_b0": null,
+          "skill_ci95": null,
+          "skill_vs_b1": null,
+          "skill_vs_b1_ci95": null
+        },
+        {
+          "name": "quantile_loss",
+          "unit": "km/h",
+          "model": 0.38358,
+          "b0": 0.842126,
+          "b1": 0.547385,
+          "b2": 0.548317,
+          "skill_vs_b0": 0.54451,
+          "skill_ci95": [
+            0.532561,
+            0.553056
+          ],
+          "skill_vs_b1": 0.299251,
+          "skill_vs_b1_ci95": [
+            0.287635,
+            0.309221
           ]
         }
       ]
@@ -171,46 +389,5348 @@
   "events": [
     {
       "event": "rain_ge_1mm",
-      "pod": 0.815,
-      "far": 0.185,
-      "csi": 0.688,
-      "brier": 0.051,
-      "brier_skill_vs_climatology": 0.068
+      "pod": 0.518843,
+      "far": 0.279215,
+      "csi": 0.432013,
+      "brier": 0.0348127,
+      "brier_skill_vs_climatology": 0.384892,
+      "n": 73800,
+      "base_rate": 0.0604065,
+      "frequency_bias": 0.71983,
+      "yes_rule": "model says yes when P >= 0.5; B0 and B1 when the block forecast is >= 1 mm; climatology = TRAIN frequency per month",
+      "baselines": [
+        {
+          "baseline": "b0",
+          "pod": 0.830417,
+          "far": 0.707583,
+          "csi": 0.275939,
+          "frequency_bias": 2.83984,
+          "brier": 0.131626
+        },
+        {
+          "baseline": "b1",
+          "pod": 0.654778,
+          "far": 0.637256,
+          "csi": 0.304507,
+          "frequency_bias": 1.80507,
+          "brier": 0.0903388
+        }
+      ]
     },
     {
       "event": "rain_ge_2_5mm",
-      "pod": 0.623,
-      "far": 0.429,
-      "csi": 0.424,
-      "brier": 0.057,
-      "brier_skill_vs_climatology": 0.232
+      "pod": 0.594136,
+      "far": 0.269869,
+      "csi": 0.487155,
+      "brier": 0.0243268,
+      "brier_skill_vs_climatology": 0.457543,
+      "n": 73800,
+      "base_rate": 0.0471409,
+      "frequency_bias": 0.81374,
+      "yes_rule": "model says yes when P >= 0.5; B0 and B1 when the block forecast is >= 2.5 mm; climatology = TRAIN frequency per month",
+      "baselines": [
+        {
+          "baseline": "b0",
+          "pod": 0.795918,
+          "far": 0.59974,
+          "csi": 0.363005,
+          "frequency_bias": 1.9885,
+          "brier": 0.0658401
+        },
+        {
+          "baseline": "b1",
+          "pod": 0.710262,
+          "far": 0.521958,
+          "csi": 0.400032,
+          "frequency_bias": 1.48577,
+          "brier": 0.0502168
+        }
+      ]
     },
     {
       "event": "rain_ge_10mm",
-      "pod": 0.514,
-      "far": 0.185,
-      "csi": 0.46,
-      "brier": 0.103,
-      "brier_skill_vs_climatology": 0.264
+      "pod": 0.701903,
+      "far": 0.358144,
+      "csi": 0.504368,
+      "brier": 0.0133047,
+      "brier_skill_vs_climatology": 0.449859,
+      "n": 73800,
+      "base_rate": 0.0256369,
+      "frequency_bias": 1.09355,
+      "yes_rule": "model says yes when P >= 0.5; B0 and B1 when the block forecast is >= 10 mm; climatology = TRAIN frequency per month",
+      "baselines": [
+        {
+          "baseline": "b0",
+          "pod": 0.709302,
+          "far": 0.340541,
+          "csi": 0.519149,
+          "frequency_bias": 1.07558,
+          "brier": 0.0168428
+        },
+        {
+          "baseline": "b1",
+          "pod": 0.731501,
+          "far": 0.354779,
+          "csi": 0.521674,
+          "frequency_bias": 1.13372,
+          "brier": 0.0171951
+        }
+      ]
     },
     {
       "event": "rain_ge_35mm",
-      "pod": 0.632,
-      "far": 0.418,
-      "csi": 0.435,
-      "brier": 0.142,
-      "brier_skill_vs_climatology": 0.158
+      "pod": 0.231915,
+      "far": 0.736077,
+      "csi": 0.140827,
+      "brier": 0.00649193,
+      "brier_skill_vs_climatology": -0.0160453,
+      "n": 73800,
+      "base_rate": 0.00636856,
+      "frequency_bias": 0.878723,
+      "yes_rule": "model says yes when P >= 0.5; B0 and B1 when the block forecast is >= 35 mm; climatology = TRAIN frequency per month",
+      "baselines": [
+        {
+          "baseline": "b0",
+          "pod": 0.591489,
+          "far": 0.540496,
+          "csi": 0.348808,
+          "frequency_bias": 1.28723,
+          "brier": 0.00703252
+        },
+        {
+          "baseline": "b1",
+          "pod": 0.591489,
+          "far": 0.501792,
+          "csi": 0.370667,
+          "frequency_bias": 1.18723,
+          "brier": 0.00639566
+        }
+      ]
     }
   ],
   "block_mean_error": {
-    "rain": 8.35e-07,
-    "tmax": 4.46e-07,
-    "tmin": 3.99e-07,
-    "rh": 6.13e-07,
-    "wind": 2.86e-07
+    "rain": 1.42109e-14,
+    "tmax": 7.10543e-15,
+    "tmin": 7.10543e-15,
+    "rh": 1.42109e-14,
+    "wind": 3.55271e-15
   },
   "notes": [
-    "PLACEHOLDER: generated numbers for building the screens. Not verification results. The verification job (S10) replaces them.",
-    "Proxy validation on synthetic truth. Real-station validation follows when data is available."
+    "Synthetic demo data: every number comes from the mock data generator, not real weather. This is proxy validation on synthetic truth, not evidence of real-world skill.",
+    "Evaluation window TEST 2024-07-17..2024-12-31, 164 issue dates, lead days 1-5, model s5-lgbm-9b632a7b1b. TEST first opened 2026-09-27T15:14:23 for this model version.",
+    "Skill = 1 - score_model / score_baseline. 95% intervals from a moving-block bootstrap of daily errors (7-day blocks, 1000 resamples, seed 42). Win = whole MAE-skill interval above 0; loss = whole interval below 0; tie = interval contains 0. The model value is the reconciled mean; intervals are p10..p90 after conformal offsets.",
+    "B0 = raw block forecast (mean of the two NWP sources) copied to every Panchayat; B1 = bias-corrected block forecast, which the model is reconciled to, so skill against B1 is what the Panchayat model itself adds; B2 = B1 plus lapse rate and station offsets.",
+    "Does NOT beat B0 on rain MAE (temporal_holdout): lead_day 1: tie (+5.1%, 95% CI -1.1% to +19.5%); lead_day 2: tie (+0.7%, 95% CI -4.7% to +16.0%); season monsoon: tie (+8.5%, 95% CI -3.3% to +21.8%); rain_intensity light_1_10mm: loss (-47.4%, 95% CI -67.0% to -40.3%); rain_intensity moderate_10_35mm: tie (-2.8%, 95% CI -5.7% to +1.5%); rain_intensity heavy_ge_35mm: too_few_days (+15.8%, no interval); drainage_class moderate: tie (+15.2%, 95% CI -1.7% to +33.7%); drainage_class poor: tie (-14.8%, 95% CI -33.4% to +18.6%).",
+    "Does NOT beat B0 on tmax MAE (temporal_holdout): season winter: tie (+0.8%, 95% CI -1.0% to +2.0%); rain_intensity light_1_10mm: tie (+2.6%, 95% CI -3.2% to +5.6%); rain_intensity heavy_ge_35mm: too_few_days (+4.8%, no interval).",
+    "Does NOT beat B0 on tmin MAE (temporal_holdout): rain_intensity heavy_ge_35mm: too_few_days (+19.6%, no interval).",
+    "Does NOT beat B0 on rh MAE (temporal_holdout): rain_intensity moderate_10_35mm: tie (+1.3%, 95% CI -0.3% to +2.7%); rain_intensity heavy_ge_35mm: too_few_days (-0.7%, no interval).",
+    "Does NOT beat B0 on wind MAE (temporal_holdout): rain_intensity heavy_ge_35mm: too_few_days (+32.2%, no interval).",
+    "Does NOT beat B1 on rain MAE (temporal_holdout): overall: tie (-3.8%, 95% CI -8.1% to +0.8%); lead_day 1: tie (-3.3%, 95% CI -9.1% to +0.9%); lead_day 2: tie (-5.7%, 95% CI -13.8% to +0.6%); lead_day 3: tie (-4.2%, 95% CI -6.9% to +0.5%); lead_day 4: tie (-3.8%, 95% CI -10.0% to +1.8%); lead_day 5: tie (-2.4%, 95% CI -5.6% to +0.4%); season monsoon: tie (-4.2%, 95% CI -9.3% to +0.9%); season post_monsoon: tie (-0.8%, 95% CI -1.2% to +0.0%); season winter: tie (-1.7%, 95% CI -2.6% to +0.0%); rain_intensity dry_lt_1mm: tie (+1.4%, 95% CI -0.7% to +3.3%); rain_intensity light_1_10mm: loss (-6.4%, 95% CI -12.5% to -3.0%); rain_intensity moderate_10_35mm: loss (-14.0%, 95% CI -16.4% to -7.5%); rain_intensity heavy_ge_35mm: too_few_days (-3.3%, no interval); drainage_class good: tie (-0.6%, 95% CI -6.4% to +2.6%); drainage_class moderate: tie (-6.2%, 95% CI -12.4% to +0.4%); drainage_class poor: loss (-33.3%, 95% CI -50.7% to -4.4%).",
+    "Does NOT beat B1 on tmax MAE (temporal_holdout): rain_intensity heavy_ge_35mm: too_few_days (+0.9%, no interval).",
+    "Does NOT beat B1 on tmin MAE (temporal_holdout): rain_intensity moderate_10_35mm: tie (+0.3%, 95% CI -0.2% to +0.5%); rain_intensity heavy_ge_35mm: too_few_days (+0.9%, no interval).",
+    "Does NOT beat B1 on rh MAE (temporal_holdout): rain_intensity heavy_ge_35mm: too_few_days (+1.1%, no interval).",
+    "Does NOT beat B1 on wind MAE (temporal_holdout): rain_intensity heavy_ge_35mm: too_few_days (+2.2%, no interval).",
+    "Does NOT beat B1 on rain MAE (leave_one_block_out): overall: tie (-3.5%, 95% CI -6.8% to +0.1%).",
+    "Does NOT beat B1 on rain MAE (station): overall: tie (-5.0%, 95% CI -11.5% to +4.4%).",
+    "Worse than or equal to B1 on rain RMSE (temporal_holdout): skill -4.3%.",
+    "Worse than or equal to B1 on rain MAE_wet_days_obs_ge_1mm (temporal_holdout): skill -7.2%.",
+    "Worse than or equal to B1 on rain RMSE (leave_one_block_out): skill -3.5%.",
+    "Worse than or equal to B1 on rain MAE_wet_days_obs_ge_1mm (leave_one_block_out): skill -5.8%.",
+    "Worse than or equal to B1 on rain RMSE (station): skill -15.5%.",
+    "Worse than or equal to B0 on rain MAE_wet_days_obs_ge_1mm (station): skill -0.2%.",
+    "Worse than or equal to B1 on rain MAE_wet_days_obs_ge_1mm (station): skill -11.2%.",
+    "rain_ge_10mm: model yes/no CSI 0.504 is below B0 (0.519).",
+    "rain_ge_10mm: model yes/no CSI 0.504 is below B1 (0.522).",
+    "rain_ge_35mm: Brier score no better than monthly climatology (skill -1.6%).",
+    "rain_ge_35mm: model yes/no CSI 0.141 is below B0 (0.349).",
+    "rain_ge_35mm: model yes/no CSI 0.141 is below B1 (0.371)."
+  ],
+  "model_version": "s5-lgbm-9b632a7b1b",
+  "window": "test",
+  "test_first_opened_at": "2026-09-27T15:14:23",
+  "test_reused": false,
+  "checks": [
+    {
+      "check": "temporal_holdout",
+      "description": "Production model fitted on TRAIN, calibrated on CALIB, forecasting every issue date of the evaluation window.",
+      "truth": "synthetic Panchayat truth (mock data generator)",
+      "n": 73800,
+      "variables": [
+        {
+          "var": "rain",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "mm",
+              "model": 1.07045,
+              "b0": 1.23993,
+              "b1": 1.03107,
+              "b2": 1.03153,
+              "skill_vs_b0": 0.136683,
+              "skill_ci95": [
+                0.0397179,
+                0.27946
+              ],
+              "skill_vs_b1": -0.0381941,
+              "skill_vs_b1_ci95": [
+                -0.0807198,
+                0.00790451
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "mm",
+              "model": 7.32779,
+              "b0": 9.43563,
+              "b1": 7.02656,
+              "b2": 6.98101,
+              "skill_vs_b0": 0.223392,
+              "skill_ci95": [
+                -0.189998,
+                0.371379
+              ],
+              "skill_vs_b1": -0.0428691,
+              "skill_vs_b1_ci95": [
+                -0.264578,
+                0.0239213
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "mm",
+              "model": 0.0201088,
+              "b0": 0.356873,
+              "b1": 0.0201088,
+              "b2": 0.0572351,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "mm",
+              "model": 0.411868,
+              "b0": 0.619966,
+              "b1": 0.515537,
+              "b2": 0.515763,
+              "skill_vs_b0": 0.335661,
+              "skill_ci95": [
+                0.0845649,
+                0.458988
+              ],
+              "skill_vs_b1": 0.201089,
+              "skill_vs_b1_ci95": [
+                -0.181483,
+                0.327078
+              ]
+            },
+            {
+              "name": "MAE_wet_days_obs_ge_1mm",
+              "unit": "mm",
+              "model": 11.1084,
+              "b0": 11.4236,
+              "b1": 10.3624,
+              "b2": 10.3199,
+              "skill_vs_b0": 0.0275962,
+              "skill_ci95": [
+                -0.150055,
+                0.253499
+              ],
+              "skill_vs_b1": -0.071987,
+              "skill_vs_b1_ci95": [
+                -0.120287,
+                -0.000365054
+              ]
+            }
+          ]
+        },
+        {
+          "var": "tmax",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "C",
+              "model": 1.07609,
+              "b0": 1.15412,
+              "b1": 1.1344,
+              "b2": 1.13835,
+              "skill_vs_b0": 0.0676104,
+              "skill_ci95": [
+                0.050567,
+                0.0843683
+              ],
+              "skill_vs_b1": 0.0514053,
+              "skill_vs_b1_ci95": [
+                0.0378031,
+                0.0659328
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "C",
+              "model": 1.41629,
+              "b0": 1.4993,
+              "b1": 1.48009,
+              "b2": 1.48599,
+              "skill_vs_b0": 0.0553673,
+              "skill_ci95": [
+                0.042373,
+                0.0686833
+              ],
+              "skill_vs_b1": 0.0431067,
+              "skill_vs_b1_ci95": [
+                0.0316663,
+                0.0551596
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "C",
+              "model": 0.00414335,
+              "b0": 0.0771343,
+              "b1": 0.00414335,
+              "b2": -0.0347676,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "C",
+              "model": 0.367217,
+              "b0": 0.577059,
+              "b1": 0.567201,
+              "b2": 0.569175,
+              "skill_vs_b0": 0.36364,
+              "skill_ci95": [
+                0.353102,
+                0.375665
+              ],
+              "skill_vs_b1": 0.35258,
+              "skill_vs_b1_ci95": [
+                0.34243,
+                0.363956
+              ]
+            }
+          ]
+        },
+        {
+          "var": "tmin",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "C",
+              "model": 1.09858,
+              "b0": 1.28642,
+              "b1": 1.14244,
+              "b2": 1.15343,
+              "skill_vs_b0": 0.146012,
+              "skill_ci95": [
+                0.131615,
+                0.161895
+              ],
+              "skill_vs_b1": 0.0383886,
+              "skill_vs_b1_ci95": [
+                0.0214099,
+                0.054769
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "C",
+              "model": 1.44617,
+              "b0": 1.65946,
+              "b1": 1.49691,
+              "b2": 1.51075,
+              "skill_vs_b0": 0.128528,
+              "skill_ci95": [
+                0.114024,
+                0.143383
+              ],
+              "skill_vs_b1": 0.0338955,
+              "skill_vs_b1_ci95": [
+                0.0185972,
+                0.048275
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "C",
+              "model": -0.0234269,
+              "b0": 0.698691,
+              "b1": -0.0234269,
+              "b2": -0.0187794,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "C",
+              "model": 0.372946,
+              "b0": 0.643209,
+              "b1": 0.571221,
+              "b2": 0.576716,
+              "skill_vs_b0": 0.420179,
+              "skill_ci95": [
+                0.407816,
+                0.432257
+              ],
+              "skill_vs_b1": 0.347107,
+              "skill_vs_b1_ci95": [
+                0.332194,
+                0.360545
+              ]
+            }
+          ]
+        },
+        {
+          "var": "rh",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "%",
+              "model": 5.66805,
+              "b0": 5.98665,
+              "b1": 5.9142,
+              "b2": 5.93963,
+              "skill_vs_b0": 0.0532183,
+              "skill_ci95": [
+                0.0478658,
+                0.0584711
+              ],
+              "skill_vs_b1": 0.0416196,
+              "skill_vs_b1_ci95": [
+                0.0373297,
+                0.0457039
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "%",
+              "model": 7.30015,
+              "b0": 7.67652,
+              "b1": 7.57945,
+              "b2": 7.61028,
+              "skill_vs_b0": 0.0490289,
+              "skill_ci95": [
+                0.043134,
+                0.0550037
+              ],
+              "skill_vs_b1": 0.0368499,
+              "skill_vs_b1_ci95": [
+                0.0329687,
+                0.0407603
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "%",
+              "model": -0.121389,
+              "b0": -1.10445,
+              "b1": -0.121389,
+              "b2": -0.303694,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "%",
+              "model": 1.88694,
+              "b0": 2.99333,
+              "b1": 2.9571,
+              "b2": 2.96982,
+              "skill_vs_b0": 0.369617,
+              "skill_ci95": [
+                0.363799,
+                0.376322
+              ],
+              "skill_vs_b1": 0.361895,
+              "skill_vs_b1_ci95": [
+                0.355791,
+                0.36816
+              ]
+            }
+          ]
+        },
+        {
+          "var": "wind",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "km/h",
+              "model": 1.07387,
+              "b0": 1.68425,
+              "b1": 1.09477,
+              "b2": 1.09663,
+              "skill_vs_b0": 0.362407,
+              "skill_ci95": [
+                0.349028,
+                0.374031
+              ],
+              "skill_vs_b1": 0.0190943,
+              "skill_vs_b1_ci95": [
+                0.0175239,
+                0.0204919
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "km/h",
+              "model": 1.53282,
+              "b0": 2.41705,
+              "b1": 1.55742,
+              "b2": 1.55158,
+              "skill_vs_b0": 0.365829,
+              "skill_ci95": [
+                0.355629,
+                0.374718
+              ],
+              "skill_vs_b1": 0.0157944,
+              "skill_vs_b1_ci95": [
+                0.0142802,
+                0.0170124
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "km/h",
+              "model": 0.0171445,
+              "b0": 1.37996,
+              "b1": 0.0171445,
+              "b2": -0.056706,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "km/h",
+              "model": 0.38358,
+              "b0": 0.842126,
+              "b1": 0.547385,
+              "b2": 0.548317,
+              "skill_vs_b0": 0.54451,
+              "skill_ci95": [
+                0.532561,
+                0.553056
+              ],
+              "skill_vs_b1": 0.299251,
+              "skill_vs_b1_ci95": [
+                0.287635,
+                0.309221
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "check": "leave_one_block_out",
+      "description": "Mean models refitted on TRAIN without one block (6 folds) and forecasting that block over the evaluation window. Point forecasts only (no intervals or event probabilities).",
+      "truth": "synthetic Panchayat truth (mock data generator)",
+      "n": 73800,
+      "variables": [
+        {
+          "var": "rain",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "mm",
+              "model": 1.06722,
+              "b0": 1.23993,
+              "b1": 1.03107,
+              "b2": 1.03153,
+              "skill_vs_b0": 0.139295,
+              "skill_ci95": [
+                0.0437824,
+                0.276506
+              ],
+              "skill_vs_b1": -0.035054,
+              "skill_vs_b1_ci95": [
+                -0.0680415,
+                0.00107333
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "mm",
+              "model": 7.27456,
+              "b0": 9.43563,
+              "b1": 7.02656,
+              "b2": 6.98101,
+              "skill_vs_b0": 0.229033,
+              "skill_ci95": [
+                -0.113332,
+                0.370122
+              ],
+              "skill_vs_b1": -0.0352938,
+              "skill_vs_b1_ci95": [
+                -0.193835,
+                0.0202017
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "mm",
+              "model": 0.0201088,
+              "b0": 0.356873,
+              "b1": 0.0201088,
+              "b2": 0.0572351,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "MAE_wet_days_obs_ge_1mm",
+              "unit": "mm",
+              "model": 10.9677,
+              "b0": 11.4236,
+              "b1": 10.3624,
+              "b2": 10.3199,
+              "skill_vs_b0": 0.0399129,
+              "skill_ci95": [
+                -0.130653,
+                0.25003
+              ],
+              "skill_vs_b1": -0.0584089,
+              "skill_vs_b1_ci95": [
+                -0.0956188,
+                -0.00744712
+              ]
+            }
+          ]
+        },
+        {
+          "var": "tmax",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "C",
+              "model": 1.08357,
+              "b0": 1.15412,
+              "b1": 1.1344,
+              "b2": 1.13835,
+              "skill_vs_b0": 0.0611237,
+              "skill_ci95": [
+                0.0458909,
+                0.0761051
+              ],
+              "skill_vs_b1": 0.044806,
+              "skill_vs_b1_ci95": [
+                0.0332561,
+                0.0573127
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "C",
+              "model": 1.42469,
+              "b0": 1.4993,
+              "b1": 1.48009,
+              "b2": 1.48599,
+              "skill_vs_b0": 0.0497621,
+              "skill_ci95": [
+                0.0384759,
+                0.0615449
+              ],
+              "skill_vs_b1": 0.0374288,
+              "skill_vs_b1_ci95": [
+                0.027653,
+                0.047697
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "C",
+              "model": 0.00414335,
+              "b0": 0.0771343,
+              "b1": 0.00414335,
+              "b2": -0.0347676,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            }
+          ]
+        },
+        {
+          "var": "tmin",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "C",
+              "model": 1.10107,
+              "b0": 1.28642,
+              "b1": 1.14244,
+              "b2": 1.15343,
+              "skill_vs_b0": 0.14408,
+              "skill_ci95": [
+                0.130226,
+                0.158977
+              ],
+              "skill_vs_b1": 0.036213,
+              "skill_vs_b1_ci95": [
+                0.0202126,
+                0.051644
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "C",
+              "model": 1.44897,
+              "b0": 1.65946,
+              "b1": 1.49691,
+              "b2": 1.51075,
+              "skill_vs_b0": 0.126842,
+              "skill_ci95": [
+                0.11285,
+                0.141534
+              ],
+              "skill_vs_b1": 0.032026,
+              "skill_vs_b1_ci95": [
+                0.0176338,
+                0.045527
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "C",
+              "model": -0.0234269,
+              "b0": 0.698691,
+              "b1": -0.0234269,
+              "b2": -0.0187794,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            }
+          ]
+        },
+        {
+          "var": "rh",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "%",
+              "model": 5.68981,
+              "b0": 5.98665,
+              "b1": 5.9142,
+              "b2": 5.93963,
+              "skill_vs_b0": 0.0495839,
+              "skill_ci95": [
+                0.0445282,
+                0.0544117
+              ],
+              "skill_vs_b1": 0.0379407,
+              "skill_vs_b1_ci95": [
+                0.033998,
+                0.0415708
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "%",
+              "model": 7.32495,
+              "b0": 7.67652,
+              "b1": 7.57945,
+              "b2": 7.61028,
+              "skill_vs_b0": 0.0457984,
+              "skill_ci95": [
+                0.0401086,
+                0.0515036
+              ],
+              "skill_vs_b1": 0.033578,
+              "skill_vs_b1_ci95": [
+                0.0300842,
+                0.0370177
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "%",
+              "model": -0.121389,
+              "b0": -1.10445,
+              "b1": -0.121389,
+              "b2": -0.303694,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            }
+          ]
+        },
+        {
+          "var": "wind",
+          "n": 73800,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "km/h",
+              "model": 1.0792,
+              "b0": 1.68425,
+              "b1": 1.09477,
+              "b2": 1.09663,
+              "skill_vs_b0": 0.359242,
+              "skill_ci95": [
+                0.34572,
+                0.371061
+              ],
+              "skill_vs_b1": 0.0142244,
+              "skill_vs_b1_ci95": [
+                0.0131456,
+                0.0152709
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "km/h",
+              "model": 1.53903,
+              "b0": 2.41705,
+              "b1": 1.55742,
+              "b2": 1.55158,
+              "skill_vs_b0": 0.363259,
+              "skill_ci95": [
+                0.353053,
+                0.372169
+              ],
+              "skill_vs_b1": 0.0118058,
+              "skill_vs_b1_ci95": [
+                0.0108572,
+                0.012567
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "km/h",
+              "model": 0.0171445,
+              "b0": 1.37996,
+              "b1": 0.0171445,
+              "b2": -0.056706,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "check": "station",
+      "description": "Production forecasts at the Panchayats that have a station, against the station values. Rain gauges (ARG) score rain only. B2 leaves the Panchayat's own station out.",
+      "truth": "QC-cleaned station values at 24 station Panchayats (mock: synthetic truth plus noise)",
+      "n": 18681,
+      "variables": [
+        {
+          "var": "rain",
+          "n": 18681,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "mm",
+              "model": 1.00521,
+              "b0": 1.16247,
+              "b1": 0.956906,
+              "b2": 0.966856,
+              "skill_vs_b0": 0.135281,
+              "skill_ci95": [
+                0.0133856,
+                0.332757
+              ],
+              "skill_vs_b1": -0.0504825,
+              "skill_vs_b1_ci95": [
+                -0.115198,
+                0.043864
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "mm",
+              "model": 5.86644,
+              "b0": 8.04288,
+              "b1": 5.07797,
+              "b2": 5.07697,
+              "skill_vs_b0": 0.270604,
+              "skill_ci95": [
+                -0.206813,
+                0.595192
+              ],
+              "skill_vs_b1": -0.155274,
+              "skill_vs_b1_ci95": [
+                -0.276554,
+                -0.000479281
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "mm",
+              "model": 0.0511145,
+              "b0": 0.366943,
+              "b1": 0.0349915,
+              "b2": 0.101951,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "mm",
+              "model": 0.397158,
+              "b0": 0.581237,
+              "b1": 0.478453,
+              "b2": 0.483428,
+              "skill_vs_b0": 0.316703,
+              "skill_ci95": [
+                0.00471977,
+                0.475981
+              ],
+              "skill_vs_b1": 0.169913,
+              "skill_vs_b1_ci95": [
+                -0.297714,
+                0.325878
+              ]
+            },
+            {
+              "name": "MAE_wet_days_obs_ge_1mm",
+              "unit": "mm",
+              "model": 10.1763,
+              "b0": 10.154,
+              "b1": 9.15442,
+              "b2": 9.1476,
+              "skill_vs_b0": -0.00219657,
+              "skill_ci95": [
+                -0.226574,
+                0.295736
+              ],
+              "skill_vs_b1": -0.111625,
+              "skill_vs_b1_ci95": [
+                -0.150409,
+                -0.021137
+              ]
+            }
+          ]
+        },
+        {
+          "var": "tmax",
+          "n": 9372,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "C",
+              "model": 1.08906,
+              "b0": 1.13651,
+              "b1": 1.11093,
+              "b2": 1.10799,
+              "skill_vs_b0": 0.0417482,
+              "skill_ci95": [
+                0.0313361,
+                0.0515644
+              ],
+              "skill_vs_b1": 0.0196874,
+              "skill_vs_b1_ci95": [
+                0.0143756,
+                0.0257068
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "C",
+              "model": 1.42786,
+              "b0": 1.47678,
+              "b1": 1.45115,
+              "b2": 1.44825,
+              "skill_vs_b0": 0.0331239,
+              "skill_ci95": [
+                0.0253218,
+                0.0410504
+              ],
+              "skill_vs_b1": 0.0160504,
+              "skill_vs_b1_ci95": [
+                0.0119824,
+                0.0204141
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "C",
+              "model": 0.000678601,
+              "b0": 0.13924,
+              "b1": 0.0668235,
+              "b2": 0.0163837,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "C",
+              "model": 0.371023,
+              "b0": 0.568254,
+              "b1": 0.555466,
+              "b2": 0.553995,
+              "skill_vs_b0": 0.347083,
+              "skill_ci95": [
+                0.335866,
+                0.358458
+              ],
+              "skill_vs_b1": 0.332051,
+              "skill_vs_b1_ci95": [
+                0.321765,
+                0.34242
+              ]
+            }
+          ]
+        },
+        {
+          "var": "tmin",
+          "n": 9377,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "C",
+              "model": 1.11177,
+              "b0": 1.29728,
+              "b1": 1.13864,
+              "b2": 1.14447,
+              "skill_vs_b0": 0.142999,
+              "skill_ci95": [
+                0.131346,
+                0.157372
+              ],
+              "skill_vs_b1": 0.0235982,
+              "skill_vs_b1_ci95": [
+                0.0151368,
+                0.0346445
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "C",
+              "model": 1.45984,
+              "b0": 1.66805,
+              "b1": 1.48998,
+              "b2": 1.49676,
+              "skill_vs_b0": 0.124826,
+              "skill_ci95": [
+                0.114236,
+                0.137544
+              ],
+              "skill_vs_b1": 0.0202323,
+              "skill_vs_b1_ci95": [
+                0.0134304,
+                0.028418
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "C",
+              "model": -0.00943526,
+              "b0": 0.729947,
+              "b1": 0.00830517,
+              "b2": -0.0120562,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "C",
+              "model": 0.376433,
+              "b0": 0.648642,
+              "b1": 0.569322,
+              "b2": 0.572236,
+              "skill_vs_b0": 0.419659,
+              "skill_ci95": [
+                0.410274,
+                0.429654
+              ],
+              "skill_vs_b1": 0.338804,
+              "skill_vs_b1_ci95": [
+                0.329909,
+                0.347987
+              ]
+            }
+          ]
+        },
+        {
+          "var": "rh",
+          "n": 9377,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "%",
+              "model": 5.95309,
+              "b0": 6.09479,
+              "b1": 6.03804,
+              "b2": 6.03835,
+              "skill_vs_b0": 0.0232483,
+              "skill_ci95": [
+                0.0159274,
+                0.0301295
+              ],
+              "skill_vs_b1": 0.014069,
+              "skill_vs_b1_ci95": [
+                0.00965296,
+                0.0180641
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "%",
+              "model": 7.63784,
+              "b0": 7.82109,
+              "b1": 7.7457,
+              "b2": 7.74995,
+              "skill_vs_b0": 0.0234308,
+              "skill_ci95": [
+                0.0167431,
+                0.029045
+              ],
+              "skill_vs_b1": 0.013925,
+              "skill_vs_b1_ci95": [
+                0.00986076,
+                0.0178111
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "%",
+              "model": -0.117832,
+              "b0": -0.940279,
+              "b1": 0.0407312,
+              "b2": -0.115561,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "%",
+              "model": 1.96599,
+              "b0": 3.04739,
+              "b1": 3.01902,
+              "b2": 3.01917,
+              "skill_vs_b0": 0.354862,
+              "skill_ci95": [
+                0.348227,
+                0.36105
+              ],
+              "skill_vs_b1": 0.348799,
+              "skill_vs_b1_ci95": [
+                0.342278,
+                0.354446
+              ]
+            }
+          ]
+        },
+        {
+          "var": "wind",
+          "n": 9377,
+          "metrics": [
+            {
+              "name": "MAE",
+              "unit": "km/h",
+              "model": 1.18488,
+              "b0": 1.78136,
+              "b1": 1.20254,
+              "b2": 1.20101,
+              "skill_vs_b0": 0.334845,
+              "skill_ci95": [
+                0.314957,
+                0.350555
+              ],
+              "skill_vs_b1": 0.0146897,
+              "skill_vs_b1_ci95": [
+                0.00850888,
+                0.0191404
+              ]
+            },
+            {
+              "name": "RMSE",
+              "unit": "km/h",
+              "model": 1.62082,
+              "b0": 2.49709,
+              "b1": 1.65367,
+              "b2": 1.64633,
+              "skill_vs_b0": 0.350917,
+              "skill_ci95": [
+                0.335574,
+                0.361742
+              ],
+              "skill_vs_b1": 0.0198678,
+              "skill_vs_b1_ci95": [
+                0.0147135,
+                0.0237798
+              ]
+            },
+            {
+              "name": "bias",
+              "unit": "km/h",
+              "model": -0.0179795,
+              "b0": 1.40987,
+              "b1": 0.0504071,
+              "b2": -0.0406074,
+              "skill_vs_b0": null,
+              "skill_ci95": null,
+              "skill_vs_b1": null,
+              "skill_vs_b1_ci95": null
+            },
+            {
+              "name": "quantile_loss",
+              "unit": "km/h",
+              "model": 0.406908,
+              "b0": 0.890678,
+              "b1": 0.601272,
+              "b2": 0.600504,
+              "skill_vs_b0": 0.543149,
+              "skill_ci95": [
+                0.530483,
+                0.552817
+              ],
+              "skill_vs_b1": 0.323255,
+              "skill_vs_b1_ci95": [
+                0.312774,
+                0.331917
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "strata": [
+    {
+      "dimension": "lead_day",
+      "stratum": "1",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 14760,
+      "model": 0.858346,
+      "b0": 0.904513,
+      "b1": 0.831063,
+      "b2": 0.826006,
+      "skill_vs_b0": 0.0510401,
+      "skill_ci95": [
+        -0.0112208,
+        0.194613
+      ],
+      "skill_vs_b1": -0.0328293,
+      "skill_vs_b1_ci95": [
+        -0.0906108,
+        0.00858034
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "1",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 0.601478,
+      "b0": 0.714137,
+      "b1": 0.689376,
+      "b2": 0.693037,
+      "skill_vs_b0": 0.157755,
+      "skill_ci95": [
+        0.112623,
+        0.195624
+      ],
+      "skill_vs_b1": 0.127504,
+      "skill_vs_b1_ci95": [
+        0.0936563,
+        0.159855
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "1",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 0.607326,
+      "b0": 0.872875,
+      "b1": 0.672094,
+      "b2": 0.688772,
+      "skill_vs_b0": 0.304223,
+      "skill_ci95": [
+        0.258693,
+        0.337152
+      ],
+      "skill_vs_b1": 0.0963683,
+      "skill_vs_b1_ci95": [
+        0.0542199,
+        0.131222
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "1",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 14760,
+      "model": 3.34575,
+      "b0": 3.84253,
+      "b1": 3.72745,
+      "b2": 3.76899,
+      "skill_vs_b0": 0.129284,
+      "skill_ci95": [
+        0.114299,
+        0.144735
+      ],
+      "skill_vs_b1": 0.102403,
+      "skill_vs_b1_ci95": [
+        0.0900235,
+        0.113659
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "1",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 14760,
+      "model": 0.716174,
+      "b0": 1.33923,
+      "b1": 0.748427,
+      "b2": 0.750987,
+      "skill_vs_b0": 0.465235,
+      "skill_ci95": [
+        0.428947,
+        0.492214
+      ],
+      "skill_vs_b1": 0.0430937,
+      "skill_vs_b1_ci95": [
+        0.0373457,
+        0.0488422
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "2",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 14760,
+      "model": 1.0009,
+      "b0": 1.00809,
+      "b1": 0.947278,
+      "b2": 0.949101,
+      "skill_vs_b0": 0.00713663,
+      "skill_ci95": [
+        -0.0473335,
+        0.160436
+      ],
+      "skill_vs_b1": -0.0566043,
+      "skill_vs_b1_ci95": [
+        -0.137996,
+        0.00618185
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "2",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 0.829542,
+      "b0": 0.923802,
+      "b1": 0.897756,
+      "b2": 0.903522,
+      "skill_vs_b0": 0.102035,
+      "skill_ci95": [
+        0.0780277,
+        0.13002
+      ],
+      "skill_vs_b1": 0.0759828,
+      "skill_vs_b1_ci95": [
+        0.0562777,
+        0.100107
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "2",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 0.84128,
+      "b0": 1.03626,
+      "b1": 0.894477,
+      "b2": 0.906956,
+      "skill_vs_b0": 0.188156,
+      "skill_ci95": [
+        0.142191,
+        0.226916
+      ],
+      "skill_vs_b1": 0.0594726,
+      "skill_vs_b1_ci95": [
+        0.0319246,
+        0.0843165
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "2",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 14760,
+      "model": 4.59329,
+      "b0": 4.91495,
+      "b1": 4.86013,
+      "b2": 4.89363,
+      "skill_vs_b0": 0.065445,
+      "skill_ci95": [
+        0.0527286,
+        0.0784611
+      ],
+      "skill_vs_b1": 0.0549036,
+      "skill_vs_b1_ci95": [
+        0.0476229,
+        0.0625032
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "2",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 14760,
+      "model": 0.934504,
+      "b0": 1.51002,
+      "b1": 0.956985,
+      "b2": 0.959127,
+      "skill_vs_b0": 0.38113,
+      "skill_ci95": [
+        0.348857,
+        0.406621
+      ],
+      "skill_vs_b1": 0.0234919,
+      "skill_vs_b1_ci95": [
+        0.0194674,
+        0.0260022
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "3",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 14760,
+      "model": 1.02682,
+      "b0": 1.59105,
+      "b1": 0.985347,
+      "b2": 0.988636,
+      "skill_vs_b0": 0.354626,
+      "skill_ci95": [
+        0.10063,
+        0.606349
+      ],
+      "skill_vs_b1": -0.0420914,
+      "skill_vs_b1_ci95": [
+        -0.0689701,
+        0.00524112
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "3",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 1.10585,
+      "b0": 1.16704,
+      "b1": 1.16114,
+      "b2": 1.16414,
+      "skill_vs_b0": 0.0524391,
+      "skill_ci95": [
+        0.0355238,
+        0.0701703
+      ],
+      "skill_vs_b1": 0.0476242,
+      "skill_vs_b1_ci95": [
+        0.0344676,
+        0.0629832
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "3",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 1.07104,
+      "b0": 1.2422,
+      "b1": 1.11163,
+      "b2": 1.11986,
+      "skill_vs_b0": 0.137786,
+      "skill_ci95": [
+        0.10193,
+        0.164053
+      ],
+      "skill_vs_b1": 0.036512,
+      "skill_vs_b1_ci95": [
+        0.018641,
+        0.0517599
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "3",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 14760,
+      "model": 5.9355,
+      "b0": 6.2065,
+      "b1": 6.16236,
+      "b2": 6.18741,
+      "skill_vs_b0": 0.0436638,
+      "skill_ci95": [
+        0.0325633,
+        0.0565841
+      ],
+      "skill_vs_b1": 0.0368144,
+      "skill_vs_b1_ci95": [
+        0.031759,
+        0.0423646
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "3",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 14760,
+      "model": 1.06783,
+      "b0": 1.58522,
+      "b1": 1.08745,
+      "b2": 1.09812,
+      "skill_vs_b0": 0.326383,
+      "skill_ci95": [
+        0.291304,
+        0.3593
+      ],
+      "skill_vs_b1": 0.0180402,
+      "skill_vs_b1_ci95": [
+        0.0156043,
+        0.0215976
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "4",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 14760,
+      "model": 1.26663,
+      "b0": 1.36323,
+      "b1": 1.22037,
+      "b2": 1.22251,
+      "skill_vs_b0": 0.0708676,
+      "skill_ci95": [
+        0.00283798,
+        0.195971
+      ],
+      "skill_vs_b1": -0.0379023,
+      "skill_vs_b1_ci95": [
+        -0.0996683,
+        0.0180022
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "4",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 1.29514,
+      "b0": 1.36741,
+      "b1": 1.33918,
+      "b2": 1.34349,
+      "skill_vs_b0": 0.0528497,
+      "skill_ci95": [
+        0.0392906,
+        0.067739
+      ],
+      "skill_vs_b1": 0.0328861,
+      "skill_vs_b1_ci95": [
+        0.0234748,
+        0.043908
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "4",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 1.35821,
+      "b0": 1.53927,
+      "b1": 1.39261,
+      "b2": 1.4015,
+      "skill_vs_b0": 0.117624,
+      "skill_ci95": [
+        0.0931765,
+        0.145299
+      ],
+      "skill_vs_b1": 0.0246973,
+      "skill_vs_b1_ci95": [
+        0.0134075,
+        0.0358966
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "4",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 14760,
+      "model": 6.75893,
+      "b0": 6.99245,
+      "b1": 6.94254,
+      "b2": 6.94271,
+      "skill_vs_b0": 0.0333953,
+      "skill_ci95": [
+        0.0220778,
+        0.0432706
+      ],
+      "skill_vs_b1": 0.026447,
+      "skill_vs_b1_ci95": [
+        0.0215029,
+        0.0309517
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "4",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 14760,
+      "model": 1.27964,
+      "b0": 1.96028,
+      "b1": 1.29614,
+      "b2": 1.29214,
+      "skill_vs_b0": 0.347216,
+      "skill_ci95": [
+        0.315066,
+        0.377457
+      ],
+      "skill_vs_b1": 0.0127324,
+      "skill_vs_b1_ci95": [
+        0.0103964,
+        0.0154401
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "5",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 14760,
+      "model": 1.19958,
+      "b0": 1.33278,
+      "b1": 1.17131,
+      "b2": 1.17138,
+      "skill_vs_b0": 0.0999375,
+      "skill_ci95": [
+        0.00126468,
+        0.300716
+      ],
+      "skill_vs_b1": -0.0241372,
+      "skill_vs_b1_ci95": [
+        -0.0556372,
+        0.00427152
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "5",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 1.54844,
+      "b0": 1.5982,
+      "b1": 1.58456,
+      "b2": 1.58756,
+      "skill_vs_b0": 0.0311397,
+      "skill_ci95": [
+        0.0142325,
+        0.0491135
+      ],
+      "skill_vs_b1": 0.0227955,
+      "skill_vs_b1_ci95": [
+        0.015675,
+        0.0313227
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "5",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 14760,
+      "model": 1.61506,
+      "b0": 1.74148,
+      "b1": 1.6414,
+      "b2": 1.65007,
+      "skill_vs_b0": 0.0725947,
+      "skill_ci95": [
+        0.0444659,
+        0.104323
+      ],
+      "skill_vs_b1": 0.0160451,
+      "skill_vs_b1_ci95": [
+        0.0084709,
+        0.0245608
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "5",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 14760,
+      "model": 7.7068,
+      "b0": 7.97684,
+      "b1": 7.87852,
+      "b2": 7.9054,
+      "skill_vs_b0": 0.0338535,
+      "skill_ci95": [
+        0.023038,
+        0.0454368
+      ],
+      "skill_vs_b1": 0.021796,
+      "skill_vs_b1_ci95": [
+        0.0179419,
+        0.0259861
+      ]
+    },
+    {
+      "dimension": "lead_day",
+      "stratum": "5",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 14760,
+      "model": 1.37119,
+      "b0": 2.02651,
+      "b1": 1.38485,
+      "b2": 1.3828,
+      "skill_vs_b0": 0.323376,
+      "skill_ci95": [
+        0.296298,
+        0.352564
+      ],
+      "skill_vs_b1": 0.00986754,
+      "skill_vs_b1_ci95": [
+        0.00857002,
+        0.0118336
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "monsoon",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 33300,
+      "model": 2.06515,
+      "b0": 2.2561,
+      "b1": 1.98127,
+      "b2": 1.98527,
+      "skill_vs_b0": 0.0846386,
+      "skill_ci95": [
+        -0.0325749,
+        0.21849
+      ],
+      "skill_vs_b1": -0.0423375,
+      "skill_vs_b1_ci95": [
+        -0.0927236,
+        0.00894827
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "monsoon",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 33300,
+      "model": 1.05576,
+      "b0": 1.16635,
+      "b1": 1.14524,
+      "b2": 1.15169,
+      "skill_vs_b0": 0.0948169,
+      "skill_ci95": [
+        0.0755365,
+        0.118255
+      ],
+      "skill_vs_b1": 0.0781337,
+      "skill_vs_b1_ci95": [
+        0.0622176,
+        0.0951484
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "monsoon",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 33300,
+      "model": 1.10208,
+      "b0": 1.26461,
+      "b1": 1.1113,
+      "b2": 1.11341,
+      "skill_vs_b0": 0.128525,
+      "skill_ci95": [
+        0.105148,
+        0.149834
+      ],
+      "skill_vs_b1": 0.00829804,
+      "skill_vs_b1_ci95": [
+        0.00691216,
+        0.00936226
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "monsoon",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 33300,
+      "model": 5.70118,
+      "b0": 6.07838,
+      "b1": 6.00201,
+      "b2": 6.02374,
+      "skill_vs_b0": 0.0620559,
+      "skill_ci95": [
+        0.0537084,
+        0.0697441
+      ],
+      "skill_vs_b1": 0.0501216,
+      "skill_vs_b1_ci95": [
+        0.0439947,
+        0.055648
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "monsoon",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 33300,
+      "model": 1.35225,
+      "b0": 2.12131,
+      "b1": 1.37673,
+      "b2": 1.37906,
+      "skill_vs_b0": 0.362539,
+      "skill_ci95": [
+        0.348466,
+        0.378134
+      ],
+      "skill_vs_b1": 0.0177804,
+      "skill_vs_b1_ci95": [
+        0.0156448,
+        0.019813
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 27450,
+      "model": 0.229717,
+      "b0": 0.384787,
+      "b1": 0.227936,
+      "b2": 0.225086,
+      "skill_vs_b0": 0.403002,
+      "skill_ci95": [
+        0.311885,
+        0.523108
+      ],
+      "skill_vs_b1": -0.00781547,
+      "skill_vs_b1_ci95": [
+        -0.0120059,
+        0.0
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 27450,
+      "model": 1.09588,
+      "b0": 1.16745,
+      "b1": 1.14325,
+      "b2": 1.14603,
+      "skill_vs_b0": 0.0613063,
+      "skill_ci95": [
+        0.039762,
+        0.0823214
+      ],
+      "skill_vs_b1": 0.0414354,
+      "skill_vs_b1_ci95": [
+        0.02769,
+        0.0583438
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 27450,
+      "model": 1.08375,
+      "b0": 1.26513,
+      "b1": 1.12706,
+      "b2": 1.1388,
+      "skill_vs_b0": 0.143368,
+      "skill_ci95": [
+        0.125585,
+        0.157799
+      ],
+      "skill_vs_b1": 0.0384243,
+      "skill_vs_b1_ci95": [
+        0.0198329,
+        0.057016
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 27450,
+      "model": 5.6892,
+      "b0": 5.9487,
+      "b1": 5.87902,
+      "b2": 5.89848,
+      "skill_vs_b0": 0.0436224,
+      "skill_ci95": [
+        0.0381644,
+        0.0485903
+      ],
+      "skill_vs_b1": 0.0322877,
+      "skill_vs_b1_ci95": [
+        0.0291012,
+        0.0360065
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 27450,
+      "model": 0.863757,
+      "b0": 1.3414,
+      "b1": 0.882543,
+      "b2": 0.883448,
+      "skill_vs_b0": 0.356079,
+      "skill_ci95": [
+        0.31669,
+        0.373304
+      ],
+      "skill_vs_b1": 0.0212859,
+      "skill_vs_b1_ci95": [
+        0.0184461,
+        0.0230833
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "winter",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 13050,
+      "model": 0.30072,
+      "b0": 0.445707,
+      "b1": 0.295804,
+      "b2": 0.294149,
+      "skill_vs_b0": 0.325296,
+      "skill_ci95": [
+        0.102776,
+        0.602486
+      ],
+      "skill_vs_b1": -0.0166175,
+      "skill_vs_b1_ci95": [
+        -0.0260177,
+        0.0
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "winter",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 13050,
+      "model": 1.08632,
+      "b0": 1.09485,
+      "b1": 1.08812,
+      "b2": 1.08815,
+      "skill_vs_b0": 0.00779271,
+      "skill_ci95": [
+        -0.0103928,
+        0.0201141
+      ],
+      "skill_vs_b1": 0.00165519,
+      "skill_vs_b1_ci95": [
+        0.000617274,
+        0.00233295
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "winter",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 13050,
+      "model": 1.12087,
+      "b0": 1.38683,
+      "b1": 1.25426,
+      "b2": 1.28632,
+      "skill_vs_b0": 0.191777,
+      "skill_ci95": [
+        0.171018,
+        0.223173
+      ],
+      "skill_vs_b1": 0.106352,
+      "skill_vs_b1_ci95": [
+        0.0968954,
+        0.128512
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "winter",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 13050,
+      "model": 5.53903,
+      "b0": 5.83241,
+      "b1": 5.76411,
+      "b2": 5.81156,
+      "skill_vs_b0": 0.0503028,
+      "skill_ci95": [
+        0.0424515,
+        0.0626481
+      ],
+      "skill_vs_b1": 0.0390498,
+      "skill_vs_b1_ci95": [
+        0.0356021,
+        0.0455163
+      ]
+    },
+    {
+      "dimension": "season",
+      "stratum": "winter",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 13050,
+      "model": 0.80546,
+      "b0": 1.29016,
+      "b1": 0.821698,
+      "b2": 0.824398,
+      "skill_vs_b0": 0.375692,
+      "skill_ci95": [
+        0.333083,
+        0.406155
+      ],
+      "skill_vs_b1": 0.0197605,
+      "skill_vs_b1_ci95": [
+        0.0178417,
+        0.0236098
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 69342,
+      "model": 0.425116,
+      "b0": 0.585223,
+      "b1": 0.431161,
+      "b2": 0.434375,
+      "skill_vs_b0": 0.273582,
+      "skill_ci95": [
+        0.188428,
+        0.417496
+      ],
+      "skill_vs_b1": 0.0140201,
+      "skill_vs_b1_ci95": [
+        -0.00652475,
+        0.0325435
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 69342,
+      "model": 1.07975,
+      "b0": 1.15969,
+      "b1": 1.14032,
+      "b2": 1.14385,
+      "skill_vs_b0": 0.0689353,
+      "skill_ci95": [
+        0.0513574,
+        0.0868599
+      ],
+      "skill_vs_b1": 0.0531145,
+      "skill_vs_b1_ci95": [
+        0.0374087,
+        0.0687557
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 69342,
+      "model": 1.09752,
+      "b0": 1.28206,
+      "b1": 1.14249,
+      "b2": 1.15359,
+      "skill_vs_b0": 0.143937,
+      "skill_ci95": [
+        0.127714,
+        0.160407
+      ],
+      "skill_vs_b1": 0.039362,
+      "skill_vs_b1_ci95": [
+        0.0227392,
+        0.0556746
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 69342,
+      "model": 5.6582,
+      "b0": 5.98427,
+      "b1": 5.91091,
+      "b2": 5.93698,
+      "skill_vs_b0": 0.054489,
+      "skill_ci95": [
+        0.0486721,
+        0.060534
+      ],
+      "skill_vs_b1": 0.042753,
+      "skill_vs_b1_ci95": [
+        0.0379755,
+        0.0479547
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 69342,
+      "model": 1.08175,
+      "b0": 1.69598,
+      "b1": 1.10274,
+      "b2": 1.10425,
+      "skill_vs_b0": 0.362165,
+      "skill_ci95": [
+        0.348047,
+        0.374981
+      ],
+      "skill_vs_b1": 0.0190324,
+      "skill_vs_b1_ci95": [
+        0.0175411,
+        0.0203975
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 2566,
+      "model": 3.32303,
+      "b0": 2.25439,
+      "b1": 3.12191,
+      "b2": 3.22185,
+      "skill_vs_b0": -0.474026,
+      "skill_ci95": [
+        -0.670369,
+        -0.403325
+      ],
+      "skill_vs_b1": -0.0644219,
+      "skill_vs_b1_ci95": [
+        -0.125465,
+        -0.0301166
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 2566,
+      "model": 1.03578,
+      "b0": 1.0632,
+      "b1": 1.06377,
+      "b2": 1.07624,
+      "skill_vs_b0": 0.0257979,
+      "skill_ci95": [
+        -0.0320638,
+        0.0560589
+      ],
+      "skill_vs_b1": 0.0263178,
+      "skill_vs_b1_ci95": [
+        0.011098,
+        0.0504912
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 2566,
+      "model": 1.10352,
+      "b0": 1.36381,
+      "b1": 1.14595,
+      "b2": 1.15712,
+      "skill_vs_b0": 0.190854,
+      "skill_ci95": [
+        0.16332,
+        0.224166
+      ],
+      "skill_vs_b1": 0.0370274,
+      "skill_vs_b1_ci95": [
+        0.00735148,
+        0.0676983
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 2566,
+      "model": 5.76981,
+      "b0": 6.08392,
+      "b1": 5.93653,
+      "b2": 5.99168,
+      "skill_vs_b0": 0.0516298,
+      "skill_ci95": [
+        0.0227233,
+        0.120333
+      ],
+      "skill_vs_b1": 0.0280829,
+      "skill_vs_b1_ci95": [
+        0.0194253,
+        0.0404695
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 2566,
+      "model": 0.856427,
+      "b0": 1.37466,
+      "b1": 0.877479,
+      "b2": 0.880291,
+      "skill_vs_b0": 0.376989,
+      "skill_ci95": [
+        0.262526,
+        0.412562
+      ],
+      "skill_vs_b1": 0.0239913,
+      "skill_vs_b1_ci95": [
+        0.0162286,
+        0.0283419
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 1422,
+      "model": 11.6315,
+      "b0": 11.3111,
+      "b1": 10.2069,
+      "b2": 10.5315,
+      "skill_vs_b0": -0.0283239,
+      "skill_ci95": [
+        -0.0571204,
+        0.0146684
+      ],
+      "skill_vs_b1": -0.13957,
+      "skill_vs_b1_ci95": [
+        -0.164101,
+        -0.0746707
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 1422,
+      "model": 0.978937,
+      "b0": 1.06337,
+      "b1": 0.998339,
+      "b2": 1.0023,
+      "skill_vs_b0": 0.0794,
+      "skill_ci95": [
+        0.0289698,
+        0.111515
+      ],
+      "skill_vs_b1": 0.0194338,
+      "skill_vs_b1_ci95": [
+        0.014091,
+        0.0249491
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 1422,
+      "model": 1.19174,
+      "b0": 1.39537,
+      "b1": 1.19536,
+      "b2": 1.20259,
+      "skill_vs_b0": 0.145931,
+      "skill_ci95": [
+        0.00646686,
+        0.209317
+      ],
+      "skill_vs_b1": 0.00302831,
+      "skill_vs_b1_ci95": [
+        -0.0020625,
+        0.00470001
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 1422,
+      "model": 6.11477,
+      "b0": 6.19342,
+      "b1": 6.24612,
+      "b2": 6.20765,
+      "skill_vs_b0": 0.0127,
+      "skill_ci95": [
+        -0.00276069,
+        0.0267051
+      ],
+      "skill_vs_b1": 0.0210299,
+      "skill_vs_b1_ci95": [
+        0.0139397,
+        0.0223745
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 1422,
+      "model": 1.07396,
+      "b0": 1.69284,
+      "b1": 1.08937,
+      "b2": 1.10652,
+      "skill_vs_b0": 0.365586,
+      "skill_ci95": [
+        0.349558,
+        0.401694
+      ],
+      "skill_vs_b1": 0.0141491,
+      "skill_vs_b1_ci95": [
+        0.0135779,
+        0.017157
+      ]
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 470,
+      "model": 52.0303,
+      "b0": 61.8241,
+      "b1": 50.3629,
+      "b2": 48.4321,
+      "skill_vs_b0": 0.158414,
+      "skill_ci95": null,
+      "skill_vs_b1": -0.0331068,
+      "skill_vs_b1_ci95": null
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 470,
+      "model": 1.05003,
+      "b0": 1.10267,
+      "b1": 1.05921,
+      "b2": 1.07743,
+      "skill_vs_b0": 0.0477375,
+      "skill_ci95": null,
+      "skill_vs_b1": 0.00866203,
+      "skill_vs_b1_ci95": null
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 470,
+      "model": 0.946607,
+      "b0": 1.1775,
+      "b1": 0.955604,
+      "b2": 0.960878,
+      "skill_vs_b0": 0.196087,
+      "skill_ci95": null,
+      "skill_vs_b1": 0.00941438,
+      "skill_vs_b1_ci95": null
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 470,
+      "model": 5.21514,
+      "b0": 5.18096,
+      "b1": 5.27405,
+      "b2": 5.23508,
+      "skill_vs_b0": -0.00659685,
+      "skill_ci95": null,
+      "skill_vs_b1": 0.0111698,
+      "skill_vs_b1_ci95": null
+    },
+    {
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 470,
+      "model": 1.09721,
+      "b0": 1.61887,
+      "b1": 1.12154,
+      "b2": 1.12374,
+      "skill_vs_b0": 0.322236,
+      "skill_ci95": null,
+      "skill_vs_b1": 0.0216901,
+      "skill_vs_b1_ci95": null
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 38540,
+      "model": 1.06583,
+      "b0": 1.23392,
+      "b1": 1.05952,
+      "b2": 1.06058,
+      "skill_vs_b0": 0.136219,
+      "skill_ci95": [
+        0.0776162,
+        0.24848
+      ],
+      "skill_vs_b1": -0.00595528,
+      "skill_vs_b1_ci95": [
+        -0.0641081,
+        0.0259128
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 38540,
+      "model": 1.08033,
+      "b0": 1.15426,
+      "b1": 1.13586,
+      "b2": 1.14215,
+      "skill_vs_b0": 0.0640445,
+      "skill_ci95": [
+        0.0483132,
+        0.0803421
+      ],
+      "skill_vs_b1": 0.048884,
+      "skill_vs_b1_ci95": [
+        0.0361969,
+        0.0621604
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 38540,
+      "model": 1.0924,
+      "b0": 1.2402,
+      "b1": 1.13968,
+      "b2": 1.14953,
+      "skill_vs_b0": 0.119178,
+      "skill_ci95": [
+        0.107826,
+        0.132476
+      ],
+      "skill_vs_b1": 0.0414925,
+      "skill_vs_b1_ci95": [
+        0.0224926,
+        0.0599961
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 38540,
+      "model": 5.6598,
+      "b0": 6.00167,
+      "b1": 5.94013,
+      "b2": 5.96833,
+      "skill_vs_b0": 0.0569627,
+      "skill_ci95": [
+        0.0498905,
+        0.06391
+      ],
+      "skill_vs_b1": 0.0471936,
+      "skill_vs_b1_ci95": [
+        0.0418419,
+        0.051835
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 38540,
+      "model": 1.06395,
+      "b0": 1.67705,
+      "b1": 1.09169,
+      "b2": 1.0943,
+      "skill_vs_b0": 0.365584,
+      "skill_ci95": [
+        0.350363,
+        0.377603
+      ],
+      "skill_vs_b1": 0.0254124,
+      "skill_vs_b1_ci95": [
+        0.0234052,
+        0.0275126
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 32800,
+      "model": 1.0824,
+      "b0": 1.27575,
+      "b1": 1.01964,
+      "b2": 1.02224,
+      "skill_vs_b0": 0.15156,
+      "skill_ci95": [
+        -0.0166961,
+        0.337295
+      ],
+      "skill_vs_b1": -0.0615537,
+      "skill_vs_b1_ci95": [
+        -0.124309,
+        0.00409889
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 32800,
+      "model": 1.07035,
+      "b0": 1.15517,
+      "b1": 1.13496,
+      "b2": 1.13546,
+      "skill_vs_b0": 0.0734238,
+      "skill_ci95": [
+        0.0544551,
+        0.0923385
+      ],
+      "skill_vs_b1": 0.0569233,
+      "skill_vs_b1_ci95": [
+        0.0410678,
+        0.0748038
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 32800,
+      "model": 1.10249,
+      "b0": 1.31856,
+      "b1": 1.13561,
+      "b2": 1.14492,
+      "skill_vs_b0": 0.163862,
+      "skill_ci95": [
+        0.142951,
+        0.187526
+      ],
+      "skill_vs_b1": 0.0291584,
+      "skill_vs_b1_ci95": [
+        0.0197268,
+        0.0409197
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 32800,
+      "model": 5.67476,
+      "b0": 5.95647,
+      "b1": 5.87987,
+      "b2": 5.89153,
+      "skill_vs_b0": 0.0472941,
+      "skill_ci95": [
+        0.0411316,
+        0.0538192
+      ],
+      "skill_vs_b1": 0.0348823,
+      "skill_vs_b1_ci95": [
+        0.030532,
+        0.0401185
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 32800,
+      "model": 1.08513,
+      "b0": 1.68514,
+      "b1": 1.0974,
+      "b2": 1.09757,
+      "skill_vs_b0": 0.356058,
+      "skill_ci95": [
+        0.341161,
+        0.369841
+      ],
+      "skill_vs_b1": 0.0111773,
+      "skill_vs_b1_ci95": [
+        0.00905059,
+        0.0128455
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "var": "rain",
+      "metric": "MAE",
+      "unit": "mm",
+      "n": 2460,
+      "model": 0.983577,
+      "b0": 0.856581,
+      "b1": 0.737834,
+      "b2": 0.700099,
+      "skill_vs_b0": -0.148259,
+      "skill_ci95": [
+        -0.334422,
+        0.186308
+      ],
+      "skill_vs_b1": -0.33306,
+      "skill_vs_b1_ci95": [
+        -0.507318,
+        -0.0443726
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "var": "tmax",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 2460,
+      "model": 1.08607,
+      "b0": 1.13796,
+      "b1": 1.1042,
+      "b2": 1.11734,
+      "skill_vs_b0": 0.0455918,
+      "skill_ci95": [
+        0.0276664,
+        0.0630393
+      ],
+      "skill_vs_b1": 0.016415,
+      "skill_vs_b1_ci95": [
+        0.00495227,
+        0.0279514
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "var": "tmin",
+      "metric": "MAE",
+      "unit": "C",
+      "n": 2460,
+      "model": 1.14341,
+      "b0": 1.58196,
+      "b1": 1.27676,
+      "b2": 1.32805,
+      "skill_vs_b0": 0.277223,
+      "skill_ci95": [
+        0.20193,
+        0.341589
+      ],
+      "skill_vs_b1": 0.104444,
+      "skill_vs_b1_ci95": [
+        0.0390748,
+        0.164066
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "var": "rh",
+      "metric": "MAE",
+      "unit": "%",
+      "n": 2460,
+      "model": 5.70793,
+      "b0": 6.15384,
+      "b1": 5.96568,
+      "b2": 6.13137,
+      "skill_vs_b0": 0.0724612,
+      "skill_ci95": [
+        0.0577245,
+        0.0902452
+      ],
+      "skill_vs_b1": 0.0432064,
+      "skill_vs_b1_ci95": [
+        0.031893,
+        0.0570651
+      ]
+    },
+    {
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "var": "wind",
+      "metric": "MAE",
+      "unit": "km/h",
+      "n": 2460,
+      "model": 1.07907,
+      "b0": 1.78527,
+      "b1": 1.10801,
+      "b2": 1.1206,
+      "skill_vs_b0": 0.395567,
+      "skill_ci95": [
+        0.374486,
+        0.413122
+      ],
+      "skill_vs_b1": 0.0261194,
+      "skill_vs_b1_ci95": [
+        0.01617,
+        0.0347264
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.136683,
+      "ci95": [
+        0.0397179,
+        0.27946
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0381941,
+      "ci95": [
+        -0.0807198,
+        0.00790451
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0676104,
+      "ci95": [
+        0.050567,
+        0.0843683
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0514053,
+      "ci95": [
+        0.0378031,
+        0.0659328
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.146012,
+      "ci95": [
+        0.131615,
+        0.161895
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0383886,
+      "ci95": [
+        0.0214099,
+        0.054769
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0532183,
+      "ci95": [
+        0.0478658,
+        0.0584711
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0416196,
+      "ci95": [
+        0.0373297,
+        0.0457039
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.362407,
+      "ci95": [
+        0.349028,
+        0.374031
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0190943,
+      "ci95": [
+        0.0175239,
+        0.0204919
+      ],
+      "result": "win"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "rain",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.139295,
+      "ci95": [
+        0.0437824,
+        0.276506
+      ],
+      "result": "win"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "rain",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.035054,
+      "ci95": [
+        -0.0680415,
+        0.00107333
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "tmax",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0611237,
+      "ci95": [
+        0.0458909,
+        0.0761051
+      ],
+      "result": "win"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "tmax",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.044806,
+      "ci95": [
+        0.0332561,
+        0.0573127
+      ],
+      "result": "win"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "tmin",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.14408,
+      "ci95": [
+        0.130226,
+        0.158977
+      ],
+      "result": "win"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "tmin",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.036213,
+      "ci95": [
+        0.0202126,
+        0.051644
+      ],
+      "result": "win"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "rh",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0495839,
+      "ci95": [
+        0.0445282,
+        0.0544117
+      ],
+      "result": "win"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "rh",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0379407,
+      "ci95": [
+        0.033998,
+        0.0415708
+      ],
+      "result": "win"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "wind",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.359242,
+      "ci95": [
+        0.34572,
+        0.371061
+      ],
+      "result": "win"
+    },
+    {
+      "check": "leave_one_block_out",
+      "var": "wind",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0142244,
+      "ci95": [
+        0.0131456,
+        0.0152709
+      ],
+      "result": "win"
+    },
+    {
+      "check": "station",
+      "var": "rain",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.135281,
+      "ci95": [
+        0.0133856,
+        0.332757
+      ],
+      "result": "win"
+    },
+    {
+      "check": "station",
+      "var": "rain",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0504825,
+      "ci95": [
+        -0.115198,
+        0.043864
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "station",
+      "var": "tmax",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0417482,
+      "ci95": [
+        0.0313361,
+        0.0515644
+      ],
+      "result": "win"
+    },
+    {
+      "check": "station",
+      "var": "tmax",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0196874,
+      "ci95": [
+        0.0143756,
+        0.0257068
+      ],
+      "result": "win"
+    },
+    {
+      "check": "station",
+      "var": "tmin",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.142999,
+      "ci95": [
+        0.131346,
+        0.157372
+      ],
+      "result": "win"
+    },
+    {
+      "check": "station",
+      "var": "tmin",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0235982,
+      "ci95": [
+        0.0151368,
+        0.0346445
+      ],
+      "result": "win"
+    },
+    {
+      "check": "station",
+      "var": "rh",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0232483,
+      "ci95": [
+        0.0159274,
+        0.0301295
+      ],
+      "result": "win"
+    },
+    {
+      "check": "station",
+      "var": "rh",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.014069,
+      "ci95": [
+        0.00965296,
+        0.0180641
+      ],
+      "result": "win"
+    },
+    {
+      "check": "station",
+      "var": "wind",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.334845,
+      "ci95": [
+        0.314957,
+        0.350555
+      ],
+      "result": "win"
+    },
+    {
+      "check": "station",
+      "var": "wind",
+      "dimension": "all",
+      "stratum": "all",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0146897,
+      "ci95": [
+        0.00850888,
+        0.0191404
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0510401,
+      "ci95": [
+        -0.0112208,
+        0.194613
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0328293,
+      "ci95": [
+        -0.0906108,
+        0.00858034
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.157755,
+      "ci95": [
+        0.112623,
+        0.195624
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.127504,
+      "ci95": [
+        0.0936563,
+        0.159855
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.304223,
+      "ci95": [
+        0.258693,
+        0.337152
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0963683,
+      "ci95": [
+        0.0542199,
+        0.131222
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.129284,
+      "ci95": [
+        0.114299,
+        0.144735
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.102403,
+      "ci95": [
+        0.0900235,
+        0.113659
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.465235,
+      "ci95": [
+        0.428947,
+        0.492214
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "1",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0430937,
+      "ci95": [
+        0.0373457,
+        0.0488422
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.00713663,
+      "ci95": [
+        -0.0473335,
+        0.160436
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0566043,
+      "ci95": [
+        -0.137996,
+        0.00618185
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.102035,
+      "ci95": [
+        0.0780277,
+        0.13002
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0759828,
+      "ci95": [
+        0.0562777,
+        0.100107
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.188156,
+      "ci95": [
+        0.142191,
+        0.226916
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0594726,
+      "ci95": [
+        0.0319246,
+        0.0843165
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.065445,
+      "ci95": [
+        0.0527286,
+        0.0784611
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0549036,
+      "ci95": [
+        0.0476229,
+        0.0625032
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.38113,
+      "ci95": [
+        0.348857,
+        0.406621
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "2",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0234919,
+      "ci95": [
+        0.0194674,
+        0.0260022
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.354626,
+      "ci95": [
+        0.10063,
+        0.606349
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0420914,
+      "ci95": [
+        -0.0689701,
+        0.00524112
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0524391,
+      "ci95": [
+        0.0355238,
+        0.0701703
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0476242,
+      "ci95": [
+        0.0344676,
+        0.0629832
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.137786,
+      "ci95": [
+        0.10193,
+        0.164053
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.036512,
+      "ci95": [
+        0.018641,
+        0.0517599
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0436638,
+      "ci95": [
+        0.0325633,
+        0.0565841
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0368144,
+      "ci95": [
+        0.031759,
+        0.0423646
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.326383,
+      "ci95": [
+        0.291304,
+        0.3593
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "3",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0180402,
+      "ci95": [
+        0.0156043,
+        0.0215976
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0708676,
+      "ci95": [
+        0.00283798,
+        0.195971
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0379023,
+      "ci95": [
+        -0.0996683,
+        0.0180022
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0528497,
+      "ci95": [
+        0.0392906,
+        0.067739
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0328861,
+      "ci95": [
+        0.0234748,
+        0.043908
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.117624,
+      "ci95": [
+        0.0931765,
+        0.145299
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0246973,
+      "ci95": [
+        0.0134075,
+        0.0358966
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0333953,
+      "ci95": [
+        0.0220778,
+        0.0432706
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.026447,
+      "ci95": [
+        0.0215029,
+        0.0309517
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.347216,
+      "ci95": [
+        0.315066,
+        0.377457
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "4",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0127324,
+      "ci95": [
+        0.0103964,
+        0.0154401
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0999375,
+      "ci95": [
+        0.00126468,
+        0.300716
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0241372,
+      "ci95": [
+        -0.0556372,
+        0.00427152
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0311397,
+      "ci95": [
+        0.0142325,
+        0.0491135
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0227955,
+      "ci95": [
+        0.015675,
+        0.0313227
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0725947,
+      "ci95": [
+        0.0444659,
+        0.104323
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0160451,
+      "ci95": [
+        0.0084709,
+        0.0245608
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0338535,
+      "ci95": [
+        0.023038,
+        0.0454368
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.021796,
+      "ci95": [
+        0.0179419,
+        0.0259861
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.323376,
+      "ci95": [
+        0.296298,
+        0.352564
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "lead_day",
+      "stratum": "5",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.00986754,
+      "ci95": [
+        0.00857002,
+        0.0118336
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0846386,
+      "ci95": [
+        -0.0325749,
+        0.21849
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0423375,
+      "ci95": [
+        -0.0927236,
+        0.00894827
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0948169,
+      "ci95": [
+        0.0755365,
+        0.118255
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0781337,
+      "ci95": [
+        0.0622176,
+        0.0951484
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.128525,
+      "ci95": [
+        0.105148,
+        0.149834
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.00829804,
+      "ci95": [
+        0.00691216,
+        0.00936226
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0620559,
+      "ci95": [
+        0.0537084,
+        0.0697441
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0501216,
+      "ci95": [
+        0.0439947,
+        0.055648
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.362539,
+      "ci95": [
+        0.348466,
+        0.378134
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "season",
+      "stratum": "monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0177804,
+      "ci95": [
+        0.0156448,
+        0.019813
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.403002,
+      "ci95": [
+        0.311885,
+        0.523108
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.00781547,
+      "ci95": [
+        -0.0120059,
+        0.0
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0613063,
+      "ci95": [
+        0.039762,
+        0.0823214
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0414354,
+      "ci95": [
+        0.02769,
+        0.0583438
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.143368,
+      "ci95": [
+        0.125585,
+        0.157799
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0384243,
+      "ci95": [
+        0.0198329,
+        0.057016
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0436224,
+      "ci95": [
+        0.0381644,
+        0.0485903
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0322877,
+      "ci95": [
+        0.0291012,
+        0.0360065
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.356079,
+      "ci95": [
+        0.31669,
+        0.373304
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "season",
+      "stratum": "post_monsoon",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0212859,
+      "ci95": [
+        0.0184461,
+        0.0230833
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.325296,
+      "ci95": [
+        0.102776,
+        0.602486
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0166175,
+      "ci95": [
+        -0.0260177,
+        0.0
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.00779271,
+      "ci95": [
+        -0.0103928,
+        0.0201141
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.00165519,
+      "ci95": [
+        0.000617274,
+        0.00233295
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.191777,
+      "ci95": [
+        0.171018,
+        0.223173
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.106352,
+      "ci95": [
+        0.0968954,
+        0.128512
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0503028,
+      "ci95": [
+        0.0424515,
+        0.0626481
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0390498,
+      "ci95": [
+        0.0356021,
+        0.0455163
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.375692,
+      "ci95": [
+        0.333083,
+        0.406155
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "season",
+      "stratum": "winter",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0197605,
+      "ci95": [
+        0.0178417,
+        0.0236098
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.273582,
+      "ci95": [
+        0.188428,
+        0.417496
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0140201,
+      "ci95": [
+        -0.00652475,
+        0.0325435
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0689353,
+      "ci95": [
+        0.0513574,
+        0.0868599
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0531145,
+      "ci95": [
+        0.0374087,
+        0.0687557
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.143937,
+      "ci95": [
+        0.127714,
+        0.160407
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.039362,
+      "ci95": [
+        0.0227392,
+        0.0556746
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.054489,
+      "ci95": [
+        0.0486721,
+        0.060534
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.042753,
+      "ci95": [
+        0.0379755,
+        0.0479547
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.362165,
+      "ci95": [
+        0.348047,
+        0.374981
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "rain_intensity",
+      "stratum": "dry_lt_1mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0190324,
+      "ci95": [
+        0.0175411,
+        0.0203975
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": -0.474026,
+      "ci95": [
+        -0.670369,
+        -0.403325
+      ],
+      "result": "loss"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0644219,
+      "ci95": [
+        -0.125465,
+        -0.0301166
+      ],
+      "result": "loss"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0257979,
+      "ci95": [
+        -0.0320638,
+        0.0560589
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0263178,
+      "ci95": [
+        0.011098,
+        0.0504912
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.190854,
+      "ci95": [
+        0.16332,
+        0.224166
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0370274,
+      "ci95": [
+        0.00735148,
+        0.0676983
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0516298,
+      "ci95": [
+        0.0227233,
+        0.120333
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0280829,
+      "ci95": [
+        0.0194253,
+        0.0404695
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.376989,
+      "ci95": [
+        0.262526,
+        0.412562
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "rain_intensity",
+      "stratum": "light_1_10mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0239913,
+      "ci95": [
+        0.0162286,
+        0.0283419
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": -0.0283239,
+      "ci95": [
+        -0.0571204,
+        0.0146684
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.13957,
+      "ci95": [
+        -0.164101,
+        -0.0746707
+      ],
+      "result": "loss"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0794,
+      "ci95": [
+        0.0289698,
+        0.111515
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0194338,
+      "ci95": [
+        0.014091,
+        0.0249491
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.145931,
+      "ci95": [
+        0.00646686,
+        0.209317
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.00302831,
+      "ci95": [
+        -0.0020625,
+        0.00470001
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0127,
+      "ci95": [
+        -0.00276069,
+        0.0267051
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0210299,
+      "ci95": [
+        0.0139397,
+        0.0223745
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.365586,
+      "ci95": [
+        0.349558,
+        0.401694
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "rain_intensity",
+      "stratum": "moderate_10_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0141491,
+      "ci95": [
+        0.0135779,
+        0.017157
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.158414,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0331068,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0477375,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.00866203,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.196087,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.00941438,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": -0.00659685,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0111698,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.322236,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "rain_intensity",
+      "stratum": "heavy_ge_35mm",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0216901,
+      "ci95": null,
+      "result": "too_few_days"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.136219,
+      "ci95": [
+        0.0776162,
+        0.24848
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.00595528,
+      "ci95": [
+        -0.0641081,
+        0.0259128
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0640445,
+      "ci95": [
+        0.0483132,
+        0.0803421
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.048884,
+      "ci95": [
+        0.0361969,
+        0.0621604
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.119178,
+      "ci95": [
+        0.107826,
+        0.132476
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0414925,
+      "ci95": [
+        0.0224926,
+        0.0599961
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0569627,
+      "ci95": [
+        0.0498905,
+        0.06391
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0471936,
+      "ci95": [
+        0.0418419,
+        0.051835
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.365584,
+      "ci95": [
+        0.350363,
+        0.377603
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "drainage_class",
+      "stratum": "good",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0254124,
+      "ci95": [
+        0.0234052,
+        0.0275126
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.15156,
+      "ci95": [
+        -0.0166961,
+        0.337295
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.0615537,
+      "ci95": [
+        -0.124309,
+        0.00409889
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0734238,
+      "ci95": [
+        0.0544551,
+        0.0923385
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0569233,
+      "ci95": [
+        0.0410678,
+        0.0748038
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.163862,
+      "ci95": [
+        0.142951,
+        0.187526
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0291584,
+      "ci95": [
+        0.0197268,
+        0.0409197
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0472941,
+      "ci95": [
+        0.0411316,
+        0.0538192
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0348823,
+      "ci95": [
+        0.030532,
+        0.0401185
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.356058,
+      "ci95": [
+        0.341161,
+        0.369841
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "drainage_class",
+      "stratum": "moderate",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0111773,
+      "ci95": [
+        0.00905059,
+        0.0128455
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": -0.148259,
+      "ci95": [
+        -0.334422,
+        0.186308
+      ],
+      "result": "tie"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rain",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": -0.33306,
+      "ci95": [
+        -0.507318,
+        -0.0443726
+      ],
+      "result": "loss"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0455918,
+      "ci95": [
+        0.0276664,
+        0.0630393
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmax",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.016415,
+      "ci95": [
+        0.00495227,
+        0.0279514
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.277223,
+      "ci95": [
+        0.20193,
+        0.341589
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "tmin",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.104444,
+      "ci95": [
+        0.0390748,
+        0.164066
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.0724612,
+      "ci95": [
+        0.0577245,
+        0.0902452
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "rh",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0432064,
+      "ci95": [
+        0.031893,
+        0.0570651
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b0",
+      "metric": "MAE",
+      "skill": 0.395567,
+      "ci95": [
+        0.374486,
+        0.413122
+      ],
+      "result": "win"
+    },
+    {
+      "check": "temporal_holdout",
+      "var": "wind",
+      "dimension": "drainage_class",
+      "stratum": "poor",
+      "baseline": "b1",
+      "metric": "MAE",
+      "skill": 0.0261194,
+      "ci95": [
+        0.01617,
+        0.0347264
+      ],
+      "result": "win"
+    }
   ]
 }

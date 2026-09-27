@@ -433,7 +433,7 @@ export interface paths {
     };
     /**
      * Regions
-     * @description Error per held-out block.
+     * @description Error per held-out block (leave-one-block-out) and per station (station check).
      */
     get: operations["regions_api_v1_verification_regions_get"];
     put?: never;
@@ -633,6 +633,25 @@ export interface components {
      */
     Channel: "app" | "whatsapp" | "ivr";
     /**
+     * CheckSummary
+     * @description One validation check (v0.3.0): temporal holdout, leave-one-block-out or station check.
+     */
+    CheckSummary: {
+      /**
+       * Check
+       * @enum {string}
+       */
+      check: "temporal_holdout" | "leave_one_block_out" | "station";
+      /** Description */
+      description: string;
+      /** Truth */
+      truth: string;
+      /** N */
+      n: number;
+      /** Variables */
+      variables: components["schemas"]["VariableSummary"][];
+    };
+    /**
      * Confidence
      * @enum {string}
      */
@@ -659,6 +678,8 @@ export interface components {
       mean_width: number | null;
       /** N */
       n: number | null;
+      /** Stratum */
+      stratum?: string | null;
     };
     /**
      * DataMode
@@ -690,7 +711,11 @@ export interface components {
      * @enum {string}
      */
     Decision: "spray" | "heat_alert" | "irrigation_wait";
-    /** DecisionCounts */
+    /**
+     * DecisionCounts
+     * @description Replay outcomes. For heat alerts and irrigation waits the same names mean: ``wasted_wait`` = acted
+     *     (alert, wait) and the event did not happen; ``washed_off`` = did not act and the event happened.
+     */
     DecisionCounts: {
       /** Correct */
       correct: number;
@@ -753,6 +778,27 @@ export interface components {
     ErrorResponse: {
       error: components["schemas"]["ErrorBody"];
     };
+    /**
+     * EventBaselineScores
+     * @description A baseline's yes/no event forecast (block value >= threshold) scored like the model (v0.3.0).
+     */
+    EventBaselineScores: {
+      /**
+       * Baseline
+       * @enum {string}
+       */
+      baseline: "b0" | "b1" | "b2";
+      /** Pod */
+      pod: number | null;
+      /** Far */
+      far: number | null;
+      /** Csi */
+      csi: number | null;
+      /** Frequency Bias */
+      frequency_bias: number | null;
+      /** Brier */
+      brier: number | null;
+    };
     /** EventChange */
     EventChange: {
       /**
@@ -790,6 +836,19 @@ export interface components {
       brier: number | null;
       /** Brier Skill Vs Climatology */
       brier_skill_vs_climatology: number | null;
+      /** N */
+      n?: number | null;
+      /** Base Rate */
+      base_rate?: number | null;
+      /** Frequency Bias */
+      frequency_bias?: number | null;
+      /** Yes Rule */
+      yes_rule?: string | null;
+      /**
+       * Baselines
+       * @default []
+       */
+      baselines: components["schemas"]["EventBaselineScores"][];
     };
     /** EvidenceItem */
     EvidenceItem: {
@@ -998,6 +1057,16 @@ export interface components {
        * @default []
        */
       notes: string[];
+      block_corrected?: components["schemas"]["DecisionCounts"] | null;
+      /** Events Observed */
+      events_observed?: number | null;
+      period?: components["schemas"]["Period"] | null;
+      /** Lead Day */
+      lead_day?: number | null;
+      /** Threshold */
+      threshold?: number | null;
+      /** Unit */
+      unit?: string | null;
     };
     /** ImpactRule */
     ImpactRule: {
@@ -1063,7 +1132,13 @@ export interface components {
       /** Issue Date Info */
       issue_date_info?: components["schemas"]["IssueDateInfo"][] | null;
     };
-    /** MetricRow */
+    /**
+     * MetricRow
+     * @description One score for the model and the baselines. Skills are 1 - score / baseline score (null for bias).
+     *
+     *     v0.3.0 adds ``skill_vs_b1`` and ``skill_vs_b1_ci95``: B1 is the corrected block forecast the model is
+     *     reconciled to, so it is the baseline that isolates what the Panchayat model adds.
+     */
     MetricRow: {
       /** Name */
       name: string;
@@ -1081,6 +1156,10 @@ export interface components {
       skill_vs_b0: number | null;
       /** Skill Ci95 */
       skill_ci95: number[] | null;
+      /** Skill Vs B1 */
+      skill_vs_b1?: number | null;
+      /** Skill Vs B1 Ci95 */
+      skill_vs_b1_ci95?: number[] | null;
     };
     /** MultiPolygonGeometry */
     MultiPolygonGeometry: {
@@ -1319,6 +1398,10 @@ export interface components {
       b0: number | null;
       /** N */
       n: number | null;
+      /** B1 */
+      b1?: number | null;
+      /** B2 */
+      b2?: number | null;
     };
     /** Regions */
     Regions: {
@@ -1349,6 +1432,8 @@ export interface components {
       observed_freq: number | null;
       /** N */
       n: number;
+      /** Mean Forecast Prob */
+      mean_forecast_prob?: number | null;
     };
     /**
      * ReviewAction
@@ -1457,6 +1542,42 @@ export interface components {
      */
     Status: "draft" | "approved" | "edited" | "rejected";
     /**
+     * StratumRow
+     * @description MAE of model and baselines inside one stratum (v0.3.0), temporal holdout.
+     */
+    StratumRow: {
+      /**
+       * Dimension
+       * @enum {string}
+       */
+      dimension: "lead_day" | "season" | "rain_intensity" | "drainage_class";
+      /** Stratum */
+      stratum: string;
+      var: components["schemas"]["Var"];
+      /** Metric */
+      metric: string;
+      /** Unit */
+      unit: string;
+      /** N */
+      n: number;
+      /** Model */
+      model: number | null;
+      /** B0 */
+      b0: number | null;
+      /** B1 */
+      b1: number | null;
+      /** B2 */
+      b2: number | null;
+      /** Skill Vs B0 */
+      skill_vs_b0: number | null;
+      /** Skill Ci95 */
+      skill_ci95: number[] | null;
+      /** Skill Vs B1 */
+      skill_vs_b1: number | null;
+      /** Skill Vs B1 Ci95 */
+      skill_vs_b1_ci95: number[] | null;
+    };
+    /**
      * ThresholdsStatus
      * @enum {string}
      */
@@ -1502,6 +1623,38 @@ export interface components {
       /** Metrics */
       metrics: components["schemas"]["MetricRow"][];
     };
+    /**
+     * Verdict
+     * @description Win, tie or loss against one baseline from the 95 % interval of MAE skill (v0.3.0).
+     */
+    Verdict: {
+      /**
+       * Check
+       * @enum {string}
+       */
+      check: "temporal_holdout" | "leave_one_block_out" | "station";
+      var: components["schemas"]["Var"];
+      /** Dimension */
+      dimension: string;
+      /** Stratum */
+      stratum: string;
+      /**
+       * Baseline
+       * @enum {string}
+       */
+      baseline: "b0" | "b1" | "b2";
+      /** Metric */
+      metric: string;
+      /** Skill */
+      skill: number | null;
+      /** Ci95 */
+      ci95: number[] | null;
+      /**
+       * Result
+       * @enum {string}
+       */
+      result: "win" | "tie" | "loss" | "too_few_days";
+    };
     /** VerificationSummary */
     VerificationSummary: {
       data_mode: components["schemas"]["DataMode"];
@@ -1519,6 +1672,28 @@ export interface components {
       };
       /** Notes */
       notes: string[];
+      /** Model Version */
+      model_version?: string | null;
+      window?: components["schemas"]["Split"] | null;
+      /** Test First Opened At */
+      test_first_opened_at?: string | null;
+      /** Test Reused */
+      test_reused?: boolean | null;
+      /**
+       * Checks
+       * @default []
+       */
+      checks: components["schemas"]["CheckSummary"][];
+      /**
+       * Strata
+       * @default []
+       */
+      strata: components["schemas"]["StratumRow"][];
+      /**
+       * Verdicts
+       * @default []
+       */
+      verdicts: components["schemas"]["Verdict"][];
     };
   };
   responses: never;

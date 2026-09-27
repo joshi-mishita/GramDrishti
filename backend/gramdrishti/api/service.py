@@ -5,13 +5,16 @@ and SHAP reasons; no model inference per request). A missing snapshot is a 503 `
 Risk, priority and advisories come from the YAML rules engine (``advisory/``) on top of the snapshot; every
 threshold is a placeholder until expert review (``thresholds_status: "placeholder"``). Advisories, the
 review audit log and farmer feedback live in SQLite (``store/db.py``); ``run_daily`` writes the drafts, and
-the API writes them on first use when they are missing. Verification and impact are PLACEHOLDER (S10).
+the API writes them on first use when they are missing. Verification and impact come from the files the
+verification job writes (``verify/run_validation.py``: ``artifacts/verification.json`` and ``impact.json``);
+the API never computes or edits a score, and a missing file is a 503 ``not_computed``.
 
 Nothing is loaded at import time; snapshots are read on first use and cached per issue date.
 """
 
 from __future__ import annotations
 
+import json
 import os
 import threading
 from collections.abc import Callable
@@ -31,11 +34,11 @@ from gramdrishti.api import schemas as s
 from gramdrishti.api.errors import ApiError, not_found
 from gramdrishti.contract.pick_demo_dates import DemoDate, load_demo_dates
 from gramdrishti.data import loaders
-from gramdrishti.data.config import COLS, LEADS, VARS, data_mode
+from gramdrishti.data.config import ART, COLS, LEADS, VARS, data_mode
 from gramdrishti.data.qc import clean_values, run_qc
 from gramdrishti.explain.shap_explain import NEGLIGIBLE_DELTA
 from gramdrishti.pipeline.run_daily import SNAPSHOTS, Snapshot, read_snapshot
-from gramdrishti.provisional import agro, placeholders, texts
+from gramdrishti.provisional import agro, texts
 from gramdrishti.store.db import VISIBLE_TO_FARMERS, Store
 
 QS = ("p10", "p50", "p90", "block", "mean", "block_corrected")
@@ -43,6 +46,8 @@ QS = ("p10", "p50", "p90", "block", "mean", "block_corrected")
 EVENT_COLS = {e: "prob_" + e.value.removesuffix("mm") for e in s.RainEvent}
 MAP_EVENT = s.RainEvent.rain_ge_2_5mm
 SNAPSHOT_ENV = "GRAMDRISHTI_SNAPSHOT_DIR"
+VERIFICATION_ENV = "GRAMDRISHTI_VERIFICATION_DIR"
+VERIFICATION_FILES = {"verification": "verification.json", "impact": "impact.json"}
 EXPLAIN_METHOD = "shap_tree_explainer_mean_model_block_contrast"
 DISTRICT_MOCK = "Synthetic District"
 MATERIAL_CHANGE = {"rain": 5.0, "tmax": 1.5, "tmin": 1.5, "rh": 10.0, "wind": 5.0}
@@ -86,11 +91,13 @@ class Service:
 
     def __init__(self, demo_dates: list[DemoDate] | None = None,
                  clock: Callable[[], datetime] = _now, snapshot_dir: Path | None = None,
-                 db_path: Path | None = None) -> None:
+                 db_path: Path | None = None, verification_dir: Path | None = None) -> None:
         self._demo = demo_dates
         self.clock = clock
         self.snapshot_dir = snapshot_dir or Path(os.environ.get(SNAPSHOT_ENV, SNAPSHOTS))
         self._db_path = db_path
+        self.verification_dir = verification_dir or Path(os.environ.get(VERIFICATION_ENV, ART))
+        self._verif: dict[str, tuple[int, dict]] = {}
         self._lock = threading.Lock()
         self._drafts_lock = threading.Lock()
         self._snaps: dict[date, Snapshot] = {}
@@ -173,11 +180,6 @@ class Service:
         if pid not in self.pids:
             raise not_found(f"Panchayat {pid} does not exist")
         return self.static.set_index("panchayat_id").loc[pid]
-
-    def require_mock_for_placeholder(self, what: str) -> None:
-        """Placeholder numbers may only ever be served under data_mode "mock"."""
-        if self.mode != s.DataMode.mock:
-            raise ApiError(503, "not_computed", f"{what} has not been computed yet for real data.")
 
     # ------------------------------------------------------------ snapshots and forecast table
     def snapshot(self, issue: date, required: bool = True) -> Snapshot | None:
@@ -604,33 +606,51 @@ class Service:
         return s.FeedbackResponse(id=f"FB-{fid:05d}", stored=True, received_at=now, data_mode=self.mode,
                                   feedback=req, message=s.LocalizedText(**texts.FEEDBACK_THANKS))
 
-    # ------------------------------------------------------------ verification and impact (placeholders)
+    # ------------------------------------------------------------ verification and impact
+    def _verification_file(self, key: str) -> dict:
+        """``verification.json`` or ``impact.json`` from the verification job (cached per file mtime).
+        Missing, or built in another data mode: 503 ``not_computed``."""
+        path = self.verification_dir / VERIFICATION_FILES[key]
+        if not path.exists():
+            raise ApiError(503, "not_computed", f"{VERIFICATION_FILES[key]} has not been computed. Run "
+                           "`cd backend && python -m gramdrishti.verify.run_validation`.")
+        mtime = path.stat().st_mtime_ns
+        with self._lock:
+            cached = self._verif.get(key)
+        if cached is None or cached[0] != mtime:
+            cached = (mtime, json.loads(path.read_text()))
+            with self._lock:
+                self._verif[key] = cached
+        payload = cached[1]
+        built = payload["data_mode"] if key == "impact" else payload["summary"]["data_mode"]
+        if built != self.mode.value:
+            raise ApiError(503, "not_computed", f"{VERIFICATION_FILES[key]} was computed in {built} mode, "
+                           f"the API runs in {self.mode.value}")
+        return payload
+
     def verification_summary(self) -> s.VerificationSummary:
-        self.require_mock_for_placeholder("Verification")
-        return s.VerificationSummary(**placeholders.verification_summary(), data_mode=self.mode,
-                                     provenance=s.Provenance.placeholder)
+        return s.VerificationSummary.model_validate(self._verification_file("verification")["summary"])
 
     def reliability(self, event: s.RainEvent) -> s.Reliability:
-        self.require_mock_for_placeholder("Verification")
-        return s.Reliability(**placeholders.reliability(event.value), data_mode=self.mode,
-                             provenance=s.Provenance.placeholder)
+        items = self._verification_file("verification")["reliability"]
+        found = next((r for r in items if r["event"] == event.value), None)
+        if found is None:
+            raise ApiError(503, "not_computed", f"No reliability points for {event.value}")
+        return s.Reliability.model_validate(found)
 
     def coverage(self) -> s.Coverage:
-        self.require_mock_for_placeholder("Verification")
-        return s.Coverage(**placeholders.coverage(), data_mode=self.mode, provenance=s.Provenance.placeholder)
+        return s.Coverage.model_validate(self._verification_file("verification")["coverage"])
 
     def regions(self) -> s.Regions:
-        self.require_mock_for_placeholder("Verification")
-        return s.Regions(**placeholders.regions(sorted(self.blocks["block_id"])), data_mode=self.mode,
-                         provenance=s.Provenance.placeholder)
+        return s.Regions.model_validate(self._verification_file("verification")["regions"])
 
     def impact(self, season: str, decision: s.Decision) -> s.Impact:
-        self.require_mock_for_placeholder("Impact")
-        if season not in placeholders.IMPACT_SEASONS:
-            avail = ", ".join(placeholders.IMPACT_SEASONS)
-            raise not_found(f"Season {season} does not exist. Available: {avail}")
-        return s.Impact(**placeholders.impact(season, decision.value, len(self.pids)),
-                        data_mode=self.mode, provenance=s.Provenance.placeholder)
+        items = self._verification_file("impact")["items"]
+        found = items.get(f"{season}/{decision.value}")
+        if found is None:
+            seasons = sorted({k.split("/")[0] for k in items})
+            raise not_found(f"Season {season} does not exist. Available: {', '.join(seasons)}")
+        return s.Impact.model_validate(found)
 
     # ------------------------------------------------------------ data quality
     def data_quality(self, as_of: date | None) -> s.DataQuality:
@@ -663,7 +683,7 @@ class Service:
             ok = pd.notna(last)
             stale.append(s.StaleInput(input=name, last_date=last.date() if ok else None,
                                       days_stale=int((end - last).days) if ok else None))
-        return s.DataQuality(as_of=as_of, data_mode=self.mode, provenance=s.Provenance.provisional,
+        return s.DataQuality(as_of=as_of, data_mode=self.mode, provenance=s.Provenance.computed,
                              stations_total=len(rows),
                              stations_reporting_24h=sum(r.reported_last_24h for r in rows),
                              missing_share_30d=prob(missing_all / expected_all) if expected_all else None,

@@ -8,8 +8,9 @@ records the model version of the snapshots used.
 Forecast, explain and change numbers come from the snapshots in ``backend/artifacts/snapshots`` (run
 ``python -m gramdrishti.pipeline.run_daily --all-demo-dates`` first). Risk, priority and advisories come
 from the YAML rules engine with PLACEHOLDER thresholds (``thresholds_status: "placeholder"``); the review
-examples run against a throwaway SQLite file, never the local store. Verification and impact numbers are
-PLACEHOLDER (``provenance`` says so). All of it is ``data_mode: "mock"``.
+examples run against a throwaway SQLite file, never the local store. Verification and impact numbers come
+from the verification job's files (``python -m gramdrishti.verify.run_validation``: TEST window, synthetic
+proxy validation). All of it is ``data_mode: "mock"``.
 """
 
 from __future__ import annotations
@@ -27,6 +28,7 @@ from gramdrishti.api import schemas as s
 from gramdrishti.api.main import PREFIX, create_app
 from gramdrishti.api.service import Service
 from gramdrishti.data.config import ROOT
+from gramdrishti.verify.impact import SEASONS as IMPACT_SEASONS
 
 OUT = ROOT / "contract" / "examples"
 FIXED_NOW = datetime(2024, 9, 9, 9, 30, 0)
@@ -162,16 +164,19 @@ def _build(out: Path, db: Path) -> list[dict]:
            s.FeedbackResponse, "feedback_request.json", s.FeedbackRequest,
            "intensity: none | light | moderate | heavy")
 
-    w.get("verification_summary.json", "/verification/summary", s.VerificationSummary,
-          "PLACEHOLDER numbers, not results (S10)")
+    note = "verification job output (TEST window, synthetic proxy validation)"
+    w.get("verification_summary.json", "/verification/summary", s.VerificationSummary, note)
     for ev in s.RainEvent:
         w.get(f"verification_reliability_{ev.value}.json", f"/verification/reliability?event={ev.value}",
-              s.Reliability, "PLACEHOLDER numbers, not results (S10)")
-    w.get("verification_coverage.json", "/verification/coverage", s.Coverage, "PLACEHOLDER numbers (S10)")
-    w.get("verification_regions.json", "/verification/regions", s.Regions, "PLACEHOLDER numbers (S10)")
-    for dec in s.Decision:
-        w.get(f"impact_{dec.value}.json", f"/impact?season=monsoon_2024&decision={dec.value}", s.Impact,
-              "PLACEHOLDER counts, not results (S10)")
+              s.Reliability, note)
+    w.get("verification_coverage.json", "/verification/coverage", s.Coverage, note)
+    w.get("verification_regions.json", "/verification/regions", s.Regions, note)
+    for season in IMPACT_SEASONS:
+        for dec in s.Decision:
+            name = (f"impact_{dec.value}.json" if season == "monsoon_2024"
+                    else f"impact_{season}_{dec.value}.json")
+            w.get(name, f"/impact?season={season}&decision={dec.value}", s.Impact,
+                  f"decision replay, {season}, lead day 1, placeholder thresholds")
     w.get("data_quality.json", "/data-quality?issue_date=2024-12-24", s.DataQuality,
           "computed from the station files")
 
@@ -190,6 +195,7 @@ def _build(out: Path, db: Path) -> list[dict]:
           s.Explain, "dry block: every Panchayat is 0 mm, so there is nothing to explain (reasons empty)")
     index = {"contract_version": s.API_VERSION, "data_mode": "mock", "main_issue_date": d,
              "model_version": svc.model_version(date.fromisoformat(d)),
+             "verification_model_version": svc.verification_summary().model_version,
              "generated_by": "python -m gramdrishti.contract.make_examples", "files": w.index}
     (out / "index.json").write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
     return w.index
