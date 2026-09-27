@@ -490,9 +490,9 @@
 
 /* ---- Risk layer (S9) ---- */
 .risk-legend {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 2px var(--gap-4);
   margin: var(--gap-1) 0 0;
   padding: 0;
   list-style: none;
@@ -573,7 +573,15 @@
   font-size: var(--fs-3);
 }
 .review-queue .filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--gap-2) var(--gap-3);
+}
+.review-queue .filters > :first-child {
+  grid-column: 1 / -1;
+}
+.review-queue .filters select {
+  width: 100%;
 }
 .queue {
   max-height: 64vh;
@@ -738,6 +746,9 @@
   font: inherit;
   font-size: var(--fs-3);
   resize: vertical;
+  /* Grow with the text where supported, so nothing is hidden behind a scrollbar. */
+  field-sizing: content;
+  min-height: 3.2em;
 }
 .text-field textarea.is-changed {
   border-color: var(--heat);
@@ -769,6 +780,9 @@
   padding: var(--gap-2) 0;
   border-bottom: 1px solid var(--line);
   font-size: var(--fs-2);
+}
+.evidence dd.nowrap {
+  white-space: nowrap;
 }
 .evidence dd {
   margin: 0;
@@ -894,5 +908,8 @@
   }
   .reviewer {
     flex-wrap: wrap;
+  }
+  .keys-hint {
+    display: none;
   }
 }

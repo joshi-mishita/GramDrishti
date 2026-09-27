@@ -192,9 +192,17 @@ function PriorityTable({ data, filters, onClear }: TableProps) {
           <Link to={mapLinkFor(r, data.issue_date)} className="link-btn">
             {nameOf(r)}
           </Link>
-          <span className="cell-sub">{r.panchayat_id}</span>
+          {nameOf(r).includes(r.panchayat_id) ? null : (
+            <span className="cell-sub">{r.panchayat_id}</span>
+          )}
         </>
       ),
+    },
+    {
+      key: "level",
+      header: t("priority.colLevel"),
+      sortValue: levelSortValue,
+      render: (r) => <RiskChip level={r.level} />,
     },
     {
       key: "block",
@@ -207,12 +215,6 @@ function PriorityTable({ data, filters, onClear }: TableProps) {
       header: t("priority.colRisk"),
       sortValue: (r) => t(`risks.${r.top_risk}`),
       render: (r) => t(`risks.${r.top_risk}`),
-    },
-    {
-      key: "level",
-      header: t("priority.colLevel"),
-      sortValue: levelSortValue,
-      render: (r) => <RiskChip level={r.level} />,
     },
     {
       key: "crops",
@@ -274,7 +276,7 @@ function PriorityTable({ data, filters, onClear }: TableProps) {
           }
         />
       )}
-      <p className="muted small">{t("priority.rowHint")}</p>
+      <p className="muted small no-print">{t("priority.rowHint")}</p>
       <ProvenanceNote provenance={data.provenance} />
       {data.thresholds_status === "placeholder" ? (
         <p className="muted small">{t("thresholds.placeholder")}</p>

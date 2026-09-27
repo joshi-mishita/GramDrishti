@@ -30,6 +30,14 @@
     break-inside: avoid;
   }
 
+  /* The page uses the full paper width; the hidden navigation keeps no column. */
+  .officer {
+    display: block !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+
   /* Priority list: the filters become one line of text, the table runs over pages. */
   .print-only {
     display: block !important;

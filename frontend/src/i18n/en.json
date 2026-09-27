@@ -241,7 +241,8 @@
     "auditBefore": "Before:",
     "auditAfter": "After:",
     "auditNone": "(none)",
-    "whereNamed": "{{name}}, block {{block}}"
+    "whereNamed": "{{name}}, block {{block}}",
+    "shortNameNoCrop": "{{pid}} {{category}}"
   },
   "verification": {
     "title": "Forecast accuracy check",

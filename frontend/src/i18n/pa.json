@@ -241,7 +241,8 @@
     "auditBefore": "ਪਹਿਲਾਂ:",
     "auditAfter": "ਬਾਅਦ:",
     "auditNone": "(ਕੁਝ ਨਹੀਂ)",
-    "whereNamed": "{{name}}, ਬਲਾਕ {{block}}"
+    "whereNamed": "{{name}}, ਬਲਾਕ {{block}}",
+    "shortNameNoCrop": "{{pid}} {{category}}"
   },
   "verification": {
     "title": "ਭਵਿੱਖਬਾਣੀ ਦੀ ਸ਼ੁੱਧਤਾ ਦੀ ਜਾਂਚ",
