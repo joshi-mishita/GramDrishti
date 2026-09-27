@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useMeta } from "../api/hooks";
 import { setRequestRole } from "../api/client";
@@ -12,6 +12,7 @@ import { Ribbon } from "../components/Ribbon";
 import { Skeleton } from "../components/states";
 import { ToastProvider } from "../components/Toast";
 import { TopBar } from "../components/TopBar";
+import { FarmerTopBar } from "../features/farmer/FarmerTopBar";
 
 /** Top bar, mock ribbon and the role layout below them. Owns URL and language sync. */
 export function AppShell() {
@@ -21,6 +22,7 @@ export function AppShell() {
   const role = useAppStore((s) => s.role);
   const issueDate = useAppStore((s) => s.issueDate);
   const setIssueDate = useAppStore((s) => s.setIssueDate);
+  const isFarmer = useLocation().pathname.startsWith("/farmer");
   useUrlSync();
 
   useEffect(() => applyLang(lang), [lang]);
@@ -40,7 +42,7 @@ export function AppShell() {
         <a className="skip-link" href="#main">
           {t("shell.skip")}
         </a>
-        <TopBar />
+        {isFarmer ? <FarmerTopBar /> : <TopBar />}
         <Ribbon dataMode={meta.data?.data_mode} />
         <ErrorBoundary message={t("states.renderError")}>
           <Suspense fallback={<Skeleton label={t("states.loading", { what: "" })} />}>

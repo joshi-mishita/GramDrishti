@@ -1,4 +1,4 @@
-/* Print styles (Frontend Guide 10.3): priority list (S9); the bulletin page (S13) adds more. */
+/* Print styles (Frontend Guide 10.3): priority list (S9) and the bulletin (S13). */
 @media print {
   .topbar,
   .sidenav,
@@ -76,5 +76,38 @@
   .chip-swatch {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+
+  /* Bulletin (Guide 7.1): the sheet fills the page; the mock notice is in its footer,
+     so the screen ribbon is left off paper. 12 pt minimum everywhere. */
+  body:has(.bulletin) .ribbon,
+  .bulletin-toolbar {
+    display: none !important;
+  }
+  .bulletin-screen {
+    padding: 0;
+  }
+  .bulletin {
+    max-width: none;
+    padding: 0;
+    border: 0;
+    color: #000;
+    font-size: 12pt;
+  }
+  .bulletin h1 {
+    font-size: 18pt;
+  }
+  .bulletin h2 {
+    font-size: 14pt;
+    border-color: #000;
+  }
+  .bulletin-note,
+  .bulletin-table th,
+  .bulletin-table td {
+    font-size: 12pt;
+    border-color: #000;
+  }
+  .bulletin-actions > li {
+    break-inside: avoid;
   }
 }

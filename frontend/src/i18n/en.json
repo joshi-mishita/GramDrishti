@@ -92,7 +92,8 @@
     "explain": "the explanation",
     "changes": "the forecast changes",
     "risk": "the risk layer",
-    "advisory": "advisory {{id}}"
+    "advisory": "advisory {{id}}",
+    "bulletinAdvice": "the approved advice"
   },
   "map": {
     "title": "Map explorer",
@@ -427,18 +428,64 @@
   },
   "farmer": {
     "village": "Panchayat {{pid}}",
+    "villageLabel": "Your Panchayat",
     "todayTitle": "Today",
-    "emptyTitle": "No advice for today yet",
-    "emptyBody": "Advice appears here after the agriculture officer approves it.",
-    "approvedTitle_one": "Approved advice ({{count}})",
-    "approvedTitle_other": "Approved advice ({{count}})",
+    "issuedOn": "Forecast of {{date}}",
+    "emptyTitle": "No advice for your crops today",
+    "emptyBody": "Advice appears here after the agriculture officer approves it. Check the forecast for the next five days.",
+    "topLabel": "Most important today",
+    "more": "Why, and what if",
+    "fallbackLabel": "If things change",
+    "alsoToday_one": "Also today ({{count}})",
+    "alsoToday_other": "Also today ({{count}})",
+    "validDays": "For {{from}} to {{to}}",
+    "validDay": "For {{date}}",
+    "bulletinLink": "Village bulletin to print",
     "forecastTitle": "Forecast",
-    "forecastNotBuilt": "The 5-day forecast for your village comes in the next version.",
+    "forecastSub": "Next 5 days for {{village}}",
+    "rain": "Rain",
+    "temp": "Temperature",
+    "wind": "Wind",
+    "spray": "Spraying",
+    "rainWord": {
+      "very_unlikely": "Very unlikely",
+      "unlikely": "Unlikely",
+      "possible": "Possible",
+      "likely": "Likely",
+      "unknown": "Not known"
+    },
+    "rainRange": "{{word}}, {{lo}} to {{hi}} mm",
+    "rainAbout": "{{word}}, about {{value}} mm",
+    "rainNone": "{{word}}",
+    "tempRange": "{{lo}} to {{hi}} °C",
+    "windValue": "{{value}} km/h",
+    "sprayWord": {
+      "good": "Good",
+      "caution": "Caution",
+      "avoid": "Avoid"
+    },
+    "sprayHelp": {
+      "good": "Good day to spray",
+      "caution": "Spray only in the calm early morning",
+      "avoid": "Do not spray"
+    },
+    "sprayNote": "Spray ratings are for the whole day, not for hours.",
     "farmTitle": "My farm",
     "panchayat": "Panchayat",
+    "block": "Block",
     "language": "Language",
     "crops": "Crops",
     "sown": "sown {{date}}",
+    "noCrops": "No crops listed.",
+    "editCrops": "Change crops",
+    "addCrop": "Add crop",
+    "removeCrop": "Remove {{crop}}",
+    "cropLabel": "Crop",
+    "sowingLabel": "Sowing date",
+    "saveCrops": "Done",
+    "cancelEdit": "Cancel",
+    "localOnly": "Changes stay on this screen only. They are not saved or sent in this prototype, and the advice does not change.",
+    "edited": "Changed on this phone, not saved",
     "demoNote": "Demo farmer profile. There is no login in this prototype."
   },
   "crops": {
@@ -452,7 +499,24 @@
   },
   "bulletin": {
     "title": "Bulletin for {{pid}}",
-    "notBuilt": "The printable A4 bulletin comes in a later version."
+    "heading": "Village weather and crop bulletin",
+    "place": "{{name}} ({{pid}}), block {{block}}",
+    "placeNamed": "{{name}}, block {{block}}",
+    "issued": "Issued {{date}}",
+    "summaryTitle": "Next 3 days",
+    "day": "Day",
+    "actionsTitle": "What to do",
+    "why": "Why: {{reason}}",
+    "crop": "{{crop}}",
+    "noActions": "No approved advice for this Panchayat on this date.",
+    "moreActions_one": "{{count}} more item in the farmer app.",
+    "moreActions_other": "{{count}} more items in the farmer app.",
+    "dataStatus": "Forecast model {{model}}, issued {{date}}. Advice thresholds are placeholders awaiting expert review.",
+    "translationNote": "Hindi and Punjabi text is a draft awaiting review by a native speaker.",
+    "reviewed": "Every advice item here was reviewed by an agriculture officer before release.",
+    "print": "Print",
+    "back": "Back to the farmer app",
+    "language": "Bulletin language"
   },
   "notFound": {
     "title": "Page not found",
@@ -646,5 +710,50 @@
   },
   "toast": {
     "close": "Close message"
+  },
+  "listen": {
+    "listen": "Listen",
+    "stop": "Stop",
+    "loading": "Starting",
+    "playing": "Playing",
+    "noSpeech": "This phone cannot read text aloud.",
+    "noVoice": "This phone has no {{language}} voice. Add one in the phone's text-to-speech settings, or read the text above.",
+    "failed": "Could not play the advice. Try again."
+  },
+  "share": {
+    "share": "Share",
+    "label": "Share on WhatsApp",
+    "source": "GramDrishti, {{village}}, {{date}}"
+  },
+  "feedback": {
+    "question": "Did it rain today?",
+    "questionDate": "Did it rain today ({{date}})?",
+    "yes": "Yes",
+    "no": "No",
+    "howMuch": "How much rain?",
+    "light": "Light",
+    "moderate": "Moderate",
+    "heavy": "Heavy",
+    "back": "Back",
+    "sending": "Sending your answer",
+    "again": "Answer again",
+    "queued": "No connection. Your answer is saved on this phone and will be sent when you are online.",
+    "queuedCount_one": "{{count}} answer waiting to be sent.",
+    "queuedCount_other": "{{count}} answers waiting to be sent.",
+    "readOnly": "This demo runs on sample files, so your answer was not sent. With the server running it is stored.",
+    "failed": "Could not send your answer."
+  },
+  "offline": {
+    "pill": "Offline",
+    "pillLabel": "No internet connection",
+    "lastUpdated": "Saved copy. Last updated {{time}}",
+    "lastUpdatedUnknown": "Saved copy from an earlier visit."
+  },
+  "demo": {
+    "summary": "Demo settings",
+    "note": "For the demo only: choose a sample farmer. There is no login.",
+    "farmer": "Demo farmer",
+    "farmerOption": "Demo farmer {{n}} ({{id}})",
+    "officer": "Open the officer console"
   }
 }
