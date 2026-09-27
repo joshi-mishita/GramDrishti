@@ -5,7 +5,7 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "types": ["vite/client"],
+    "types": ["vite/client", "vite-plugin-pwa/client"],
     "jsx": "react-jsx",
     "resolveJsonModule": true,
     "allowImportingTsExtensions": false,
@@ -24,5 +24,5 @@
     "exactOptionalPropertyTypes": false
   },
   "include": ["src"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/test"]
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/test", "src/sw.ts"]
 }

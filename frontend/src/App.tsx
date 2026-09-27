@@ -28,13 +28,13 @@ export function AppRoutes() {
     <Routes>
       <Route element={<AppShell />}>
         <Route index element={<RedirectToMap />} />
+        <Route path="bulletin/:pid" element={<BulletinPage />} />
         <Route element={<OfficerLayout />}>
           <Route path="map" element={<MapPage />} />
           <Route path="priority" element={<PriorityPage />} />
           <Route path="review" element={<ReviewPage />} />
           <Route path="verification" element={<VerificationPage />} />
           <Route path="impact" element={<ImpactPage />} />
-          <Route path="bulletin/:pid" element={<BulletinPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
         <Route path="farmer" element={<FarmerLayout />}>

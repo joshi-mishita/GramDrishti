@@ -359,6 +359,102 @@
       "note": "after the officer approved every draft in MP0311; only this farmer's crops (and livestock if kept), most urgent first, with whole-day spray ratings"
     },
     {
+      "file": "farmer_advice_F003.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F003/advice?issue_date=2024-09-09",
+      "status": 200,
+      "model": "FarmerAdvice",
+      "note": "after the officer approved every draft in MP0601; only this farmer's crops (and livestock if kept), most urgent first, with whole-day spray ratings"
+    },
+    {
+      "file": "farmer_advice_F004.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F004/advice?issue_date=2024-09-09",
+      "status": 200,
+      "model": "FarmerAdvice",
+      "note": "after the officer approved every draft in MP0508; only this farmer's crops (and livestock if kept), most urgent first, with whole-day spray ratings"
+    },
+    {
+      "file": "farmer_advice_F005.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F005/advice?issue_date=2024-09-09",
+      "status": 200,
+      "model": "FarmerAdvice",
+      "note": "after the officer approved every draft in MP0103; only this farmer's crops (and livestock if kept), most urgent first, with whole-day spray ratings"
+    },
+    {
+      "file": "advisories_MP0103.json",
+      "method": "GET",
+      "path": "/api/v1/advisories?panchayat_id=MP0103&issue_date=2024-09-09",
+      "status": 200,
+      "model": "AdvisoryList",
+      "note": "every status for one Panchayat after the approvals above; the bulletin prints approved and edited ones"
+    },
+    {
+      "file": "forecast_panchayat_MP0307.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP0307?issue_date=2024-09-09",
+      "status": 200,
+      "model": "PanchayatForecast",
+      "note": "a demo farmer's Panchayat (farmer app forecast screen)"
+    },
+    {
+      "file": "advisories_MP0307.json",
+      "method": "GET",
+      "path": "/api/v1/advisories?panchayat_id=MP0307&issue_date=2024-09-09",
+      "status": 200,
+      "model": "AdvisoryList",
+      "note": "every status for one Panchayat after the approvals above; the bulletin prints approved and edited ones"
+    },
+    {
+      "file": "forecast_panchayat_MP0311.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP0311?issue_date=2024-09-09",
+      "status": 200,
+      "model": "PanchayatForecast",
+      "note": "a demo farmer's Panchayat (farmer app forecast screen)"
+    },
+    {
+      "file": "advisories_MP0311.json",
+      "method": "GET",
+      "path": "/api/v1/advisories?panchayat_id=MP0311&issue_date=2024-09-09",
+      "status": 200,
+      "model": "AdvisoryList",
+      "note": "every status for one Panchayat after the approvals above; the bulletin prints approved and edited ones"
+    },
+    {
+      "file": "forecast_panchayat_MP0508.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP0508?issue_date=2024-09-09",
+      "status": 200,
+      "model": "PanchayatForecast",
+      "note": "a demo farmer's Panchayat (farmer app forecast screen)"
+    },
+    {
+      "file": "advisories_MP0508.json",
+      "method": "GET",
+      "path": "/api/v1/advisories?panchayat_id=MP0508&issue_date=2024-09-09",
+      "status": 200,
+      "model": "AdvisoryList",
+      "note": "every status for one Panchayat after the approvals above; the bulletin prints approved and edited ones"
+    },
+    {
+      "file": "forecast_panchayat_MP0601.json",
+      "method": "GET",
+      "path": "/api/v1/forecast/panchayat/MP0601?issue_date=2024-09-09",
+      "status": 200,
+      "model": "PanchayatForecast",
+      "note": "a demo farmer's Panchayat (farmer app forecast screen)"
+    },
+    {
+      "file": "advisories_MP0601.json",
+      "method": "GET",
+      "path": "/api/v1/advisories?panchayat_id=MP0601&issue_date=2024-09-09",
+      "status": 200,
+      "model": "AdvisoryList",
+      "note": "every status for one Panchayat after the approvals above; the bulletin prints approved and edited ones"
+    },
+    {
       "file": "feedback_request.json",
       "method": "POST",
       "path": "/api/v1/feedback",

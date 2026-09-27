@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { registerSW } from "virtual:pwa-register";
 
 // Self-hosted fonts, bundled by Vite (font-display: swap). One subset per script keeps
 // the download small; the browser fetches a subset only when its characters appear.
@@ -33,9 +34,15 @@ const queryClient = new QueryClient({
     queries: {
       retry: (count, error) => count < 1 && !("status" in error && error.status === 404),
       refetchOnWindowFocus: false,
+      // Run the request even when the browser says it is offline: the service worker
+      // answers from its copy (Guide 10.2). The default mode would pause the query instead.
+      networkMode: "offlineFirst",
     },
   },
 });
+
+// Service worker for offline use (src/sw.ts); built for `build` and `preview` only.
+registerSW({ immediate: true });
 
 const root = document.getElementById("root");
 if (!root) throw new Error("#root missing from index.html");

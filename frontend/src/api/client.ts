@@ -10,6 +10,7 @@
  * fails with code "not_in_mock" instead of returning data for another date.
  */
 import { config as defaultConfig, type ClientConfig } from "../lib/config";
+import { noteResponse } from "../lib/network";
 import { ApiError } from "./errors";
 
 /** First path segment of an endpoint; the unit that VITE_REAL_ENDPOINTS switches. */
@@ -134,6 +135,8 @@ async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
   }
   const body: unknown = await res.json().catch(() => undefined);
   if (!res.ok) throw ApiError.fromBody(res.status, url, body ?? null);
+  // Only GETs can come from the service worker's offline copy.
+  if (!init?.method || init.method === "GET") noteResponse(url, res.headers);
   if (body === undefined) {
     throw new ApiError({
       status: res.status,

@@ -1,0 +1,82 @@
+{
+  "data_mode": "mock",
+  "provenance": "computed",
+  "total": 1,
+  "items": [
+    {
+      "id": "ADV-2024-09-09-MP0601-livestock-livestock",
+      "issue_date": "2024-09-09",
+      "panchayat_id": "MP0601",
+      "block_id": "MB06",
+      "crop": "livestock",
+      "stage": null,
+      "category": "livestock",
+      "priority": "moderate",
+      "valid_from": "2024-09-10",
+      "valid_to": "2024-09-12",
+      "action": {
+        "en": "Give animals shade and plenty of fresh water, and graze them in the cooler morning and evening hours until 12 September.",
+        "hi": "12 सितंबर तक पशुओं को छाया और भरपूर ताज़ा पानी दें, और उन्हें सुबह-शाम की ठंडक में चराएं।",
+        "pa": "12 ਸਤੰਬਰ ਤੱਕ ਪਸ਼ੂਆਂ ਨੂੰ ਛਾਂ ਅਤੇ ਭਰਪੂਰ ਤਾਜ਼ਾ ਪਾਣੀ ਦਿਓ, ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸਵੇਰੇ-ਸ਼ਾਮ ਦੀ ਠੰਢਕ ਵਿੱਚ ਚਰਾਓ।"
+      },
+      "reason": {
+        "en": "The heat index for animals may reach 88 on 10 September, with a maximum temperature up to 36.3 C.",
+        "hi": "10 सितंबर को पशुओं के लिए गर्मी सूचकांक 88 तक जा सकता है, अधिकतम तापमान 36.3 डिग्री सेल्सियस तक।",
+        "pa": "10 ਸਤੰਬਰ ਨੂੰ ਪਸ਼ੂਆਂ ਲਈ ਗਰਮੀ ਸੂਚਕਾਂਕ 88 ਤੱਕ ਜਾ ਸਕਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ 36.3 ਡਿਗਰੀ ਸੈਲਸੀਅਸ ਤੱਕ।"
+      },
+      "fallback": {
+        "en": "If the day is cooler than forecast, shade and water as usual are enough.",
+        "hi": "अगर दिन अनुमान से ठंडा रहे, तो सामान्य छाया और पानी काफ़ी है।",
+        "pa": "ਜੇ ਦਿਨ ਅਨੁਮਾਨ ਨਾਲੋਂ ਠੰਢਾ ਰਹੇ, ਤਾਂ ਆਮ ਵਾਂਗ ਛਾਂ ਅਤੇ ਪਾਣੀ ਕਾਫ਼ੀ ਹੈ।"
+      },
+      "confidence": "high",
+      "evidence": [
+        {
+          "label": "Livestock heat index (THI) with the upper maximum temperature, highest 10 Sep to 12 Sep",
+          "value": "88"
+        },
+        {
+          "label": "Highest maximum temperature, upper estimate (p90), 10 Sep to 12 Sep",
+          "value": "36.3 C"
+        }
+      ],
+      "thresholds_status": "placeholder",
+      "status": "approved",
+      "reviewed_by": "Officer Demo",
+      "reviewed_at": "2024-09-09T09:30:00",
+      "audit": [
+        {
+          "at": "2024-09-09T08:00:00",
+          "actor": "system",
+          "action": "created",
+          "note": "Draft from the rules engine: rules.yaml version 1, thresholds placeholder, model s5-lgbm-9b632a7b1b.",
+          "before": null,
+          "after": {
+            "status": "draft"
+          }
+        },
+        {
+          "at": "2024-09-09T09:30:00",
+          "actor": "Officer Demo",
+          "action": "approved",
+          "note": "",
+          "before": {
+            "status": "draft"
+          },
+          "after": {
+            "status": "approved"
+          }
+        }
+      ],
+      "audio": {
+        "en": "/api/v1/audio/ADV-2024-09-09-MP0601-livestock-livestock?lang=en",
+        "hi": "/api/v1/audio/ADV-2024-09-09-MP0601-livestock-livestock?lang=hi",
+        "pa": "/api/v1/audio/ADV-2024-09-09-MP0601-livestock-livestock?lang=pa"
+      },
+      "data_mode": "mock",
+      "provenance": "computed",
+      "translation_status": "needs_native_review",
+      "rule_id": "livestock_heat"
+    }
+  ]
+}
