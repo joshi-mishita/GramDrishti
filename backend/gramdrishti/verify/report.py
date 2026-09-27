@@ -76,7 +76,11 @@ def correction_share(s: dict) -> list[str]:
     for v in temporal["variables"]:
         m = _metric(v, "MAE")
         gain, corr = m["b0"] - m["model"], m["b0"] - m["b1"]
-        if gain > 0 and corr / gain > 0.5:
+        if gain > 0 and corr >= gain:
+            out.append(f"- {NAMES[v['var']]}: the corrected block forecast B1 alone (MAE {_n(m['b1'], 3)} "
+                       f"{m['unit']}) is at least as good as the Panchayat forecast ({_n(m['model'], 3)}); "
+                       f"all of the gain over B0 ({_n(m['b0'], 3)}) comes from the block bias correction.")
+        elif gain > 0 and corr / gain > 0.5:
             out.append(f"- {NAMES[v['var']]}: {corr / gain:.0%} of the MAE gain over B0 "
                        f"({_n(m['b0'], 3)} to {_n(m['model'], 3)} {m['unit']}) is already in B1, the "
                        "corrected block forecast; the Panchayat detail adds the rest.")
