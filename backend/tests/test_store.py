@@ -48,7 +48,7 @@ def test_tables_match_guide_and_migrations_run_once(tmp_path: Path) -> None:
     assert cols["audit_log"] == ["id", "advisory_id", "action", "actor", "before_json", "after_json",
                                  "note", "at"]
     assert cols["feedback"] == ["id", "panchayat_id", "date", "reported_rain", "intensity", "channel", "at"]
-    assert cols["farmers"] == ["id", "name", "panchayat_id", "language", "crops_json"]
+    assert cols["farmers"] == ["id", "name", "panchayat_id", "language", "crops_json", "livestock"]  # + S12
     assert con.execute("SELECT COUNT(*) FROM schema_version").fetchone()[0] == len(MIGRATIONS)
 
 
@@ -135,3 +135,24 @@ def test_feedback_rows(store: Store) -> None:
     assert second == first + 1
     row = sqlite3.connect(store.path).execute("SELECT * FROM feedback WHERE id = ?", (first,)).fetchone()
     assert row[1:] == ("MP0101", "2024-09-10", 1, "heavy", "app", "2024-09-09T08:00:00")
+
+
+def test_recent_feedback_finds_identical_reports_only(store: Store) -> None:
+    fid = store.add_feedback("MP0101", date(2024, 9, 10), True, "heavy", "app", AT)
+    key = ("MP0101", date(2024, 9, 10), True, "heavy", "app")
+    assert store.recent_feedback(*key, since=AT) == fid
+    assert store.recent_feedback(*key, since=datetime(2024, 9, 9, 8, 1)) is None   # older than the window
+    assert store.recent_feedback("MP0101", date(2024, 9, 10), True, "light", "app", since=AT) is None
+    assert [r["id"] for r in store.feedback_rows()] == [fid]
+
+
+def test_farmers_round_trip(store: Store) -> None:
+    assert store.farmers() == {}
+    crops = [{"crop": "bajra", "season": "kharif_2024", "sowing_date": "2024-07-01",
+              "expected_harvest_date": None, "area_fraction": 0.5}]
+    store.replace_farmers([{"id": "F001", "name": "Demo farmer 1", "panchayat_id": "MP0101", "language": "hi",
+                            "crops": crops, "livestock": True}])
+    assert store.farmers()["F001"] == {"id": "F001", "name": "Demo farmer 1", "panchayat_id": "MP0101",
+                                       "language": "hi", "crops": crops, "livestock": True}
+    store.replace_farmers([])
+    assert store.farmers() == {}

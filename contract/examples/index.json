@@ -1,5 +1,5 @@
 {
-  "contract_version": "0.3.0",
+  "contract_version": "0.4.0",
   "data_mode": "mock",
   "main_issue_date": "2024-09-09",
   "model_version": "s5-lgbm-9b632a7b1b",
@@ -308,7 +308,7 @@
       "path": "/api/v1/farmers/F001",
       "status": 200,
       "model": "Farmer",
-      "note": "demo farmer"
+      "note": "demo profile, not a real person: low-lying Panchayat in the wettest block MB03; keeps cattle"
     },
     {
       "file": "farmer_F002.json",
@@ -316,7 +316,7 @@
       "path": "/api/v1/farmers/F002",
       "status": 200,
       "model": "Farmer",
-      "note": "demo farmer"
+      "note": "demo profile, not a real person: same block MB03 as F001, earlier bajra that nears harvest in September"
     },
     {
       "file": "farmer_F003.json",
@@ -324,7 +324,7 @@
       "path": "/api/v1/farmers/F003",
       "status": 200,
       "model": "Farmer",
-      "note": "demo farmer"
+      "note": "demo profile, not a real person: cotton grower in block MB06"
     },
     {
       "file": "farmer_F004.json",
@@ -332,7 +332,7 @@
       "path": "/api/v1/farmers/F004",
       "status": 200,
       "model": "Farmer",
-      "note": "demo farmer"
+      "note": "demo profile, not a real person: bajra and gram in block MB05; keeps cattle"
     },
     {
       "file": "farmer_F005.json",
@@ -340,15 +340,7 @@
       "path": "/api/v1/farmers/F005",
       "status": 200,
       "model": "Farmer",
-      "note": "demo farmer"
-    },
-    {
-      "file": "farmer_F006.json",
-      "method": "GET",
-      "path": "/api/v1/farmers/F006",
-      "status": 200,
-      "model": "Farmer",
-      "note": "demo farmer"
+      "note": "demo profile, not a real person: wheat only in block MB01; the Panchayat's bajra advice is not for this farmer"
     },
     {
       "file": "farmer_advice_F001.json",
@@ -356,7 +348,15 @@
       "path": "/api/v1/farmers/F001/advice?issue_date=2024-09-09",
       "status": 200,
       "model": "FarmerAdvice",
-      "note": "after the officer approved this Panchayat's advisories"
+      "note": "after the officer approved every draft in MP0307; only this farmer's crops (and livestock if kept), most urgent first, with whole-day spray ratings"
+    },
+    {
+      "file": "farmer_advice_F002.json",
+      "method": "GET",
+      "path": "/api/v1/farmers/F002/advice?issue_date=2024-09-09",
+      "status": 200,
+      "model": "FarmerAdvice",
+      "note": "after the officer approved every draft in MP0311; only this farmer's crops (and livestock if kept), most urgent first, with whole-day spray ratings"
     },
     {
       "file": "feedback_request.json",
@@ -564,7 +564,7 @@
       "path": "/api/v1/audio/ADV-2024-09-09-MP0301-cotton-spray?lang=hi",
       "status": 404,
       "model": "ErrorResponse",
-      "note": "no audio yet: the UI falls back to browser speech"
+      "note": "audio could not be made (here: generated offline); the UI falls back to browser speech"
     },
     {
       "file": "explain_MP0305_rain.json",

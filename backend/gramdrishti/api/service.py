@@ -25,7 +25,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from gramdrishti.advisory import spray
+from gramdrishti.advisory import audio, spray
 from gramdrishti.advisory.drafts import create_drafts
 from gramdrishti.advisory.engine import EngineResult, fmt, generate
 from gramdrishti.advisory.risk import RISK_TYPES, risk_scores
@@ -40,6 +40,7 @@ from gramdrishti.explain.shap_explain import NEGLIGIBLE_DELTA
 from gramdrishti.pipeline.run_daily import SNAPSHOTS, Snapshot, read_snapshot
 from gramdrishti.provisional import agro, texts
 from gramdrishti.store.db import VISIBLE_TO_FARMERS, Store
+from gramdrishti.store.seed_demo import seed as seed_farmers
 
 QS = ("p10", "p50", "p90", "block", "mean", "block_corrected")
 # rain_ge_2_5mm -> snapshot column prob_rain_ge_2_5
@@ -53,9 +54,8 @@ DISTRICT_MOCK = "Synthetic District"
 MATERIAL_CHANGE = {"rain": 5.0, "tmax": 1.5, "tmin": 1.5, "rh": 10.0, "wind": 5.0}
 MATERIAL_PROB_CHANGE = 0.15
 MAX_OBSERVED_DAYS = 62
-N_DEMO_FARMERS = 6
-FARMER_SEASONS = ("kharif_2024", "rabi_2024_25")
-FARMER_LANGS = ("hi", "pa", "en")
+FEEDBACK_DUPLICATE_WINDOW = timedelta(minutes=10)
+AUDIO_PATH = "/api/v1/audio/"
 LEVEL_RANK = {"low": 0, "moderate": 1, "high": 2, "severe": 3}
 RISK_ORDER = {t: i for i, t in enumerate(RISK_TYPES)}
 # Advisory categories that count as "affected" by each risk type in /priority.
@@ -91,13 +91,14 @@ class Service:
 
     def __init__(self, demo_dates: list[DemoDate] | None = None,
                  clock: Callable[[], datetime] = _now, snapshot_dir: Path | None = None,
-                 db_path: Path | None = None, verification_dir: Path | None = None) -> None:
+                 db_path: Path | None = None, audio_dir: Path | None = None,
+                 synth: audio.Synth = audio.gtts_synth) -> None:
         self._demo = demo_dates
         self.clock = clock
         self.snapshot_dir = snapshot_dir or Path(os.environ.get(SNAPSHOT_ENV, SNAPSHOTS))
         self._db_path = db_path
-        self.verification_dir = verification_dir or Path(os.environ.get(VERIFICATION_ENV, ART))
-        self._verif: dict[str, tuple[int, dict]] = {}
+        self.audio_dir = audio_dir or audio.AUDIO_DIR
+        self.synth = synth
         self._lock = threading.Lock()
         self._drafts_lock = threading.Lock()
         self._snaps: dict[date, Snapshot] = {}
@@ -513,8 +514,29 @@ class Service:
             raise ApiError(503, "not_computed", f"Advisories for {issue.isoformat()} were built in "
                            f"{info['data_mode']} mode, the API runs in {self.mode.value}")
 
+    def _audio_links(self, a: dict) -> dict[str, str]:
+        """Audio URLs for advisories farmers can see, in the languages gTTS lists and the text exists.
+        A link can still answer 404 (no internet to make the file); the UI then uses browser speech."""
+        if a["status"] not in VISIBLE_TO_FARMERS:
+            return {}
+        langs = audio.supported_langs() if self.synth is audio.gtts_synth else frozenset(audio.LANGS)
+        return {lang: f"{AUDIO_PATH}{a['id']}?lang={lang}" for lang in audio.LANGS
+                if lang in langs and audio.speech_text(a, lang) is not None}
+
     def _advisory(self, a: dict) -> s.Advisory:
-        return s.Advisory(**a, audio={}, data_mode=self.mode, provenance=s.Provenance.computed)
+        return s.Advisory(**a, audio=self._audio_links(a), data_mode=self.mode,
+                          provenance=s.Provenance.computed)
+
+    def audio(self, adv_id: str, lang: s.Lang) -> Path:
+        """Cached MP3 of an advisory's text; 404 ``audio_not_available`` when it cannot be made."""
+        self.ensure_drafts(self._issue_of(adv_id))
+        a = self.store.get(adv_id)
+        if a is None:
+            raise not_found(f"Advisory {adv_id} does not exist")
+        try:
+            return audio.audio_file(a, lang.value, self.audio_dir, self.synth)
+        except audio.AudioUnavailable as exc:
+            raise ApiError(404, "audio_not_available", str(exc)) from None
 
     def advisories(self, status: s.Status | None, pid: str | None, issue: date | None) -> s.AdvisoryList:
         if pid is not None:
@@ -558,19 +580,17 @@ class Service:
         return self._advisory(a)
 
     # ------------------------------------------------------------ farmers and feedback
-    @cached_property
+    @property
     def farmers(self) -> dict[str, dict]:
-        """Deterministic demo farmers: one per block, preferring a Panchayat with a station."""
-        with_station = set(self.stations["panchayat_id"])
-        out = {}
-        for i, b in enumerate(sorted(self.static["block_id"].unique())[:N_DEMO_FARMERS]):
-            ps = sorted(self.static.loc[self.static["block_id"] == b, "panchayat_id"])
-            has_crops = [p for p in ps if (self.crops["panchayat_id"] == p).any()]
-            pick = next((p for p in has_crops if p in with_station), has_crops[0] if has_crops else ps[0])
-            fid = f"F{i + 1:03d}"
-            out[fid] = {"farmer_id": fid, "name": f"Demo farmer {i + 1}", "panchayat_id": pick, "block_id": b,
-                        "language": FARMER_LANGS[i % len(FARMER_LANGS)]}
-        return out
+        """Demo farmers from the store, seeded from ``store/seed_demo.py`` when the table is empty."""
+        farmers = self.store.farmers()
+        if not farmers:
+            with self._drafts_lock:
+                farmers = self.store.farmers()
+                if not farmers:
+                    seed_farmers(self.store)
+                    farmers = self.store.farmers()
+        return farmers
 
     def _farmer(self, fid: str) -> dict:
         f = self.farmers.get(fid)
@@ -580,29 +600,59 @@ class Service:
 
     def farmer(self, fid: str) -> s.Farmer:
         f = self._farmer(fid)
-        c = self.crops[(self.crops["panchayat_id"] == f["panchayat_id"])
-                       & self.crops["season"].isin(FARMER_SEASONS)]
-        crops = [s.FarmerCrop(crop=r["crop"], season=r["season"], sowing_date=r["sowing_date"].date(),
-                              expected_harvest_date=r["expected_harvest_date"].date(),
-                              area_fraction=num(r["crop_area_fraction"]))
-                 for _, r in c.sort_values(["sowing_date", "crop"]).iterrows()]
-        return s.Farmer(**f, crops=crops, data_mode=self.mode)
+        block = self.check_panchayat(f["panchayat_id"])["block_id"]
+        crops = [s.FarmerCrop(**c) for c in f["crops"]]
+        return s.Farmer(farmer_id=fid, name=f["name"], panchayat_id=f["panchayat_id"], block_id=block,
+                        language=f["language"], crops=crops, livestock=f["livestock"], data_mode=self.mode)
+
+    def spray_days(self, pid: str, issue: date) -> list[s.SprayDay]:
+        """Whole-day spray ratings for the five forecast days at one Panchayat."""
+        t = self.table(issue)
+        t = t[t["panchayat_id"] == pid].sort_values("lead_day")
+        return [s.SprayDay(date=r.valid_date.date(), lead_day=int(r.lead_day), rating=r.spray_rating)
+                for r in t.itertuples(index=False)]
 
     def farmer_advice(self, fid: str, issue: date) -> s.FarmerAdvice:
+        """Approved or edited advisories for the farmer's Panchayat and crops (livestock advice only for
+        farmers who keep livestock), most urgent first, plus day-level spray ratings."""
         f = self._farmer(fid)
         self.check_issue(issue)
         self.ensure_drafts(issue)
-        items = self.store.list(panchayat_id=f["panchayat_id"], issue=issue, statuses=VISIBLE_TO_FARMERS)
-        items.sort(key=lambda a: (-LEVEL_RANK[a["priority"]], a["id"]))
+        crops = {c["crop"] for c in f["crops"]} | ({"livestock"} if f["livestock"] else set())
+        items = [a for a in self.store.list(panchayat_id=f["panchayat_id"], issue=issue,
+                                            statuses=VISIBLE_TO_FARMERS) if a["crop"] in crops]
+        items.sort(key=lambda a: (-LEVEL_RANK[a["priority"]], a["valid_from"], a["id"]))
         return s.FarmerAdvice(farmer_id=fid, panchayat_id=f["panchayat_id"], issue_date=issue,
                               language=f["language"], data_mode=self.mode,
-                              items=[self._advisory(a) for a in items])
+                              items=[self._advisory(a) for a in items],
+                              spray_days=self.spray_days(f["panchayat_id"], issue))
+
+    @cached_property
+    def feedback_dates(self) -> tuple[date, date]:
+        """First and last date a report can be about: the days the block forecast covers."""
+        return self.fc["valid_date"].min().date(), self.fc["valid_date"].max().date()
 
     def feedback(self, req: s.FeedbackRequest) -> s.FeedbackResponse:
+        """Store a "Did it rain?" report. The Panchayat must exist and the date must lie inside the data
+        period and not in the future. An identical report within 10 minutes is not stored again: the
+        answer carries the first report's id and ``stored: false``."""
         self.check_panchayat(req.panchayat_id)
         now = self.clock()
-        fid = self.store.add_feedback(req.panchayat_id, req.date, req.reported_rain, req.intensity.value,
-                                      req.channel.value, now)
+        first, last = self.feedback_dates
+        last = min(last, now.date())
+        if not first <= req.date <= last:
+            raise ApiError(400, "bad_request", f"Reports can be about {first.isoformat()} to "
+                           f"{last.isoformat()}; {req.date.isoformat()} is outside that period")
+        if req.intensity == s.Intensity.none and req.reported_rain:
+            raise ApiError(400, "bad_request", "reported_rain is true but intensity is 'none'")
+        if req.intensity != s.Intensity.none and not req.reported_rain:
+            raise ApiError(400, "bad_request", "reported_rain is false, so intensity must be 'none'")
+        args = (req.panchayat_id, req.date, req.reported_rain, req.intensity.value, req.channel.value)
+        dup = self.store.recent_feedback(*args, since=now - FEEDBACK_DUPLICATE_WINDOW)
+        if dup is not None:
+            return s.FeedbackResponse(id=f"FB-{dup:05d}", stored=False, received_at=now, data_mode=self.mode,
+                                      feedback=req, message=s.LocalizedText(**texts.FEEDBACK_DUPLICATE))
+        fid = self.store.add_feedback(*args, now)
         return s.FeedbackResponse(id=f"FB-{fid:05d}", stored=True, received_at=now, data_mode=self.mode,
                                   feedback=req, message=s.LocalizedText(**texts.FEEDBACK_THANKS))
 

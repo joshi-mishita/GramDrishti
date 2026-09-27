@@ -50,6 +50,11 @@ CREATE INDEX advisories_issue ON advisories(issue_date, status);
 CREATE INDEX advisories_panchayat ON advisories(panchayat_id);
 CREATE INDEX audit_advisory ON audit_log(advisory_id, id);
 """),
+    # S12: whether a demo farmer keeps livestock (livestock advice reaches only those farmers).
+    (2, """
+ALTER TABLE farmers ADD COLUMN livestock INTEGER NOT NULL DEFAULT 0;
+CREATE INDEX feedback_key ON feedback(panchayat_id, date);
+"""),
 ]
 
 
@@ -219,6 +224,43 @@ class Store:
             cur = con.execute(INSERT_FEEDBACK, (panchayat_id, day.isoformat(), int(reported_rain), intensity,
                                                 channel, _iso(at)))
             return int(cur.lastrowid or 0)
+
+    def recent_feedback(self, panchayat_id: str, day: date, reported_rain: bool, intensity: str, channel: str,
+                        since: datetime) -> int | None:
+        """Id of an identical report received at or after ``since``, else None (duplicate check)."""
+        with self._con() as con:
+            r = con.execute(
+                "SELECT id FROM feedback WHERE panchayat_id = ? AND date = ? AND reported_rain = ? "
+                "AND intensity = ? AND channel = ? AND at >= ? ORDER BY id LIMIT 1",
+                (panchayat_id, day.isoformat(), int(reported_rain), intensity, channel, _iso(since)),
+            ).fetchone()
+        return int(r["id"]) if r else None
+
+    def feedback_rows(self) -> list[dict]:
+        """Every stored report, oldest first."""
+        with self._con() as con:
+            return [dict(r) for r in con.execute("SELECT * FROM feedback ORDER BY id")]
+
+    # ------------------------------------------------------------ demo farmers
+    def replace_farmers(self, farmers: list[dict]) -> int:
+        """Replace the farmers table with ``farmers`` (dicts with id, name, panchayat_id, language, crops,
+        livestock). Returns the number written."""
+        with self._con() as con:
+            con.execute("DELETE FROM farmers")
+            con.executemany(
+                "INSERT INTO farmers(id, name, panchayat_id, language, crops_json, livestock) "
+                "VALUES (?, ?, ?, ?, ?, ?)",
+                [(f["id"], f["name"], f["panchayat_id"], f["language"], _json(f["crops"]),
+                  int(f["livestock"])) for f in farmers])
+        return len(farmers)
+
+    def farmers(self) -> dict[str, dict]:
+        """All farmers by id, with ``crops`` parsed from ``crops_json`` and ``livestock`` as a bool."""
+        with self._con() as con:
+            rows = con.execute("SELECT * FROM farmers ORDER BY id").fetchall()
+        return {r["id"]: {"id": r["id"], "name": r["name"], "panchayat_id": r["panchayat_id"],
+                          "language": r["language"], "crops": json.loads(r["crops_json"]),
+                          "livestock": bool(r["livestock"])} for r in rows}
 
     def counts(self, issue: date) -> dict[str, dict[str, int]]:
         """Advisory counts by category and by status for one issue date."""

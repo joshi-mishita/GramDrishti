@@ -81,7 +81,11 @@
       }
     }
   ],
-  "audio": {},
+  "audio": {
+    "en": "/api/v1/audio/ADV-2024-09-09-MP0301-cotton-spray?lang=en",
+    "hi": "/api/v1/audio/ADV-2024-09-09-MP0301-cotton-spray?lang=hi",
+    "pa": "/api/v1/audio/ADV-2024-09-09-MP0301-cotton-spray?lang=pa"
+  },
   "data_mode": "mock",
   "provenance": "computed",
   "translation_status": "needs_native_review",

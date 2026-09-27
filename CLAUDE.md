@@ -43,6 +43,10 @@ Shared: Docker Compose, GitHub Actions.
 - Run API: `cd backend && uvicorn gramdrishti.api.main:app --reload --port 8000`
 - Export contract: `cd backend && python -m gramdrishti.export_openapi`
 - Contract examples (calls the app, validates, writes `contract/examples/`; needs the snapshots above): `cd backend && python -m gramdrishti.contract.make_examples`
+- Seed the five demo farmers (the API also seeds an empty table): `cd backend && python -m gramdrishti.store.seed_demo`
+- Monthly feedback loop demo (TRAIN/CALIB months only, writes `docs/feedback_loop_demo.md`): `cd backend && python -m gramdrishti.verify.feedback_report --month 2023-08` (`--no-store` leaves out API reports)
+- Offline snapshot for `VITE_SNAPSHOT=1` (git-ignored `contract/snapshot/`, about 1 minute; `--panchayats demo` for a quick one; `npm run sync:mock` copies it to `frontend/public/snapshot/`): `cd backend && python -m gramdrishti.export_snapshot`
+- Frontend with no server: `cd frontend && VITE_SNAPSHOT=1 npm run dev`
 - Pick demo issue dates (prints reasons, writes `demo_dates.json`): `cd backend && python -m gramdrishti.contract.pick_demo_dates`
 - Frontend setup (Node 22, see `frontend/.nvmrc`): `cd frontend && npm install`
 - Frontend dev / build / test / lint: `cd frontend && npm run dev | build | test | lint`
