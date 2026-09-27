@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { sharedSearch } from "../state/urlState";
 import { useTranslation } from "react-i18next";
 import { useMeta } from "../api/hooks";
 import { IssueDateSelect } from "./IssueDateSelect";
@@ -13,7 +14,7 @@ export function TopBar() {
   return (
     <header className="topbar">
       <div className="topbar-id">
-        <Link to={{ pathname: "/map", search }} className="wordmark">
+        <Link to={{ pathname: "/map", search: sharedSearch(search) }} className="wordmark">
           {t("app.name")}
         </Link>
         <span className="topbar-district">
