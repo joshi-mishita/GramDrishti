@@ -384,7 +384,7 @@
 .section-notes .notes,
 /* Losses: one headline per comparison, then one line per stratum, divided like a table */
 .loss-notes {
-  margin: 0;
+  margin-bottom: 0;
   padding: 0;
   list-style: none;
   max-width: 90ch;
