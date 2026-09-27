@@ -57,33 +57,50 @@ scripts/    helper scripts
 
 ## Quick start
 
-The backend data layer and baselines run (S1). The API (S2) and frontend (S3) do not exist yet.
+Needs Docker with Compose v2 (Docker Desktop, OrbStack, or Colima: `brew install colima docker docker-compose && colima start --cpu 4 --memory 8`), `make` and `curl`. Nothing else is installed on your machine.
+
+<!-- quickstart:start -->
+```bash
+git clone https://github.com/joshi-mishita/GramDrishti.git && cd GramDrishti
+make up          # build, prepare (trains the model on the first run), start, check
+```
+<!-- quickstart:end -->
+
+Then open:
+
+| What | Where |
+|---|---|
+| Officer console and farmer app | http://localhost:8080 |
+| Offline copy (snapshot mode, runs without the API) | http://localhost:8081 |
+| API and its docs | http://localhost:8000/docs |
+
+The first `make up` takes about 6 to 8 minutes on a laptop (image build about 3.5 minutes, model training about 2 minutes, snapshots and the offline export about 1.5 minutes); later starts take under a minute. Every step and its timing is in [docs/docker.md](docs/docker.md). `make down` stops everything and keeps the model, snapshots and reviews; `make clean` deletes them.
+
+A fresh clone trains its own model, and a model trained on another machine gets another version number, so the verification and impact screens say "not computed" until the verification job has run for that version (TEST is opened once per model version, [docs/validation_protocol.md](docs/validation_protocol.md)). On a machine that already has the verified model in `backend/artifacts/`, `make up` uses it and those screens show its numbers.
+
+Other commands: `make e2e` (the demo script in Playwright on an isolated stack), `make fresh-check` (this quick start in a temp folder), `make offline` (refresh the offline copy after approving advisories), `make logs`.
+
+### Without Docker
 
 ```bash
-# backend
-cd backend
-python -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
-python ../data/generate_mock_data.py            # recreates the git-ignored synthetic oracle
-pytest -q && ruff check .
-python -m gramdrishti.verify.baseline_report   # B0/B1/B2 scores on CALIB
-uvicorn gramdrishti.api.main:app --reload --port 8000   # from S2
-
-# frontend
-cd frontend
-npm ci
-npm run dev                        # http://localhost:5173
+cd backend && python -m venv .venv && .venv/bin/pip install -e ".[dev]"
+.venv/bin/python -m gramdrishti.pipeline.prepare_demo      # oracle, model, snapshots, farmers
+.venv/bin/uvicorn gramdrishti.api.main:app --port 8000
+cd frontend && npm ci && npm run dev                          # http://localhost:5173
 ```
+
+All other commands (tests, verification, contract) are listed in [CLAUDE.md](CLAUDE.md).
 
 ## Status
 
 | Area | Status |
 |---|---|
-| Repo foundation and CI | done (S0) |
-| Backend data layer and baselines | PR open (S1) |
-| API contract | not started |
-| Frontend | not started |
-| Models, advisories, verification | not started |
+| Data layer, baselines, contract, API | done (S1, S2, S6) |
+| Downscaling model, uncertainty, reconciliation | done (S5) |
+| Advisory engine, officer review, priority | done (S8, S9) |
+| Verification and impact | done (S10, S11) |
+| Farmer backend and app | backend done (S12), app in progress (S13) |
+| Docker, one-command start, end-to-end test | S14 |
 
 Full session-by-session log: [docs/PROGRESS.md](docs/PROGRESS.md).
 
