@@ -58,6 +58,9 @@ Shared: Docker Compose, GitHub Actions.
 - PWA icons (committed; rerun only if the mark changes): `python frontend/scripts/make-icons.py`
 - Screenshots for visual review: `cd frontend && npm run shots` (add `SHOTS_BROWSER_CHANNEL=chrome` if Playwright's Chromium cannot be downloaded)
 - Detail panel screenshots from the real API (API running on port 8000 with snapshots): `cd frontend && SHOTS_REAL=1 npm run shots`
+- Before/after screenshot sets (every screen in en/hi/pa at 1366, 1920 and 360 px into `docs/screens/<set>/`): `cd frontend && SHOTS_SET=after npm run shots`
+- Accessibility (axe on every screen in three languages at 1366 and 360 px, plus the keyboard-only walkthrough; findings in `test-results/a11y/axe-summary.jsonl`): `cd frontend && npm run a11y`
+- Lighthouse on the farmer route (build first, then `npx vite preview --port 4178`): `cd frontend && npx lighthouse@12 "http://localhost:4178/farmer?date=2024-09-09" --form-factor=mobile --throttling-method=simulate --chrome-flags="--headless=new"`
 - End-to-end review flow and S9 screens on a real API with a throwaway database (starts its own API on port 8010; needs the backend venv, artifacts and snapshots): `cd frontend && npm run e2e` (add `SHOTS_BROWSER_CHANNEL=chrome` if needed)
 
 ## Non-negotiable rules

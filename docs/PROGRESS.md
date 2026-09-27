@@ -21,7 +21,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S12 | Farmer-side backend and snapshot export | backend | merged | session-12-farmer-backend (#16) | yes |
 | S13 | Frontend farmer app, languages, bulletin, offline | frontend | pushed, no PR (no `gh`); contains S12 | session-13-farmer-app | |
 | S14 | Integration, Docker and end-to-end tests | both | not started | | |
-| S15 | Design and accessibility polish | frontend | in progress (contains S13) | session-15-design-polish | |
+| S15 | Design and accessibility polish | frontend | pushed, no PR (no `gh`); contains S13 | session-15-design-polish | |
 | S16 | Documentation and submission assets | both | not started | | |
 | S17 | Final QA and demo freeze | both | not started | | |
 
@@ -152,6 +152,7 @@ S12: farmer side, feedback loop demo, audio and the offline snapshot. Contract v
 - Tests: 375 backend (16 new in `test_farmers.py`, 2 in `test_store.py`), 120 frontend.
 
 Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6 advisories): F001 (MP0307, hi, keeps livestock) sees spray hold, clear drains, livestock heat; F002 (MP0311, pa, no livestock) sees harvest before the rain, hold irrigation, and not the approved livestock item. F005 (MP0103, wheat only) sees nothing on that date.
+
 S10: verification and impact on the TEST window, once, for `s5-lgbm-9b632a7b1b` (protocol in `docs/validation_protocol.md`, report in `docs/validation_report.md`). Contract v0.3.0 (additive). Built:
 - `verify/metrics.py`: contingency with frequency bias, Brier and Brier skill, reliability, interval coverage, pinball and quantile loss, daily sums, moving-block bootstrap CI (7-day blocks), win/tie/loss.
 - `verify/run_validation.py`: temporal holdout, leave-one-block-out (6 refits on TRAIN) and station check against B0, B1 and B2; strata by lead day, season, observed rain intensity and drainage class; events; reliability; coverage; block-mean error; notes listing every place the model does not beat B0 or B1. `--window CALIB` dry run. About 90 s.
@@ -184,16 +185,6 @@ S11: verification and impact screens on contract v0.3.0 (no contract change). Bu
 - Tests: 202 frontend (39 new: formatting, best-value highlighting, strata, page tests against the contract examples, including a losing row read in words).
 - Screenshots `verification-{en,hi}-{desktop,phone}.png`, `impact-{en,pa}-{desktop,phone}.png` reviewed; fixes made from the review (empty space above the summary, mixed decimals in the regions columns, a coverage label on the 80 % line, a capitalised decision name mid-sentence, narrow row names on phone).
 - Checked against the job's files: with the API on `backend/artifacts/verification.json` and `impact.json`, the screen showed rain MAE 1.070 / 1.240 / 1.031 / 1.032, skill vs B1 on wet days -7.2 % (-12.0 % to -0.04 %, worse), wet-day rain coverage 50.9 % at 28.7 mm, MB01 rain 0.941 (-0.092 vs B0) and spray counts 14,364 / 217 / 179 against 14,138 / 554 / 68; the files hold 1.07045, 1.23993, 1.03107, 1.03153, -0.071987 (-0.120287 to -0.000365), 0.509421, 28.6671, 0.940999 (-0.091651) and the same counts.
-S12: farmer side, feedback loop demo, audio and the offline snapshot. Contract v0.4.0 (additive; v0.3.0 is S10's). Built:
-- `store/seed_demo.py`: five demo profiles (D093), migration 2 (`farmers.livestock`, D094). The API seeds an empty table.
-- `/farmers/{id}` from SQLite; `/farmers/{id}/advice`: approved or edited only, farmer's Panchayat and crops (livestock only for F001 and F004), severe first, plus optional `spray_days` (D095).
-- `POST /feedback`: date inside the data period and not in the future, answer and intensity must agree (400), identical report within 10 minutes answers `stored: false` with the first id (D096). Thank-you text no longer claims the forecast improves (D098).
-- `advisory/audio.py` + `/audio/{id}?lang=`: gTTS, cached by text hash under `artifacts/audio/`, 404 `audio_not_available` on any failure; `Advisory.audio` links for approved and edited advisories. **Punjabi works with gTTS 2.5.4** (D097).
-- `verify/feedback_report.py` writes `docs/feedback_loop_demo.md`: 2023-08 had 40 reports, rain yes/no agrees 92 % (37 of 40) with station or synthetic truth, and Panchayats with any ground check go from 24 (stations) to 48 of 90 with reports. Demo of the loop, no retraining, no forecast scoring, TEST months refused; no observation nudge (D099).
-- `gramdrishti/export_snapshot.py`: 21,965 validated GET responses for the 8 demo dates, all 90 Panchayats and the 5 farmers, 39 MB, 64 s, into git-ignored `contract/snapshot/`; `npm run sync:mock` copies it to `frontend/public/snapshot/` (D100). Checked in the browser with the API stopped: farmer screen shows F001's three approved advisories, the map shows 27 Dec 2024 lead 3 Tmin.
-- Tests: 375 backend (16 new in `test_farmers.py`, 2 in `test_store.py`), 120 frontend.
-
-Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6 advisories): F001 (MP0307, hi, keeps livestock) sees spray hold, clear drains, livestock heat; F002 (MP0311, pa, no livestock) sees harvest before the rain, hold irrigation, and not the approved livestock item. F005 (MP0103, wheat only) sees nothing on that date.
 
 S13: farmer app, languages, bulletin and offline (contract v0.4.0, examples added, no shape change). Built:
 - S12 merged into the S13 branch (D102); conflicts with S10 resolved, `openapi.json` and examples regenerated.
@@ -208,6 +199,14 @@ S13: farmer app, languages, bulletin and offline (contract v0.4.0, examples adde
 - Checked in the in-app browser: server MP3 played for F001 on the real API (gTTS 200); on demo files Hindi was spoken by the Mac's hi-IN voice and Punjabi showed "no Punjabi voice"; feedback on the real API answered 200 with the thank-you; snapshot mode showed the MP0307 bulletin for 24 Dec 2024 with no API call.
 
 Screenshot review (all three languages, 360 px, read at full size) and fixes made: the header with the demo control pushed the advice below the fold (moved the control to the foot); the crop editor clipped the date at 360 px (date on its own row); the bulletin heading printed the Panchayat id twice; the spray cell and the hi/pa "Avoid" word repeated the help line; the bulletin ran to a second A4 page (print spacing tightened, now one page, tested). Remaining: full-page screenshots show the sticky bottom navigation in mid-page (a capture artifact; on screen it stays at the bottom).
+
+S15: design and accessibility polish (frontend only, no contract change; contains S13, D140). Built:
+- `docs/design_review.md`: critique of every screen against Guide 2.6, 2.7, 11.1 and the section 12 checklist, from 126 screenshots before and 126 after (en/hi/pa at 1366x768, 1920x1080, 360x740); what was fixed and what is still open.
+- Design: map controls fit 1366x768 (day strip as one row of five cells, units on the variable rows, page no longer scrolls), clearer map title, fan chart ticks on round steps, natural-width pills, verification and impact notes in plain words with each loss as a headline plus one line per stratum (D141), farmer ribbon inside the phone column, Priority rows 36 px on phones.
+- Accessibility: `npm run a11y` = axe on 14 screens x 3 languages x 2 widths (84 runs: 24 failing before, **0 violations of any impact after**) plus a keyboard-only walkthrough with a focus-ring check at every stop. It found three real bugs, all fixed: focus lost after farmer navigation and in the rain question (D144), and a URL sync race that could undo a quick second control change (D145). No page-level sideways scroll at 200 % zoom.
+- Performance: Lighthouse 12.8.2 on `/farmer`, mobile, simulated throttling, median of three: performance 91 to 93, accessibility 100, best practices 100, SEO 91 to 100, FCP 2.28 s to 1.36 s (static brand bar in `index.html`, D143), LCP 3.17 s unchanged (waits for the data), TBT 0, CLS 0, 298 KiB. Translations stay bundled (D142).
+- Curated before/after pairs in `docs/screens/{before,after}/readme-*.png` (D146).
+- Tests: 233 frontend unit (7 new), 84 axe runs, 3 keyboard walkthroughs, `e2e` 19 and `e2e:farmer` 5 pass; backend 412 pass after the S13 merge.
 
 ## Decisions
 - D001 Licence MIT.
@@ -340,6 +339,7 @@ Screenshot review (all three languages, 360 px, read at full size) and fixes mad
 - D112 Shared WhatsApp text carries the mock notice.
 
 ## Not verified
+- S15: no screen reader pass with NVDA or VoiceOver (axe and the keyboard walkthrough only); no real low-end phone or projector; nobody outside the team has been asked "Does this look like a real government or agri tool?" (space for answers at the end of `docs/design_review.md`). Lighthouse ran on `vite preview` with the demo files, not against the API or a deployed server. CI has not run `npm run a11y` (it needs Chrome; S14 owns CI).
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
 - S1: CI has not run on GitHub from this session (no `gh`); check the pull request's checks. That includes the oracle regeneration step and the generator reproduction test on Linux with Python 3.11. Local runs used Python 3.13.9, pandas 3.0.6 and numpy 2.5.3 on macOS.
 - S1: real mode was tested only with copies of mock files under `data/real/` (column and dtype equality). No real data exists.
@@ -402,6 +402,10 @@ Screenshot review (all three languages, 360 px, read at full size) and fixes mad
 - S13: the install prompt (Add to home screen) was not tried; the manifest and icons were only checked in the build output.
 
 ## Known issues
+- S15 text the API sends in English only appears on Hindi and Punjabi screens: demo date reasons in the issue date menu, impact rule sentences, verification and impact notes, review evidence rows (all marked `lang="en"`).
+- S15 LCP on the farmer route is 3.17 s on the slow profile: the advice waits for the script, the route chunk and three data requests (`/mock/index.json`, farmer, advice).
+- S15 still open from the design review: redundant "0 mm, likely about 0 mm" headline on dry days; the Panchayat picker truncates names in the 232 px column; the verification page is about 7,300 px tall (every station row); repeated "Why" text on heavy-rain days in Priority.
+- S15 `docs/DECISIONS.md` has 25 ids used twice with different text (D046 to D065, D080 to D086), already on `main` before S15; renumbering needs someone to decide which session keeps each id.
 - S12 the snapshot is 21,965 files (39 MB of JSON, about 104 MB on disk); `npm run sync:mock` copies it on every `dev` and `build` when `contract/snapshot/` exists, and a build then carries it in `dist/`. Delete `contract/snapshot/` when not rehearsing the offline demo.
 - S12 spray days are identical for F001 and F002 on 2024-09-09: rain chances are flat within MB03 (the S8 known issue).
 - S12 an audio request without internet waits for gTTS's 10 s timeout before the 404.
@@ -488,6 +492,8 @@ Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`
 | 2026-09-27 | s5-lgbm-9b632a7b1b (S10) | models TRAIN; isotonic + CQR CALIB; evaluated on TEST (issue dates 2024-07-16..2024-12-26) | `python -m gramdrishti.verify.run_validation`. **TEST window first opened 2026-09-27T15:14:23** for this version (ledger `docs/test_window_ledger.json`); rerun at 15:23:42 gave identical numbers. Dry run of the same code on CALIB earlier the same day. Report: `docs/validation_report.md`. TEST reused: no |
 
 ## Handoff for the next session
+S15 (2026-09-28): branch `session-15-design-polish` in worktree `../GramDrishti-s15`, from `main` plus the unmerged `session-13-farmer-app` (D140). Merge order: S13, then S15. Frontend only apart from docs. New: `components/TableScroll.tsx` (use it for any wide table), `layouts/useFocusMainOnNavigate.ts`, `readableNote`/`splitLossNote` in `lib/verify.ts`, `fanScale` in `lib/fan.ts`, the `days` variant of `SegmentedControl`, `npm run a11y` (`playwright.a11y.config.ts`, `e2e/a11y.spec.ts`, `e2e/keyboard.spec.ts`) and `SHOTS_SET=before|after npm run shots`. S14/S17: add `npm run a11y` to CI next to `e2e:farmer` (both need a browser). S16: the README can use `docs/screens/{before,after}/readme-*.png`; Lighthouse and axe numbers are in `docs/design_review.md`. Still to do: screen reader pass, outside-person reactions, native review of the three new map title strings (`docs/translation_notes.md`).
+
 S13 (2026-09-28): branch `session-13-farmer-app` in worktree `../GramDrishti-s13`, from `main` plus the unmerged S12 branch (D102). Merge order: S12, then S13 (after S12 merges, this PR shows only S13). Farmer screens live in `pages/farmer/` and `features/farmer/` (helpers in `farmerData.ts`, `forecastText.ts`, `speech.ts`, `outbox.ts`). Offline: `src/sw.ts`, `lib/network.ts`, `components/OfflinePill.tsx`, `LastUpdated.tsx`. S14: add `farmers,feedback,audio` to the Docker Compose `VITE_REAL_ENDPOINTS`, run `npm run e2e:farmer` in CI with a browser, and consider a feedback flow test against the API (checked by hand here). S15: screen reader pass on the farmer app and bulletin, 200 % zoom, the long officer queue.
 
 Frontend (S11 done): `/verification` and `/impact` are built on contract v0.3.0 and read the job's files when `verification,impact` are in `VITE_REAL_ENDPOINTS`. Number rules live in `lib/verify.ts` (reuse `formatFixed`, `rowDigits`, `bestIndexes`, `formatSkill` wherever scores are shown, for example in the bulletin or README figures). If the job changes the wording of its loss notes, `splitNotes` puts them under "About these numbers" instead; a contract field would be sturdier. S15: check both screens with a screen reader and at 200 % zoom. When an expert supplies costs, the impact screen can weigh wasted waits against wash-offs (D085). Merge order: S10, then S11.
