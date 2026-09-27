@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CloudRain, CheckCircle2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useSendFeedback } from "../../api/hooks";
@@ -28,6 +28,18 @@ export function FeedbackCard({ pid }: { pid: string }) {
     lang?: string;
     kind: "ok" | "info" | "error";
   }>();
+  const stepsRef = useRef<HTMLDivElement>(null);
+  const firstRender = useRef(true);
+
+  // Each step replaces the buttons, including the one just pressed; without this a keyboard
+  // user's focus falls to the page body. Move it to the new step's first control or message.
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    stepsRef.current?.querySelector<HTMLElement>("[data-step-focus]")?.focus();
+  }, [step]);
 
   if (!issueDate) return null;
 
@@ -65,58 +77,68 @@ export function FeedbackCard({ pid }: { pid: string }) {
         <CloudRain size={22} aria-hidden="true" />
         {t("feedback.questionDate", { date: formatDate(issueDate, lang, "day") })}
       </h2>
-      {send.isPending ? (
-        <p role="status">{t("feedback.sending")}</p>
-      ) : step === "ask" ? (
-        <div className="btn-row">
-          <button type="button" className="btn btn-farmer" onClick={() => setStep("amount")}>
-            {t("feedback.yes")}
-          </button>
-          <button type="button" className="btn btn-farmer" onClick={() => submit(false, "none")}>
-            {t("feedback.no")}
-          </button>
-        </div>
-      ) : step === "amount" ? (
-        <fieldset className="feedback-amount">
-          <legend>{t("feedback.howMuch")}</legend>
+      <div ref={stepsRef}>
+        {send.isPending ? (
+          <p role="status">{t("feedback.sending")}</p>
+        ) : step === "ask" ? (
           <div className="btn-row">
-            {AMOUNTS.map((a) => (
-              <button
-                key={a}
-                type="button"
-                className="btn btn-farmer"
-                onClick={() => submit(true, a)}
-              >
-                {t(`feedback.${a}`)}
-              </button>
-            ))}
+            <button
+              type="button"
+              className="btn btn-farmer"
+              data-step-focus
+              onClick={() => setStep("amount")}
+            >
+              {t("feedback.yes")}
+            </button>
+            <button type="button" className="btn btn-farmer" onClick={() => submit(false, "none")}>
+              {t("feedback.no")}
+            </button>
           </div>
-          <button type="button" className="btn-link" onClick={() => setStep("ask")}>
-            {t("feedback.back")}
-          </button>
-        </fieldset>
-      ) : (
-        <div className="feedback-done">
-          <p
-            role={result?.kind === "error" ? "alert" : "status"}
-            lang={result?.lang}
-            className={`feedback-result feedback-${result?.kind ?? "ok"}`}
-          >
-            {result?.kind === "ok" ? <CheckCircle2 size={20} aria-hidden="true" /> : null}
-            {result?.text}
-          </p>
-          <button
-            type="button"
-            className="btn-link"
-            onClick={() => {
-              setStep("ask");
-              setResult(undefined);
-            }}
-          >
-            {t("feedback.again")}
-          </button>
-        </div>
-      )}
+        ) : step === "amount" ? (
+          <fieldset className="feedback-amount">
+            <legend>{t("feedback.howMuch")}</legend>
+            <div className="btn-row">
+              {AMOUNTS.map((a, i) => (
+                <button
+                  key={a}
+                  type="button"
+                  className="btn btn-farmer"
+                  data-step-focus={i === 0 ? "" : undefined}
+                  onClick={() => submit(true, a)}
+                >
+                  {t(`feedback.${a}`)}
+                </button>
+              ))}
+            </div>
+            <button type="button" className="btn-link" onClick={() => setStep("ask")}>
+              {t("feedback.back")}
+            </button>
+          </fieldset>
+        ) : (
+          <div className="feedback-done">
+            <p
+              tabIndex={-1}
+              data-step-focus
+              role={result?.kind === "error" ? "alert" : "status"}
+              lang={result?.lang}
+              className={`feedback-result feedback-${result?.kind ?? "ok"}`}
+            >
+              {result?.kind === "ok" ? <CheckCircle2 size={20} aria-hidden="true" /> : null}
+              {result?.text}
+            </p>
+            <button
+              type="button"
+              className="btn-link"
+              onClick={() => {
+                setStep("ask");
+                setResult(undefined);
+              }}
+            >
+              {t("feedback.again")}
+            </button>
+          </div>
+        )}
+      </div>
     </section>
   );
 }
