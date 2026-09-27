@@ -18,3 +18,6 @@ installed Google Chrome:
 ```bash
 cd frontend && SHOTS_BROWSER_CHANNEL=chrome npm run shots
 ```
+
+`npm run e2e` also writes `s9-<screen>-<lang>-<desktop|phone>.png` (priority, review, risk layer) and
+`s9-priority-print.png` from a real API it starts itself (see `frontend/playwright.e2e.config.ts`).

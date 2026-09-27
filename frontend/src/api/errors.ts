@@ -1,5 +1,5 @@
 /** Error codes the client adds on top of the contract's error codes (Appendix A1). */
-export type ClientErrorCode = "network_error" | "bad_response" | "not_in_mock";
+export type ClientErrorCode = "network_error" | "bad_response" | "not_in_mock" | "read_only";
 
 export interface ApiErrorInit {
   status: number;

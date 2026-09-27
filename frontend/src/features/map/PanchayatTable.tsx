@@ -1,7 +1,9 @@
 import { useTranslation } from "react-i18next";
-import type { ForecastMap, PanchayatCollection } from "../../api/types";
+import type { ForecastMap, Level, PanchayatCollection } from "../../api/types";
+import { RiskChip } from "../../components/RiskChip";
 import { DataTable, type Column } from "../../components/DataTable";
 import { VAR_DIGITS, formatNumber, formatSigned } from "../../lib/format";
+import { LEVEL_INDEX } from "../../lib/ramps";
 import { useAppStore } from "../../state/store";
 import { tableRows, type TableRow as Row } from "./mapData";
 
@@ -9,13 +11,15 @@ interface Props {
   forecast: ForecastMap;
   geo: PanchayatCollection;
   caption: string;
+  /** Risk level per Panchayat when the risk layer is on; adds a Risk column. */
+  levels?: ReadonlyMap<string, Level> | null;
 }
 
 /**
  * "Show as table": every Panchayat with the values the map paints (Guide 6.1). The keyboard
  * and screen-reader route to the same information; the name button selects a Panchayat.
  */
-export function PanchayatTable({ forecast, geo, caption }: Props) {
+export function PanchayatTable({ forecast, geo, caption, levels }: Props) {
   const { t } = useTranslation();
   const lang = useAppStore((s) => s.lang);
   const selectedPid = useAppStore((s) => s.selectedPid);
@@ -71,6 +75,21 @@ export function PanchayatTable({ forecast, geo, caption }: Props) {
       render: (r) => formatSigned(r.delta, lang, digits),
     },
   ];
+  if (levels) {
+    const level = (r: Row) => levels.get(r.panchayat_id);
+    columns.splice(2, 0, {
+      key: "risk",
+      header: t("table.risk"),
+      sortValue: (r) => {
+        const l = level(r);
+        return l ? LEVEL_INDEX[l] : null;
+      },
+      render: (r) => {
+        const l = level(r);
+        return l ? <RiskChip level={l} /> : t("legend.noValue");
+      },
+    });
+  }
 
   return (
     <DataTable
@@ -78,6 +97,7 @@ export function PanchayatTable({ forecast, geo, caption }: Props) {
       columns={columns}
       rows={tableRows(forecast, geo)}
       rowKey={(r) => r.panchayat_id}
+      initialSort={levels ? { key: "risk", dir: "desc" } : undefined}
       isCurrent={(r) => r.panchayat_id === selectedPid}
       sortLabel={(header, next) =>
         t(next === "asc" ? "table.sortAsc" : "table.sortDesc", { column: header })

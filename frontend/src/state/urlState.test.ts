@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { readUrlState, writeUrlState } from "./urlState";
+import { readUrlState, sharedSearch, writeUrlState } from "./urlState";
 
 describe("URL state", () => {
   it("reads date, var and pid", () => {
@@ -9,6 +9,7 @@ describe("URL state", () => {
       selectedPid: "MP0103",
       leadDay: null,
       viewMode: null,
+      riskType: null,
     });
   });
 
@@ -19,7 +20,12 @@ describe("URL state", () => {
   });
 
   it("leaves day and view out of the URL at their defaults", () => {
-    const base = { issueDate: "2024-09-09", variable: "rain" as const, selectedPid: null };
+    const base = {
+      issueDate: "2024-09-09",
+      variable: "rain" as const,
+      selectedPid: null,
+      riskType: null,
+    };
     const plain = new URLSearchParams(
       writeUrlState("?day=4&view=block", { ...base, leadDay: 1, viewMode: "panchayat" }),
     );
@@ -30,13 +36,19 @@ describe("URL state", () => {
     expect(set.get("view")).toBe("block");
   });
 
+  it("reads a known risk type and drops an unknown one", () => {
+    expect(readUrlState("?risk=waterlogging")).toMatchObject({ riskType: "waterlogging" });
+    expect(readUrlState("?risk=flood")).toMatchObject({ riskType: null });
+  });
+
   it("ignores invalid values", () => {
-    expect(readUrlState("?date=2024-13-01&var=snow&pid=<script>")).toEqual({
+    expect(readUrlState("?date=2024-13-01&var=snow&pid=<script>&risk=x")).toEqual({
       issueDate: null,
       variable: null,
       selectedPid: null,
       leadDay: null,
       viewMode: null,
+      riskType: null,
     });
   });
 
@@ -47,6 +59,7 @@ describe("URL state", () => {
       selectedPid: null,
       leadDay: 1,
       viewMode: "panchayat",
+      riskType: null,
     });
     const q = new URLSearchParams(out);
     expect(q.get("lang")).toBe("hi");
@@ -62,7 +75,15 @@ describe("URL state", () => {
       selectedPid: "MP0412",
       leadDay: 3,
       viewMode: "delta" as const,
+      riskType: "frost" as const,
     };
     expect(readUrlState(writeUrlState("", state))).toEqual(state);
+  });
+
+  it("keeps only shared keys when moving to another screen", () => {
+    expect(sharedSearch("?date=2024-09-09&pid=MP0101&block=MB01&status=all&risk=heat")).toBe(
+      "?date=2024-09-09&pid=MP0101&risk=heat",
+    );
+    expect(sharedSearch("?type=frost")).toBe("");
   });
 });

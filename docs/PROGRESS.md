@@ -13,9 +13,9 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S4 | Frontend map explorer | frontend | merged | session-04-map-explorer (#6) | yes |
 | S5 | Backend model core | backend | merged | session-05-model-core (#7) | yes |
 | S6 | Agro-variables, snapshots, forecast APIs | backend | merged | session-06-snapshots-forecast-api (#9) | yes |
-| S7 | Frontend detail panel and first integration | frontend | PR open | session-07-detail-panel | |
-| S8 | Advisory engine and review APIs | backend | not started | | |
-| S9 | Frontend priority, risk and review | frontend | not started | | |
+| S7 | Frontend detail panel and first integration | frontend | merged | session-07-detail-panel (#10) | yes |
+| S8 | Advisory engine and review APIs | backend | merged | session-08-advisory-engine (#11) | yes |
+| S9 | Frontend priority, risk and review | frontend | PR open | session-09-priority-review | |
 | S10 | Verification and impact | backend | not started | | |
 | S11 | Frontend verification and impact | frontend | not started | | |
 | S12 | Farmer-side backend and snapshot export | backend | not started | | |
@@ -142,6 +142,27 @@ Same block, same crop, different advice (2024-09-09, bajra, block MB03): MP0307 
 
 Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms, `/risk` 2.5 ms, `/advisories?issue_date` 10.5 ms, `/advisories/{id}` 1.5 ms. The first risk or priority request per issue date takes 0.45 to 0.7 s (engine and risk scores, then cached).
 
+S9: officers see which Panchayats need attention and review advisories before they go out (contract v0.2.0, no contract change). Built:
+- Map risk layer: selector for heavy rain, heat, frost, waterlogging and dry spell from `/risk` for the chosen day; categorical severity colours (MapLibre `match`, no blending); legend of four worded chips plus "No value" and the placeholder-thresholds line; tooltip and detail panel give the Panchayat's level; "Show as table" gets a Risk column (sorted highest first); view mode is disabled with a reason while a risk layer is on; `risk` is in the URL.
+- `/priority`: ranked table (#, Panchayat, level chip, block, main risk, crops, headline in the UI language with English fallback), filters (next 1 to 3 days, risk type, block) kept in the URL, sortable columns, row click or name link opens `/map` with that Panchayat, its risk layer, the variable behind it and the day of the risk; "Print list" with print CSS (full width, filters printed as a sentence, sort arrows and controls hidden, severity swatches kept).
+- `/review`: queue as a keyboard listbox (arrow keys, Home, End, Enter opens) ordered by priority, filters (status from the API; block and crop), open advisory in the URL (`adv`); editor with English / हिन्दी / ਪੰਜਾਬੀ tabs, editable action, reason and fallback, "changed since draft" markers, a warning when a changed English text will clear a translation (D063), evidence rows, confidence label, valid window, status, priority, "Thresholds pending expert review." and the translation-review note; Approve, Save edit and approve, Reject with a required reason; Ctrl+Enter approves (saves edits first when there are any); audit trail with before and after text per field and language; toasts with the button's word ("Approved", "Edited and approved", "Rejected"); reviewer name field (no login).
+- After a review the returned advisory replaces the cached copy and the advisories, priority and farmer advice queries are refetched. Demo files are read-only: `apiPost` refuses with `read_only`, and the screen says reviewing needs the API.
+- Navigation (side bar, farmer bar, role switch, brand link) now carries only the shared URL keys, so screen filters stay on their screen.
+- `npm run e2e` (`playwright.e2e.config.ts`): starts its own API on port 8010 with a fresh SQLite file under `frontend/test-results/`, serves the build with `API_PROXY_TARGET`, runs the review flow (edit English, save and approve, reload, still approved with the history entry; keyboard approve; no double approve), the print view, and saves `docs/screens/s9-*.png` from the real API. Fails on any console error or warning.
+- Tests: 164 frontend in 20 files (44 new: review state logic, priority helpers, risk ramp and values, client POST, URL keys, timestamps, priority page, review page with a stubbed API, map risk layer); 19 Playwright e2e tests; 50 mock screenshots.
+
+Screenshot review (real API, `docs/screens/s9-*`, desktop 1366 and phone 360; mock `map-risk`, `review-open`). Found and fixed:
+- Toast never appeared after a review: a successful review remounts the editor (new audit length) and TanStack Query drops per-call callbacks of an unmounted component. Now `mutateAsync`.
+- A second Ctrl+Enter approved the same advisory again and added a duplicate history row (seen in the API log). Approve is now blocked on an approved or edited advisory without new edits; reject on a rejected one.
+- Keyboard position started on the first item when the open advisory was not in the list, so the first ArrowDown skipped it.
+- Panchayat ids repeated after names that already contain them ("Synthetic Panchayat MP0101 (MP0101)"); livestock advice read "Livestock · Livestock".
+- Level column was off-screen on phone: moved next to the name.
+- Risk legend (four rows) covered the bottom-left polygons: now a 2 x 2 grid.
+- Evidence units wrapped on phone ("0.0 / mm"); textareas clipped text (now grow with the content where supported); keyboard hint hidden on phone.
+- Printed list used half the page (the hidden navigation kept its grid column); row hint no longer printed.
+
+What the data shows (placeholder thresholds, mock data): on 2024-09-09, 74 of 90 Panchayats are moderate or above within 2 days: 32 heavy rain (all in MB03 and MB05, 9 severe at a 61 to 64 % chance of 35 mm) and 42 dry spell in the other four blocks. Waterlogging is low everywhere on 11 September. On 2024-12-24 frost is severe in most Panchayats on 25 December. The review queue holds 198 drafts on 2024-09-09, 90 of them livestock heat advice.
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -221,6 +242,18 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 - D063 Real endpoints in `.env.example`; `SHOTS_REAL` panel screenshots.
 - D064 Explain difference labelled apart from the headline difference.
 - D065 Fan chart y domain.
+- D080 S9 in a separate worktree after a parallel session shared the checkout; decisions from D080 (S10 uses D070-D079).
+- D081 Reviews need the API; demo files are read-only.
+- D082 Reviewer name field, default "Demo officer", no login.
+- D083 Review button rules and Ctrl+Enter.
+- D084 Translations cleared by an English edit are announced, edited ones kept.
+- D085 One word per action: Approved, Edited and approved, Rejected.
+- D086 The reviewed advisory stays open; the queue refetches.
+- D087 Queue order, filters and keyboard listbox.
+- D088 Priority filters, rank, column order, map link, print.
+- D089 Risk layer: categorical colours, URL key, view mode off, panel level; navigation keeps shared keys only.
+- D090 `npm run e2e` runs its own API with a throwaway database.
+- D091 Audit times shown as the server wrote them.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -253,6 +286,12 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 - S7: keyboard use of the chart (the SVG is hidden from assistive tech; the table is the route) and the confidence tooltip were not tried with a real screen reader. Chart hover was checked with a dispatched mouse event; the in-app browser's hover emulation did not trigger it in a scaled viewport.
 - S7: Hindi and Punjabi panel strings are drafts (word order in "कल: सूखा (4%)। अब: ..." is built from parts and uses "." rather than "।").
 - S7: tested in Chrome only; not in Firefox, Safari or on a touch device.
+
+- S9: CI has not run this branch (no `gh`). `npm run e2e` needs the backend venv, trained artifacts and snapshots, so it is not part of CI; it was run locally (Chrome 153, macOS).
+- S9: tested in Chrome only. Keyboard use was tested with Playwright and the in-app browser, not with a screen reader. `field-sizing: content` (auto-growing text areas) is Chrome-only; other browsers keep a fixed height with a scrollbar.
+- S9: printing was checked with print-media emulation and a screenshot, not on paper or as a PDF from the print dialog.
+- S9: new Hindi and Punjabi UI strings (risk, priority, review, statuses, categories) are drafts needing native review. Stage names come from `templates.yaml` (also drafts).
+- S9: the farmer advice query is invalidated after a review, but the farmer screen is not built yet (S13), so the effect on it is untested.
 
 ## Known issues
 - S5 rain does not beat B1 (LOBO -0.7 %, CALIB -15.8 % MAE). The rain CQR offset is 0 because dry days dominate, and wet-day coverage is 0.42..0.72. Options for discussion (not tuning): serve B1 rain amount with model event probabilities, or a wet-day-conditional interval.
@@ -289,6 +328,11 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 - S8 `/priority` answers in about 70 ms warm (headline lookups per item); fine for 90 Panchayats.
 - S8 the first `/advisories` request for an issue date without a `run_daily` run writes that date's drafts (about 0.5 s).
 
+- S9 the review queue is long on monsoon dates (198 drafts on 2024-09-09, 90 livestock); there is no bulk approve. Worth asking officers whether one decision per rule and block would do.
+- S9 priority rank (#) is the API's rank in the full list, so a filtered list shows gaps (1 to 19, then 62). Intentional, so a printed filtered list still shows overall urgency.
+- S9 the risk layer uses `/risk` per lead day; the map has no "worst over the next days" view (the priority list has it).
+- S9 `session-10-verification-impact` (unpushed) also contains the seven S9 commits and one S9 commit there deletes `provisional/placeholders.py` (a deletion S10 had staged). See the handoff.
+
 ## Inputs needed from the team
 - Enable branch protection on `main` (require pull request, require CI).
 - Native Hindi and Punjabi review of `frontend/src/i18n/hi.json`, `pa.json` and the day/month names in `frontend/src/lib/format.ts` (S3), then advisory text (S13).
@@ -310,6 +354,10 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 | 2026-09-26 | s5-lgbm-9b632a7b1b applied (S6) | inference on issued forecasts for the 8 demo dates and the day before each (6 of them in TEST) | `python -m gramdrishti.pipeline.run_daily --all-demo-dates`. No scoring. The soil water balance starts from oracle soil moisture on the day before each issue date (mock stand-in, D050); no metric uses it. TEST window opened for evaluation: never |
 
 ## Handoff for the next session
+S9 (2026-09-27): a parallel S10 session worked in the same checkout. It switched the branch to `session-10-verification-impact` right after S9 created its branch, so the seven S9 commits first landed on that branch, interleaved with S10's (nothing was pushed). S9 then built `session-09-priority-review` in a separate worktree (`../GramDrishti-s09`) by cherry-picking those commits onto `main`, and restored `backend/gramdrishti/provisional/placeholders.py` there. That file's deletion had been staged by S10 and swept into the S9 review-screen commit. The S9 branch differs from `main` only in `frontend/` and these docs. Before opening the S10 pull request, decide how to take the S9 commits out of `session-10-verification-impact` (for example: build S10's branch again from `main` with only its own commits, or merge S9 first and then `main` into S10). Choosing needs you, because it means rewriting an unpushed branch or accepting a mixed history.
+
+Frontend S11/S13 from S9: `components/Toast.tsx` + `toastContext.ts` (toasts), `features/review/StatusChip.tsx`, `labels.ts` (advisory titles), `lib/format.formatDateTime`, `useRisk`, `useAdvisory`, `useReviewAdvisory` (invalidates `advisories`, `priority`, `farmerAdvice`). The farmer app must show only `approved` and `edited` advice (the API already filters). Detail panel advisories for the selected Panchayat are still to do (S13 or S15). `.env.example` now serves `risk,priority,advisories` from the API.
+
 Merge order: S6 (`session-06-snapshots-forecast-api`), then S8 (`session-08-advisory-engine`, stacked on S6, D057). After S6 merges, merge `main` into S8 and rerun `pytest`.
 
 Local run: `cd backend && python -m gramdrishti.pipeline.train` (once, about 2 minutes), then `python -m gramdrishti.pipeline.run_daily --all-demo-dates` (snapshots and draft advisories, about 40 s), then the API. `python -m gramdrishti.advisory.show --issue-date 2024-09-09` prints advisories; `--counts` prints counts.

@@ -15,7 +15,8 @@ export interface RampStop {
 }
 
 export interface Ramp {
-  kind: "sequential" | "diverging";
+  /** "categorical": one colour per integer value (risk levels), no blending. */
+  kind: "sequential" | "diverging" | "categorical";
   /** Ascending by value. The map interpolates linearly between neighbouring stops. */
   stops: RampStop[];
   unit: string;
@@ -133,6 +134,22 @@ export const RISK_TOKENS: Record<Level, string> = {
   high: "--sev-high",
   severe: "--sev-severe",
 };
+
+/** Integer painted for each risk level on the map (feature-state "v"). */
+export const LEVEL_INDEX: Record<Level, number> = { low: 0, moderate: 1, high: 2, severe: 3 };
+
+/**
+ * The four severity colours as a categorical ramp. `resolve` turns a token name into a
+ * colour (MapLibre needs literal colours; the page reads them from the CSS variables).
+ */
+export function riskRamp(resolve: (token: string) => string): Ramp {
+  const levels = Object.keys(LEVEL_INDEX) as Level[];
+  return {
+    kind: "categorical",
+    stops: levels.map((l) => ({ value: LEVEL_INDEX[l], color: resolve(RISK_TOKENS[l]) })),
+    unit: "",
+  };
+}
 
 function hexToRgb(hex: string): [number, number, number] {
   const n = Number.parseInt(hex.slice(1), 16);
@@ -256,6 +273,11 @@ export function colorFor(ramp: Ramp, value: number | null | undefined): string |
  * Features without a value get `noValueColor`.
  */
 export function fillColorExpression(ramp: Ramp, noValueColor: string): unknown[] {
+  if (ramp.kind === "categorical") {
+    const pairs = ramp.stops.flatMap((s) => [s.value, s.color]);
+    const match = ["match", ["to-number", ["feature-state", "v"]], ...pairs, noValueColor];
+    return ["case", ["==", ["feature-state", "v"], null], noValueColor, match];
+  }
   const stops = ramp.stops.flatMap((s) => [s.value, s.color]);
   const interpolate =
     ramp.stops.length === 1

@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ClientConfig } from "../lib/config";
 import {
   apiGet,
+  apiPost,
   buildQuery,
   clearIndexCache,
   groupOf,
@@ -164,5 +165,51 @@ describe("real API", () => {
     const err = await apiGet("/meta", {}, cfg(["meta"])).catch((e: unknown) => e);
     expect((err as ApiError).code).toBe("network_error");
     expect((err as ApiError).status).toBe(0);
+  });
+});
+
+describe("apiPost", () => {
+  it("sends JSON to the real API with the role header", async () => {
+    const calls = stubFetch(() => new Response(JSON.stringify({ status: "approved" })));
+    setRequestRole("officer");
+    const out = await apiPost<{ status: string }>(
+      "/advisories/ADV-1/review",
+      { action: "approve", reviewer: "Demo officer" },
+      cfg(["advisories"]),
+    );
+    expect(out.status).toBe("approved");
+    expect(calls[0]?.url).toBe("http://api.test/api/v1/advisories/ADV-1/review");
+    expect(calls[0]?.init?.method).toBe("POST");
+    expect(JSON.parse(String(calls[0]?.init?.body))).toEqual({
+      action: "approve",
+      reviewer: "Demo officer",
+    });
+    const headers = calls[0]?.init?.headers as Record<string, string>;
+    expect(headers["Content-Type"]).toBe("application/json");
+    expect(headers["X-Role"]).toBe("officer");
+  });
+
+  it("refuses to write to demo files or a snapshot, without calling fetch", async () => {
+    const calls = stubFetch();
+    for (const c of [cfg(), cfg(["advisories"], true)]) {
+      await expect(apiPost("/advisories/ADV-1/review", {}, c)).rejects.toMatchObject({
+        code: "read_only",
+      });
+    }
+    expect(calls).toHaveLength(0);
+  });
+
+  it("turns an error body into an ApiError", async () => {
+    stubFetch(
+      () =>
+        new Response(JSON.stringify({ error: { code: "bad_request", message: "No text" } }), {
+          status: 400,
+        }),
+    );
+    const err = await apiPost("/advisories/ADV-1/review", {}, cfg(["advisories"])).catch(
+      (e: unknown) => e,
+    );
+    expect(err).toBeInstanceOf(ApiError);
+    expect(err).toMatchObject({ status: 400, code: "bad_request", message: "No text" });
   });
 });

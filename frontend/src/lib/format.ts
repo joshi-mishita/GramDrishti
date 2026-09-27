@@ -143,3 +143,16 @@ export function describeRange(
   if (lo === hi) return { kind: "about", value: lo };
   return { kind: "between", lo, hi };
 }
+
+const ISO_DATE_TIME = /^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})/;
+
+/**
+ * Formats an API timestamp such as "2024-09-09T08:00:00" as "Mon 9 Sep 2024, 08:00".
+ * The time is shown as the server wrote it (the API sends local server time without a
+ * zone), so no time-zone conversion happens here. Anything else is returned unchanged.
+ */
+export function formatDateTime(value: string, lang: Lang): string {
+  const m = ISO_DATE_TIME.exec(value);
+  if (!m?.[1]) return value;
+  return `${formatDate(m[1], lang)}, ${m[2]}:${m[3]}`;
+}

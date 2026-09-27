@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 
 export interface SegmentOption<T extends string> {
   value: T;
@@ -19,6 +19,10 @@ interface Props<T extends string> {
   onChange: (value: T) => void;
   /** "bar": inline segments on the top bar. "list": stacked rows. "wrap": wrapping pills. */
   variant?: "bar" | "list" | "wrap";
+  /** Disables every option (native fieldset disabled). */
+  disabled?: boolean;
+  /** Short text under the options, read with the group (for example why it is disabled). */
+  note?: string;
 }
 
 /**
@@ -33,9 +37,16 @@ export function SegmentedControl<T extends string>({
   options,
   onChange,
   variant = "bar",
+  disabled = false,
+  note,
 }: Props<T>) {
+  const noteId = useId();
   return (
-    <fieldset className={`seg seg-${variant}`}>
+    <fieldset
+      className={`seg seg-${variant}`}
+      disabled={disabled}
+      aria-describedby={note ? noteId : undefined}
+    >
       <legend className={showLegend ? "seg-legend" : "visually-hidden"}>{legend}</legend>
       <div className="seg-options">
         {options.map((o) => (
@@ -54,6 +65,11 @@ export function SegmentedControl<T extends string>({
           </label>
         ))}
       </div>
+      {note ? (
+        <p id={noteId} className="muted small">
+          {note}
+        </p>
+      ) : null}
     </fieldset>
   );
 }
