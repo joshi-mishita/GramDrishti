@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
-import type { ForecastMap, PanchayatCollection, PanchayatMapValue } from "../../api/types";
+import type { ForecastMap, PanchayatCollection, PanchayatMapValue, Risk } from "../../api/types";
 import { valueRamp } from "../../lib/ramps";
 import {
   boundsOf,
   isFlatWithinBlocks,
   legendTicks,
   rampForMode,
+  riskLevels,
+  riskValues,
   tableRows,
   valueForMode,
   valuesForMode,
@@ -136,5 +138,35 @@ describe("boundsOf", () => {
     };
     expect(boundsOf(fc)).toEqual([75.3, 28.9, 75.9, 29.3]);
     expect(boundsOf({ features: [] })).toBeNull();
+  });
+});
+
+describe("risk layer values", () => {
+  const risk: Risk = {
+    issue_date: "2024-09-09",
+    valid_date: "2024-09-10",
+    lead_day: 1,
+    type: "heavy_rain",
+    data_mode: "mock",
+    provenance: "computed",
+    thresholds_status: "placeholder",
+    items: [
+      { panchayat_id: "MP0101", block_id: "MB01", level: "low", score: 0.02 },
+      { panchayat_id: "MP0301", block_id: "MB03", level: "severe", score: 0.64 },
+      { panchayat_id: "MP0302", block_id: "MB03", level: "high", score: 0.4 },
+    ],
+  };
+
+  it("paints each Panchayat with its level index", () => {
+    const v = riskValues(risk);
+    expect(v.get("MP0101")).toBe(0);
+    expect(v.get("MP0302")).toBe(2);
+    expect(v.get("MP0301")).toBe(3);
+    expect(v.has("MP0999")).toBe(false);
+  });
+
+  it("looks up levels, and is empty before the risk loads", () => {
+    expect(riskLevels(risk).get("MP0301")).toBe("severe");
+    expect(riskLevels(undefined).size).toBe(0);
   });
 });

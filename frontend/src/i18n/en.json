@@ -90,7 +90,8 @@
     "forecastPanchayat": "the Panchayat forecast",
     "observed": "the observations",
     "explain": "the explanation",
-    "changes": "the forecast changes"
+    "changes": "the forecast changes",
+    "risk": "the risk layer"
   },
   "map": {
     "title": "Map explorer",
@@ -117,8 +118,10 @@
     "noWebglBody": "WebGL is switched off or missing. Choose Show as table for the same values.",
     "riskLayer": "Risk layer",
     "riskNone": "None",
-    "riskHint": "Not connected yet. Risk layers on the map arrive with the risk screens in a later version.",
-    "tableCaption": "{{variable}} for every Panchayat, {{date}}"
+    "riskHint": "Colour Panchayats by the level of one hazard instead of the forecast.",
+    "tableCaption": "{{variable}} for every Panchayat, {{date}}",
+    "riskHintOn": "The map shows risk levels for the chosen day. Choose None to see the forecast again.",
+    "viewOffForRisk": "Not used while a risk layer is shown."
   },
   "priority": {
     "title": "Panchayats needing attention",
@@ -212,7 +215,8 @@
     "sortDesc": "{{column}}: sort from high to low",
     "variable": "Variable",
     "panchayatShort": "Panchayat",
-    "blockShort": "Block"
+    "blockShort": "Block",
+    "risk": "Risk"
   },
   "panel": {
     "valueOn": "{{variable}} on {{date}}",
@@ -315,5 +319,18 @@
     "tipLikely": "High confidence: the forecast gives a clear signal for this.",
     "tipPossible": "Medium confidence: the signal is there but could change. Check again tomorrow.",
     "tipUncertain": "Low confidence: treat this as an early warning and check again tomorrow."
+  },
+  "risks": {
+    "heavy_rain": "Heavy rain",
+    "heat": "Heat",
+    "frost": "Frost",
+    "waterlogging": "Waterlogging",
+    "dry_spell": "Dry spell"
+  },
+  "risk": {
+    "legendTitle": "{{risk}} risk",
+    "tooltip": "{{risk}} risk",
+    "heading": "{{risk}} risk, {{date}}",
+    "noItems": "No risk levels for this day"
   }
 }

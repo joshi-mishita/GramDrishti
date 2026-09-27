@@ -487,3 +487,22 @@
 .fan-vars .seg-face {
   justify-content: center;
 }
+
+/* ---- Risk layer (S9) ---- */
+.risk-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: var(--gap-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tooltip-risk {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap-3);
+  margin: var(--gap-1) 0 0;
+}
+.seg:disabled {
+  opacity: 0.6;
+}

@@ -5,6 +5,7 @@ import {
   fillColorExpression,
   mixColors,
   niceCeil,
+  riskRamp,
   sampleColors,
   temperatureBreaks,
   valueRamp,
@@ -129,5 +130,43 @@ describe("colorFor and the map expression", () => {
       ["to-number", ["feature-state", "v"]],
     ]);
     expect(interp.slice(3)).toEqual(r.stops.flatMap((s) => [s.value, s.color]));
+  });
+});
+
+describe("riskRamp", () => {
+  const colors: Record<string, string> = {
+    "--sev-low": "#3e8e41",
+    "--sev-mod": "#e8b923",
+    "--sev-high": "#e0801f",
+    "--sev-severe": "#c62828",
+  };
+  const r = riskRamp((token) => colors[token] ?? "#000000");
+
+  it("gives each level its severity token, in order", () => {
+    expect(r.kind).toBe("categorical");
+    expect(r.stops).toEqual([
+      { value: 0, color: "#3e8e41" },
+      { value: 1, color: "#e8b923" },
+      { value: 2, color: "#e0801f" },
+      { value: 3, color: "#c62828" },
+    ]);
+  });
+
+  it("paints exact levels with match, never blending between them", () => {
+    const expr = fillColorExpression(r, "#e3e8e6");
+    expect(expr[2]).toBe("#e3e8e6");
+    const match = expr[3] as unknown[];
+    expect(match[0]).toBe("match");
+    expect(match.slice(2)).toEqual([
+      0,
+      "#3e8e41",
+      1,
+      "#e8b923",
+      2,
+      "#e0801f",
+      3,
+      "#c62828",
+      "#e3e8e6",
+    ]);
   });
 });
