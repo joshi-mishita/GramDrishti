@@ -17,8 +17,8 @@ offline:       ## export snapshot mode again (after approving advisories) for th
 	docker compose run --rm prepare python -m gramdrishti.pipeline.prepare_demo \
 	  --offline-out /app/offline/snapshot --refresh-offline
 
-e2e:           ## Playwright demo walk-through against the running stack (make up first)
-	cd frontend && npm run e2e:docker
+e2e:           ## demo walk-through (Playwright) on an isolated stack (ports 180xx), then API-down check
+	./scripts/e2e_docker.sh
 
 fresh-check:   ## clone into a temp folder, follow the README quick start, hit endpoints, clean up
 	./scripts/fresh_clone_check.sh
