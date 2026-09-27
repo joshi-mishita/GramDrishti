@@ -37,6 +37,9 @@ Shared: Docker Compose, GitHub Actions.
 - Validate advisory rules and templates, write `rules.schema.json`: `cd backend && python -m gramdrishti.advisory.rules`
 - Expert thresholds table (writes `docs/thresholds_for_expert_review.md`; a test checks it is current): `cd backend && python -m gramdrishti.advisory.expert_table`
 - Read stored advisories in plain text: `cd backend && python -m gramdrishti.advisory.show --issue-date 2024-09-09` (`--panchayat MP0307 MP0311`, `--lang hi`, `--counts`)
+- Verification on TEST (once per model version, see `docs/validation_protocol.md`; needs trained artifacts; writes `backend/artifacts/verification.json`, `impact.json` and records the opening in `docs/test_window_ledger.json`): `cd backend && python -m gramdrishti.verify.run_validation` (`--window CALIB` is a dry run that never opens TEST, `--no-lobo` skips leave-one-block-out)
+- Decision replay only, from the saved predictions: `cd backend && python -m gramdrishti.verify.impact`
+- Validation report (writes `docs/validation_report.md` from the two files; a test checks it is current): `cd backend && python -m gramdrishti.verify.report`
 - Run API: `cd backend && uvicorn gramdrishti.api.main:app --reload --port 8000`
 - Export contract: `cd backend && python -m gramdrishti.export_openapi`
 - Contract examples (calls the app, validates, writes `contract/examples/`; needs the snapshots above): `cd backend && python -m gramdrishti.contract.make_examples`
@@ -47,11 +50,12 @@ Shared: Docker Compose, GitHub Actions.
 - Pick demo issue dates (prints reasons, writes `demo_dates.json`): `cd backend && python -m gramdrishti.contract.pick_demo_dates`
 - Frontend setup (Node 22, see `frontend/.nvmrc`): `cd frontend && npm install`
 - Frontend dev / build / test / lint: `cd frontend && npm run dev | build | test | lint`
-- Frontend with the real API for some endpoints: `cd frontend && VITE_REAL_ENDPOINTS=meta,geo,forecast,observed,explain npm run dev` (backend on port 8000)
+- Frontend with the real API for some endpoints: `cd frontend && VITE_REAL_ENDPOINTS=meta,geo,forecast,observed,explain,risk,priority,advisories npm run dev` (backend on port 8000; reviewing needs `advisories` on the API)
 - Frontend types from contract: `cd frontend && npm run gen:types` (CI runs `npm run check:types`)
 - Copy contract examples to `frontend/public/mock/` (runs before dev and build): `cd frontend && npm run sync:mock`
 - Screenshots for visual review: `cd frontend && npm run shots` (add `SHOTS_BROWSER_CHANNEL=chrome` if Playwright's Chromium cannot be downloaded)
 - Detail panel screenshots from the real API (API running on port 8000 with snapshots): `cd frontend && SHOTS_REAL=1 npm run shots`
+- End-to-end review flow and S9 screens on a real API with a throwaway database (starts its own API on port 8010; needs the backend venv, artifacts and snapshots): `cd frontend && npm run e2e` (add `SHOTS_BROWSER_CHANNEL=chrome` if needed)
 
 ## Non-negotiable rules
 1. **Everything current is synthetic.** Every API response carries `data_mode` ("mock" or "real"). The UI shows the ribbon "Synthetic demo data. Not real weather." whenever it is "mock".

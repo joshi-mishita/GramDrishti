@@ -2,7 +2,8 @@
 
 The Hindi and Punjabi strings are drafts written by Claude Code and NEED NATIVE REVIEW before any farmer
 sees them. Advisory and priority text moved to ``advisory/templates.yaml`` in S8; what remains here is the
-day-name helper, the change summary, feedback thanks and the S2 placeholders (S10 replaces those).
+day-name helper, the change summary and the feedback thanks. The S2 verification, impact and explain
+placeholders were removed in S10.
 """
 
 from __future__ import annotations
@@ -33,30 +34,6 @@ def fill(templates: dict[str, str], d: date | None = None, **values: object) -> 
         out[lang] = t.format(**extra, **values)
     return out
 
-
-# ---------------------------------------------------------------- explain (static contrast placeholder)
-FEATURE_TEXT = {
-    "elevation_m": ({"en": "Higher ground than the block average", "hi": "ब्लॉक के औसत से ऊँची ज़मीन",
-                     "pa": "ਬਲਾਕ ਦੀ ਔਸਤ ਨਾਲੋਂ ਉੱਚੀ ਜ਼ਮੀਨ"},
-                    {"en": "Lower ground than the block average", "hi": "ब्लॉक के औसत से नीची ज़मीन",
-                     "pa": "ਬਲਾਕ ਦੀ ਔਸਤ ਨਾਲੋਂ ਨੀਵੀਂ ਜ਼ਮੀਨ"}),
-    "irrigated_frac": ({"en": "More irrigated fields around it", "hi": "आसपास ज़्यादा सिंचित खेत",
-                        "pa": "ਆਲੇ-ਦੁਆਲੇ ਵੱਧ ਸਿੰਜੇ ਖੇਤ"},
-                       {"en": "Fewer irrigated fields around it", "hi": "आसपास कम सिंचित खेत",
-                        "pa": "ਆਲੇ-ਦੁਆਲੇ ਘੱਟ ਸਿੰਜੇ ਖੇਤ"}),
-    "urban_frac": ({"en": "More built-up land", "hi": "ज़्यादा बसी हुई ज़मीन", "pa": "ਵੱਧ ਵਸੀ ਹੋਈ ਜ਼ਮੀਨ"},
-                   {"en": "Less built-up land", "hi": "कम बसी हुई ज़मीन", "pa": "ਘੱਟ ਵਸੀ ਹੋਈ ਜ਼ਮੀਨ"}),
-    "water_frac": ({"en": "More open water nearby", "hi": "पास में ज़्यादा खुला पानी",
-                    "pa": "ਨੇੜੇ ਵੱਧ ਖੁੱਲ੍ਹਾ ਪਾਣੀ"},
-                   {"en": "Less open water nearby", "hi": "पास में कम खुला पानी", "pa": "ਨੇੜੇ ਘੱਟ ਖੁੱਲ੍ਹਾ ਪਾਣੀ"}),
-    "tree_frac": ({"en": "More tree cover", "hi": "ज़्यादा पेड़", "pa": "ਵੱਧ ਰੁੱਖ"},
-                  {"en": "Less tree cover", "hi": "कम पेड़", "pa": "ਘੱਟ ਰੁੱਖ"}),
-    "tpi_z": ({"en": "Sits higher than its surroundings", "hi": "आसपास से ऊँचाई पर स्थित",
-               "pa": "ਆਲੇ-ਦੁਆਲੇ ਨਾਲੋਂ ਉਚਾਈ ਤੇ"},
-              {"en": "Sits in a low spot where cold air collects",
-               "hi": "निचले स्थान पर जहाँ ठंडी हवा जमा होती है",
-               "pa": "ਨੀਵੀਂ ਥਾਂ ਤੇ ਜਿੱਥੇ ਠੰਢੀ ਹਵਾ ਇਕੱਠੀ ਹੁੰਦੀ ਹੈ"}),
-}
 
 # ---------------------------------------------------------------- misc
 CHANGES_NONE = {"en": "No material change since the previous forecast.",

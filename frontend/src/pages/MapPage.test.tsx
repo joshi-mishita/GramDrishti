@@ -50,6 +50,7 @@ beforeEach(() => {
     variable: "rain",
     viewMode: "panchayat",
     selectedPid: null,
+    riskType: null,
     lang: "en",
   });
 });
@@ -116,11 +117,52 @@ describe("map explorer", () => {
     expect(within(panel).getByText("-1.9 mm")).toBeInTheDocument();
   });
 
-  it("keeps the risk layer selector visible but disabled with a reason", async () => {
-    stubFetch();
+  it("paints the heavy rain risk layer with a worded legend and a risk column", async () => {
+    const counts = stubFetch();
+    const user = userEvent.setup();
     renderWithProviders(<MapPage />);
-    const risk = await screen.findByRole("combobox", { name: "Risk layer" });
-    expect(risk).toBeDisabled();
-    expect(risk).toHaveAccessibleDescription(/Not connected yet/);
+    const map = await screen.findByTestId("mapview");
+    await waitFor(() => expect(map).toHaveAttribute("data-mp0301", "103.84"));
+
+    const risk = screen.getByRole("combobox", { name: "Risk layer" });
+    expect(risk).toBeEnabled();
+    await user.selectOptions(risk, "Heavy rain");
+    expect(useAppStore.getState().riskType).toBe("heavy_rain");
+
+    // MP0301 is severe on 10 Sep 2024 (64 % chance of 35 mm or more): level index 3.
+    await waitFor(() => expect(map).toHaveAttribute("data-mp0301", "3"));
+    expect(map).toHaveAttribute("data-ramp", "categorical");
+    expect(counts.get("risk_heavy_rain.json")).toBe(1);
+    expect(screen.getByRole("heading", { name: /Heavy rain risk, / })).toBeInTheDocument();
+
+    // Every colour in the key carries its word.
+    const caption = screen.getByText("Heavy rain risk", { selector: "figcaption" });
+    const legend = caption.closest("figure") as HTMLElement;
+    for (const word of ["Severe", "High", "Moderate", "Low", "No value"]) {
+      expect(within(legend).getByText(word)).toBeInTheDocument();
+    }
+    expect(within(legend).getByText("Thresholds pending expert review.")).toBeInTheDocument();
+    // View mode does not apply to a risk layer.
+    expect(screen.getByRole("radio", { name: "Block" })).toBeDisabled();
+
+    await user.click(screen.getByRole("button", { name: "Show as table" }));
+    const table = screen.getByRole("table", { name: /Rain for every Panchayat/ });
+    const header = within(table).getByRole("columnheader", { name: /Risk/ });
+    expect(header).toHaveAttribute("aria-sort", "descending");
+    expect(within(table).getAllByRole("row")[1]).toHaveTextContent("Severe");
+
+    await user.selectOptions(risk, "None");
+    await waitFor(() => expect(map).toHaveAttribute("data-mp0301", "103.84"));
+    expect(screen.getByRole("radio", { name: "Block" })).toBeEnabled();
+  });
+
+  it("says so when the demo files have no risk layer for the day", async () => {
+    stubFetch();
+    const user = userEvent.setup();
+    renderWithProviders(<MapPage />);
+    await user.selectOptions(await screen.findByRole("combobox", { name: "Risk layer" }), "Frost");
+    expect(
+      await screen.findByText("No demo file for the risk layer with these settings"),
+    ).toBeInTheDocument();
   });
 });

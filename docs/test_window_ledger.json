@@ -1,0 +1,20 @@
+{
+  "entries": [
+    {
+      "model_version": "s5-lgbm-9b632a7b1b",
+      "data_hash_sha256": "9b632a7b1bd008853fa0118350b9cad545722b970ebf358c95a8472d2b23114d",
+      "first_opened_at": "2026-09-27T15:14:23",
+      "code_commit_at_first_open": "ecb57ba-dirty",
+      "runs": [
+        {
+          "at": "2026-09-27T15:14:23",
+          "code_commit": "ecb57ba-dirty"
+        },
+        {
+          "at": "2026-09-27T15:23:42",
+          "code_commit": "f9016e6-dirty"
+        }
+      ]
+    }
+  ]
+}

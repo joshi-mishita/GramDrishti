@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  formatDateTime,
   addDays,
   describeRange,
   formatDate,
@@ -83,5 +84,13 @@ describe("values and ranges", () => {
 
   it("keeps Western digits in Hindi and Punjabi", () => {
     expect(formatValue(1234.5, "mm", "pa")).toMatch(/^1,?234\.5 mm$/);
+  });
+});
+
+describe("timestamps", () => {
+  it("shows the date and the server's clock time without converting zones", () => {
+    expect(formatDateTime("2024-09-09T08:00:00", "en")).toBe("Mon 9 Sep 2024, 08:00");
+    expect(formatDateTime("2026-09-27T15:04:59+05:30", "hi")).toBe("रवि 27 सितंबर 2026, 15:04");
+    expect(formatDateTime("yesterday", "en")).toBe("yesterday");
   });
 });

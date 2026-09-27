@@ -38,18 +38,47 @@ export type EventChange = Schemas["EventChange"];
 export type RainEvent = Schemas["RainEvent"];
 export type Confidence = Schemas["Confidence"];
 export type Priority = Schemas["Priority"];
+export type PriorityItem = Schemas["PriorityItem"];
+export type Risk = Schemas["Risk"];
+export type RiskItem = Schemas["RiskItem"];
+export type RiskType = Schemas["RiskType"];
+export type Category = Schemas["Category"];
+export type EvidenceItem = Schemas["EvidenceItem"];
+export type AuditEntry = Schemas["AuditEntry"];
+export type ReviewRequest = Schemas["ReviewRequest"];
+export type ReviewAction = Schemas["ReviewAction"];
+export type EditedFields = Schemas["EditedFields"];
 export type AdvisoryList = Schemas["AdvisoryList"];
 export type Advisory = Schemas["Advisory"];
 export type Status = Schemas["Status"];
 export type VerificationSummary = Schemas["VerificationSummary"];
+export type VariableSummary = Schemas["VariableSummary"];
+export type MetricRow = Schemas["MetricRow"];
+export type EventSummary = Schemas["EventSummary"];
+export type CheckSummary = Schemas["CheckSummary"];
+export type Reliability = Schemas["Reliability"];
+export type ReliabilityPoint = Schemas["ReliabilityPoint"];
+export type Coverage = Schemas["Coverage"];
+export type CoverageItem = Schemas["CoverageItem"];
+export type Regions = Schemas["Regions"];
+export type RegionItem = Schemas["RegionItem"];
 export type Impact = Schemas["Impact"];
 export type Decision = Schemas["Decision"];
+export type DecisionCounts = Schemas["DecisionCounts"];
 export type Farmer = Schemas["Farmer"];
 export type FarmerAdvice = Schemas["FarmerAdvice"];
 
 export const VARS: readonly Var[] = ["rain", "tmax", "tmin", "rh", "wind"];
 export const LANGS: readonly Lang[] = ["en", "hi", "pa"];
 export const LEVELS: readonly Level[] = ["low", "moderate", "high", "severe"];
+export const RISK_TYPES: readonly RiskType[] = [
+  "heavy_rain",
+  "heat",
+  "frost",
+  "waterlogging",
+  "dry_spell",
+];
+export const STATUSES: readonly Status[] = ["draft", "approved", "edited", "rejected"];
 /** Rain events from lightest to heaviest; keys of EventProbs match RainEvent values. */
 export const RAIN_EVENTS: readonly RainEvent[] = [
   "rain_ge_1mm",

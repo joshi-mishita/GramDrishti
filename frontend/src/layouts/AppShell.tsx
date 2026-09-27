@@ -10,6 +10,7 @@ import { useUrlSync } from "../state/useUrlSync";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { Ribbon } from "../components/Ribbon";
 import { Skeleton } from "../components/states";
+import { ToastProvider } from "../components/Toast";
 import { TopBar } from "../components/TopBar";
 
 /** Top bar, mock ribbon and the role layout below them. Owns URL and language sync. */
@@ -34,17 +35,19 @@ export function AppShell() {
   }, [meta.data, issueDate, setIssueDate]);
 
   return (
-    <div className={`shell shell-${role}`}>
-      <a className="skip-link" href="#main">
-        {t("shell.skip")}
-      </a>
-      <TopBar />
-      <Ribbon dataMode={meta.data?.data_mode} />
-      <ErrorBoundary message={t("states.renderError")}>
-        <Suspense fallback={<Skeleton label={t("states.loading", { what: "" })} />}>
-          <Outlet />
-        </Suspense>
-      </ErrorBoundary>
-    </div>
+    <ToastProvider>
+      <div className={`shell shell-${role}`}>
+        <a className="skip-link" href="#main">
+          {t("shell.skip")}
+        </a>
+        <TopBar />
+        <Ribbon dataMode={meta.data?.data_mode} />
+        <ErrorBoundary message={t("states.renderError")}>
+          <Suspense fallback={<Skeleton label={t("states.loading", { what: "" })} />}>
+            <Outlet />
+          </Suspense>
+        </ErrorBoundary>
+      </div>
+    </ToastProvider>
   );
 }

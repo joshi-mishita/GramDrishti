@@ -90,7 +90,9 @@
     "forecastPanchayat": "the Panchayat forecast",
     "observed": "the observations",
     "explain": "the explanation",
-    "changes": "the forecast changes"
+    "changes": "the forecast changes",
+    "risk": "the risk layer",
+    "advisory": "advisory {{id}}"
   },
   "map": {
     "title": "Map explorer",
@@ -117,8 +119,10 @@
     "noWebglBody": "WebGL is switched off or missing. Choose Show as table for the same values.",
     "riskLayer": "Risk layer",
     "riskNone": "None",
-    "riskHint": "Not connected yet. Risk layers on the map arrive with the risk screens in a later version.",
-    "tableCaption": "{{variable}} for every Panchayat, {{date}}"
+    "riskHint": "Colour Panchayats by the level of one hazard instead of the forecast.",
+    "tableCaption": "{{variable}} for every Panchayat, {{date}}",
+    "riskHintOn": "The map shows risk levels for the chosen day. Choose None to see the forecast again.",
+    "viewOffForRisk": "Not used while a risk layer is shown."
   },
   "priority": {
     "title": "Panchayats needing attention",
@@ -128,8 +132,32 @@
     "summary_other": "{{count}} Panchayats at moderate level or above.",
     "byLevel": "Panchayats by level",
     "emptyTitle": "No Panchayat needs attention",
-    "emptyBody": "No risk reaches moderate level for the issue of {{date}}. Change the date to check another day.",
-    "notBuilt": "The ranked table with sorting, filters and printing comes in the next version."
+    "emptyBody": "No risk reaches moderate level in the next {{count}} days after the issue of {{date}}. Change the date or the horizon to check other days.",
+    "filters": "Filters",
+    "horizon": "Next",
+    "horizonDays_one": "{{count}} day",
+    "horizonDays_other": "{{count}} days",
+    "type": "Type",
+    "block": "Block",
+    "allTypes": "All risks",
+    "allBlocks": "All blocks",
+    "print": "Print list",
+    "printFilters_one": "Next {{count}} day. Risk: {{type}}. Block: {{block}}.",
+    "printFilters_other": "Next {{count}} days. Risk: {{type}}. Block: {{block}}.",
+    "summaryFiltered_one": "{{count}} of {{total}} Panchayats match these filters.",
+    "summaryFiltered_other": "{{count}} of {{total}} Panchayats match these filters.",
+    "colRank": "#",
+    "colRisk": "Main risk",
+    "colLevel": "Level",
+    "colCrops": "Crops",
+    "colWhy": "Why",
+    "noCrops": "No crop advice",
+    "caption_one": "Panchayats needing attention in the next {{count}} day after {{date}}, highest level first",
+    "caption_other": "Panchayats needing attention in the next {{count}} days after {{date}}, highest level first",
+    "noMatchTitle": "No Panchayat matches these filters",
+    "noMatchBody": "{{total}} Panchayats need attention with other risks or in other blocks.",
+    "clearFilters": "Clear filters",
+    "rowHint": "Choose a row to open the map at that Panchayat, with its risk layer on."
   },
   "review": {
     "title": "Advisory review",
@@ -137,13 +165,213 @@
     "waiting_other": "Waiting for review ({{count}})",
     "emptyTitle": "Nothing waiting for review",
     "emptyBody": "No advisories waiting for review for {{date}}. Change the date or run the daily job.",
-    "notBuilt": "The queue, the editor in three languages and the audit trail come in the next version."
+    "subtitle": "Advisories drafted by the rules engine for the issue of {{date}}. Nothing reaches farmers until an officer approves it.",
+    "reviewer": "Reviewing as",
+    "reviewerHint": "Written into the history of every advisory you review. There is no login in the prototype.",
+    "readOnly": "These advisories come from the demo files, which are read-only. To approve or reject, start the API and serve advisories from it (see .env.example).",
+    "listed_one": "{{status}} ({{count}})",
+    "listed_other": "{{status}} ({{count}})",
+    "filters": "Queue filters",
+    "statusFilter": "Status",
+    "statusAll": "All statuses",
+    "crop": "Crop",
+    "allCrops": "All crops",
+    "noMatchTitle": "No advisory matches these filters",
+    "noneTitle": "No advisories with this status",
+    "noneBody": "No advisories are {{status}} for {{date}}. Change the status filter or the date.",
+    "pickTitle": "No advisory open",
+    "pickBody": "Choose an advisory in the list, or move with the arrow keys and press Enter.",
+    "cropStage": "{{crop}}, {{stage}}",
+    "shortName": "{{pid}} {{crop}} {{category}}",
+    "where": "{{name}} ({{pid}}), block {{block}}",
+    "status": "Status",
+    "priority": "Priority",
+    "confidence": "Confidence",
+    "valid": "Valid",
+    "validRange": "{{from}} to {{to}}",
+    "thresholdsPending": "Thresholds pending expert review.",
+    "translationPending": "Hindi and Punjabi texts are drafts that need review by a native speaker.",
+    "texts": "Advisory text",
+    "languages": "Language of the text",
+    "changed": "changed",
+    "changedSinceDraft": "changed since draft",
+    "field": {
+      "action": "Action",
+      "reason": "Reason",
+      "fallback": "If things change"
+    },
+    "noTranslation": "No text in this language yet. Farmers see the English until one is written.",
+    "willDrop": "The English of this field changed, so this translation will be cleared when you save. Edit it here to keep a translation.",
+    "needEnglish": "English text is needed: it is what farmers see when a translation is missing.",
+    "evidence": "Evidence",
+    "noEvidence": "The rule gave no evidence rows.",
+    "evidenceEnglish": "Evidence rows are in English (officer view).",
+    "actions": "Review decision",
+    "approve": "Approve",
+    "saveApprove": "Save edit and approve",
+    "reject": "Reject",
+    "cancel": "Cancel",
+    "undo": "Undo edits",
+    "rejectReason": "Reason for rejecting (saved in the history)",
+    "keys": "Keys: arrow keys move through the list, Enter opens, Ctrl+Enter approves.",
+    "blocked": {
+      "readOnly": "Reviewing needs the API; the demo files are read-only.",
+      "noReviewer": "Enter your name under Reviewing as first.",
+      "hasEdits": "You changed the text: choose Save edit and approve, or Undo edits.",
+      "noEdits": "Nothing is edited yet.",
+      "missingEnglish": "Fill in the English text of every field before saving.",
+      "noReason": "Write a reason to reject.",
+      "alreadyApproved": "Already approved. Change the text to save a new version, or reject it."
+    },
+    "saveFailed": "Could not save the review. Check the server is running, then try again.",
+    "toastApproved": "Approved",
+    "toastEdited": "Edited and approved",
+    "toastRejected": "Rejected",
+    "toastLine": "{{word}}: {{what}}",
+    "history": "History",
+    "auditEmpty": "No history recorded.",
+    "auditSystem": "the rules engine",
+    "auditBy": "by {{actor}}",
+    "auditCreated": "Drafted",
+    "auditApproved": "Approved",
+    "auditEdited": "Edited and approved",
+    "auditRejected": "Rejected",
+    "auditOther": "{{action}}",
+    "auditChanged": "Text changed: {{fields}}",
+    "auditBefore": "Before:",
+    "auditAfter": "After:",
+    "auditNone": "(none)",
+    "whereNamed": "{{name}}, block {{block}}",
+    "shortNameNoCrop": "{{pid}} {{category}}"
   },
   "verification": {
     "title": "Forecast accuracy check",
-    "method": "Method: {{method}}. Period: {{start}} to {{end}}.",
-    "notesTitle": "Notes from the verification job",
-    "notBuilt": "No accuracy numbers are shown until the verification job has produced them."
+    "sentence": "Panchayat forecasts from model {{model}} for every issue date from {{start}} to {{end}} (lead days 1 to 5), compared with {{truth}} by three checks: {{checks}}.",
+    "sentenceNoModel": "Panchayat forecasts for every issue date from {{start}} to {{end}} (lead days 1 to 5), compared with {{truth}} by these checks: {{checks}}.",
+    "mockNotice": "Synthetic demo data, not real weather: this shows how the checks work, not real-world skill.",
+    "testOpened": "Test period first opened {{when}}. Reused after tuning: {{reused}}.",
+    "yes": "yes",
+    "no": "no",
+    "consistency": "Panchayat values average back to the block forecast: largest gap {{gap}}.",
+    "checkNames": {
+      "temporal_holdout": "a held-out period",
+      "leave_one_block_out": "leaving one block out",
+      "station": "station comparison"
+    },
+    "checkLabels": {
+      "temporal_holdout": "Held-out period",
+      "leave_one_block_out": "Held-out block",
+      "station": "Stations"
+    },
+    "compareTitle": "Compared with the block forecast",
+    "checkLegend": "Check",
+    "checkTruth": "Truth: {{truth}}. {{n}} forecast-truth pairs.",
+    "tableCaption": "Scores of the model and three baselines, {{check}}",
+    "howToRead": "Bold marks the best value in each row. Skill is 1 minus the model score divided by the baseline score: above 0 the model is better. The words better, worse and no clear difference come from the 95% interval.",
+    "colMetric": "Score",
+    "colModel": "Model",
+    "colB0": "Block forecast B0",
+    "colB1": "Corrected block B1",
+    "colB2": "Simple physical B2",
+    "colSkillB0": "Skill vs B0 (95% interval)",
+    "colSkillB1": "Skill vs B1 (95% interval)",
+    "varGroup": "{{variable}}, {{n}} forecasts",
+    "interval": "{{lo}} to {{hi}}",
+    "readings": {
+      "better": "better",
+      "worse": "worse",
+      "unclear": "no clear difference",
+      "unknown": "no interval"
+    },
+    "metrics": {
+      "MAE": "Mean absolute error",
+      "RMSE": "Root mean square error",
+      "bias": "Bias (mean error)",
+      "quantile_loss": "Quantile loss (p10, p50, p90)",
+      "MAE_wet_days_obs_ge_1mm": "Mean absolute error on wet days (1 mm or more observed)",
+      "pod": "Hit rate (POD)",
+      "far": "False alarm ratio (FAR)",
+      "csi": "Critical success index (CSI)",
+      "frequency_bias": "Frequency bias (1 is best)",
+      "brier": "Brier score"
+    },
+    "baselineNames": {
+      "b0": "Block forecast B0",
+      "b1": "Corrected block B1",
+      "b2": "Simple physical B2"
+    },
+    "eventsTitle": "Rain events: yes or no",
+    "eventsCaption": "Yes/no scores for rain events, model and block forecasts",
+    "eventGroup": "{{event}}: happened in {{rate}} of {{n}} forecasts. Brier skill vs monthly climatology {{bss}}.",
+    "events": {
+      "rain_ge_1mm": "Rain 1 mm or more",
+      "rain_ge_2_5mm": "Rain 2.5 mm or more",
+      "rain_ge_10mm": "Rain 10 mm or more",
+      "rain_ge_35mm": "Rain 35 mm or more"
+    },
+    "eventsShort": {
+      "rain_ge_1mm": "1 mm",
+      "rain_ge_2_5mm": "2.5 mm",
+      "rain_ge_10mm": "10 mm",
+      "rain_ge_35mm": "35 mm"
+    },
+    "reliabilityTitle": "Are the rain chances honest?",
+    "reliabilityEvent": "Rain event",
+    "reliabilityHelp": "Each dot is a group of forecasts with similar chances. On the diagonal, rain came as often as forecast. Bigger dots hold more forecasts.",
+    "reliabilityX": "Forecast chance",
+    "reliabilityY": "How often it rained",
+    "reliabilityCaption": "Forecast chance against observed frequency, {{event}}",
+    "colBin": "Forecast chance",
+    "colMeanProb": "Mean forecast chance",
+    "colObserved": "How often it rained",
+    "colForecasts": "Forecasts",
+    "binRange": "{{lo}} to {{hi}}",
+    "tipBin": "Chances {{range}}",
+    "tipMean": "Mean forecast {{value}}",
+    "tipObserved": "Rained {{value}}",
+    "tipCount": "{{count}} forecasts",
+    "noPoints": "No reliability points for this event",
+    "coverageTitle": "Do 80% ranges hold 80% of outcomes?",
+    "coverageHelp": "The likely range (p10 to p90) should contain what happened 8 times in 10. Above the line the range is wider than it needs to be; below it the range is too narrow.",
+    "coverageAim": "Aim 80%",
+    "coverageAxis": "Share of outcomes inside the range",
+    "coverageCaption": "Interval coverage per variable",
+    "coverageGroup": "Strata",
+    "coverageGroups": {
+      "all": "All days",
+      "lead_day": "By lead day",
+      "season": "By season"
+    },
+    "colVariable": "Variable",
+    "colStratum": "Days",
+    "colNominal": "Aim",
+    "colEmpirical": "Inside the range",
+    "colWidth": "Mean width",
+    "strata": {
+      "all": "All days",
+      "wet_days": "Wet days (1 mm or more observed)",
+      "lead_day": "Lead day {{value}}",
+      "season": "{{value}}"
+    },
+    "seasons": {
+      "monsoon": "Monsoon",
+      "post_monsoon": "Post-monsoon",
+      "winter": "Winter"
+    },
+    "wetDaysVar": "Rain, wet days",
+    "regionsTitle": "Where it works",
+    "regionsHelp": "Blocks: the model was refitted without that block and forecast it. Stations: forecasts at the station's Panchayat against the station.",
+    "regionsVar": "Variable",
+    "regionsCaption": "Mean absolute error by held-out block and station, {{variable}}",
+    "colRegion": "Held out",
+    "colForecastsShort": "Forecasts",
+    "colDiffB0": "Model minus B0",
+    "regionBlock": "Block {{id}}",
+    "regionStation": "Station {{id}}",
+    "lossesTitle": "Where the model does not help",
+    "lossesEmpty": "The verification job reported no score where the model is worse than or level with a baseline.",
+    "notesTitle": "About these numbers",
+    "sectionNotes": "Notes"
   },
   "impact": {
     "title": "Decision replay",
@@ -153,9 +381,49 @@
       "heat_alert": "Heat alert",
       "irrigation_wait": "Wait to irrigate"
     },
+    "season": "Period",
+    "seasons": {
+      "test_2024": "Whole test period",
+      "monsoon_2024": "Monsoon 2024",
+      "post_monsoon_2024": "Post-monsoon 2024",
+      "winter_2024": "Winter 2024"
+    },
+    "summary": "{{n}} decisions: one per Panchayat for the next day, on each issue date from {{start}} to {{end}}. The event happened {{events}} times.",
+    "summaryNoPeriod": "{{n}} decisions, one per Panchayat for the next day. The event happened {{events}} times.",
+    "barsCaption": "{{decision}}: what happened with each forecast",
+    "barModel": "GramDrishti model",
+    "barBlock": "Block forecast B0",
+    "barBlockCorrected": "Corrected block B1",
+    "outcomes": {
+      "spray": {
+        "correct": "Correct",
+        "wasted_wait": "Wasted wait",
+        "washed_off": "Washed off"
+      },
+      "heat_alert": {
+        "correct": "Correct",
+        "wasted_wait": "False alarm",
+        "washed_off": "Missed heat"
+      },
+      "irrigation_wait": {
+        "correct": "Correct",
+        "wasted_wait": "Waited, no rain",
+        "washed_off": "Irrigated, then rain"
+      }
+    },
+    "meanings": {
+      "spray": "Wasted wait: spraying was held and less than {{threshold}} {{unit}} of rain came. Washed off: spraying went ahead and {{threshold}} {{unit}} or more came.",
+      "heat_alert": "False alarm (wasted wait in the data): an alert was given and the maximum stayed below {{threshold}} {{unit}}. Missed heat (washed off): no alert and the maximum reached {{threshold}} {{unit}}.",
+      "irrigation_wait": "Waited, no rain (wasted wait): irrigation was held and less than {{threshold}} {{unit}} of rain came. Irrigated, then rain (washed off): irrigation went ahead and {{threshold}} {{unit}} or more came."
+    },
     "ruleModel": "GramDrishti rule",
     "ruleBlock": "Block forecast rule",
-    "notBuilt": "Counts of correct, wasted-wait and washed-off decisions are shown once the verification job has produced them."
+    "segmentLabel": "{{outcome}}: {{count}} ({{share}})",
+    "tableCaption": "Counts of each outcome",
+    "colForecast": "Forecast used",
+    "colTotal": "Decisions",
+    "tableHelp": "Bold marks the most correct and the fewest of each mistake. The two mistakes do not cost the same; no costs are applied until an expert supplies them.",
+    "notesTitle": "About these numbers"
   },
   "farmer": {
     "village": "Panchayat {{pid}}",
@@ -179,7 +447,8 @@
     "gram": "Gram",
     "mustard": "Mustard",
     "paddy": "Paddy",
-    "wheat": "Wheat"
+    "wheat": "Wheat",
+    "livestock": "Livestock"
   },
   "bulletin": {
     "title": "Bulletin for {{pid}}",
@@ -212,7 +481,8 @@
     "sortDesc": "{{column}}: sort from high to low",
     "variable": "Variable",
     "panchayatShort": "Panchayat",
-    "blockShort": "Block"
+    "blockShort": "Block",
+    "risk": "Risk"
   },
   "panel": {
     "valueOn": "{{variable}} on {{date}}",
@@ -315,5 +585,66 @@
     "tipLikely": "High confidence: the forecast gives a clear signal for this.",
     "tipPossible": "Medium confidence: the signal is there but could change. Check again tomorrow.",
     "tipUncertain": "Low confidence: treat this as an early warning and check again tomorrow."
+  },
+  "risks": {
+    "heavy_rain": "Heavy rain",
+    "heat": "Heat",
+    "frost": "Frost",
+    "waterlogging": "Waterlogging",
+    "dry_spell": "Dry spell"
+  },
+  "risk": {
+    "legendTitle": "{{risk}} risk",
+    "tooltip": "{{risk}} risk",
+    "heading": "{{risk}} risk, {{date}}",
+    "noItems": "No risk levels for this day"
+  },
+  "stages": {
+    "pre_sowing": "before sowing",
+    "germination_crown_root": "germination and crown root",
+    "tillering": "tillering",
+    "jointing_booting": "jointing and booting",
+    "flowering_grain_fill": "flowering and grain filling",
+    "maturity_harvest": "maturity",
+    "transplant_establishment": "transplanting",
+    "panicle_flowering": "panicle and flowering",
+    "grain_fill_maturity": "grain filling and maturity",
+    "germination_seedling": "seedling",
+    "squaring_flowering": "squaring and flowering",
+    "boll_development_picking": "boll development and picking",
+    "vegetative": "vegetative growth",
+    "flowering_pod": "flowering and pod",
+    "maturity": "maturity",
+    "establishment": "establishment",
+    "tillering_boot": "tillering and booting",
+    "flowering_grain": "flowering and grain",
+    "unknown": "current"
+  },
+  "categories": {
+    "sowing": "Sowing",
+    "irrigation": "Irrigation",
+    "spray": "Spray",
+    "fertilizer": "Fertiliser",
+    "harvest": "Harvest",
+    "heat_stress": "Heat stress",
+    "frost": "Frost",
+    "waterlogging": "Waterlogging",
+    "dry_spell": "Dry spell",
+    "pest_disease": "Pest and disease",
+    "livestock": "Livestock"
+  },
+  "statuses": {
+    "draft": "Waiting for review",
+    "approved": "Approved",
+    "edited": "Edited and approved",
+    "rejected": "Rejected"
+  },
+  "langNames": {
+    "en": "English",
+    "hi": "Hindi",
+    "pa": "Punjabi"
+  },
+  "toast": {
+    "close": "Close message"
   }
 }

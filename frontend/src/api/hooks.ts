@@ -2,9 +2,10 @@
  * One TanStack Query hook per endpoint (Frontend Guide 9.1). Server data stays in the
  * query cache; never copy it into the zustand store.
  */
-import { useQuery } from "@tanstack/react-query";
-import { apiGet } from "./client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiGet, apiPost } from "./client";
 import type {
+  Advisory,
   AdvisoryList,
   BlockCollection,
   Decision,
@@ -19,9 +20,16 @@ import type {
   Meta,
   PanchayatCollection,
   Priority,
+  ReviewRequest,
+  Risk,
+  RiskType,
   Status,
   Var,
   VerificationSummary,
+  Reliability,
+  Coverage,
+  Regions,
+  RainEvent,
 } from "./types";
 
 const MINUTE = 60_000;
@@ -40,9 +48,15 @@ export const queryKeys = {
   forecastChanges: (pid: string, issueDate: string) => ["forecastChanges", pid, issueDate] as const,
   priority: (issueDate: string, horizonDays: number) =>
     ["priority", issueDate, horizonDays] as const,
+  risk: (issueDate: string, leadDay: number, type: RiskType) =>
+    ["risk", issueDate, leadDay, type] as const,
   advisories: (status: Status | undefined, issueDate: string) =>
     ["advisories", status ?? "all", issueDate] as const,
+  advisory: (id: string) => ["advisory", id] as const,
   verificationSummary: ["verification", "summary"] as const,
+  reliability: (event: RainEvent) => ["verification", "reliability", event] as const,
+  coverage: ["verification", "coverage"] as const,
+  regions: ["verification", "regions"] as const,
   impact: (decision: Decision, season: string) => ["impact", decision, season] as const,
   farmer: (id: string) => ["farmer", id] as const,
   farmerAdvice: (id: string, issueDate: string) => ["farmerAdvice", id, issueDate] as const,
@@ -170,6 +184,16 @@ export const usePriority = (issueDate: string | null, horizonDays = 2) =>
     staleTime: 5 * MINUTE,
   });
 
+/** Risk level per Panchayat for one hazard and lead day (the map's risk layer). */
+export const useRisk = (issueDate: string | null, leadDay: number, type: RiskType | null) =>
+  useQuery({
+    queryKey: queryKeys.risk(issueDate ?? "", leadDay, type ?? "heavy_rain"),
+    queryFn: ({ signal }) =>
+      apiGet<Risk>("/risk", { issue_date: issueDate, lead_day: leadDay, type }, undefined, signal),
+    enabled: !!issueDate && !!type,
+    staleTime: 5 * MINUTE,
+  });
+
 /** Review queue: staleTime 0 so a decision made elsewhere shows up (Guide 9.1). */
 export const useAdvisories = (issueDate: string | null, status?: Status) =>
   useQuery({
@@ -180,11 +204,73 @@ export const useAdvisories = (issueDate: string | null, status?: Status) =>
     staleTime: 0,
   });
 
+/**
+ * One advisory with its audit trail. Used when the advisory is not in the loaded list
+ * (for example an approved one opened from a link while the list shows drafts).
+ */
+export const useAdvisory = (id: string | null, enabled = true) =>
+  useQuery({
+    queryKey: queryKeys.advisory(id ?? ""),
+    queryFn: ({ signal }) =>
+      apiGet<Advisory>(`/advisories/${encodeURIComponent(id ?? "")}`, {}, undefined, signal),
+    enabled: enabled && !!id,
+    staleTime: 0,
+  });
+
+export interface ReviewVars {
+  id: string;
+  body: ReviewRequest;
+}
+
+/**
+ * Approve, edit or reject an advisory. On success the returned advisory replaces the
+ * cached copy, and every query that shows review state is refetched: the queue, the
+ * priority list and the farmer's approved advice (Guide 6.3).
+ */
+export function useReviewAdvisory() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, body }: ReviewVars) =>
+      apiPost<Advisory>(`/advisories/${encodeURIComponent(id)}/review`, body),
+    onSuccess: async (advisory) => {
+      client.setQueryData(queryKeys.advisory(advisory.id), advisory);
+      await Promise.all(
+        REVIEW_INVALIDATES.map((key) => client.invalidateQueries({ queryKey: [key] })),
+      );
+    },
+  });
+}
+
+/** Query key roots refetched after a review decision. */
+export const REVIEW_INVALIDATES = ["advisories", "priority", "farmerAdvice"] as const;
+
 export const useVerificationSummary = () =>
   useQuery({
     queryKey: queryKeys.verificationSummary,
     queryFn: ({ signal }) =>
       apiGet<VerificationSummary>("/verification/summary", {}, undefined, signal),
+    staleTime: 10 * MINUTE,
+  });
+
+export const useReliability = (event: RainEvent) =>
+  useQuery({
+    queryKey: queryKeys.reliability(event),
+    queryFn: ({ signal }) =>
+      apiGet<Reliability>("/verification/reliability", { event }, undefined, signal),
+    staleTime: 10 * MINUTE,
+  });
+
+export const useCoverage = () =>
+  useQuery({
+    queryKey: queryKeys.coverage,
+    queryFn: ({ signal }) => apiGet<Coverage>("/verification/coverage", {}, undefined, signal),
+    staleTime: 10 * MINUTE,
+  });
+
+export const useRegions = () =>
+  useQuery({
+    queryKey: queryKeys.regions,
+    queryFn: ({ signal }) => apiGet<Regions>("/verification/regions", {}, undefined, signal),
     staleTime: 10 * MINUTE,
   });
 

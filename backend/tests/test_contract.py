@@ -12,7 +12,7 @@ from gramdrishti.contract import make_examples
 from gramdrishti.contract.pick_demo_dates import OUT as DEMO_FILE
 from gramdrishti.contract.pick_demo_dates import issued_summary, load_demo_dates, pick, split_of
 from gramdrishti.data import loaders
-from gramdrishti.data.config import ROOT
+from gramdrishti.data.config import ART, ROOT
 from gramdrishti.export_openapi import OUT as OPENAPI_FILE
 from gramdrishti.export_openapi import openapi_text
 from gramdrishti.pipeline.run_daily import SNAPSHOTS
@@ -70,7 +70,15 @@ def _local_snapshot_version() -> str | None:
     return json.loads(idx.read_text()).get("model_version") if idx.exists() else None
 
 
+def _local_verification_version() -> str | None:
+    f = ART / "verification.json"
+    return json.loads(f.read_text())["summary"].get("model_version") if f.exists() else None
+
+
 @needs_oracle
+@pytest.mark.skipif(_local_verification_version() != INDEX.get("verification_model_version"),
+                    reason="verification examples come from artifacts/verification.json (git-ignored); run "
+                           "`python -m gramdrishti.verify.run_validation`.")
 @pytest.mark.skipif(_local_snapshot_version() != INDEX.get("model_version"),
                     reason="examples come from the trained model's snapshots (git-ignored); local snapshots "
                            f"{_local_snapshot_version()!r}, examples {INDEX.get('model_version')!r}. "

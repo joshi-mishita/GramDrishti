@@ -1,7 +1,16 @@
 /** Pure helpers that turn a /forecast/map response into what the map paints. */
-import type { ForecastMap, Lang, PanchayatCollection, PanchayatMapValue } from "../../api/types";
+import type {
+  ForecastMap,
+  Lang,
+  Level,
+  PanchayatCollection,
+  PanchayatMapValue,
+  Risk,
+  RiskType,
+  Var,
+} from "../../api/types";
 import { formatNumber, formatSigned } from "../../lib/format";
-import { deltaRamp, valueRamp, type Ramp } from "../../lib/ramps";
+import { LEVEL_INDEX, deltaRamp, valueRamp, type Ramp } from "../../lib/ramps";
 import type { ViewMode } from "../../state/store";
 
 /** The number a Panchayat is painted with in a view mode (Guide 8.1). */
@@ -91,3 +100,22 @@ export function boundsOf(fc: {
   for (const f of fc.features) walk(f.geometry.coordinates);
   return Number.isFinite(w) ? [w, s, e, n] : null;
 }
+
+/** Level index per panchayat_id for the risk layer; Panchayats not listed have no value. */
+export function riskValues(risk: Risk): Map<string, number | null> {
+  return new Map(risk.items.map((i) => [i.panchayat_id, LEVEL_INDEX[i.level]]));
+}
+
+/** Level per panchayat_id, for tooltips and the table. */
+export function riskLevels(risk: Risk | undefined): Map<string, Level> {
+  return new Map(risk?.items.map((i) => [i.panchayat_id, i.level]) ?? []);
+}
+
+/** The forecast variable that shows the weather behind each hazard. */
+export const RISK_VAR: Record<RiskType, Var> = {
+  heavy_rain: "rain",
+  heat: "tmax",
+  frost: "tmin",
+  waterlogging: "rain",
+  dry_spell: "rain",
+};

@@ -1,0 +1,51 @@
+{
+  "season": "test_2024",
+  "decision": "heat_alert",
+  "data_mode": "mock",
+  "provenance": "computed",
+  "model": {
+    "correct": 13110,
+    "wasted_wait": 1628,
+    "washed_off": 22
+  },
+  "block_baseline": {
+    "correct": 13958,
+    "wasted_wait": 527,
+    "washed_off": 275
+  },
+  "n_decisions": 14760,
+  "rule": {
+    "model": {
+      "en": "Alert when the upper estimate (p90) of tomorrow's maximum is 35 C or more.",
+      "hi": null,
+      "pa": null
+    },
+    "block": {
+      "en": "Alert when the block forecast of tomorrow's maximum is 35 C or more.",
+      "hi": null,
+      "pa": null
+    }
+  },
+  "notes": [
+    "Synthetic demo data: every number comes from the mock data generator, not real weather. This is proxy validation on synthetic truth, not evidence of real-world skill.",
+    "Evaluation window TEST 2024-07-17..2024-12-31, 164 issue dates, lead days 1-5, model s5-lgbm-9b632a7b1b. TEST first opened 2026-09-27T15:14:23 for this model version.",
+    "Decisions for the next day (lead day 1) in every Panchayat, one per issue date.",
+    "correct = acted and the event came, or did not act and it stayed away; wasted_wait = acted (held spraying, alerted, waited) but the event did not come; washed_off = did not act and the event came.",
+    "block_baseline uses the raw block forecast B0; block_corrected uses the corrected block forecast B1.",
+    "Counts and rates only. No money values until an expert supplies costs.",
+    "Thresholds are placeholders awaiting expert review."
+  ],
+  "block_corrected": {
+    "correct": 14029,
+    "wasted_wait": 392,
+    "washed_off": 339
+  },
+  "events_observed": 2602,
+  "period": {
+    "start": "2024-07-17",
+    "end": "2024-12-31"
+  },
+  "lead_day": 1,
+  "threshold": 35.0,
+  "unit": "C"
+}

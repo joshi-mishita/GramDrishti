@@ -19,6 +19,12 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S10 | Verification and impact | backend | not started | | |
 | S11 | Frontend verification and impact | frontend | not started | | |
 | S12 | Farmer-side backend and snapshot export | backend | PR open | session-12-farmer-backend | |
+| S7 | Frontend detail panel and first integration | frontend | merged | session-07-detail-panel (#10) | yes |
+| S8 | Advisory engine and review APIs | backend | merged | session-08-advisory-engine (#11) | yes |
+| S9 | Frontend priority, risk and review | frontend | not started | | |
+| S10 | Verification and impact | backend | PR open | session-10-verification-impact | |
+| S11 | Frontend verification and impact | frontend | PR open (stacked on S10) | session-11-verification-impact-ui | |
+| S12 | Farmer-side backend and snapshot export | backend | not started | | |
 | S13 | Frontend farmer app, languages, bulletin, offline | frontend | not started | | |
 | S14 | Integration, Docker and end-to-end tests | both | not started | | |
 | S15 | Design and accessibility polish | frontend | not started | | |
@@ -152,6 +158,38 @@ S12: farmer side, feedback loop demo, audio and the offline snapshot. Contract v
 - Tests: 375 backend (16 new in `test_farmers.py`, 2 in `test_store.py`), 120 frontend.
 
 Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6 advisories): F001 (MP0307, hi, keeps livestock) sees spray hold, clear drains, livestock heat; F002 (MP0311, pa, no livestock) sees harvest before the rain, hold irrigation, and not the approved livestock item. F005 (MP0103, wheat only) sees nothing on that date.
+S10: verification and impact on the TEST window, once, for `s5-lgbm-9b632a7b1b` (protocol in `docs/validation_protocol.md`, report in `docs/validation_report.md`). Contract v0.3.0 (additive). Built:
+- `verify/metrics.py`: contingency with frequency bias, Brier and Brier skill, reliability, interval coverage, pinball and quantile loss, daily sums, moving-block bootstrap CI (7-day blocks), win/tie/loss.
+- `verify/run_validation.py`: temporal holdout, leave-one-block-out (6 refits on TRAIN) and station check against B0, B1 and B2; strata by lead day, season, observed rain intensity and drainage class; events; reliability; coverage; block-mean error; notes listing every place the model does not beat B0 or B1. `--window CALIB` dry run. About 90 s.
+- `verify/ledger.py` + `docs/test_window_ledger.json`: TEST opening per model version. `verify/impact.py`: spray, heat alert and irrigation-wait replay at lead day 1. `verify/report.py`: the Markdown report from the job's files.
+- API: `/verification/*` and `/impact` read `artifacts/verification.json` and `impact.json` (503 when missing); the S2 placeholders are removed. `/data-quality` provenance `computed`.
+- Tests: 384 backend (metrics on hand-computed cases, bootstrap reproducibility, ledger, TEST guard, impact by hand, notes, the job on CALIB with the small bundle, determinism, API returns exactly the file's numbers, report), 163 frontend.
+
+S10 results (TEST 2024-07-17..2024-12-31, 164 issue dates x 90 Panchayats x 5 leads = 73,800 rows; synthetic proxy validation, mock data). MAE skill with 95 % interval, temporal holdout:
+| Var | vs B0 (raw block) | vs B1 (corrected block) | Verdict B0 / B1 |
+|---|---|---|---|
+| rain | +13.7 % (+4.0 to +27.9) | -3.8 % (-8.1 to +0.8) | win / **tie** |
+| tmax | +6.8 % (+5.1 to +8.4) | +5.1 % (+3.8 to +6.6) | win / win |
+| tmin | +14.6 % (+13.2 to +16.2) | +3.8 % (+2.1 to +5.5) | win / win |
+| rh | +5.3 % (+4.8 to +5.8) | +4.2 % (+3.7 to +4.6) | win / win |
+| wind | +36.2 % (+34.9 to +37.4) | +1.9 % (+1.8 to +2.0) | win / win |
+
+Leave-one-block-out and the station check give the same verdicts (rain vs B1: -3.5 % and -5.0 %, ties). Where the model does not help:
+- Rain is not better than B1 overall, on any lead day or season (ties); worse than B1 on light (-6.4 %) and moderate (-14.0 %) observed rain and in poorly drained Panchayats (-33.3 %); worse than B1 on wet-day MAE (-7.2 %) and RMSE (-4.3 %). All of rain's gain over B0 comes from the bias correction.
+- Most of the gain over B0 is bias correction for wind (97 %) and Tmin (77 %).
+- Events: model CSI beats B0 and B1 at 1 and 2.5 mm, is slightly below at 10 mm and far below at 35 mm (0.141 vs 0.349 / 0.371); Brier skill vs monthly climatology is -0.016 at 35 mm. High-probability bins are overconfident (P 0.9-1.0 for 1 mm verifies 0.76).
+- Coverage of the 80 % interval: tmax 0.776 (too narrow), tmin 0.814, rh 0.853 and wind 0.899 (too wide), rain 0.934 on all days but 0.509 on wet days (width 28.7 mm).
+- Decisions (whole TEST, lead day 1, 14,760 per decision): spray hold is correct more often (97.3 % vs 95.8 % B0) with fewer wasted waits (217 vs 554) but more wash-offs (179 vs 68). The p90 heat alert is correct less often (88.8 % vs 94.6 %: 1,628 false alarms vs 527, 22 misses vs 275). Irrigation wait is correct less often (97.8 % vs 98.4 %) with more misses (192 vs 80). December has no rain or heat events.
+- Block consistency: largest block-mean error 1.4e-14.
+
+S11: verification and impact screens on contract v0.3.0 (no contract change). Built:
+- `lib/verify.ts`: fixed decimals per metric with a row-level widening when rounding would hide a difference, best value per row (lower, higher, nearest 0, nearest 1; ties share), signed skill percents that never print a non-zero value as 0, interval readings (better, worse, no clear difference), outcome shares, strata parsing, loss-note split.
+- Verification screen: one-sentence method summary (model, period, truth, checks) with the synthetic notice, TEST opening and block-consistency line; comparison table for the held-out period, held-out block or stations (Model, B0, B1, B2, skill vs B0 and vs B1 with 95 % intervals and a word), best value bold, losing rows unchanged; rain-event yes/no table (POD, FAR, CSI, frequency bias, Brier; model, B0, B1); reliability plot (event selector, diagonal, dot size by count) with its table; coverage bars against the 80 % aim with a strata table and widths; regions table per variable with model minus B0; "Where the model does not help" from the job's notes; footnotes from the API notes.
+- Impact screen: decision and period selectors, two stacked bars (model, B0) with numbers on or directly under the segments, the two rules in words, what each mistake means for the chosen decision, placeholder-threshold line, counts table with B1, API notes.
+- Every chart has a table next to it; bars carry an `aria-label` with every number.
+- Tests: 202 frontend (39 new: formatting, best-value highlighting, strata, page tests against the contract examples, including a losing row read in words).
+- Screenshots `verification-{en,hi}-{desktop,phone}.png`, `impact-{en,pa}-{desktop,phone}.png` reviewed; fixes made from the review (empty space above the summary, mixed decimals in the regions columns, a coverage label on the 80 % line, a capitalised decision name mid-sentence, narrow row names on phone).
+- Checked against the job's files: with the API on `backend/artifacts/verification.json` and `impact.json`, the screen showed rain MAE 1.070 / 1.240 / 1.031 / 1.032, skill vs B1 on wet days -7.2 % (-12.0 % to -0.04 %, worse), wet-day rain coverage 50.9 % at 28.7 mm, MB01 rain 0.941 (-0.092 vs B0) and spray counts 14,364 / 217 / 179 against 14,138 / 554 / 68; the files hold 1.07045, 1.23993, 1.03107, 1.03153, -0.071987 (-0.120287 to -0.000365), 0.509421, 28.6671, 0.940999 (-0.091651) and the same counts.
 
 ## Decisions
 - D001 Licence MIT.
@@ -242,6 +280,35 @@ Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6
 - D063 Real endpoints in `.env.example`; `SHOTS_REAL` panel screenshots.
 - D064 Explain difference labelled apart from the headline difference.
 - D065 Fan chart y domain.
+- D070 TEST opened once, ledger, rerun reproduced byte for byte; `-dirty` came from another session's frontend files.
+- D071 TEST issue-date purge and CALIB dry run.
+- D072 Verdicts from the MAE-skill bootstrap interval; daily sums; quantile loss not used for verdicts.
+- D073 Event yes at P >= 0.5; monthly TRAIN climatology.
+- D074 Leave-one-block-out refits mean models only.
+- D075 Station check; B2 from the pipeline's B1.
+- D076 Decision replay rules, 35 C heat threshold from TRAIN, count names.
+- D077 Contract v0.3.0; files or 503; placeholders removed.
+- D078 Observed rain-intensity strata.
+- D079 Data quality stays a 30-day view, provenance computed.
+- D080 S11 worktree stacked on S10.
+- D081 Skill against B0 and B1, words from the interval.
+- D082 Number rules: fixed decimals, widening only to show a difference, best-value rules.
+- D083 Loss notes split by the job's wording.
+- D084 Reliability dots at mean probability, coverage chart rows.
+- D085 Impact bars: true widths, labels under narrow segments, decision-specific outcome names.
+- D086 `.env.example` serves verification and impact from the API.
+- D080 S9 in a separate worktree after a parallel session shared the checkout; decisions from D080 (S10 uses D070-D079).
+- D081 Reviews need the API; demo files are read-only.
+- D082 Reviewer name field, default "Demo officer", no login.
+- D083 Review button rules and Ctrl+Enter.
+- D084 Translations cleared by an English edit are announced, edited ones kept.
+- D085 One word per action: Approved, Edited and approved, Rejected.
+- D086 The reviewed advisory stays open; the queue refetches.
+- D087 Queue order, filters and keyboard listbox.
+- D088 Priority filters, rank, column order, map link, print.
+- D089 Risk layer: categorical colours, URL key, view mode off, panel level; navigation keeps shared keys only.
+- D090 `npm run e2e` runs its own API with a throwaway database.
+- D091 Audit times shown as the server wrote them.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -280,6 +347,19 @@ Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6
 - S12: snapshot mode was checked in the in-app browser on two screens (farmer Today, map with detail panel), not screen by screen; the full export was not built in production mode (`npm run build` copies 104 MB of snapshot into `dist/`).
 - S12: the new hi/pa feedback texts are drafts needing native review.
 - S12: the feedback report used the mock file only (`--no-store`); with API reports it adds them the same way (unit-tested).
+- S10: CI has not run this branch (no `gh`). In CI there is no trained model or `verification.json`: the job's tests run on CALIB with the small bundle, and the example and report freshness tests are skipped.
+- S10: real mode is not verified: the job raises in real mode (no Panchayat truth); leave-one-station-out against real stations is future work.
+- S10: the frontend verification and impact screens were not run against the new endpoints (types regenerated; frontend tests pass).
+- S10: `docs/validation_report.md` was checked as Markdown text, not seen rendered on GitHub.
+- S11: CI has not run this branch (no `gh`). The branch is stacked on S10; its PR diff includes S9 and S10 until they merge.
+- S11: the screens were checked against the real API in the in-app browser (dev server, English) and in screenshots from the production build on mock files (Chrome). Not tried with a screen reader, on a touch device, in Firefox or Safari. Chart tooltips were not hovered by hand; the tables carry the same numbers.
+- S11: the Hindi and Punjabi strings for both screens are drafts needing native review. API notes, rules and check descriptions stay English (the API has no translations for them).
+- S11: in this worktree's dev server the Devanagari and Gurmukhi fonts answer 403, because `node_modules` is a symlink to the main checkout and Vite refuses files outside its root. The production build and the main checkout are not affected.
+- S9: CI has not run this branch (no `gh`). `npm run e2e` needs the backend venv, trained artifacts and snapshots, so it is not part of CI; it was run locally (Chrome 153, macOS).
+- S9: tested in Chrome only. Keyboard use was tested with Playwright and the in-app browser, not with a screen reader. `field-sizing: content` (auto-growing text areas) is Chrome-only; other browsers keep a fixed height with a scrollbar.
+- S9: printing was checked with print-media emulation and a screenshot, not on paper or as a PDF from the print dialog.
+- S9: new Hindi and Punjabi UI strings (risk, priority, review, statuses, categories) are drafts needing native review. Stage names come from `templates.yaml` (also drafts).
+- S9: the farmer advice query is invalidated after a review, but the farmer screen is not built yet (S13), so the effect on it is untested.
 
 ## Known issues
 - S12 the snapshot is 21,965 files (39 MB of JSON, about 104 MB on disk); `npm run sync:mock` copies it on every `dev` and `build` when `contract/snapshot/` exists, and a build then carries it in `dist/`. Delete `contract/snapshot/` when not rehearsing the offline demo.
@@ -320,6 +400,20 @@ Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6
 - S8 `/priority` answers in about 70 ms warm (headline lookups per item); fine for 90 Panchayats.
 - S8 the first `/advisories` request for an issue date without a `run_daily` run writes that date's drafts (about 0.5 s).
 
+- S10 rain: the Panchayat rain forecast does not beat the corrected block forecast B1 on TEST (MAE -3.8 %, tie; wet days, light and moderate rain and poorly drained Panchayats worse). Serving B1 rain amounts with the model's event probabilities is an option to discuss (not tuning; it would be a new model version and TEST would count as reused).
+- S10 heavy rain: the 35 mm classifier is worse than climatology and far below B0/B1 CSI; heavy-rain risk and waterlogging advice lean on it.
+- S10 intervals: Tmax under-covers (0.776), wind and RH over-cover (0.899, 0.853); rain on wet days 0.509.
+- S10 decisions: the p90 heat rule trades misses for many false alarms (1,628 vs 527 at B0); spray and irrigation replays wash off more often than the block rule. Costs are needed from an expert before calling any trade-off better.
+- S10 `verification_summary.json` example is 130 kB (strata and verdicts); the frontend may want to fetch strata lazily.
+- S11 the reliability plot's 0-10 % dot holds 94 % of forecasts, so the other dots are drawn near the minimum size; the table gives the counts.
+- S11 the impact bars are dominated by "correct" (83 to 99 %); the differences between forecasts are in the small segments and the table. Without expert costs the screen does not say which forecast is better overall.
+- S11 the method sentence inserts the API's English truth text ("synthetic Panchayat truth (mock data generator)") into Hindi and Punjabi sentences.
+- S10 another session committed S9 frontend work (`b8d86b0`, `35c056e`) on `session-10-verification-impact`, because both sessions share this checkout. The S10 pull request therefore contains those commits.
+- S9 the review queue is long on monsoon dates (198 drafts on 2024-09-09, 90 livestock); there is no bulk approve. Worth asking officers whether one decision per rule and block would do.
+- S9 priority rank (#) is the API's rank in the full list, so a filtered list shows gaps (1 to 19, then 62). Intentional, so a printed filtered list still shows overall urgency.
+- S9 the risk layer uses `/risk` per lead day; the map has no "worst over the next days" view (the priority list has it).
+- S9 `session-10-verification-impact` (unpushed) also contains the seven S9 commits and one S9 commit there deletes `provisional/placeholders.py` (a deletion S10 had staged). See the handoff.
+
 ## Inputs needed from the team
 - Enable branch protection on `main` (require pull request, require CI).
 - Native Hindi and Punjabi review of `frontend/src/i18n/hi.json`, `pa.json` and the day/month names in `frontend/src/lib/format.ts` (S3), then advisory text (S13).
@@ -329,6 +423,8 @@ Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6
 - Expert review of the S6 agro placeholders (D051): runoff, kc, waterlogging and frost thresholds, fog proxy, crop base temperatures.
 - Native Hindi and Punjabi writing of the explain sentence dictionary (`backend/gramdrishti/explain/texts.py`), about 50 phrases.
 - For real mode: a soil-moisture source (ERA5-Land or SMAP) for the water balance start state.
+- Decide with the team how to present rain (B1 amounts plus model event probabilities, or keep the model and show the tie). Any change means a new model version and a report that says TEST was reused.
+- Costs of a washed-off spray, a wasted wait and a missed heat alert (for the impact screen to weigh counts), from an expert.
 
 ## Model and validation log
 | Date | Model version | Windows used | Notes |
@@ -340,6 +436,10 @@ Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6
 | 2026-09-26 | rules.yaml v1 on s5-lgbm-9b632a7b1b snapshots (S8) | inference snapshots of the 8 demo dates and the day before each (unchanged from S6) | Rules engine drafts for the 8 demo dates; `/forecast/changes` runs the engine on the previous-day snapshots too. No scoring, no training. TEST window opened for evaluation: never |
 | 2026-09-27 | s5-lgbm-9b632a7b1b snapshots, rules.yaml v1 (S12) | feedback report on 2023-08 (TRAIN); snapshot export of the 8 demo dates | Feedback report compares mock reports with station rain or synthetic truth for one TRAIN month; no forecast scoring, TEST months refused in code. The export serves existing snapshots and `/observed` (display, D020). TEST window opened for evaluation: never |
 | 2026-09-26 | s5-lgbm-9b632a7b1b applied (S6) | inference on issued forecasts for the 8 demo dates and the day before each (6 of them in TEST) | `python -m gramdrishti.pipeline.run_daily --all-demo-dates`. No scoring. The soil water balance starts from oracle soil moisture on the day before each issue date (mock stand-in, D050); no metric uses it. TEST window opened for evaluation: never |
+
+## S10 validation protocol (recorded before TEST was opened)
+Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`, data hash `9b632a7b1b...`, verification code commit `4101fe4`, seed 42, sha256 of every data file read. TEST (2024-07-16..2024-12-31) is opened once for this model version by `python -m gramdrishti.verify.run_validation`, which writes the opening time to `docs/test_window_ledger.json` before reading any TEST truth. Any model, feature, calibration, baseline or threshold change after seeing TEST gets a new version number, and the report then says TEST was reused. No tuning against TEST. The dry run of the same code on CALIB (2026-09-27) reproduced the S5 CALIB numbers (rain MAE -15.8 % vs B1, Tmax +12.4 %).
+| 2026-09-27 | s5-lgbm-9b632a7b1b (S10) | models TRAIN; isotonic + CQR CALIB; evaluated on TEST (issue dates 2024-07-16..2024-12-26) | `python -m gramdrishti.verify.run_validation`. **TEST window first opened 2026-09-27T15:14:23** for this version (ledger `docs/test_window_ledger.json`); rerun at 15:23:42 gave identical numbers. Dry run of the same code on CALIB earlier the same day. Report: `docs/validation_report.md`. TEST reused: no |
 
 ## Handoff for the next session
 S12 (2026-09-27): branch `session-12-farmer-backend` from `main`. Merge order: S9, S10, then S12; after S10 merges, merge `main` into S12, rerun `python -m gramdrishti.export_openapi` and `python -m gramdrishti.contract.make_examples`, and keep both changelog entries (v0.3.0 S10, v0.4.0 S12). `export_snapshot` imports `IMPACT_SEASONS` from `provisional/placeholders.py`; after S10 it should take the seasons S10's impact endpoint serves.

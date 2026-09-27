@@ -1,0 +1,51 @@
+{
+  "season": "winter_2024",
+  "decision": "spray",
+  "data_mode": "mock",
+  "provenance": "computed",
+  "model": {
+    "correct": 2430,
+    "wasted_wait": 0,
+    "washed_off": 0
+  },
+  "block_baseline": {
+    "correct": 2384,
+    "wasted_wait": 46,
+    "washed_off": 0
+  },
+  "n_decisions": 2430,
+  "rule": {
+    "model": {
+      "en": "Advise spraying tomorrow when the chance of 2.5 mm rain or more is under 30%.",
+      "hi": null,
+      "pa": null
+    },
+    "block": {
+      "en": "Advise spraying tomorrow when the block forecast is under 2.5 mm.",
+      "hi": null,
+      "pa": null
+    }
+  },
+  "notes": [
+    "Synthetic demo data: every number comes from the mock data generator, not real weather. This is proxy validation on synthetic truth, not evidence of real-world skill.",
+    "Evaluation window TEST 2024-07-17..2024-12-31, 164 issue dates, lead days 1-5, model s5-lgbm-9b632a7b1b. TEST first opened 2026-09-27T15:14:23 for this model version.",
+    "Decisions for the next day (lead day 1) in every Panchayat, one per issue date.",
+    "correct = acted and the event came, or did not act and it stayed away; wasted_wait = acted (held spraying, alerted, waited) but the event did not come; washed_off = did not act and the event came.",
+    "block_baseline uses the raw block forecast B0; block_corrected uses the corrected block forecast B1.",
+    "Counts and rates only. No money values until an expert supplies costs.",
+    "Thresholds are placeholders awaiting expert review."
+  ],
+  "block_corrected": {
+    "correct": 2398,
+    "wasted_wait": 32,
+    "washed_off": 0
+  },
+  "events_observed": 0,
+  "period": {
+    "start": "2024-12-01",
+    "end": "2024-12-31"
+  },
+  "lead_day": 1,
+  "threshold": 2.5,
+  "unit": "mm"
+}
