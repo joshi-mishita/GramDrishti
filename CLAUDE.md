@@ -53,6 +53,9 @@ Shared: Docker Compose, GitHub Actions.
 - Frontend with the real API for some endpoints: `cd frontend && VITE_REAL_ENDPOINTS=meta,geo,forecast,observed,explain,risk,priority,advisories npm run dev` (backend on port 8000; reviewing needs `advisories` on the API)
 - Frontend types from contract: `cd frontend && npm run gen:types` (CI runs `npm run check:types`)
 - Copy contract examples to `frontend/public/mock/` (runs before dev and build): `cd frontend && npm run sync:mock`
+- Offline snapshot demo (no server): `cd backend && python -m gramdrishti.export_snapshot` (add `--panchayats demo` for a quick one), then `cd frontend && VITE_SNAPSHOT=1 npm run dev` (or `build`); `npm run sync:snapshot` copies it by hand. Without `VITE_SNAPSHOT=1`, `sync:mock` removes `public/snapshot/`.
+- Farmer app Playwright (360 px journey in en/hi/pa, offline reload, bulletin print; builds and serves on port 4175): `cd frontend && npm run e2e:farmer` (add `SHOTS_BROWSER_CHANNEL=chrome` if Playwright's Chromium is missing)
+- PWA icons (committed; rerun only if the mark changes): `python frontend/scripts/make-icons.py`
 - Screenshots for visual review: `cd frontend && npm run shots` (add `SHOTS_BROWSER_CHANNEL=chrome` if Playwright's Chromium cannot be downloaded)
 - Detail panel screenshots from the real API (API running on port 8000 with snapshots): `cd frontend && SHOTS_REAL=1 npm run shots`
 - End-to-end review flow and S9 screens on a real API with a throwaway database (starts its own API on port 8010; needs the backend venv, artifacts and snapshots): `cd frontend && npm run e2e` (add `SHOTS_BROWSER_CHANNEL=chrome` if needed)

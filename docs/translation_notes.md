@@ -55,3 +55,24 @@ Hindi and Punjabi words can change with the gender of the crop name (बाज�
 
 - Evidence rows (the numbers under each advisory in the officer's review screen) are English only. They are for the officer, not the farmer.
 - Explain reasons (`/explain`) still have no Hindi or Punjabi (S6, null).
+
+## Farmer app and bulletin UI strings (S13)
+
+`frontend/src/i18n/hi.json` and `pa.json` now cover every farmer screen, the bulletin, audio, sharing, feedback and offline messages. Claude Code drafted them; they **need native review**, like the rest of the UI strings. Advisory text itself still comes from the API (`templates.yaml`, above).
+
+Please check first:
+
+| English | Hindi draft | Punjabi draft | Why we are unsure |
+|---|---|---|---|
+| Listen / Stop | सुनें / रोकें | ਸੁਣੋ / ਰੋਕੋ | Button words; is "सुनिए" more natural? |
+| Share | भेजें | ਭੇਜੋ | We used "send" because WhatsApp opens; "शेयर करें" is common too. |
+| Rain likely / possible / unlikely / very unlikely | संभावना ज़्यादा / हो सकती है / कम संभावना / बहुत कम संभावना | ਸੰਭਾਵਨਾ ਜ਼ਿਆਦਾ / ਹੋ ਸਕਦਾ ਹੈ / ਘੱਟ ਸੰਭਾਵਨਾ / ਬਹੁਤ ਘੱਟ ਸੰਭਾਵਨਾ | Shown before "0 to 31 mm"; the Punjabi "ਹੋ ਸਕਦਾ ਹੈ" agrees with no noun. |
+| Spraying: Good / Caution / Avoid | अच्छा / सावधानी / टालें | ਚੰਗਾ / ਸਾਵਧਾਨੀ / ਟਾਲੋ | "Avoid" was "न करें", which repeated the line under it ("छिड़काव न करें"). |
+| Spray only in the calm early morning | सिर्फ़ सुबह जल्दी, हवा शांत हो तब छिड़काव करें | ਸਿਰਫ਼ ਸਵੇਰੇ ਜਲਦੀ, ਹਵਾ ਸ਼ਾਂਤ ਹੋਵੇ ਤਾਂ ਛਿੜਕਾਅ ਕਰੋ | Check tone. |
+| Did it rain today? Light / Moderate / Heavy | हल्की / मध्यम / भारी | ਹਲਕਾ / ਦਰਮਿਆਨਾ / ਭਾਰੀ | Gender agreement with बारिश (f.) and ਮੀਂਹ (m.). |
+| Saved copy. Last updated ... | सेव की गई कॉपी। आख़िरी अपडेट ... | ਸੇਵ ਕੀਤੀ ਕਾਪੀ। ਆਖ਼ਰੀ ਅੱਪਡੇਟ ... | Loanwords; is there plainer wording for "offline copy"? |
+| This phone has no Punjabi voice ... text-to-speech settings | ... टेक्स्ट-टू-स्पीच सेटिंग ... | ... ਟੈਕਸਟ-ਟੂ-ਸਪੀਚ ਸੈਟਿੰਗ ... | Name of the Android setting in each language. |
+| mm, km/h | मिमी, किमी/घंटा | ਮਿ.ਮੀ., ਕਿ.ਮੀ./ਘੰਟਾ | Short forms for the forecast rows; the advisory text spells them out. |
+| Village weather and crop bulletin | गाँव का मौसम और फ़सल बुलेटिन | ਪਿੰਡ ਦਾ ਮੌਸਮ ਅਤੇ ਫ਼ਸਲ ਬੁਲੇਟਿਨ | Title of the printed sheet. |
+
+Layout was checked in all three languages at 360 px (Playwright: no sideways scroll, no clipped button text, touch targets 44 px or more, `lang` set on the page and on API text). Screens: `docs/screens/farmer-{today,forecast,farm}-{en,hi,pa}-phone.png`, `bulletin-{en,hi,pa}-phone.png`, `bulletin-hi-print.png`, `bulletin-MP0307-hi.pdf` (run `cd frontend && npm run e2e:farmer`).

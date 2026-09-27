@@ -19,7 +19,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S10 | Verification and impact | backend | merged | session-10-verification-impact (#14) | yes |
 | S11 | Frontend verification and impact | frontend | merged | session-11-verification-impact-ui (#15) | yes |
 | S12 | Farmer-side backend and snapshot export | backend | pushed, no PR; merged into S13 | session-12-farmer-backend | |
-| S13 | Frontend farmer app, languages, bulletin, offline | frontend | in progress | session-13-farmer-app | |
+| S13 | Frontend farmer app, languages, bulletin, offline | frontend | pushed, no PR (no `gh`); contains S12 | session-13-farmer-app | |
 | S14 | Integration, Docker and end-to-end tests | both | not started | | |
 | S15 | Design and accessibility polish | frontend | not started | | |
 | S16 | Documentation and submission assets | both | not started | | |
@@ -185,6 +185,20 @@ S12: farmer side, feedback loop demo, audio and the offline snapshot. Contract v
 
 Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6 advisories): F001 (MP0307, hi, keeps livestock) sees spray hold, clear drains, livestock heat; F002 (MP0311, pa, no livestock) sees harvest before the rain, hold irrigation, and not the approved livestock item. F005 (MP0103, wheat only) sees nothing on that date.
 
+S13: farmer app, languages, bulletin and offline (contract v0.4.0, examples added, no shape change). Built:
+- S12 merged into the S13 branch (D102); conflicts with S10 resolved, `openapi.json` and examples regenerated.
+- Contract examples for every demo farmer: their Panchayat forecasts, F003 to F005 advice, `/advisories?panchayat_id=&issue_date=` for the bulletin; `export_snapshot` exports the same list per Panchayat (D111).
+- `/farmer`: phone-width column, farmer top bar (Panchayat name, offline pill, three languages), demo control at the foot of each screen (D109). Today: the most urgent approved advisory as a block (category icon, 24 px action, first sentence of the reason, confidence word, Listen, Share, "Why, and what if"), then "Also today (n)" as a list, then the printable bulletin link. Forecast: five days with rain word and mm, temperature, wind and spray suitability as icon plus word, whole-day note (D103, D104). My farm: Panchayat, block, language, crops with sowing dates, local-only editing that says it is not saved.
+- "Did it rain today?": Yes, then light, moderate or heavy; No; posts to `/feedback` and shows the API's thank-you; demo files say the answer was not sent; offline answers wait in localStorage and go out when online (D107).
+- Share: `https://wa.me/?text=` with action, reason, source and the mock notice (D112). Listen: server MP3 on the real API, else hi-IN, pa-IN or en-IN speech; playing state; a message when the phone has no voice for the language (D108).
+- PWA: manifest and icons, `src/sw.ts` (injectManifest) precaching the shell and fonts and serving GETs network first with a cache fallback; offline pill in both top bars and "Saved copy. Last updated ..." when a screen shows cached data (D105). `sync:snapshot`, and `VITE_SNAPSHOT=1` copies the snapshot in one step (D106).
+- `/bulletin/:pid?lang=`: A4 sheet in its own language: Panchayat, issue date, 3-day table, up to four approved actions with reasons, officer-review line, model and placeholder status line, mock notice in the footer; print CSS fits one A4 page at 12 pt minimum in black on white (D110).
+- hi.json and pa.json cover every new string (drafts, `docs/translation_notes.md`).
+- Tests: 412 backend, 226 frontend (24 new: first sentence, share link, voice choice, spoken text, outbox, offline bookkeeping, local timestamps, Today, Forecast, My farm, bulletin in en and pa). Playwright `npm run e2e:farmer` 5 passed (journey at 360 px in en, hi, pa; offline reload; bulletin print); `npm run shots` 52 passed; `npm run e2e` 19 passed.
+- Checked in the in-app browser: server MP3 played for F001 on the real API (gTTS 200); on demo files Hindi was spoken by the Mac's hi-IN voice and Punjabi showed "no Punjabi voice"; feedback on the real API answered 200 with the thank-you; snapshot mode showed the MP0307 bulletin for 24 Dec 2024 with no API call.
+
+Screenshot review (all three languages, 360 px, read at full size) and fixes made: the header with the demo control pushed the advice below the fold (moved the control to the foot); the crop editor clipped the date at 360 px (date on its own row); the bulletin heading printed the Panchayat id twice; the spray cell and the hi/pa "Avoid" word repeated the help line; the bulletin ran to a second A4 page (print spacing tightened, now one page, tested). Remaining: full-page screenshots show the sticky bottom navigation in mid-page (a capture artifact; on screen it stays at the bottom).
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -303,6 +317,17 @@ Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6
 - D089 Risk layer: categorical colours, URL key, view mode off, panel level; navigation keeps shared keys only.
 - D090 `npm run e2e` runs its own API with a throwaway database.
 - D091 Audit times shown as the server wrote them.
+- D102 S13 merges the unmerged S12 branch; S10 conflicts resolved.
+- D103 Farmer forecast days stacked vertically.
+- D104 Farmer rain word from P(1 mm), whole-number ranges.
+- D105 injectManifest service worker with fetched-at stamps; offlineFirst queries.
+- D106 Snapshot copied only with VITE_SNAPSHOT=1.
+- D107 Feedback about the demo issue date; offline outbox.
+- D108 Audio: server MP3 or same-language phone voice, never another language.
+- D109 Demo farmer control at the foot of each screen.
+- D110 Bulletin route, own language, one A4 page.
+- D111 Examples for all demo farmers and per-Panchayat advisory lists.
+- D112 Shared WhatsApp text carries the mock notice.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -354,6 +379,12 @@ Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6
 - S12: snapshot mode was checked in the in-app browser on two screens (farmer Today, map with detail panel), not screen by screen; the full export was not built in production mode (`npm run build` copies 104 MB of snapshot into `dist/`).
 - S12: the new hi/pa feedback texts are drafts needing native review.
 - S12: the feedback report used the mock file only (`--no-store`); with API reports it adds them the same way (unit-tested).
+- S13: CI has not run this branch (no `gh`). `npm run e2e:farmer` builds the app and needs a browser; it was run locally with `SHOTS_BROWSER_CHANNEL=chrome` (Playwright's headless shell is not downloaded here), not in CI.
+- S13: not tried on a real phone. Offline was tested with Playwright's offline mode in desktop Chrome at 360 px, not airplane mode on a device. Voices differ per phone: only the Mac's voices were tried (Hindi yes, Punjabi none). The server MP3 was played once for English; nobody listened to Hindi or Punjabi audio.
+- S13: WhatsApp sharing was checked as a link (text and encoding in tests); the link was not opened in WhatsApp.
+- S13: printing was checked with print emulation, a screenshot and a Chrome PDF (A4, one page), not on paper and not in Firefox or Safari.
+- S13: all hi/pa farmer and bulletin strings are drafts; no native speaker has read the screens.
+- S13: the install prompt (Add to home screen) was not tried; the manifest and icons were only checked in the build output.
 
 ## Known issues
 - S12 the snapshot is 21,965 files (39 MB of JSON, about 104 MB on disk); `npm run sync:mock` copies it on every `dev` and `build` when `contract/snapshot/` exists, and a build then carries it in `dist/`. Delete `contract/snapshot/` when not rehearsing the offline demo.
@@ -407,6 +438,10 @@ Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6
 - S9 priority rank (#) is the API's rank in the full list, so a filtered list shows gaps (1 to 19, then 62). Intentional, so a printed filtered list still shows overall urgency.
 - S9 the risk layer uses `/risk` per lead day; the map has no "worst over the next days" view (the priority list has it).
 - S9 `session-10-verification-impact` (unpushed) also contains the seven S9 commits and one S9 commit there deletes `provisional/placeholders.py` (a deletion S10 had staged). See the handoff.
+- S13 the service worker caches data only as it is fetched: a screen never opened online is not available offline (the snapshot demo has the same limit). The precache includes the officer console's MapLibre chunk (2.9 MB total).
+- S13 on demo files, feedback cannot be stored and says so; on the real API it needs `farmers,feedback` in `VITE_REAL_ENDPOINTS`, and the farmer's Today stays empty until an officer approves drafts in that Panchayat.
+- S13 Panchayat names are English ("Synthetic Panchayat MP0307") on Hindi and Punjabi screens: the geography has no translated names.
+- S13 feedback answers queued offline are kept per browser; if storage is blocked the answer is lost (the screen says it was saved only when storing worked).
 
 ## Inputs needed from the team
 - Enable branch protection on `main` (require pull request, require CI).
@@ -419,6 +454,8 @@ Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6
 - For real mode: a soil-moisture source (ERA5-Land or SMAP) for the water balance start state.
 - Decide with the team how to present rain (B1 amounts plus model event probabilities, or keep the model and show the tie). Any change means a new model version and a report that says TEST was reused.
 - Costs of a washed-off spray, a wasted wait and a missed heat alert (for the impact screen to weigh counts), from an expert.
+- Try the built farmer app on a real low-end Android phone on the same network: airplane mode and reload, Listen in all three languages (which voices exist), Share into WhatsApp.
+- A Hindi and a Punjabi speaker to read the farmer screens and the printed bulletin (`docs/translation_notes.md`, S13 table).
 
 ## Model and validation log
 | Date | Model version | Windows used | Notes |
@@ -436,6 +473,8 @@ Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`
 | 2026-09-27 | s5-lgbm-9b632a7b1b (S10) | models TRAIN; isotonic + CQR CALIB; evaluated on TEST (issue dates 2024-07-16..2024-12-26) | `python -m gramdrishti.verify.run_validation`. **TEST window first opened 2026-09-27T15:14:23** for this version (ledger `docs/test_window_ledger.json`); rerun at 15:23:42 gave identical numbers. Dry run of the same code on CALIB earlier the same day. Report: `docs/validation_report.md`. TEST reused: no |
 
 ## Handoff for the next session
+S13 (2026-09-28): branch `session-13-farmer-app` in worktree `../GramDrishti-s13`, from `main` plus the unmerged S12 branch (D102). Merge order: S12, then S13 (after S12 merges, this PR shows only S13). Farmer screens live in `pages/farmer/` and `features/farmer/` (helpers in `farmerData.ts`, `forecastText.ts`, `speech.ts`, `outbox.ts`). Offline: `src/sw.ts`, `lib/network.ts`, `components/OfflinePill.tsx`, `LastUpdated.tsx`. S14: add `farmers,feedback,audio` to the Docker Compose `VITE_REAL_ENDPOINTS`, run `npm run e2e:farmer` in CI with a browser, and consider a feedback flow test against the API (checked by hand here). S15: screen reader pass on the farmer app and bulletin, 200 % zoom, the long officer queue.
+
 Frontend (S11 done): `/verification` and `/impact` are built on contract v0.3.0 and read the job's files when `verification,impact` are in `VITE_REAL_ENDPOINTS`. Number rules live in `lib/verify.ts` (reuse `formatFixed`, `rowDigits`, `bestIndexes`, `formatSkill` wherever scores are shown, for example in the bulletin or README figures). If the job changes the wording of its loss notes, `splitNotes` puts them under "About these numbers" instead; a contract field would be sturdier. S15: check both screens with a screen reader and at 200 % zoom. When an expert supplies costs, the impact screen can weigh wasted waits against wash-offs (D085). Merge order: S10, then S11.
 
 Frontend (S11): contract **v0.3.0**. `/verification/summary` has `checks[]` (temporal_holdout, leave_one_block_out, station), `strata[]`, `verdicts[]` (win / tie / loss / too_few_days) and per metric `skill_vs_b1` with `skill_vs_b1_ci95`; show B1 next to B0, because B1 is what isolates the Panchayat model. `/verification/coverage` items have `stratum` (`all`, `lead_day=n`, `season=x`, `observed_rain>=1mm`). `/verification/regions` has block (leave-one-block-out) and station rows with `b1`, `b2`. `/impact?season=monsoon_2024|post_monsoon_2024|winter_2024|test_2024&decision=...` has `block_corrected`, `events_observed`, `threshold`, `unit`; for heat and irrigation, `wasted_wait` means a false alarm and `washed_off` a miss (say so on screen). Every number is in `notes` and `docs/validation_report.md`; show the "Where the model does not help" notes, not only wins. Mock files: `verification_*.json`, `impact_<decision>.json` (monsoon) and `impact_<season>_<decision>.json`.
