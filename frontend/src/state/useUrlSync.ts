@@ -5,7 +5,7 @@ import { URL_DEFAULTS, readUrlState, writeUrlState } from "./urlState";
 
 /**
  * Two-way mirror between the store and the URL for issueDate, variable, selectedPid,
- * leadDay and viewMode.
+ * leadDay, viewMode and riskType.
  * URL -> store when the location changes (links, back button); store -> URL with
  * replace, so changing a control does not flood the history.
  */
@@ -24,6 +24,7 @@ export function useUrlSync(): void {
     if (day !== s.leadDay) s.setLeadDay(day);
     const view = fromUrl.viewMode ?? URL_DEFAULTS.viewMode;
     if (view !== s.viewMode) s.setViewMode(view);
+    if (fromUrl.riskType !== s.riskType) s.setRiskType(fromUrl.riskType);
   }, [location.search]);
 
   const issueDate = useAppStore((s) => s.issueDate);
@@ -31,6 +32,7 @@ export function useUrlSync(): void {
   const selectedPid = useAppStore((s) => s.selectedPid);
   const leadDay = useAppStore((s) => s.leadDay);
   const viewMode = useAppStore((s) => s.viewMode);
+  const riskType = useAppStore((s) => s.riskType);
 
   useEffect(() => {
     // Read the live store, not this render's values: on first mount the effect above has
@@ -42,5 +44,5 @@ export function useUrlSync(): void {
     }
     // location is read, not watched: this effect reacts to store changes only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [issueDate, variable, selectedPid, leadDay, viewMode]);
+  }, [issueDate, variable, selectedPid, leadDay, viewMode, riskType]);
 }
