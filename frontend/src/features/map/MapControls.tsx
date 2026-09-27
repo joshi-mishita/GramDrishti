@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import { useGeoPanchayats, useMeta } from "../../api/hooks";
-import type { PanchayatCollection, Var } from "../../api/types";
+import { RISK_TYPES, type PanchayatCollection, type RiskType, type Var } from "../../api/types";
 import { SegmentedControl } from "../../components/SegmentedControl";
 import { LEAD_DAYS } from "../../lib/config";
 import { addDays, formatDate } from "../../lib/format";
@@ -19,6 +19,7 @@ export function MapControls() {
   const setVariable = useAppStore((s) => s.setVariable);
   const viewMode = useAppStore((s) => s.viewMode);
   const setViewMode = useAppStore((s) => s.setViewMode);
+  const riskOn = useAppStore((s) => s.riskType !== null);
 
   const dayOptions = LEAD_DAYS.map((d) => ({
     value: String(d),
@@ -64,6 +65,8 @@ export function MapControls() {
           { value: "delta", label: t("viewModes.delta") },
         ]}
         onChange={setViewMode}
+        disabled={riskOn}
+        note={riskOn ? t("map.viewOffForRisk") : undefined}
       />
       <RiskLayerSelect />
       <PanchayatPicker />
@@ -71,24 +74,32 @@ export function MapControls() {
   );
 }
 
-/** Present but disabled until the risk endpoint is wired into the map (S9). */
+/** Paints a hazard's levels from /risk instead of the forecast variable (Guide 6.1). */
 function RiskLayerSelect() {
   const { t } = useTranslation();
   const id = useId();
+  const riskType = useAppStore((s) => s.riskType);
+  const setRiskType = useAppStore((s) => s.setRiskType);
   return (
     <div className="field-stack">
       <label htmlFor={id}>{t("map.riskLayer")}</label>
       <select
         id={id}
-        disabled
         aria-describedby={`${id}-hint`}
-        value="none"
-        onChange={() => undefined}
+        value={riskType ?? "none"}
+        onChange={(e) =>
+          setRiskType(e.target.value === "none" ? null : (e.target.value as RiskType))
+        }
       >
         <option value="none">{t("map.riskNone")}</option>
+        {RISK_TYPES.map((r) => (
+          <option key={r} value={r}>
+            {t(`risks.${r}`)}
+          </option>
+        ))}
       </select>
       <p id={`${id}-hint`} className="muted small">
-        {t("map.riskHint")}
+        {riskType ? t("map.riskHintOn") : t("map.riskHint")}
       </p>
     </div>
   );

@@ -12,6 +12,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 // excluded from pre-bundling (vite.config.ts) and finds the original file itself.
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import type { BlockCollection, PanchayatCollection } from "../../api/types";
+import { cssVar as token } from "../../lib/cssVar";
 import { fillColorExpression, type Ramp } from "../../lib/ramps";
 import { boundsOf } from "./mapData";
 
@@ -43,11 +44,6 @@ const FIT_PADDING = { top: 24, right: 56, bottom: 140, left: 24 };
 
 const GP = "gp";
 const BLK = "blk";
-
-/** Reads a design token; MapLibre paint properties need literal colours. */
-function token(name: string): string {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
 
 /** Places the tooltip below-right of the pointer, flipped left or up near the edges. */
 function tooltipTransform(x: number, y: number, box: HTMLElement): string {
