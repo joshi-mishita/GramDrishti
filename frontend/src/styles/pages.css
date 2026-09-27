@@ -506,3 +506,42 @@
 .seg:disabled {
   opacity: 0.6;
 }
+
+/* ---- Priority (Guide 6.2) ---- */
+.page-wide {
+  max-width: 1280px;
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-3) var(--gap-5);
+}
+.filters-print {
+  margin-left: auto;
+}
+.priority-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-2) var(--gap-5);
+}
+.priority-summary p {
+  margin: 0;
+}
+.priority-table td:last-child {
+  white-space: normal;
+  min-width: 28ch;
+}
+.data-table tr.is-clickable {
+  cursor: pointer;
+}
+.print-only {
+  display: none;
+}
+@media (max-width: 767px) {
+  .filters-print {
+    margin-left: 0;
+  }
+}
