@@ -34,7 +34,7 @@ from gramdrishti.api import schemas as s
 from gramdrishti.api.errors import ApiError, not_found
 from gramdrishti.contract.pick_demo_dates import DemoDate, load_demo_dates
 from gramdrishti.data import loaders
-from gramdrishti.data.config import COLS, LEADS, VARS, data_mode
+from gramdrishti.data.config import ART, COLS, LEADS, VARS, data_mode
 from gramdrishti.data.qc import clean_values, run_qc
 from gramdrishti.explain.shap_explain import NEGLIGIBLE_DELTA
 from gramdrishti.pipeline.run_daily import SNAPSHOTS, Snapshot, read_snapshot
@@ -92,13 +92,15 @@ class Service:
     def __init__(self, demo_dates: list[DemoDate] | None = None,
                  clock: Callable[[], datetime] = _now, snapshot_dir: Path | None = None,
                  db_path: Path | None = None, audio_dir: Path | None = None,
-                 synth: audio.Synth = audio.gtts_synth) -> None:
+                 synth: audio.Synth = audio.gtts_synth, verification_dir: Path | None = None) -> None:
         self._demo = demo_dates
         self.clock = clock
         self.snapshot_dir = snapshot_dir or Path(os.environ.get(SNAPSHOT_ENV, SNAPSHOTS))
         self._db_path = db_path
         self.audio_dir = audio_dir or audio.AUDIO_DIR
         self.synth = synth
+        self.verification_dir = verification_dir or Path(os.environ.get(VERIFICATION_ENV, ART))
+        self._verif: dict[str, tuple[int, dict]] = {}
         self._lock = threading.Lock()
         self._drafts_lock = threading.Lock()
         self._snaps: dict[date, Snapshot] = {}
