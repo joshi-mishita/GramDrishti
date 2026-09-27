@@ -13,23 +13,15 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S4 | Frontend map explorer | frontend | merged | session-04-map-explorer (#6) | yes |
 | S5 | Backend model core | backend | merged | session-05-model-core (#7) | yes |
 | S6 | Agro-variables, snapshots, forecast APIs | backend | merged | session-06-snapshots-forecast-api (#9) | yes |
-| S7 | Frontend detail panel and first integration | frontend | PR open | session-07-detail-panel | |
-| S8 | Advisory engine and review APIs | backend | merged | session-08-advisory-engine (#11) | yes |
-| S9 | Frontend priority, risk and review | frontend | not started | | |
-| S10 | Verification and impact | backend | not started | | |
-| S11 | Frontend verification and impact | frontend | not started | | |
-| S12 | Farmer-side backend and snapshot export | backend | PR open | session-12-farmer-backend | |
 | S7 | Frontend detail panel and first integration | frontend | merged | session-07-detail-panel (#10) | yes |
 | S8 | Advisory engine and review APIs | backend | merged | session-08-advisory-engine (#11) | yes |
-| S9 | Frontend priority, risk and review | frontend | not started | | |
-| S10 | Verification and impact | backend | PR open | session-10-verification-impact | |
-| S11 | Frontend verification and impact | frontend | PR open (stacked on S10) | session-11-verification-impact-ui | |
-| S12 | Farmer-side backend and snapshot export | backend | not started | | |
-| S13 | Frontend farmer app, languages, bulletin, offline | frontend | not started | | |
-| S14 | Integration, Docker and end-to-end tests | both | not started | | |
+| S9 | Frontend priority, risk and review | frontend | merged | session-09-priority-review (#13) | yes |
+| S10 | Verification and impact | backend | merged | session-10-verification-impact (#14) | yes |
+| S11 | Frontend verification and impact | frontend | merged | session-11-verification-impact-ui (#15) | yes |
+| S12 | Farmer-side backend and snapshot export | backend | merged | session-12-farmer-backend (#16) | yes |
+| S13 | Frontend farmer app, languages, bulletin, offline | frontend | in progress (not pushed) | session-13-farmer-app | |
+| S14 | Integration, Docker and end-to-end tests | both | branch pushed, PR to open | session-14-integration | |
 | S15 | Design and accessibility polish | frontend | not started | | |
-| S16 | Documentation and submission assets | both | not started | | |
-| S17 | Final QA and demo freeze | both | not started | | |
 
 ## Current state
 S0: repo skeleton, README, contribution rules, PR template, CI.
@@ -191,6 +183,15 @@ S11: verification and impact screens on contract v0.3.0 (no contract change). Bu
 - Screenshots `verification-{en,hi}-{desktop,phone}.png`, `impact-{en,pa}-{desktop,phone}.png` reviewed; fixes made from the review (empty space above the summary, mixed decimals in the regions columns, a coverage label on the 80 % line, a capitalised decision name mid-sentence, narrow row names on phone).
 - Checked against the job's files: with the API on `backend/artifacts/verification.json` and `impact.json`, the screen showed rain MAE 1.070 / 1.240 / 1.031 / 1.032, skill vs B1 on wet days -7.2 % (-12.0 % to -0.04 %, worse), wet-day rain coverage 50.9 % at 28.7 mm, MB01 rain 0.941 (-0.092 vs B0) and spray counts 14,364 / 217 / 179 against 14,138 / 554 / 68; the files hold 1.07045, 1.23993, 1.03107, 1.03153, -0.071987 (-0.120287 to -0.000365), 0.509421, 28.6671, 0.940999 (-0.091651) and the same counts.
 
+S14 (2026-09-28, branch `session-14-integration` from `main` `1d752cd`, S13 not merged; worktree `../GramDrishti-s14`):
+- Fix on `main`: the S12 merge (`d1ce570`) had dropped `Service.verification_dir`, its cache and the test fixture argument; `/verification/*` and `/impact` answered 500 and 15 tests failed on `main`. Restored (`fad19cd`).
+- Docker: `backend/Dockerfile` (Python 3.13 slim, `backend/requirements.lock`, non-root, healthcheck, JSON access log), `frontend/Dockerfile` (Node build, nginx-unprivileged on 8080, `/api` proxied, JSON 503 when the API is down, 50x page), `docker-compose.yml` with `prepare` (one-shot), `api`, `web`, `web-offline` (snapshot mode on 8081); volumes `artifacts`, `state` (SQLite), `oracle`, `offline`; `.env.example`, `.dockerignore`.
+- One command: `make up` / `scripts/demo.sh` runs build, `python -m gramdrishti.pipeline.prepare_demo` (oracle, model copied from `backend/artifacts/` or trained, snapshots, verification record, farmers, offline export; each skipped when done), start, and four URL checks. Timings in `docs/docker.md`: cold 414 s, warm 33 s, fresh clone with training 190 s (images cached).
+- Committed verification record `backend/gramdrishti/verify/records/s5-lgbm-9b632a7b1b/` (the S10 job's output), copied only when model version, data hashes and library versions match (D122).
+- API hardening: 64 KiB body limit (413), CORS from `GRAMDRISHTI_CORS_ORIGINS`, JSON access log without personal data (D125).
+- Tests: `frontend/e2e/demo-script.spec.ts` (B7 steps 1 to 7) and `demo-offline.spec.ts` (API stopped) via `scripts/e2e_docker.sh` on an isolated project; `scripts/fresh_clone_check.sh` runs the README quick start in a temp clone. CI: new jobs "Contract (openapi, types, examples)" and "Docker stack and demo e2e".
+- B4 checklist with evidence: `docs/integration_checklist.md` (12 pass, 1 partly, 2 fail: both S13 UI).
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -309,6 +310,14 @@ S11: verification and impact screens on contract v0.3.0 (no contract change). Bu
 - D089 Risk layer: categorical colours, URL key, view mode off, panel level; navigation keeps shared keys only.
 - D090 `npm run e2e` runs its own API with a throwaway database.
 - D091 Audit times shown as the server wrote them.
+- D120 S14 from `main` while S13 is unmerged; S14 decisions start at D120.
+- D121 API image: Python 3.13 and pinned `requirements.lock` (the verified versions); `httpx` is a runtime dependency.
+- D122 Docker reuses the host's trained model; the committed verification record is copied only when it matches; a fresh clone shows "not computed" (Linux retrain gets another model version).
+- D123 Compose layout: `prepare` one-shot, `web-offline` on 8081, ports on 127.0.0.1, SQLite in its own volume.
+- D124 nginx resolves the API per request and answers JSON 503 when it is down; no CSP yet.
+- D125 API body limit, CORS from config, access log without personal data.
+- D126 e2e on an isolated project checks numbers against the API; fresh-clone check runs the README block.
+- D127 `click` CVE-2026-7246 recorded, not fixed (gTTS pins click<8.2; `click.edit()` unreachable).
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -360,6 +369,11 @@ S11: verification and impact screens on contract v0.3.0 (no contract change). Bu
 - S9: printing was checked with print-media emulation and a screenshot, not on paper or as a PDF from the print dialog.
 - S9: new Hindi and Punjabi UI strings (risk, priority, review, statuses, categories) are drafts needing native review. Stage names come from `templates.yaml` (also drafts).
 - S9: the farmer advice query is invalidated after a review, but the farmer screen is not built yet (S13), so the effect on it is untested.
+- S14: CI has not run on GitHub (no `gh` here). The new "Docker stack and demo e2e" job trains a Linux amd64 model in the runner (expect 10 to 20 minutes) and its verification steps check "not computed", not numbers; the "Contract" job runs on Python 3.13.
+- S14: the e2e ran locally with the installed Google Chrome (`SHOTS_BROWSER_CHANNEL=chrome`); Playwright's own headless Chromium is not in this Mac's cache. CI installs it.
+- S14: the feedback tap (e2e 5b) and audio playback are skipped or unchecked in the browser: S13's farmer app is not merged. Their API and SQLite halves pass.
+- S14: only tested on this MacBook (Apple silicon, Colima 4 CPU / 8 GB, Docker 29.5.2, Compose 5.5.1). Not tested with Docker Desktop, on Windows or on an Intel machine.
+- S14: loading and error states were seen live only on the map (API stopped) and the farmer empty state; other screens rely on the `QueryBoundary` unit tests.
 
 ## Known issues
 - S12 the snapshot is 21,965 files (39 MB of JSON, about 104 MB on disk); `npm run sync:mock` copies it on every `dev` and `build` when `contract/snapshot/` exists, and a build then carries it in `dist/`. Delete `contract/snapshot/` when not rehearsing the offline demo.
@@ -413,6 +427,12 @@ S11: verification and impact screens on contract v0.3.0 (no contract change). Bu
 - S9 priority rank (#) is the API's rank in the full list, so a filtered list shows gaps (1 to 19, then 62). Intentional, so a printed filtered list still shows overall urgency.
 - S9 the risk layer uses `/risk` per lead day; the map has no "worst over the next days" view (the priority list has it).
 - S9 `session-10-verification-impact` (unpushed) also contains the seven S9 commits and one S9 commit there deletes `provisional/placeholders.py` (a deletion S10 had staged). See the handoff.
+- S14 the rain median (p50) is one value per block on 2024-09-09 (MB03: 103.84 mm for all 16 Panchayats on lead day 1; every block on lead days 2 and 3), while the mean varies (99 to 124 mm in MB03). The Panchayat map for rain therefore shows no spread in its middle values on the main demo date; the likely range does vary. Extends the S8/S12 note that rain chances are flat within MB03. Demo step 1 should say so, or use temperature for the spread. For the model owner (quantile model or reconciliation of p50).
+- S14 a Linux retrain gets model version `s5-lgbm-2576015e9e` (libm last-bit differences in 8 of 60 feature columns), so a fresh clone has no verification numbers (D122).
+- S14 with the API down the live app (port 8080) takes about 30 s of retries to show its error state, and shows no mock ribbon (no response has given it the data mode). The offline copy (8081) is unaffected.
+- S14 the offline copy shows reviews as of its export; run `make offline` after approving advisories for the demo (1 to 2 minutes).
+- S14 `pip-audit`: `click` 8.1.8 CVE-2026-7246 (D127). `npm audit`: 0.
+- S14 Colima's plain `docker` uses the classic builder (deprecation note); `brew install docker-buildx` removes it.
 
 ## Inputs needed from the team
 - Enable branch protection on `main` (require pull request, require CI).
@@ -442,6 +462,8 @@ Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`
 | 2026-09-27 | s5-lgbm-9b632a7b1b (S10) | models TRAIN; isotonic + CQR CALIB; evaluated on TEST (issue dates 2024-07-16..2024-12-26) | `python -m gramdrishti.verify.run_validation`. **TEST window first opened 2026-09-27T15:14:23** for this version (ledger `docs/test_window_ledger.json`); rerun at 15:23:42 gave identical numbers. Dry run of the same code on CALIB earlier the same day. Report: `docs/validation_report.md`. TEST reused: no |
 
 ## Handoff for the next session
+S14 (2026-09-28): branch `session-14-integration` (worktree `../GramDrishti-s14`), 9 commits on `main` `1d752cd`, including the `verification_dir` fix that `main` needs regardless (merge S14 soon, or cherry-pick `fad19cd`). After S13 merges: merge `main` into S14 (or S14 first, then S13 merges `main`), rebuild (`make up`), run `make e2e`: step 5b must pass, then recheck B4 items 9, 11 and 13 (`docs/integration_checklist.md`, "To recheck after S13 merges"). S13's `vite-plugin-pwa` service worker: nginx serves `/sw.js` like any file, with `Cache-Control: no-cache` only on `index.html`; add `no-cache` for `sw.js` if the PWA caches too eagerly. Demo laptop: Colima was installed in S14 (`brew install colima docker docker-compose`, `colima start --cpu 4 --memory 8 --disk 40`, compose plugin linked in `~/.docker/cli-plugins`); `colima stop` frees the VM's memory. S15: add a CSP (D124), check the API-down error timing, and show the mock ribbon when no response arrives.
+
 S12 (2026-09-27): branch `session-12-farmer-backend` from `main`. Merge order: S9, S10, then S12; after S10 merges, merge `main` into S12, rerun `python -m gramdrishti.export_openapi` and `python -m gramdrishti.contract.make_examples`, and keep both changelog entries (v0.3.0 S10, v0.4.0 S12). `export_snapshot` imports `IMPACT_SEASONS` from `provisional/placeholders.py`; after S10 it should take the seasons S10's impact endpoint serves.
 Frontend (S13): `F001` stays the default farmer (`DEMO_FARMER_ID`), now MP0307 in Hindi; F002 is the same-block neighbour in Punjabi. `FarmerAdvice.spray_days` gives five whole-day ratings; `Advisory.audio[lang]` is a URL that can still 404 (`audio_not_available`), so keep the browser-speech fallback. `POST /feedback` can answer 400 (date or contradictory answer) and `stored: false` for a repeat. `VITE_SNAPSHOT=1` works after `python -m gramdrishti.export_snapshot` and `npm run sync:mock`.
 
