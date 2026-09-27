@@ -721,9 +721,11 @@
 .priority-summary p {
   margin: 0;
 }
+/* Wide enough for one line of "Heavy rain likely on 10 September (64% chance ...)": on a
+   phone the table scrolls sideways instead of every row growing to three lines. */
 .priority-table td:last-child {
   white-space: normal;
-  min-width: 28ch;
+  min-width: 60ch;
 }
 .data-table tr.is-clickable {
   cursor: pointer;
