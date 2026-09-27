@@ -23,6 +23,12 @@ interface Props<R> {
   isCurrent?: (row: R) => boolean;
   /** Text read out with each sort button, e.g. "Sort by". */
   sortLabel: (header: string, next: SortDir) => string;
+  /**
+   * Makes the whole row clickable for pointer users. Keep a link or button in the row for
+   * keyboard users; clicks on those are left to them and not handled twice.
+   */
+  onRowClick?: (row: R) => void;
+  className?: string;
 }
 
 /**
@@ -37,6 +43,8 @@ export function DataTable<R>({
   initialSort,
   isCurrent,
   sortLabel,
+  onRowClick,
+  className,
 }: Props<R>) {
   const [sort, setSort] = useState(initialSort ?? null);
   const col = sort ? columns.find((c) => c.key === sort.key) : undefined;
@@ -44,7 +52,7 @@ export function DataTable<R>({
 
   return (
     <div className="table-wrap">
-      <table className="data-table">
+      <table className={className ? `data-table ${className}` : "data-table"}>
         <caption className="visually-hidden">{caption}</caption>
         <thead>
           <tr>
@@ -85,8 +93,20 @@ export function DataTable<R>({
             return (
               <tr
                 key={rowKey(row)}
-                className={current ? "is-current" : undefined}
+                className={
+                  [current ? "is-current" : "", onRowClick ? "is-clickable" : ""]
+                    .filter(Boolean)
+                    .join(" ") || undefined
+                }
                 aria-current={current || undefined}
+                onClick={
+                  onRowClick
+                    ? (e) => {
+                        if ((e.target as Element).closest("a, button, input, select")) return;
+                        onRowClick(row);
+                      }
+                    : undefined
+                }
               >
                 {columns.map((c) =>
                   c.rowHeader ? (

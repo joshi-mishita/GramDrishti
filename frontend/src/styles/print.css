@@ -1,4 +1,4 @@
-/* Print stub (Frontend Guide 10.3). The bulletin page (S13) fills this in. */
+/* Print styles (Frontend Guide 10.3): priority list (S9); the bulletin page (S13) adds more. */
 @media print {
   .topbar,
   .sidenav,
@@ -28,5 +28,45 @@
 
   .bulletin-day {
     break-inside: avoid;
+  }
+
+  /* Priority list: the filters become one line of text, the table runs over pages. */
+  .print-only {
+    display: block !important;
+  }
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+  .table-wrap {
+    max-height: none;
+    overflow: visible;
+    border: 0;
+  }
+  .data-table thead th {
+    position: static;
+    background: none;
+  }
+  .data-table thead {
+    display: table-header-group;
+  }
+  .data-table tr {
+    break-inside: avoid;
+  }
+  /* Column headings are sort buttons on screen; keep their text, drop the arrows. */
+  .data-table .th-sort {
+    display: inline !important;
+  }
+  .data-table .th-sort svg {
+    display: none;
+  }
+  .data-table a {
+    color: inherit;
+    text-decoration: none;
+  }
+  /* Severity swatches keep their colour on paper; the word is printed next to them anyway. */
+  .chip-swatch {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 }
