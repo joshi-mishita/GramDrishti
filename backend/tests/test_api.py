@@ -27,8 +27,13 @@ PID = "MP0103"
 @pytest.fixture(scope="module")
 def client(snapshot_dir, tmp_path_factory: pytest.TempPathFactory) -> TestClient:  # noqa: ANN001
     db = tmp_path_factory.mktemp("db") / "api.sqlite"
-    svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir, db_path=db)
+    svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir, db_path=db,
+                  audio_dir=db.parent / "audio", synth=_offline)
     return TestClient(create_app(svc))
+
+
+def _offline(text: str, lang: str, path) -> None:  # noqa: ANN001
+    raise OSError("tests never call the text-to-speech service")
 
 
 def _walk_finite(x: Any, path: str = "$") -> None:
@@ -190,9 +195,11 @@ def test_observed_sources(client: TestClient) -> None:
 
 
 def test_review_flow_reaches_farmer(client: TestClient) -> None:
-    queue = _get_ok(client, f"/advisories?status=draft&issue_date={MAIN}&panchayat_id={PID}", s.AdvisoryList)
-    assert queue["total"] >= 1
-    adv = queue["items"][0]
+    farmer = _get_ok(client, "/farmers/F001", s.Farmer)
+    crops = {c["crop"] for c in farmer["crops"]}
+    pid = farmer["panchayat_id"]
+    queue = _get_ok(client, f"/advisories?status=draft&issue_date={MAIN}&panchayat_id={pid}", s.AdvisoryList)
+    adv = next(a for a in queue["items"] if a["crop"] in crops)
     assert adv["thresholds_status"] == "placeholder" and adv["translation_status"] == "needs_native_review"
 
     r = client.post(f"{PREFIX}/advisories/{adv['id']}/review", json={"action": "edit", "reviewer": "Officer"})
@@ -223,7 +230,7 @@ def test_review_unknown_body_field_is_rejected(client: TestClient) -> None:
 
 
 def test_feedback(client: TestClient) -> None:
-    body = {"panchayat_id": PID, "date": "2024-09-10", "reported_rain": True, "intensity": "heavy",
+    body = {"panchayat_id": PID, "date": "2024-09-08", "reported_rain": True, "intensity": "heavy",
             "channel": "whatsapp"}
     r = client.post(PREFIX + "/feedback", json=body)
     assert r.status_code == 200
@@ -238,7 +245,7 @@ def test_feedback(client: TestClient) -> None:
 def test_audio_missing_is_404_contract_shape(client: TestClient) -> None:
     adv = _get_ok(client, f"/advisories?issue_date={MAIN}", s.AdvisoryList)["items"][0]
     r = client.get(f"{PREFIX}/audio/{adv['id']}?lang=hi")
-    assert r.status_code == 404 and r.json()["error"]["code"] == "not_found"
+    assert r.status_code == 404 and r.json()["error"]["code"] == "audio_not_available"
 
 
 def test_placeholders_are_labelled(client: TestClient) -> None:

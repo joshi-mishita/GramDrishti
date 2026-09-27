@@ -68,9 +68,12 @@ CHANGES_NO_PREVIOUS = {"en": "No earlier forecast to compare with.",
 CHANGES_SOME = {"en": "The forecast changed for {n} day and variable pairs since {date}.",
                 "hi": "{date} के पूर्वानुमान के बाद {n} जगह बदलाव हुआ है।",
                 "pa": "{date} ਦੇ ਅਨੁਮਾਨ ਤੋਂ ਬਾਅਦ {n} ਥਾਵਾਂ ਤੇ ਬਦਲਾਅ ਹੋਇਆ ਹੈ।"}
-FEEDBACK_THANKS = {"en": "Thank you. Your report helps improve the forecast for your village.",
-                   "hi": "धन्यवाद। आपकी जानकारी से आपके गाँव का पूर्वानुमान बेहतर होता है।",
-                   "pa": "ਧੰਨਵਾਦ। ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ ਨਾਲ ਤੁਹਾਡੇ ਪਿੰਡ ਦਾ ਅਨੁਮਾਨ ਬਿਹਤਰ ਹੁੰਦਾ ਹੈ।"}
+FEEDBACK_THANKS = {"en": "Thank you. Your report helps us check the forecast for your village.",
+                   "hi": "धन्यवाद। आपकी जानकारी से हम आपके गाँव के पूर्वानुमान की जाँच करते हैं।",
+                   "pa": "ਧੰਨਵਾਦ। ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ ਨਾਲ ਅਸੀਂ ਤੁਹਾਡੇ ਪਿੰਡ ਦੇ ਅਨੁਮਾਨ ਦੀ ਜਾਂਚ ਕਰਦੇ ਹਾਂ।"}
+FEEDBACK_DUPLICATE = {"en": "We already have this report. Thank you.",
+                      "hi": "यह जानकारी हमें पहले ही मिल चुकी है। धन्यवाद।",
+                      "pa": "ਇਹ ਜਾਣਕਾਰੀ ਸਾਨੂੰ ਪਹਿਲਾਂ ਹੀ ਮਿਲ ਚੁੱਕੀ ਹੈ। ਧੰਨਵਾਦ।"}
 IMPACT_RULES = {
     "spray": ("Advise spraying when the chance of 2.5 mm rain is under 30%.",
               "Advise spraying when the block forecast is under 2.5 mm."),
