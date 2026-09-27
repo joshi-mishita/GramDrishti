@@ -1,7 +1,8 @@
 """Verification, impact and data quality.
 
-PLACEHOLDER: verification and impact numbers are seeded fake values under data_mode "mock" until the
-verification job (S10). Data quality is computed from the station files.
+Verification and impact numbers are read from the files the verification job writes
+(``python -m gramdrishti.verify.run_validation``); nothing here computes a score. 503 when not computed.
+Data quality is computed from the QC-flagged station files.
 """
 
 from __future__ import annotations
@@ -39,7 +40,7 @@ def coverage(svc: Svc) -> s.Coverage:
 
 @router.get("/verification/regions", response_model=s.Regions, responses=ERRORS_503)
 def regions(svc: Svc) -> s.Regions:
-    """Error per held-out block."""
+    """Error per held-out block (leave-one-block-out) and per station (station check)."""
     return svc.regions()
 
 

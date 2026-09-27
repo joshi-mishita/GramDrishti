@@ -22,12 +22,14 @@ pytestmark = needs_oracle
 DEMO = [d.date for d in load_demo_dates()]
 MAIN = "2024-09-09"
 PID = "MP0103"
+DRY_SEASON = "calib_dry_run"   # the test verification files come from a CALIB dry run
 
 
 @pytest.fixture(scope="module")
-def client(snapshot_dir, tmp_path_factory: pytest.TempPathFactory) -> TestClient:  # noqa: ANN001
+def client(snapshot_dir, verification_dir, tmp_path_factory: pytest.TempPathFactory) -> TestClient:  # noqa: ANN001
     db = tmp_path_factory.mktemp("db") / "api.sqlite"
-    svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir, db_path=db)
+    svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir, db_path=db,
+                  verification_dir=verification_dir)
     return TestClient(create_app(svc))
 
 
@@ -73,7 +75,7 @@ def _routes(d: str) -> list[tuple[str, type[s.ApiModel]]]:
         ("/verification/summary", s.VerificationSummary),
         *[(f"/verification/reliability?event={e.value}", s.Reliability) for e in s.RainEvent],
         ("/verification/coverage", s.Coverage), ("/verification/regions", s.Regions),
-        *[(f"/impact?season=monsoon_2024&decision={x.value}", s.Impact) for x in s.Decision],
+        *[(f"/impact?season={DRY_SEASON}&decision={x.value}", s.Impact) for x in s.Decision],
         (f"/data-quality?issue_date={d}", s.DataQuality),
     ]
 
@@ -241,26 +243,41 @@ def test_audio_missing_is_404_contract_shape(client: TestClient) -> None:
     assert r.status_code == 404 and r.json()["error"]["code"] == "not_found"
 
 
-def test_placeholders_are_labelled(client: TestClient) -> None:
-    for path, model in [("/verification/summary", s.VerificationSummary),
-                        ("/verification/coverage", s.Coverage),
-                        ("/impact?season=monsoon_2024", s.Impact)]:
+VERIFICATION_ROUTES = [
+    ("/verification/summary", s.VerificationSummary, lambda v, i: v["summary"]),
+    *[(f"/verification/reliability?event={e.value}", s.Reliability,
+       lambda v, i, e=e: next(r for r in v["reliability"] if r["event"] == e.value)) for e in s.RainEvent],
+    ("/verification/coverage", s.Coverage, lambda v, i: v["coverage"]),
+    ("/verification/regions", s.Regions, lambda v, i: v["regions"]),
+    *[(f"/impact?season={DRY_SEASON}&decision={x.value}", s.Impact,
+       lambda v, i, x=x: i["items"][f"{DRY_SEASON}/{x.value}"]) for x in s.Decision],
+]
+
+
+def test_verification_endpoints_return_exactly_the_files_numbers(client: TestClient,
+                                                                 verification_dir) -> None:  # noqa: ANN001
+    v = json.loads((verification_dir / "verification.json").read_text())
+    i = json.loads((verification_dir / "impact.json").read_text())
+    for path, model, pick in VERIFICATION_ROUTES:
         body = _get_ok(client, path, model)
-        assert body["provenance"] == "placeholder" and body["data_mode"] == "mock"
-        assert any("PLACEHOLDER" in n for n in body["notes"])
-    imp = _get_ok(client, "/impact?season=monsoon_2024", s.Impact)
-    for side in ("model", "block_baseline"):
-        assert sum(imp[side].values()) == imp["n_decisions"]
+        assert body == pick(v, i), path
+        assert body["provenance"] == "computed" and body["data_mode"] == "mock"
+    summary = _get_ok(client, "/verification/summary", s.VerificationSummary)
+    assert any("Synthetic demo data" in n for n in summary["notes"])
 
 
-def test_placeholders_refused_in_real_mode(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_verification_missing_or_wrong_mode_is_503(client: TestClient, monkeypatch: pytest.MonkeyPatch,
+                                                   tmp_path) -> None:  # noqa: ANN001
     monkeypatch.setenv("DATA_MODE", "real")
-    for path in ("/verification/summary", "/verification/coverage", "/verification/regions",
-                 "/verification/reliability?event=rain_ge_1mm", "/impact"):
+    for path, _, _ in VERIFICATION_ROUTES:
         r = client.get(PREFIX + path)
-        assert r.status_code == 503, path
-        assert r.json()["error"]["code"] == "not_computed"
+        assert r.status_code == 503 and r.json()["error"]["code"] == "not_computed", path
         assert r.headers["X-Data-Mode"] == "real"
+    monkeypatch.setenv("DATA_MODE", "mock")
+    empty = TestClient(create_app(Service(verification_dir=tmp_path, db_path=tmp_path / "x.sqlite")))
+    for path, _, _ in VERIFICATION_ROUTES:
+        r = empty.get(PREFIX + path)
+        assert r.status_code == 503 and "run_validation" in r.json()["error"]["message"], path
 
 
 def test_data_mode_header_and_cors(client: TestClient) -> None:

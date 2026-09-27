@@ -81,10 +81,8 @@ def test_loss_notes_list_every_loss_and_nothing_when_all_win() -> None:
 
 # ---------------------------------------------------------------- the job on CALIB with the small bundle
 @pytest.fixture(scope="module")
-def calib_run(small_bundle, small_prep):  # noqa: ANN001
-    issues = rv.evaluation_issue_dates(small_prep.inputs, "CALIB")[:21]
-    return rv.validate(small_bundle, small_prep.inputs, small_prep, window="CALIB", issue_dates=issues,
-                       lobo=True, n_boot=100, log=lambda *_: None), issues
+def calib_run(calib_validation):  # noqa: ANN001
+    return calib_validation
 
 
 @needs_oracle
@@ -124,3 +122,38 @@ def test_validation_is_deterministic(small_bundle, small_prep, calib_run, tmp_pa
                         lobo=True, n_boot=100, log=lambda *_: None)
     a, b = rv.write(res, tmp_path / "a"), rv.write(again, tmp_path / "b")
     assert a[0].read_bytes() == b[0].read_bytes() and a[1].read_bytes() == b[1].read_bytes()
+
+
+# ---------------------------------------------------------------- report
+@needs_oracle
+def test_report_states_losses_and_every_variable(calib_run) -> None:  # noqa: ANN001
+    from gramdrishti.verify import report
+
+    res, _ = calib_run
+    text = report.build(json.loads(json.dumps(res.verification, default=rv._json_default)), res.impact)
+    assert "## Where the model does not help" in text and "Synthetic demo data. Not real weather." in text
+    for name in report.NAMES.values():
+        assert f"**{name}**" in text
+    for n in res.verification["summary"]["notes"][4:]:
+        assert n in text
+
+
+def _local_verification() -> dict | None:
+    f = rv.ART / "verification.json"
+    return json.loads(f.read_text()) if f.exists() else None
+
+
+def _local_is_test_run() -> bool:
+    v = _local_verification()
+    return v is not None and v["summary"].get("window") == "test"
+
+
+@pytest.mark.skipif(not _local_is_test_run(),
+                    reason="built from artifacts/verification.json (git-ignored, TEST run only)")
+def test_validation_report_is_up_to_date() -> None:
+    from gramdrishti.verify import report
+
+    v = _local_verification()
+    imp = json.loads((rv.ART / "impact.json").read_text())
+    assert report.OUT.read_text() == report.build(v, imp), \
+        "docs/validation_report.md is stale: run `python -m gramdrishti.verify.report`"

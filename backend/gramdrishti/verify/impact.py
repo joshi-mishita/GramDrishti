@@ -102,7 +102,8 @@ def replay_all(pred: pd.DataFrame, mode: str, notes: list[str],
             r = replay(sub, rule)
             items[f"{season}/{rule.name}"] = {
                 "season": season, "decision": rule.name, "data_mode": mode, "provenance": "computed",
-                **r, "rule": {"model": {"en": rule.model_text}, "block": {"en": rule.block_text}},
+                **r, "rule": {"model": {"en": rule.model_text, "hi": None, "pa": None},
+                              "block": {"en": rule.block_text, "hi": None, "pa": None}},
                 "period": {"start": str(sub["valid_date"].min().date()),
                            "end": str(sub["valid_date"].max().date())},
                 "lead_day": LEAD, "threshold": rule.threshold, "unit": rule.unit,
