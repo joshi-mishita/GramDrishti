@@ -103,3 +103,54 @@ def test_run_steps_reports_each_step() -> None:
     done = p.run_steps([("a", lambda: "ok"), ("b", lambda: "fine")], log=lambda s, **_: lines.append(s))
     assert [(n, s) for n, s, _ in done] == [("a", "ok"), ("b", "fine")]
     assert lines[1].startswith("[prepare] a: ok (")
+
+
+def _bundle(art: Path, version: str) -> Path:
+    art.mkdir(parents=True, exist_ok=True)
+    (art / "config.json").write_text(json.dumps({"model_version": version, "targets": ["rain"]}))
+    for f in ("model_rain.joblib", *p.BUNDLE_FIXED[1:]):
+        (art / f).write_text(version)
+    return art
+
+
+def test_host_bundle_replaces_another_version_and_its_outputs(tmp_path: Path) -> None:
+    host = _bundle(tmp_path / "host", VERSION)
+    art = _bundle(tmp_path / "vol", "s5-lgbm-linux")
+    (art / "snapshots" / "2024-09-09").mkdir(parents=True)
+    (art / "verification.json").write_text("{}")
+    status = p.ensure_model(art, host)
+    assert status == f"copied {VERSION} from {host} (replaced s5-lgbm-linux)"
+    assert p.model_version(art) == VERSION and (art / "events.joblib").read_text() == VERSION
+    assert not (art / "snapshots").exists() and not (art / "verification.json").exists()
+    assert p.ensure_model(art, host).startswith("present")
+
+
+def test_incomplete_host_bundle_is_ignored(tmp_path: Path) -> None:
+    host = _bundle(tmp_path / "host", VERSION)
+    (host / "bias.joblib").unlink()
+    art = _bundle(tmp_path / "vol", "s5-lgbm-linux")
+    assert p.ensure_model(art, host) == "present (s5-lgbm-linux)"
+
+
+def test_snapshots_of_another_model_count_as_missing(tmp_path: Path) -> None:
+    from gramdrishti.pipeline.run_daily import demo_plan
+    for d, _ in demo_plan():
+        (tmp_path / d.isoformat()).mkdir()
+        (tmp_path / d.isoformat() / "manifest.json").write_text(json.dumps({"model_version": VERSION}))
+    assert p.missing_snapshots(tmp_path, VERSION) == []
+    assert len(p.missing_snapshots(tmp_path, "other")) == len(demo_plan())
+
+
+def test_offline_export_is_stale_after_new_snapshots(tmp_path: Path) -> None:
+    import os
+    out, snaps = tmp_path / "offline", tmp_path / "snapshots"
+    out.mkdir()
+    snaps.mkdir()
+    assert p.offline_stale(out, snaps)
+    (out / "index.json").write_text("{}")
+    (snaps / "index.json").write_text("{}")
+    os.utime(snaps / "index.json", (1_000, 1_000))
+    assert not p.offline_stale(out, snaps)
+    os.utime(snaps / "index.json", None)
+    os.utime(out / "index.json", (1_000, 1_000))
+    assert p.offline_stale(out, snaps)

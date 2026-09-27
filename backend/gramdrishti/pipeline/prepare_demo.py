@@ -5,9 +5,13 @@ Steps, in order:
 1. ``oracle``: the git-ignored synthetic truth (``data/synthetic_oracle/``). Missing: run
    ``data/generate_mock_data.py`` into a temporary folder, copy only ``synthetic_oracle/``, and check the
    committed data files come out byte-identical (the generator is seeded).
-2. ``model``: the trained bundle in ``artifacts/``. Missing: ``pipeline.train`` (a few minutes).
-3. ``snapshots``: one forecast snapshot per demo date and the day before. Any missing:
-   ``pipeline.run_daily --all-demo-dates`` (snapshots and draft advisories).
+2. ``model``: the trained bundle in ``artifacts/``. With ``--seed-model-from DIR`` (``make up`` passes the
+   host's ``backend/artifacts``) a complete bundle there is copied in, replacing a different version and
+   the snapshots and verification files made with it: a model trained on another platform gets another
+   version (floating-point results differ in the last bits), and only the bundle that went through the
+   verification job has numbers. Otherwise, when missing: ``pipeline.train`` (about two minutes).
+3. ``snapshots``: one forecast snapshot per demo date and the day before, made with the current model.
+   Any missing: ``pipeline.run_daily --all-demo-dates`` (snapshots and draft advisories).
 4. ``verification``: ``artifacts/verification.json`` and ``impact.json``. Missing: copy the committed
    record for this model version (``verify/records/<version>/``) when the model version, the data file
    hashes and the library versions match; otherwise leave them missing and say why. TEST is never opened.
@@ -15,7 +19,8 @@ Steps, in order:
 6. ``offline`` (only with ``--offline-out``): export every GET response for snapshot mode
    (``export_snapshot``), unless it exists and ``--refresh-offline`` is not given.
 
-Run: ``cd backend && python -m gramdrishti.pipeline.prepare_demo [--offline-out DIR] [--refresh-offline]``
+Run: ``cd backend && python -m gramdrishti.pipeline.prepare_demo [--seed-model-from DIR] [--offline-out DIR]
+[--refresh-offline]``
 The Docker stack runs it as the ``prepare`` service before the API starts.
 """
 
@@ -38,6 +43,7 @@ from gramdrishti.data.config import ART, ROOT, data_dir
 ORACLE_FILES = ("panchayat_daily_SYNTHETIC_TRUTH.csv", "block_daily_SYNTHETIC_TRUTH.csv")
 RECORDS = Path(__file__).resolve().parents[1] / "verify" / "records"
 VERIFICATION_FILES = ("verification.json", "impact.json")
+BUNDLE_FIXED = ("config.json", "events.joblib", "bias.joblib", "conformal.json", "features.json")
 # Library versions that must equal the record's for its numbers to describe this model.
 EXACT_LIBRARIES = ("lightgbm", "scikit-learn", "pandas", "numpy")
 
@@ -70,37 +76,63 @@ def ensure_oracle(data: Path | None = None) -> str:
     return "generated (committed data files reproduced byte for byte)"
 
 
-def model_ready(art: Path = ART) -> bool:
-    """True when ``art`` holds a complete trained bundle."""
+def bundle_files(art: Path) -> list[str]:
+    """Files of a complete trained bundle in ``art``; empty when anything is missing."""
     cfg = art / "config.json"
     if not cfg.exists():
-        return False
-    targets = json.loads(cfg.read_text())["targets"]
-    needed = [f"model_{t}.joblib" for t in targets] + ["events.joblib", "bias.joblib", "conformal.json",
-                                                         "features.json"]
-    return all((art / f).exists() for f in needed)
+        return []
+    needed = [*BUNDLE_FIXED, *(f"model_{t}.joblib" for t in json.loads(cfg.read_text())["targets"])]
+    return needed if all((art / f).exists() for f in needed) else []
 
 
-def ensure_model(art: Path = ART) -> str:
-    """Train when the bundle is missing."""
+def model_ready(art: Path = ART) -> bool:
+    """True when ``art`` holds a complete trained bundle."""
+    return bool(bundle_files(art))
+
+
+def model_version(art: Path = ART) -> str | None:
+    """The bundle's model version, or None without a bundle."""
+    cfg = art / "config.json"
+    return json.loads(cfg.read_text())["model_version"] if cfg.exists() else None
+
+
+def ensure_model(art: Path = ART, seed_from: Path | None = None) -> str:
+    """Copy the host's bundle when given (and different), else train when the bundle is missing."""
+    host = bundle_files(seed_from) if seed_from is not None else []
+    if host:
+        if model_ready(art) and model_version(art) == model_version(seed_from):
+            return f"present ({model_version(art)}, same as {seed_from})"
+        old = model_version(art)
+        for f in VERIFICATION_FILES:
+            (art / f).unlink(missing_ok=True)      # numbers of the replaced model
+        shutil.rmtree(art / "snapshots", ignore_errors=True)
+        art.mkdir(parents=True, exist_ok=True)
+        for f in host:
+            shutil.copy2(seed_from / f, art / f)
+        return f"copied {model_version(art)} from {seed_from}" + (f" (replaced {old})" if old else "")
     if model_ready(art):
-        return f"present ({json.loads((art / 'config.json').read_text())['model_version']})"
+        return f"present ({model_version(art)})"
     from gramdrishti.pipeline import train
     if train.main(["--out", str(art)]) != 0:
         raise RuntimeError("training failed")
     return f"trained ({json.loads((art / 'config.json').read_text())['model_version']})"
 
 
-def missing_snapshots(root: Path) -> list[str]:
-    """Demo-plan dates without a complete snapshot under ``root``."""
+def missing_snapshots(root: Path, version: str | None = None) -> list[str]:
+    """Demo-plan dates without a snapshot under ``root`` (or with one made by a model other than
+    ``version``)."""
     from gramdrishti.pipeline.run_daily import demo_plan
-    return [d.isoformat() for d, _ in demo_plan() if not (root / d.isoformat() / "manifest.json").exists()]
+
+    def ok(d: str) -> bool:
+        m = root / d / "manifest.json"
+        return m.exists() and (version is None or json.loads(m.read_text())["model_version"] == version)
+    return [d.isoformat() for d, _ in demo_plan() if not ok(d.isoformat())]
 
 
 def ensure_snapshots(art: Path = ART) -> str:
     """Build snapshots and drafts for every demo date when any is missing."""
     from gramdrishti.pipeline import run_daily
-    missing = missing_snapshots(run_daily.SNAPSHOTS)
+    missing = missing_snapshots(run_daily.SNAPSHOTS, model_version(art))
     if not missing:
         return "present"
     if run_daily.main(["--all-demo-dates", "--artifacts", str(art)]) != 0:
@@ -129,7 +161,7 @@ def ensure_verification(art: Path = ART, records: Path = RECORDS, data: Path | N
     if all((art / f).exists() for f in VERIFICATION_FILES):
         return "present"
     from gramdrishti.models.artifacts import library_versions
-    version = json.loads((art / "config.json").read_text())["model_version"]
+    version = model_version(art)
     rec = records / version
     if not (rec / "verification.json").exists():
         return (f"MISSING: no record for {version}; the verification and impact screens will say 'not "
@@ -151,9 +183,17 @@ def seed_farmers() -> str:
     return f"{seed(store)} demo farmers in {store.path}"
 
 
-def ensure_offline(out: Path, refresh: bool) -> str:
-    """Export the snapshot-mode files unless they exist (``refresh`` forces a new export)."""
-    if (out / "index.json").exists() and not refresh:
+def offline_stale(out: Path, snapshots: Path) -> bool:
+    """True when there is no export in ``out`` or the forecast snapshots were rebuilt after it."""
+    idx, built = out / "index.json", snapshots / "index.json"
+    return not idx.exists() or (built.exists() and built.stat().st_mtime > idx.stat().st_mtime)
+
+
+def ensure_offline(out: Path, refresh: bool, snapshots: Path | None = None) -> str:
+    """Export the snapshot-mode files when missing or older than the snapshots (``refresh`` forces it)."""
+    if snapshots is None:
+        from gramdrishti.pipeline.run_daily import SNAPSHOTS as snapshots
+    if not refresh and not offline_stale(out, snapshots):
         return f"present in {out} (refresh with --refresh-offline)"
     from gramdrishti.export_snapshot import export
     index = export(out)
@@ -176,13 +216,15 @@ def run_steps(steps: list[tuple[str, Callable[[], str]]], log=print) -> list[tup
 def main(argv: list[str] | None = None) -> int:
     """CLI entry point."""
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--seed-model-from", type=Path, default=None,
+                    help="copy a complete trained bundle from here (the host's backend/artifacts)")
     ap.add_argument("--offline-out", type=Path, default=None,
                     help="also export snapshot-mode files here (for the offline web service)")
     ap.add_argument("--refresh-offline", action="store_true", help="export again even if present")
     a = ap.parse_args(argv)
     steps: list[tuple[str, Callable[[], str]]] = [
-        ("oracle", ensure_oracle), ("model", ensure_model), ("snapshots", ensure_snapshots),
-        ("verification", ensure_verification), ("farmers", seed_farmers)]
+        ("oracle", ensure_oracle), ("model", lambda: ensure_model(ART, a.seed_model_from)),
+        ("snapshots", ensure_snapshots), ("verification", ensure_verification), ("farmers", seed_farmers)]
     if a.offline_out is not None:
         steps.append(("offline", lambda: ensure_offline(a.offline_out, a.refresh_offline)))
     t0 = time.perf_counter()
