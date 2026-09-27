@@ -19,6 +19,16 @@
   border-bottom: 1px solid var(--brand-strong);
 }
 
+/* index.html's static bar before the app starts; same height and colour as the top bars */
+.boot-bar {
+  display: flex;
+  align-items: center;
+  min-height: var(--topbar-h);
+  padding: var(--gap-2) var(--gap-4);
+  background: var(--brand);
+  border-bottom: 1px solid var(--brand-strong);
+}
+
 .topbar-id {
   display: flex;
   align-items: baseline;
