@@ -309,6 +309,9 @@ Measured (local, 2026-09-26, uvicorn, 30 warm requests each): `/priority` 70 ms,
 | 2026-09-26 | rules.yaml v1 on s5-lgbm-9b632a7b1b snapshots (S8) | inference snapshots of the 8 demo dates and the day before each (unchanged from S6) | Rules engine drafts for the 8 demo dates; `/forecast/changes` runs the engine on the previous-day snapshots too. No scoring, no training. TEST window opened for evaluation: never |
 | 2026-09-26 | s5-lgbm-9b632a7b1b applied (S6) | inference on issued forecasts for the 8 demo dates and the day before each (6 of them in TEST) | `python -m gramdrishti.pipeline.run_daily --all-demo-dates`. No scoring. The soil water balance starts from oracle soil moisture on the day before each issue date (mock stand-in, D050); no metric uses it. TEST window opened for evaluation: never |
 
+## S10 validation protocol (recorded before TEST was opened)
+Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`, data hash `9b632a7b1b...`, verification code commit `4101fe4`, seed 42, sha256 of every data file read. TEST (2024-07-16..2024-12-31) is opened once for this model version by `python -m gramdrishti.verify.run_validation`, which writes the opening time to `docs/test_window_ledger.json` before reading any TEST truth. Any model, feature, calibration, baseline or threshold change after seeing TEST gets a new version number, and the report then says TEST was reused. No tuning against TEST. The dry run of the same code on CALIB (2026-09-27) reproduced the S5 CALIB numbers (rain MAE -15.8 % vs B1, Tmax +12.4 %).
+
 ## Handoff for the next session
 Merge order: S6 (`session-06-snapshots-forecast-api`), then S8 (`session-08-advisory-engine`, stacked on S6, D057). After S6 merges, merge `main` into S8 and rerun `pytest`.
 
