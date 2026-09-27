@@ -29,7 +29,7 @@ DRY_SEASON = "calib_dry_run"   # the test verification files come from a CALIB d
 def client(snapshot_dir, verification_dir, tmp_path_factory: pytest.TempPathFactory) -> TestClient:  # noqa: ANN001
     db = tmp_path_factory.mktemp("db") / "api.sqlite"
     svc = Service(clock=lambda: datetime(2024, 9, 9, 9, 30), snapshot_dir=snapshot_dir, db_path=db,
-                  audio_dir=db.parent / "audio", synth=_offline)
+                  verification_dir=verification_dir, audio_dir=db.parent / "audio", synth=_offline)
     return TestClient(create_app(svc))
 
 
