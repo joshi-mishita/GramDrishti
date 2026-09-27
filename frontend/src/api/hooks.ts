@@ -26,6 +26,10 @@ import type {
   Status,
   Var,
   VerificationSummary,
+  Reliability,
+  Coverage,
+  Regions,
+  RainEvent,
 } from "./types";
 
 const MINUTE = 60_000;
@@ -50,6 +54,9 @@ export const queryKeys = {
     ["advisories", status ?? "all", issueDate] as const,
   advisory: (id: string) => ["advisory", id] as const,
   verificationSummary: ["verification", "summary"] as const,
+  reliability: (event: RainEvent) => ["verification", "reliability", event] as const,
+  coverage: ["verification", "coverage"] as const,
+  regions: ["verification", "regions"] as const,
   impact: (decision: Decision, season: string) => ["impact", decision, season] as const,
   farmer: (id: string) => ["farmer", id] as const,
   farmerAdvice: (id: string, issueDate: string) => ["farmerAdvice", id, issueDate] as const,
@@ -242,6 +249,28 @@ export const useVerificationSummary = () =>
     queryKey: queryKeys.verificationSummary,
     queryFn: ({ signal }) =>
       apiGet<VerificationSummary>("/verification/summary", {}, undefined, signal),
+    staleTime: 10 * MINUTE,
+  });
+
+export const useReliability = (event: RainEvent) =>
+  useQuery({
+    queryKey: queryKeys.reliability(event),
+    queryFn: ({ signal }) =>
+      apiGet<Reliability>("/verification/reliability", { event }, undefined, signal),
+    staleTime: 10 * MINUTE,
+  });
+
+export const useCoverage = () =>
+  useQuery({
+    queryKey: queryKeys.coverage,
+    queryFn: ({ signal }) => apiGet<Coverage>("/verification/coverage", {}, undefined, signal),
+    staleTime: 10 * MINUTE,
+  });
+
+export const useRegions = () =>
+  useQuery({
+    queryKey: queryKeys.regions,
+    queryFn: ({ signal }) => apiGet<Regions>("/verification/regions", {}, undefined, signal),
     staleTime: 10 * MINUTE,
   });
 
