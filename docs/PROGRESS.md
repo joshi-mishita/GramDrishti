@@ -255,6 +255,18 @@ Leave-one-block-out and the station check give the same verdicts (rain vs B1: -3
 - D077 Contract v0.3.0; files or 503; placeholders removed.
 - D078 Observed rain-intensity strata.
 - D079 Data quality stays a 30-day view, provenance computed.
+- D080 S9 in a separate worktree after a parallel session shared the checkout; decisions from D080 (S10 uses D070-D079).
+- D081 Reviews need the API; demo files are read-only.
+- D082 Reviewer name field, default "Demo officer", no login.
+- D083 Review button rules and Ctrl+Enter.
+- D084 Translations cleared by an English edit are announced, edited ones kept.
+- D085 One word per action: Approved, Edited and approved, Rejected.
+- D086 The reviewed advisory stays open; the queue refetches.
+- D087 Queue order, filters and keyboard listbox.
+- D088 Priority filters, rank, column order, map link, print.
+- D089 Risk layer: categorical colours, URL key, view mode off, panel level; navigation keeps shared keys only.
+- D090 `npm run e2e` runs its own API with a throwaway database.
+- D091 Audit times shown as the server wrote them.
 
 ## Not verified
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
@@ -292,6 +304,11 @@ Leave-one-block-out and the station check give the same verdicts (rain vs B1: -3
 - S10: real mode is not verified: the job raises in real mode (no Panchayat truth); leave-one-station-out against real stations is future work.
 - S10: the frontend verification and impact screens were not run against the new endpoints (types regenerated; frontend tests pass).
 - S10: `docs/validation_report.md` was checked as Markdown text, not seen rendered on GitHub.
+- S9: CI has not run this branch (no `gh`). `npm run e2e` needs the backend venv, trained artifacts and snapshots, so it is not part of CI; it was run locally (Chrome 153, macOS).
+- S9: tested in Chrome only. Keyboard use was tested with Playwright and the in-app browser, not with a screen reader. `field-sizing: content` (auto-growing text areas) is Chrome-only; other browsers keep a fixed height with a scrollbar.
+- S9: printing was checked with print-media emulation and a screenshot, not on paper or as a PDF from the print dialog.
+- S9: new Hindi and Punjabi UI strings (risk, priority, review, statuses, categories) are drafts needing native review. Stage names come from `templates.yaml` (also drafts).
+- S9: the farmer advice query is invalidated after a review, but the farmer screen is not built yet (S13), so the effect on it is untested.
 
 ## Known issues
 - S5 rain does not beat B1 (LOBO -0.7 %, CALIB -15.8 % MAE). The rain CQR offset is 0 because dry days dominate, and wet-day coverage is 0.42..0.72. Options for discussion (not tuning): serve B1 rain amount with model event probabilities, or a wet-day-conditional interval.
@@ -334,6 +351,10 @@ Leave-one-block-out and the station check give the same verdicts (rain vs B1: -3
 - S10 decisions: the p90 heat rule trades misses for many false alarms (1,628 vs 527 at B0); spray and irrigation replays wash off more often than the block rule. Costs are needed from an expert before calling any trade-off better.
 - S10 `verification_summary.json` example is 130 kB (strata and verdicts); the frontend may want to fetch strata lazily.
 - S10 another session committed S9 frontend work (`b8d86b0`, `35c056e`) on `session-10-verification-impact`, because both sessions share this checkout. The S10 pull request therefore contains those commits.
+- S9 the review queue is long on monsoon dates (198 drafts on 2024-09-09, 90 livestock); there is no bulk approve. Worth asking officers whether one decision per rule and block would do.
+- S9 priority rank (#) is the API's rank in the full list, so a filtered list shows gaps (1 to 19, then 62). Intentional, so a printed filtered list still shows overall urgency.
+- S9 the risk layer uses `/risk` per lead day; the map has no "worst over the next days" view (the priority list has it).
+- S9 `session-10-verification-impact` (unpushed) also contains the seven S9 commits and one S9 commit there deletes `provisional/placeholders.py` (a deletion S10 had staged). See the handoff.
 
 ## Inputs needed from the team
 - Enable branch protection on `main` (require pull request, require CI).
@@ -364,6 +385,9 @@ Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`
 ## Handoff for the next session
 Frontend (S11): contract **v0.3.0**. `/verification/summary` has `checks[]` (temporal_holdout, leave_one_block_out, station), `strata[]`, `verdicts[]` (win / tie / loss / too_few_days) and per metric `skill_vs_b1` with `skill_vs_b1_ci95`; show B1 next to B0, because B1 is what isolates the Panchayat model. `/verification/coverage` items have `stratum` (`all`, `lead_day=n`, `season=x`, `observed_rain>=1mm`). `/verification/regions` has block (leave-one-block-out) and station rows with `b1`, `b2`. `/impact?season=monsoon_2024|post_monsoon_2024|winter_2024|test_2024&decision=...` has `block_corrected`, `events_observed`, `threshold`, `unit`; for heat and irrigation, `wasted_wait` means a false alarm and `washed_off` a miss (say so on screen). Every number is in `notes` and `docs/validation_report.md`; show the "Where the model does not help" notes, not only wins. Mock files: `verification_*.json`, `impact_<decision>.json` (monsoon) and `impact_<season>_<decision>.json`.
 Backend: run order is now train, run_daily, run_validation (writes `verification.json`, `impact.json`), then `verify.report` and `make_examples`. A new model version must go through `docs/validation_protocol.md` (the ledger will mark TEST as reused).
+S9 (2026-09-27): a parallel S10 session worked in the same checkout. It switched the branch to `session-10-verification-impact` right after S9 created its branch, so the seven S9 commits first landed on that branch, interleaved with S10's (nothing was pushed). S9 then built `session-09-priority-review` in a separate worktree (`../GramDrishti-s09`) by cherry-picking those commits onto `main`, and restored `backend/gramdrishti/provisional/placeholders.py` there. That file's deletion had been staged by S10 and swept into the S9 review-screen commit. The S9 branch differs from `main` only in `frontend/` and these docs. Before opening the S10 pull request, decide how to take the S9 commits out of `session-10-verification-impact` (for example: build S10's branch again from `main` with only its own commits, or merge S9 first and then `main` into S10). Choosing needs you, because it means rewriting an unpushed branch or accepting a mixed history.
+
+Frontend S11/S13 from S9: `components/Toast.tsx` + `toastContext.ts` (toasts), `features/review/StatusChip.tsx`, `labels.ts` (advisory titles), `lib/format.formatDateTime`, `useRisk`, `useAdvisory`, `useReviewAdvisory` (invalidates `advisories`, `priority`, `farmerAdvice`). The farmer app must show only `approved` and `edited` advice (the API already filters). Detail panel advisories for the selected Panchayat are still to do (S13 or S15). `.env.example` now serves `risk,priority,advisories` from the API.
 
 Merge order: S6 (`session-06-snapshots-forecast-api`), then S8 (`session-08-advisory-engine`, stacked on S6, D057). After S6 merges, merge `main` into S8 and rerun `pytest`.
 
