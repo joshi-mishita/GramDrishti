@@ -1,4 +1,4 @@
-"""Pydantic models for every endpoint of the API contract (Appendix A, contract v0.3.0).
+"""Pydantic models for every endpoint of the API contract (Appendix A, contract v0.4.0).
 
 Rules that hold for every model:
 - Missing numbers are ``null``. NaN and Infinity are rejected (``allow_inf_nan=False``).
@@ -18,7 +18,7 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-API_VERSION = "0.3.0"
+API_VERSION = "0.4.0"
 
 
 class ApiModel(BaseModel):
@@ -577,6 +577,16 @@ class Farmer(ApiModel):
     language: Lang
     crops: list[FarmerCrop]
     data_mode: DataMode
+    # v0.4.0 (optional): the farmer keeps livestock, so livestock advisories reach them.
+    livestock: bool | None = None
+
+
+class SprayDay(ApiModel):
+    """v0.4.0: day-level spray rating for one forecast day (whole days only; the data is daily)."""
+
+    date: date
+    lead_day: int
+    rating: SprayRating | None
 
 
 class FarmerAdvice(ApiModel):
@@ -586,6 +596,8 @@ class FarmerAdvice(ApiModel):
     language: Lang
     data_mode: DataMode
     items: list[Advisory]
+    # v0.4.0 (optional): spray suitability for the next days at the farmer's Panchayat.
+    spray_days: list[SprayDay] | None = None
 
 
 class FeedbackRequest(ApiModel):

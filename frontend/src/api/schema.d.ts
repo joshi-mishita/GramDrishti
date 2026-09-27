@@ -293,7 +293,11 @@ export interface paths {
     };
     /**
      * Audio
-     * @description MP3 of the advisory text, or 404 when no audio exists (the UI then falls back to browser speech).
+     * @description MP3 of the advisory's action, reason and fallback in one language (gTTS, cached).
+     *
+     *     404 ``not_found`` for an unknown advisory; 404 ``audio_not_available`` when the audio cannot be made
+     *     (gTTS missing, language not supported, no text in that language, or no internet). The UI then falls
+     *     back to the browser's own speech.
      */
     get: operations["audio_api_v1_audio__advisory_id__get"];
     put?: never;
@@ -313,7 +317,7 @@ export interface paths {
     };
     /**
      * Farmer
-     * @description Demo farmer profile: Panchayat, language, crops with sowing dates.
+     * @description Demo farmer profile (not a real person): Panchayat, language, crops with sowing dates, livestock.
      */
     get: operations["farmer_api_v1_farmers__farmer_id__get"];
     put?: never;
@@ -333,7 +337,8 @@ export interface paths {
     };
     /**
      * Farmer Advice
-     * @description Approved (or edited and approved) advisories for the farmer's Panchayat on this issue date.
+     * @description Approved or edited advisories for the farmer's Panchayat and crops, most urgent first, with
+     *     whole-day spray ratings for the next days. Drafts and rejected advisories never appear.
      */
     get: operations["farmer_advice_api_v1_farmers__farmer_id__advice_get"];
     put?: never;
@@ -355,7 +360,8 @@ export interface paths {
     put?: never;
     /**
      * Feedback
-     * @description Farmer tapped "Did it rain?".
+     * @description Farmer tapped "Did it rain?". 400 for a date outside the data period or a contradictory report;
+     *     an identical report within 10 minutes answers ``stored: false`` with the first report's id.
      */
     post: operations["feedback_api_v1_feedback_post"];
     delete?: never;
@@ -901,6 +907,8 @@ export interface components {
       /** Crops */
       crops: components["schemas"]["FarmerCrop"][];
       data_mode: components["schemas"]["DataMode"];
+      /** Livestock */
+      livestock?: boolean | null;
     };
     /** FarmerAdvice */
     FarmerAdvice: {
@@ -917,6 +925,8 @@ export interface components {
       data_mode: components["schemas"]["DataMode"];
       /** Items */
       items: components["schemas"]["Advisory"][];
+      /** Spray Days */
+      spray_days?: components["schemas"]["SprayDay"][] | null;
     };
     /** FarmerCrop */
     FarmerCrop: {
@@ -1493,6 +1503,20 @@ export interface components {
      * @enum {string}
      */
     Split: "train" | "calib" | "test";
+    /**
+     * SprayDay
+     * @description v0.4.0: day-level spray rating for one forecast day (whole days only; the data is daily).
+     */
+    SprayDay: {
+      /**
+       * Date
+       * Format: date
+       */
+      date: string;
+      /** Lead Day */
+      lead_day: number;
+      rating: components["schemas"]["SprayRating"] | null;
+    };
     /**
      * SprayRating
      * @description Day-level spray planner rating (v0.2.0). Whole days only: the data is daily, not hourly.
@@ -2455,6 +2479,15 @@ export interface operations {
         };
         content: {
           "application/json": components["schemas"]["FeedbackResponse"];
+        };
+      };
+      /** @description Bad request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
         };
       };
       /** @description Unknown id or issue date */

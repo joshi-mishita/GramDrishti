@@ -15,11 +15,11 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S6 | Agro-variables, snapshots, forecast APIs | backend | merged | session-06-snapshots-forecast-api (#9) | yes |
 | S7 | Frontend detail panel and first integration | frontend | merged | session-07-detail-panel (#10) | yes |
 | S8 | Advisory engine and review APIs | backend | merged | session-08-advisory-engine (#11) | yes |
-| S9 | Frontend priority, risk and review | frontend | not started | | |
-| S10 | Verification and impact | backend | PR open | session-10-verification-impact | |
-| S11 | Frontend verification and impact | frontend | PR open (stacked on S10) | session-11-verification-impact-ui | |
-| S12 | Farmer-side backend and snapshot export | backend | not started | | |
-| S13 | Frontend farmer app, languages, bulletin, offline | frontend | not started | | |
+| S9 | Frontend priority, risk and review | frontend | merged | session-09-priority-review (#13) | yes |
+| S10 | Verification and impact | backend | merged | session-10-verification-impact (#14) | yes |
+| S11 | Frontend verification and impact | frontend | merged | session-11-verification-impact-ui (#15) | yes |
+| S12 | Farmer-side backend and snapshot export | backend | pushed, no PR; merged into S13 | session-12-farmer-backend | |
+| S13 | Frontend farmer app, languages, bulletin, offline | frontend | in progress | session-13-farmer-app | |
 | S14 | Integration, Docker and end-to-end tests | both | not started | | |
 | S15 | Design and accessibility polish | frontend | not started | | |
 | S16 | Documentation and submission assets | both | not started | | |
@@ -174,6 +174,16 @@ S11: verification and impact screens on contract v0.3.0 (no contract change). Bu
 - Tests: 202 frontend (39 new: formatting, best-value highlighting, strata, page tests against the contract examples, including a losing row read in words).
 - Screenshots `verification-{en,hi}-{desktop,phone}.png`, `impact-{en,pa}-{desktop,phone}.png` reviewed; fixes made from the review (empty space above the summary, mixed decimals in the regions columns, a coverage label on the 80 % line, a capitalised decision name mid-sentence, narrow row names on phone).
 - Checked against the job's files: with the API on `backend/artifacts/verification.json` and `impact.json`, the screen showed rain MAE 1.070 / 1.240 / 1.031 / 1.032, skill vs B1 on wet days -7.2 % (-12.0 % to -0.04 %, worse), wet-day rain coverage 50.9 % at 28.7 mm, MB01 rain 0.941 (-0.092 vs B0) and spray counts 14,364 / 217 / 179 against 14,138 / 554 / 68; the files hold 1.07045, 1.23993, 1.03107, 1.03153, -0.071987 (-0.120287 to -0.000365), 0.509421, 28.6671, 0.940999 (-0.091651) and the same counts.
+S12: farmer side, feedback loop demo, audio and the offline snapshot. Contract v0.4.0 (additive; v0.3.0 is S10's). Built:
+- `store/seed_demo.py`: five demo profiles (D093), migration 2 (`farmers.livestock`, D094). The API seeds an empty table.
+- `/farmers/{id}` from SQLite; `/farmers/{id}/advice`: approved or edited only, farmer's Panchayat and crops (livestock only for F001 and F004), severe first, plus optional `spray_days` (D095).
+- `POST /feedback`: date inside the data period and not in the future, answer and intensity must agree (400), identical report within 10 minutes answers `stored: false` with the first id (D096). Thank-you text no longer claims the forecast improves (D098).
+- `advisory/audio.py` + `/audio/{id}?lang=`: gTTS, cached by text hash under `artifacts/audio/`, 404 `audio_not_available` on any failure; `Advisory.audio` links for approved and edited advisories. **Punjabi works with gTTS 2.5.4** (D097).
+- `verify/feedback_report.py` writes `docs/feedback_loop_demo.md`: 2023-08 had 40 reports, rain yes/no agrees 92 % (37 of 40) with station or synthetic truth, and Panchayats with any ground check go from 24 (stations) to 48 of 90 with reports. Demo of the loop, no retraining, no forecast scoring, TEST months refused; no observation nudge (D099).
+- `gramdrishti/export_snapshot.py`: 21,965 validated GET responses for the 8 demo dates, all 90 Panchayats and the 5 farmers, 39 MB, 64 s, into git-ignored `contract/snapshot/`; `npm run sync:mock` copies it to `frontend/public/snapshot/` (D100). Checked in the browser with the API stopped: farmer screen shows F001's three approved advisories, the map shows 27 Dec 2024 lead 3 Tmin.
+- Tests: 375 backend (16 new in `test_farmers.py`, 2 in `test_store.py`), 120 frontend.
+
+Same block MB03, 2024-09-09, after approving every draft in MP0307 and MP0311 (6 advisories): F001 (MP0307, hi, keeps livestock) sees spray hold, clear drains, livestock heat; F002 (MP0311, pa, no livestock) sees harvest before the rain, hold irrigation, and not the approved livestock item. F005 (MP0103, wheat only) sees nothing on that date.
 
 ## Decisions
 - D001 Licence MIT.
@@ -245,6 +255,16 @@ S11: verification and impact screens on contract v0.3.0 (no contract change). Bu
 - D067 Spray hold uses the day-level planner.
 - D068 Text formatting, English-only evidence, no gender agreement with crop names.
 - D069 Removed the S2 placeholder risk and advisory texts.
+- D092 S12 from `main` in a worktree, D092+ and contract v0.4.0 to avoid S9/S10 numbers.
+- D093 Five demo farmers, Panchayat crop rows, F001/F002 share MB03.
+- D094 `farmers.livestock`; livestock advice only to farmers who keep livestock.
+- D095 Farmer advice filter, order and `spray_days`.
+- D096 Feedback checks and 10-minute duplicate answer.
+- D097 gTTS audio, Punjabi supported (2.5.4), text-hash cache, 404 on failure.
+- D098 Thank-you text says "check", not "improve".
+- D099 Feedback report: station or synthetic truth, TEST refused, no nudge.
+- D100 Snapshot export of the frontend's exact requests, git-ignored.
+- D101 Tests never call Google.
 - D057 S7 stacked on S6.
 - D058 Headline and chart middle line on p50.
 - D059 Chart variable switch shares the map variable.
@@ -329,8 +349,17 @@ S11: verification and impact screens on contract v0.3.0 (no contract change). Bu
 - S9: printing was checked with print-media emulation and a screenshot, not on paper or as a PDF from the print dialog.
 - S9: new Hindi and Punjabi UI strings (risk, priority, review, statuses, categories) are drafts needing native review. Stage names come from `templates.yaml` (also drafts).
 - S9: the farmer advice query is invalidated after a review, but the farmer screen is not built yet (S13), so the effect on it is untested.
+- S12: CI has not run this branch (no `gh`). The examples freshness test needs local snapshots.
+- S12: nobody has listened to the generated Hindi or Punjabi audio; only the file type (MPEG layer III, 24 kHz) and size were checked. Pronunciation of numbers and units ("मिमी", "ਮਿਲੀਮੀਟਰ") is unknown.
+- S12: snapshot mode was checked in the in-app browser on two screens (farmer Today, map with detail panel), not screen by screen; the full export was not built in production mode (`npm run build` copies 104 MB of snapshot into `dist/`).
+- S12: the new hi/pa feedback texts are drafts needing native review.
+- S12: the feedback report used the mock file only (`--no-store`); with API reports it adds them the same way (unit-tested).
 
 ## Known issues
+- S12 the snapshot is 21,965 files (39 MB of JSON, about 104 MB on disk); `npm run sync:mock` copies it on every `dev` and `build` when `contract/snapshot/` exists, and a build then carries it in `dist/`. Delete `contract/snapshot/` when not rehearsing the offline demo.
+- S12 spray days are identical for F001 and F002 on 2024-09-09: rain chances are flat within MB03 (the S8 known issue).
+- S12 an audio request without internet waits for gTTS's 10 s timeout before the 404.
+- S12 in the worktree, Vite answers 403 for font files through the symlinked `node_modules`; not a problem in a normal checkout.
 - S5 rain does not beat B1 (LOBO -0.7 %, CALIB -15.8 % MAE). The rain CQR offset is 0 because dry days dominate, and wet-day coverage is 0.42..0.72. Options for discussion (not tuning): serve B1 rain amount with model event probabilities, or a wet-day-conditional interval.
 - S5 isotonic calibration is kept as the guide says but did not help on CALIB halves. Discuss before S6.
 - S5 CALIB covers May to mid-July only, so coverage in winter is unmeasured until TEST (S10).
@@ -399,6 +428,7 @@ S11: verification and impact screens on contract v0.3.0 (no contract change). Bu
 | 2026-09-25 | provisional API forecast (S2) | fit TRAIN; applied to issued forecasts on the 8 demo dates | No scoring. The demo date picker reads issued forecasts in the TEST period, not outcomes. `/observed` displays TEST-period truth on request; no metric uses it. TEST window opened for evaluation: never |
 | 2026-09-26 | s5-lgbm-9b632a7b1b (S5) | models fit TRAIN; isotonic and conformal on CALIB; leave-one-block-out on TRAIN; out-of-time on CALIB | `python -m gramdrishti.pipeline.train --lobo`, report in `backend/artifacts/dev_report.txt` (numbers under "Current state"). Rain does not beat B1. Re-run without `--lobo` in S6: 114 s, byte-identical model files. TEST window opened: never |
 | 2026-09-26 | rules.yaml v1 on s5-lgbm-9b632a7b1b snapshots (S8) | inference snapshots of the 8 demo dates and the day before each (unchanged from S6) | Rules engine drafts for the 8 demo dates; `/forecast/changes` runs the engine on the previous-day snapshots too. No scoring, no training. TEST window opened for evaluation: never |
+| 2026-09-27 | s5-lgbm-9b632a7b1b snapshots, rules.yaml v1 (S12) | feedback report on 2023-08 (TRAIN); snapshot export of the 8 demo dates | Feedback report compares mock reports with station rain or synthetic truth for one TRAIN month; no forecast scoring, TEST months refused in code. The export serves existing snapshots and `/observed` (display, D020). TEST window opened for evaluation: never |
 | 2026-09-26 | s5-lgbm-9b632a7b1b applied (S6) | inference on issued forecasts for the 8 demo dates and the day before each (6 of them in TEST) | `python -m gramdrishti.pipeline.run_daily --all-demo-dates`. No scoring. The soil water balance starts from oracle soil moisture on the day before each issue date (mock stand-in, D050); no metric uses it. TEST window opened for evaluation: never |
 
 ## S10 validation protocol (recorded before TEST was opened)
@@ -413,6 +443,8 @@ Backend: run order is now train, run_daily, run_validation (writes `verification
 S9 (2026-09-27): a parallel S10 session worked in the same checkout. It switched the branch to `session-10-verification-impact` right after S9 created its branch, so the seven S9 commits first landed on that branch, interleaved with S10's (nothing was pushed). S9 then built `session-09-priority-review` in a separate worktree (`../GramDrishti-s09`) by cherry-picking those commits onto `main`, and restored `backend/gramdrishti/provisional/placeholders.py` there. That file's deletion had been staged by S10 and swept into the S9 review-screen commit. The S9 branch differs from `main` only in `frontend/` and these docs. Before opening the S10 pull request, decide how to take the S9 commits out of `session-10-verification-impact` (for example: build S10's branch again from `main` with only its own commits, or merge S9 first and then `main` into S10). Choosing needs you, because it means rewriting an unpushed branch or accepting a mixed history.
 
 Frontend S11/S13 from S9: `components/Toast.tsx` + `toastContext.ts` (toasts), `features/review/StatusChip.tsx`, `labels.ts` (advisory titles), `lib/format.formatDateTime`, `useRisk`, `useAdvisory`, `useReviewAdvisory` (invalidates `advisories`, `priority`, `farmerAdvice`). The farmer app must show only `approved` and `edited` advice (the API already filters). Detail panel advisories for the selected Panchayat are still to do (S13 or S15). `.env.example` now serves `risk,priority,advisories` from the API.
+S12 (2026-09-27): branch `session-12-farmer-backend` from `main`. Merge order: S9, S10, then S12; after S10 merges, merge `main` into S12, rerun `python -m gramdrishti.export_openapi` and `python -m gramdrishti.contract.make_examples`, and keep both changelog entries (v0.3.0 S10, v0.4.0 S12). `export_snapshot` imports `IMPACT_SEASONS` from `provisional/placeholders.py`; after S10 it should take the seasons S10's impact endpoint serves.
+Frontend (S13): `F001` stays the default farmer (`DEMO_FARMER_ID`), now MP0307 in Hindi; F002 is the same-block neighbour in Punjabi. `FarmerAdvice.spray_days` gives five whole-day ratings; `Advisory.audio[lang]` is a URL that can still 404 (`audio_not_available`), so keep the browser-speech fallback. `POST /feedback` can answer 400 (date or contradictory answer) and `stored: false` for a repeat. `VITE_SNAPSHOT=1` works after `python -m gramdrishti.export_snapshot` and `npm run sync:mock`.
 
 Merge order: S6 (`session-06-snapshots-forecast-api`), then S8 (`session-08-advisory-engine`, stacked on S6, D057). After S6 merges, merge `main` into S8 and rerun `pytest`.
 

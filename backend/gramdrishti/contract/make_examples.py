@@ -28,6 +28,7 @@ from gramdrishti.api import schemas as s
 from gramdrishti.api.main import PREFIX, create_app
 from gramdrishti.api.service import Service
 from gramdrishti.data.config import ROOT
+from gramdrishti.store.seed_demo import DEMO_FARMERS
 from gramdrishti.verify.impact import SEASONS as IMPACT_SEASONS
 
 OUT = ROOT / "contract" / "examples"
@@ -44,6 +45,11 @@ PANCHAYATS = {
 RISK_DATES = {"heavy_rain": (MAIN_DATE, 1), "waterlogging": ("2024-07-31", 1), "heat": ("2024-03-31", 1),
               "frost": ("2024-12-24", 1), "dry_spell": ("2024-08-15", 5)}
 COLD_DATE = "2024-12-24"
+
+
+def _offline(text: str, lang: str, path: Path) -> None:
+    """Examples never call the text-to-speech service, so the audio example is always the 404."""
+    raise OSError("examples are generated offline")
 
 
 def _validate(model: type[BaseModel], payload: Any) -> None:
@@ -102,7 +108,7 @@ def _build(out: Path, db: Path) -> list[dict]:
     out.mkdir(parents=True, exist_ok=True)
     for old in list(out.glob("*.json")) + list(out.glob("*.geojson")):
         old.unlink()
-    svc = Service(clock=lambda: FIXED_NOW, db_path=db)
+    svc = Service(clock=lambda: FIXED_NOW, db_path=db, audio_dir=db.parent / "audio", synth=_offline)
     client = TestClient(create_app(svc))
     w = Writer(client, out)
     d = MAIN_DATE
@@ -148,18 +154,20 @@ def _build(out: Path, db: Path) -> list[dict]:
                                   "pa": "10 ਸਤੰਬਰ ਨੂੰ ਛਿੜਕਾਅ ਨਾ ਕਰੋ। ਸੁੱਕੇ ਅਤੇ ਸ਼ਾਂਤ ਦਿਨ ਦੀ ਉਡੀਕ ਕਰੋ।"}}},
            s.Advisory, "advisory_review_request.json", s.ReviewRequest, "action: approve | edit | reject")
 
-    farmers = [w.get(f"farmer_F{i:03d}.json", f"/farmers/F{i:03d}", s.Farmer, "demo farmer")
-               for i in range(1, 7)]
-    f1 = farmers[0]
+    farmers = [w.get(f"farmer_{f.id}.json", f"/farmers/{f.id}", s.Farmer, f"demo profile, not a real "
+                     f"person: {f.why}") for f in DEMO_FARMERS]
+    # F001 and F002 share block MB03: approve every draft in both Panchayats, then show each farmer's view.
     for a in items:
-        if a["panchayat_id"] == f1["panchayat_id"]:
+        if a["panchayat_id"] in {farmers[0]["panchayat_id"], farmers[1]["panchayat_id"]}:
             r = client.post(f"{PREFIX}/advisories/{a['id']}/review",
                             json={"action": "approve", "reviewer": "Officer Demo", "note": ""})
             assert r.status_code == 200, r.text
-    w.get("farmer_advice_F001.json", f"/farmers/F001/advice?issue_date={d}", s.FarmerAdvice,
-          "after the officer approved this Panchayat's advisories")
+    for f in farmers[:2]:
+        w.get(f"farmer_advice_{f['farmer_id']}.json", f"/farmers/{f['farmer_id']}/advice?issue_date={d}",
+              s.FarmerAdvice, f"after the officer approved every draft in {f['panchayat_id']}; only this "
+              "farmer's crops (and livestock if kept), most urgent first, with whole-day spray ratings")
     w.post("feedback_response.json", "/feedback",
-           {"panchayat_id": "MP0103", "date": "2024-09-10", "reported_rain": True, "intensity": "moderate",
+           {"panchayat_id": "MP0307", "date": "2024-09-08", "reported_rain": True, "intensity": "moderate",
             "channel": "app"},
            s.FeedbackResponse, "feedback_request.json", s.FeedbackRequest,
            "intensity: none | light | moderate | heavy")
@@ -187,7 +195,8 @@ def _build(out: Path, db: Path) -> list[dict]:
     w.get("error_validation.json", f"/forecast/map?issue_date={d}&lead_day=9&var=rain", s.ErrorResponse,
           "invalid parameter", status=422)
     w.get("error_audio_not_available.json", f"/audio/{spray['id']}?lang=hi", s.ErrorResponse,
-          "no audio yet: the UI falls back to browser speech", status=404)
+          "audio could not be made (here: generated offline); the UI falls back to browser speech",
+          status=404)
 
     w.get("explain_MP0305_rain.json", f"/explain/MP0305?issue_date={d}&lead_day=1&var=rain", s.Explain,
           "rain reasons in the wettest block")
