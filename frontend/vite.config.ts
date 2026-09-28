@@ -7,8 +7,15 @@ import { VitePWA } from "vite-plugin-pwa";
 // VITE_API_BASE ("/api/v1") needs no CORS. See .env.example. API_PROXY_TARGET points the
 // proxy elsewhere (the Playwright flow runs its own API on another port).
 const apiTarget = process.env.API_PROXY_TARGET || "http://localhost:8000";
+// BASE_PATH serves the app from a sub-path, for example "/GramDrishti/" on GitHub Pages
+// (S18, docs/deploy.md). It must start and end with "/". Everything else uses "/".
+const base = process.env.BASE_PATH || "/";
+if (!base.startsWith("/") || !base.endsWith("/")) {
+  throw new Error(`BASE_PATH must start and end with "/", got "${base}"`);
+}
 
 export default defineConfig({
+  base,
   plugins: [
     react(),
     // PWA (Frontend Guide 10.2): manifest plus the service worker in src/sw.ts. The worker
@@ -24,17 +31,17 @@ export default defineConfig({
         short_name: "GramDrishti",
         description: "Village weather forecast and crop advice. Prototype on synthetic data.",
         lang: "en",
-        start_url: "/farmer",
-        scope: "/",
+        start_url: `${base}farmer`,
+        scope: base,
         display: "standalone",
         orientation: "portrait",
         theme_color: "#24594A",
         background_color: "#ffffff",
         icons: [
-          { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-          { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+          { src: `${base}icons/icon-192.png`, sizes: "192x192", type: "image/png" },
+          { src: `${base}icons/icon-512.png`, sizes: "512x512", type: "image/png" },
           {
-            src: "/icons/icon-maskable-512.png",
+            src: `${base}icons/icon-maskable-512.png`,
             sizes: "512x512",
             type: "image/png",
             purpose: "maskable",

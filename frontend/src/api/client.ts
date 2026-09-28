@@ -46,8 +46,9 @@ interface MockIndex {
   files: IndexEntry[];
 }
 
-const MOCK_ROOT = "/mock";
-const SNAPSHOT_ROOT = "/snapshot";
+// BASE_URL is "/" unless the app is built for a sub-path (BASE_PATH, GitHub Pages).
+const MOCK_ROOT = `${import.meta.env.BASE_URL}mock`;
+const SNAPSHOT_ROOT = `${import.meta.env.BASE_URL}snapshot`;
 const API_PREFIX = "/api/v1";
 
 let requestRole = "officer";

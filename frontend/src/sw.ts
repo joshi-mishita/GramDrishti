@@ -24,7 +24,13 @@ declare let self: ServiceWorkerGlobalScope;
 
 const FROM_CACHE = "X-GD-From-Cache";
 const FETCHED_AT = "X-GD-Fetched-At";
-const DATA_PATHS = /^\/(api\/v1\/(?!audio\/)|mock\/|snapshot\/)/;
+// The worker's scope path: "/" at the root, "/GramDrishti/" on GitHub Pages (BASE_PATH).
+const BASE = new URL(self.registration.scope).pathname;
+const under = (path: string, prefix: string) => path.startsWith(`${BASE}${prefix}`);
+const isDataPath = (path: string) =>
+  (under(path, "api/v1/") && !under(path, "api/v1/audio/")) ||
+  under(path, "mock/") ||
+  under(path, "snapshot/");
 
 // registerType "autoUpdate": a new version takes over at once.
 void self.skipWaiting();
@@ -35,8 +41,9 @@ cleanupOutdatedCaches();
 
 // Reloading any route offline serves the precached index.html.
 registerRoute(
-  new NavigationRoute(createHandlerBoundToURL("/index.html"), {
-    denylist: [/^\/api\//, /^\/mock\//, /^\/snapshot\//],
+  new NavigationRoute(createHandlerBoundToURL(`${BASE}index.html`), {
+    // BASE is a plain path such as "/GramDrishti/", so it needs no regex escaping.
+    denylist: [new RegExp(`^${BASE}(api|mock|snapshot)/`)],
   }),
 );
 
@@ -59,9 +66,7 @@ const stampPlugin: WorkboxPlugin = {
 
 registerRoute(
   ({ url, request }) =>
-    request.method === "GET" &&
-    url.origin === self.location.origin &&
-    DATA_PATHS.test(url.pathname),
+    request.method === "GET" && url.origin === self.location.origin && isDataPath(url.pathname),
   new NetworkFirst({
     cacheName: "gd-data",
     // A phone on a weak signal gets the last copy after 5 s instead of a long wait.
