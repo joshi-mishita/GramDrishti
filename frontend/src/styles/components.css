@@ -110,7 +110,12 @@ select:disabled {
 .seg-list .seg-opt + .seg-opt {
   border-top: 1px solid var(--line);
 }
+/* Label left, hint (the unit) right on the same line, so each row stays 36 px */
 .seg-list .seg-face {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-2);
   min-height: var(--row-h);
   padding: var(--gap-1) var(--gap-3) var(--gap-1) calc(var(--gap-3) + 18px);
   position: relative;
@@ -143,14 +148,15 @@ select:disabled {
   outline-offset: -2px;
 }
 
-/* "wrap": pills that wrap and stretch to fill each row; labels never break inside a pill,
-   because Hindi and Punjabi day names are longer than English ones. */
+/* "wrap": pills at their natural width that wrap to the next row; labels never break inside
+   a pill, because Hindi and Punjabi labels are longer than English ones. Stretching them made
+   uneven rows (three wide pills over two) and 400 px buttons on wide screens. */
 .seg-wrap .seg-options {
   flex-wrap: wrap;
   gap: var(--gap-1);
 }
 .seg-wrap .seg-opt {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
 }
 .seg-wrap .seg-face {
   white-space: nowrap;
@@ -170,6 +176,55 @@ select:disabled {
   background: var(--brand);
   border-color: var(--brand);
   color: var(--brand-ink);
+}
+
+/* "days": the five lead days as one row of equal cells, weekday over the day number */
+.seg-days .seg-options {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.seg-days .seg-opt + .seg-opt {
+  border-left: 1px solid var(--line);
+}
+.seg-days .seg-face {
+  align-items: center;
+  min-height: 44px;
+  padding: var(--gap-1) 0;
+  line-height: 1.2;
+}
+.seg-days .seg-face > span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.seg-days .day-wd {
+  font-size: var(--fs-1);
+  color: var(--muted);
+}
+.seg-days .day-num {
+  font-size: var(--fs-3);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.seg-days .seg-face:hover {
+  background: var(--surface-hover);
+}
+.seg-days input:checked + .seg-face {
+  background: var(--brand);
+  color: var(--brand-ink);
+}
+.seg-days input:checked + .seg-face .day-wd {
+  color: var(--brand-ink);
+}
+.seg-days input:focus-visible + .seg-face {
+  outline-offset: -4px;
+}
+/* The focus ring must stay visible on the green selected cell */
+.seg-days input:checked:focus-visible + .seg-face {
+  outline-color: var(--brand-ink);
 }
 
 /* ---- Panels ---- */
@@ -322,6 +377,7 @@ a.btn {
 
 /* ---- DataTable (Guide 8): sortable, sticky header, 36 px rows ---- */
 .table-wrap {
+  position: relative;
   overflow: auto;
   max-height: 70vh;
   border: 1px solid var(--line);
@@ -451,4 +507,18 @@ a.btn {
 .confidence:hover .tooltip-bubble,
 .confidence:focus .tooltip-bubble {
   visibility: visible;
+}
+
+/* Panchayat names stay on one line; a narrow screen scrolls the table instead of stacking
+   "Synthetic / Panchayat / MP0301" over three lines */
+.data-table th[scope="row"] > a,
+.data-table th[scope="row"] > button {
+  white-space: nowrap;
+}
+
+/* Phones: the page scrolls, not a box inside it */
+@media (max-width: 767px) {
+  .table-wrap {
+    max-height: none;
+  }
 }

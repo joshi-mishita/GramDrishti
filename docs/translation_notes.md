@@ -76,3 +76,13 @@ Please check first:
 | Village weather and crop bulletin | गाँव का मौसम और फ़सल बुलेटिन | ਪਿੰਡ ਦਾ ਮੌਸਮ ਅਤੇ ਫ਼ਸਲ ਬੁਲੇਟਿਨ | Title of the printed sheet. |
 
 Layout was checked in all three languages at 360 px (Playwright: no sideways scroll, no clipped button text, touch targets 44 px or more, `lang` set on the page and on API text). Screens: `docs/screens/farmer-{today,forecast,farm}-{en,hi,pa}-phone.png`, `bulletin-{en,hi,pa}-phone.png`, `bulletin-hi-print.png`, `bulletin-MP0307-hi.pdf` (run `cd frontend && npm run e2e:farmer`).
+
+## Map title (S15)
+
+The map title now names the view instead of a bare "Panchayat". Drafted by Claude Code, **needs native review**:
+
+| English | Hindi draft | Punjabi draft | Why we are unsure |
+|---|---|---|---|
+| Rain on Tue 10 Sep 2024, Panchayat forecast | मंगल 10 सितंबर 2024 को वर्षा, पंचायत पूर्वानुमान | ਮੰਗਲ 10 ਸਤੰਬਰ 2024 ਨੂੰ ਮੀਂਹ, ਪੰਚਾਇਤ ਭਵਿੱਖਬਾਣੀ | Word order with the date first; "को"/"ਨੂੰ" after a date. |
+| block forecast | ब्लॉक पूर्वानुमान | ਬਲਾਕ ਭਵਿੱਖਬਾਣੀ | Same words as elsewhere in the UI. |
+| Panchayat minus block | पंचायत और ब्लॉक का अंतर | ਪੰਚਾਇਤ ਅਤੇ ਬਲਾਕ ਦਾ ਫ਼ਰਕ | "Difference between Panchayat and block"; a literal "minus" read oddly. |

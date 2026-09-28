@@ -98,3 +98,77 @@ jobs:
         run: npm test
       - name: Build
         run: npm run build
+
+  # Contract drift (Backend Guide B1, S14): the committed openapi.json must equal what the app
+  # exports, the frontend types must equal what openapi-typescript generates from it, and every
+  # example in contract/examples must validate against its Pydantic model.
+  contract:
+    name: Contract (openapi, types, examples)
+    needs: detect
+    if: needs.detect.outputs.backend == 'true' && needs.detect.outputs.frontend == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: backend/pyproject.toml
+      - name: Install backend
+        working-directory: backend
+        run: pip install -e ".[dev]"
+      - name: openapi.json matches the app
+        working-directory: backend
+        run: |
+          python -m gramdrishti.export_openapi
+          git diff --exit-code -- ../contract/openapi.json || {
+            echo "::error file=contract/openapi.json::Out of date. Run: cd backend && python -m gramdrishti.export_openapi"; exit 1; }
+      - name: Every example validates against its model
+        working-directory: backend
+        run: pytest -q tests/test_contract.py -k "example_validates or index_lists or every_path or lon_lat or openapi"
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: frontend/.nvmrc
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Frontend types match openapi.json
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run gen:types
+          git diff --exit-code -- src/api/schema.d.ts || {
+            echo "::error file=frontend/src/api/schema.d.ts::Out of date. Run: cd frontend && npm run gen:types"; exit 1; }
+
+  # The whole product from this checkout with Docker, then the demo script in Playwright
+  # (scripts/e2e_docker.sh). The runner has no trained model, so the stack trains its own
+  # version, which has no verification record: the verification steps check the "not computed"
+  # state instead of numbers (docs/DECISIONS.md D122).
+  docker:
+    name: Docker stack and demo e2e
+    needs: detect
+    if: needs.detect.outputs.backend == 'true' && needs.detect.outputs.frontend == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: frontend/.nvmrc
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend and Playwright
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Build, prepare, start, e2e, API-down check
+        run: ./scripts/e2e_docker.sh
+      - name: Screens and Playwright results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-docker
+          path: |
+            docs/screens/s14-*.png
+            frontend/test-results/e2e-docker/
+          if-no-files-found: ignore

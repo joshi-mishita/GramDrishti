@@ -61,6 +61,12 @@ data/synthetic_oracle/
 data/*.zip
 data/real/
 
-# --- Screenshots (only the README is committed) ---
+# --- Screenshots (only the README and the curated S15 before/after pairs are committed) ---
 docs/screens/*
 !docs/screens/README.md
+!docs/screens/before/
+!docs/screens/after/
+docs/screens/before/*
+docs/screens/after/*
+!docs/screens/before/readme-*.png
+!docs/screens/after/readme-*.png

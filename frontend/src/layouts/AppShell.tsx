@@ -38,7 +38,7 @@ export function AppShell() {
 
   return (
     <ToastProvider>
-      <div className={`shell shell-${role}`}>
+      <div className={isFarmer ? `shell shell-${role} shell-phone` : `shell shell-${role}`}>
         <a className="skip-link" href="#main">
           {t("shell.skip")}
         </a>

@@ -1,0 +1,76 @@
+# GramDrishti web server (S14). ${API_UPSTREAM} is filled in at container start.
+server {
+    listen 8080;
+    server_name _;
+    root /usr/share/nginx/html;
+    server_tokens off;
+
+    # Bodies are small JSON documents (the API limits them to 64 KiB as well).
+    client_max_body_size 64k;
+
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-Frame-Options DENY always;
+    add_header Referrer-Policy same-origin always;
+
+    gzip on;
+    gzip_types application/json application/geo+json application/javascript text/css image/svg+xml;
+    gzip_min_length 1024;
+
+    # Resolve the API at request time (Docker's DNS), so this server starts and serves the app, the
+    # mock files and the offline snapshot even when the API container is down.
+    resolver 127.0.0.11 valid=10s ipv6=off;
+    set $api ${API_UPSTREAM};
+
+    location = /healthz {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    location /api/ {
+        proxy_pass $api;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_connect_timeout 3s;
+        proxy_read_timeout 60s;
+        # Only nginx's own 502/504 (API unreachable) go to @api_down; the API's errors pass through.
+        error_page 502 504 = @api_down;
+    }
+
+    # The API is unreachable: answer in the contract's error shape so every screen shows its error state.
+    location @api_down {
+        default_type application/json;
+        add_header Cache-Control no-store always;
+        return 503 '{"error":{"code":"not_available","message":"The API is not reachable. Snapshot mode keeps the demo running without it."}}';
+    }
+
+    # Snapshot mode files (offline variant only; the volume is not mounted in the live variant).
+    location /snapshot/ {
+        alias /srv/offline/snapshot/;
+    }
+
+    # Hashed build files never change; everything else is revalidated.
+    location /assets/ {
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+        add_header X-Content-Type-Options nosniff always;
+        try_files $uri =404;
+    }
+
+    location = /index.html {
+        add_header Cache-Control no-cache always;
+        add_header X-Content-Type-Options nosniff always;
+        add_header X-Frame-Options DENY always;
+        add_header Referrer-Policy same-origin always;
+    }
+
+    # Single-page app: unknown paths get index.html and the app's own "page not found" screen.
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    error_page 500 502 503 504 /errors/50x.html;
+    location ^~ /errors/ {
+        root /usr/share/nginx;
+        internal;
+    }
+}

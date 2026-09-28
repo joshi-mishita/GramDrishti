@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { ForecastDay, ObservedDay, Quantiles } from "../api/types";
-import { fanDomain, hasAnyValue, hasObserved, shapeFanRows } from "./fan";
+import { fanDomain, fanScale, hasAnyValue, hasObserved, shapeFanRows } from "./fan";
 
 const q = (p10: number | null, p50: number | null, p90: number | null, block: number | null) =>
   ({ p10, p50, p90, block }) satisfies Quantiles;
@@ -110,6 +110,20 @@ describe("fanDomain", () => {
       p90: 99,
     }));
     expect(fanDomain(humid, "rh")?.[1]).toBe(100);
+  });
+
+  it("gives a dry week round rain ticks, not 0, 0.2, 0.3, 0.5", () => {
+    const rows = shapeFanRows([day("2024-09-10", 1, q(0, 0, 0, 0))], "rain");
+    expect(fanScale(rows, "rain")).toEqual({ domain: [0, 4], ticks: [0, 1, 2, 3, 4] });
+  });
+
+  it("returns ticks on the same steps as the ends", () => {
+    const rows = shapeFanRows([day("2024-09-10", 1, q(0, 103.8, 154.3, 105.8))], "rain");
+    expect(fanScale(rows, "rain")?.ticks).toEqual([0, 50, 100, 150, 200]);
+    const warm = shapeFanRows([day("2024-09-10", 1, q(0, 0, 0, 0), q(29.2, 31, 35.1, 31))], "tmax");
+    const s = fanScale(warm, "tmax");
+    expect(s?.ticks[0]).toBe(s?.domain[0]);
+    expect(s?.ticks.at(-1)).toBe(s?.domain[1]);
   });
 
   it("is null when there is nothing to draw", () => {

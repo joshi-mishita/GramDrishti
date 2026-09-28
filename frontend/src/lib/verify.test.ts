@@ -6,9 +6,11 @@ import {
   formatPercent,
   formatSkill,
   parseStratum,
+  readableNote,
   readSkill,
   rowDigits,
   segments,
+  splitLossNote,
   splitNotes,
 } from "./verify";
 
@@ -147,5 +149,52 @@ describe("splitNotes", () => {
     const { losses, other } = splitNotes(notes);
     expect(losses).toHaveLength(4);
     expect(other).toEqual([notes[0], notes[5]]);
+  });
+});
+
+describe("readableNote", () => {
+  it("names job terms in plain words and keeps every number", () => {
+    const raw =
+      "Does NOT beat B0 on rh MAE (temporal_holdout): lead_day 1: tie (+5.1%, 95% CI -1.1% to +19.5%); rain_intensity heavy_ge_35mm: too_few_days (-0.7%, no interval).";
+    expect(readableNote(raw)).toBe(
+      "Does not beat B0 on humidity mean absolute error (held-out period): lead day 1: tie (+5.1%, 95% interval -1.1% to +19.5%); heavy rain days (35 mm or more): too few days (-0.7%, no interval).",
+    );
+  });
+
+  it("reads thresholds, seasons and impact outcome names", () => {
+    expect(readableNote("rain_ge_2_5mm: model yes/no CSI 0.5 is below B0 (0.6).")).toBe(
+      "Rain 2.5 mm or more: model yes/no CSI 0.5 is below B0 (0.6).",
+    );
+    expect(readableNote("x (station): season post_monsoon: tie")).toBe(
+      "X (station): post-monsoon season: tie",
+    );
+    expect(readableNote("wasted_wait = acted; block_baseline uses B0")).toBe(
+      "Wasted wait = acted; block baseline uses B0",
+    );
+  });
+});
+
+describe("splitLossNote", () => {
+  it("puts each stratum on its own line", () => {
+    expect(
+      splitLossNote(
+        "Does not beat B1 on rain (held-out period): overall: tie (-3.8%); lead day 1: tie (-3.3%).",
+      ),
+    ).toEqual({
+      head: "Does not beat B1 on rain (held-out period)",
+      items: ["overall: tie (-3.8%)", "lead day 1: tie (-3.3%)"],
+    });
+  });
+
+  it("lists a single stratum too", () => {
+    expect(splitLossNote("Does not beat B1 on rain (station): overall: tie (-5.0%).")).toEqual({
+      head: "Does not beat B1 on rain (station)",
+      items: ["overall: tie (-5.0%)"],
+    });
+  });
+
+  it("keeps a single-number note whole", () => {
+    const n = "Worse than or equal to B1 on rain root mean square error (station): skill -15.5%.";
+    expect(splitLossNote(n)).toEqual({ head: n, items: [] });
   });
 });

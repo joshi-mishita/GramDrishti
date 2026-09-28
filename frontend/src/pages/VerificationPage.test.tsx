@@ -127,8 +127,15 @@ describe("verification screen", () => {
     const list = heading.parentElement?.querySelector("ul") as HTMLElement;
     const items = within(list).getAllByRole("listitem");
     expect(items.length).toBeGreaterThan(5);
-    expect(list).toHaveTextContent("Does NOT beat B1 on rain MAE (temporal_holdout)");
-    expect(list).toHaveTextContent("rain_ge_35mm: model yes/no CSI 0.141 is below B0 (0.349).");
+    // The job's terms in plain words; the losses and their numbers are all still there.
+    expect(list).toHaveTextContent(
+      "Does not beat B1 on rain mean absolute error (held-out period)",
+    );
+    expect(list).toHaveTextContent("overall: tie (-3.8%, 95% interval -8.1% to +0.8%)");
+    expect(list).toHaveTextContent(
+      "Rain 35 mm or more: model yes/no CSI 0.141 is below B0 (0.349).",
+    );
+    expect(list).not.toHaveTextContent("temporal_holdout");
   });
 
   it("draws the reliability table for the chosen event", async () => {

@@ -14,6 +14,10 @@ export function useUrlSync(): void {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // React Router commits location changes in a transition, so a render can carry a search
+    // that the address bar has already moved past. Copying that stale search into the store
+    // would undo a control the user changed a moment ago (two quick arrow-key presses).
+    if (location.search !== window.location.search) return;
     const fromUrl = readUrlState(location.search);
     const s = useAppStore.getState();
     if (fromUrl.issueDate && fromUrl.issueDate !== s.issueDate) s.setIssueDate(fromUrl.issueDate);
@@ -37,9 +41,11 @@ export function useUrlSync(): void {
   useEffect(() => {
     // Read the live store, not this render's values: on first mount the effect above has
     // just copied the URL into the store, and the render values are still the defaults.
+    // Compare with the address bar (BrowserRouter), not the router's location, which can lag.
     const s = useAppStore.getState();
-    const next = writeUrlState(location.search, s);
-    if (next !== location.search) {
+    const current = window.location.search;
+    const next = writeUrlState(current, s);
+    if (next !== current) {
       navigate({ pathname: location.pathname, search: next }, { replace: true });
     }
     // location is read, not watched: this effect reacts to store changes only.

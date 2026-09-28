@@ -40,6 +40,7 @@ Shared: Docker Compose, GitHub Actions.
 - Verification on TEST (once per model version, see `docs/validation_protocol.md`; needs trained artifacts; writes `backend/artifacts/verification.json`, `impact.json` and records the opening in `docs/test_window_ledger.json`): `cd backend && python -m gramdrishti.verify.run_validation` (`--window CALIB` is a dry run that never opens TEST, `--no-lobo` skips leave-one-block-out)
 - Decision replay only, from the saved predictions: `cd backend && python -m gramdrishti.verify.impact`
 - Validation report (writes `docs/validation_report.md` from the two files; a test checks it is current): `cd backend && python -m gramdrishti.verify.report`
+- Docs check (links and anchors in README and docs/, Mermaid blocks, model card tables and numeric claims against the committed verification record; `tests/test_docs_check.py` runs it): `cd backend && python -m gramdrishti.verify.docs_check` (`--mermaid-html PATH` writes a page that renders every diagram)
 - Run API: `cd backend && uvicorn gramdrishti.api.main:app --reload --port 8000`
 - Export contract: `cd backend && python -m gramdrishti.export_openapi`
 - Contract examples (calls the app, validates, writes `contract/examples/`; needs the snapshots above): `cd backend && python -m gramdrishti.contract.make_examples`
@@ -58,6 +59,14 @@ Shared: Docker Compose, GitHub Actions.
 - PWA icons (committed; rerun only if the mark changes): `python frontend/scripts/make-icons.py`
 - Screenshots for visual review: `cd frontend && npm run shots` (add `SHOTS_BROWSER_CHANNEL=chrome` if Playwright's Chromium cannot be downloaded)
 - Detail panel screenshots from the real API (API running on port 8000 with snapshots): `cd frontend && SHOTS_REAL=1 npm run shots`
+- Before/after screenshot sets (every screen in en/hi/pa at 1366, 1920 and 360 px into `docs/screens/<set>/`): `cd frontend && SHOTS_SET=after npm run shots`
+- Accessibility (axe on every screen in three languages at 1366 and 360 px, plus the keyboard-only walkthrough; findings in `test-results/a11y/axe-summary.jsonl`): `cd frontend && npm run a11y`
+- Lighthouse on the farmer route (build first, then `npx vite preview --port 4178`): `cd frontend && npx lighthouse@12 "http://localhost:4178/farmer?date=2024-09-09" --form-factor=mobile --throttling-method=simulate --chrome-flags="--headless=new"`
+- Whole product in Docker (build, prepare, start; uses `backend/artifacts/` when it has a model, else trains): `make up` (= `./scripts/demo.sh`); `make down`, `make logs`, `make ps`; `make clean` deletes the volumes (model, snapshots, reviews). Steps and timings: `docs/docker.md`
+- Prepare everything the API needs, skipping what exists: `cd backend && python -m gramdrishti.pipeline.prepare_demo` (`--seed-model-from DIR`, `--offline-out DIR`, `--refresh-offline`)
+- Refresh the offline copy (port 8081) after approving advisories: `make offline`
+- Demo e2e on an isolated Docker stack (ports 180xx, removed afterwards; add `SHOTS_BROWSER_CHANNEL=chrome` on this Mac): `make e2e` (= `./scripts/e2e_docker.sh`)
+- README quick start in a temp clone (ports 280xx): `make fresh-check` (= `./scripts/fresh_clone_check.sh`)
 - End-to-end review flow and S9 screens on a real API with a throwaway database (starts its own API on port 8010; needs the backend venv, artifacts and snapshots): `cd frontend && npm run e2e` (add `SHOTS_BROWSER_CHANNEL=chrome` if needed)
 
 ## Non-negotiable rules

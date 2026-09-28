@@ -5,6 +5,7 @@ import type { Lang, RegionItem, Var } from "../../api/types";
 import { VARS } from "../../api/types";
 import { SegmentedControl } from "../../components/SegmentedControl";
 import { METRIC_DIGITS, bestIndexes, formatCount, formatFixed, rowDigits } from "../../lib/verify";
+import { TableScroll } from "../../components/TableScroll";
 
 const SCORE_KEYS = ["model", "b0", "b1", "b2"] as const;
 
@@ -45,7 +46,10 @@ export function RegionsTable({ items, lang }: { items: readonly RegionItem[]; la
         options={present.map((v) => ({ value: v, label: t(`varsShort.${v}`) }))}
         onChange={setVariable}
       />
-      <div className="table-wrap verify-table-wrap">
+      <TableScroll
+        label={t("verification.regionsCaption", { variable: varName })}
+        className="verify-table-wrap"
+      >
         <table className="data-table verify-table">
           <caption className="visually-hidden">
             {t("verification.regionsCaption", { variable: varName })}
@@ -104,7 +108,7 @@ export function RegionsTable({ items, lang }: { items: readonly RegionItem[]; la
             })}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </div>
   );
 }

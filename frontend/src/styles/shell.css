@@ -19,6 +19,16 @@
   border-bottom: 1px solid var(--brand-strong);
 }
 
+/* index.html's static bar before the app starts; same height and colour as the top bars */
+.boot-bar {
+  display: flex;
+  align-items: center;
+  min-height: var(--topbar-h);
+  padding: var(--gap-2) var(--gap-4);
+  background: var(--brand);
+  border-bottom: 1px solid var(--brand-strong);
+}
+
 .topbar-id {
   display: flex;
   align-items: baseline;
@@ -74,6 +84,15 @@
   border-bottom: 1px solid var(--ribbon-line);
   font-size: var(--fs-2);
   font-weight: 500;
+}
+
+/* Farmer screens keep the ribbon inside the phone-width column, under its own top bar */
+.shell-phone > .ribbon {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
 }
 
 /* ---- Officer layout ---- */

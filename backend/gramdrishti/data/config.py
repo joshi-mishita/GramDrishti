@@ -90,6 +90,31 @@ def data_dir() -> Path:
     return Path(override) if override else DEFAULT_DATA
 
 
+# API hardening (S14). Browser origins allowed to call the API directly; the Docker web service and the Vite
+# dev server proxy /api, so their requests are same-origin and need no entry here.
+DEFAULT_CORS_ORIGINS = "http://localhost:5173"
+DEFAULT_MAX_BODY_BYTES = 64 * 1024   # the largest real body (an edited advisory in three languages) is ~5 kB
+
+
+def cors_origins() -> list[str]:
+    """Allowed CORS origins from ``GRAMDRISHTI_CORS_ORIGINS`` (comma-separated; ``*`` is refused)."""
+    raw = os.getenv("GRAMDRISHTI_CORS_ORIGINS", DEFAULT_CORS_ORIGINS)
+    origins = [o.strip().rstrip("/") for o in raw.split(",") if o.strip()]
+    if "*" in origins:
+        raise ValueError("GRAMDRISHTI_CORS_ORIGINS must list origins; '*' is not allowed")
+    return origins
+
+
+def max_body_bytes() -> int:
+    """Largest request body the API accepts, from ``GRAMDRISHTI_MAX_BODY_BYTES``."""
+    return int(os.getenv("GRAMDRISHTI_MAX_BODY_BYTES", DEFAULT_MAX_BODY_BYTES))
+
+
+def log_json() -> bool:
+    """True when ``GRAMDRISHTI_LOG_FORMAT=json`` (the Docker image sets it)."""
+    return os.getenv("GRAMDRISHTI_LOG_FORMAT", "text").strip().lower() == "json"
+
+
 def window_bounds(name: str) -> tuple[pd.Timestamp, pd.Timestamp]:
     """Return inclusive (start, end) timestamps of a named window."""
     start, end = WINDOWS[name]

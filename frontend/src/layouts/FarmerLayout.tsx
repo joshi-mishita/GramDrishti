@@ -8,12 +8,14 @@ import { DemoControls } from "../features/farmer/DemoControls";
 import { flushOutbox } from "../features/farmer/outbox";
 import { useOnline } from "../lib/network";
 import { useAppStore } from "../state/store";
+import { useFocusMainOnNavigate } from "./useFocusMainOnNavigate";
 
 /** Phone-width column with bottom navigation, also on a desktop screen. */
 export function FarmerLayout() {
   const setRole = useAppStore((s) => s.setRole);
   const online = useOnline();
   useEffect(() => setRole("farmer"), [setRole]);
+  useFocusMainOnNavigate();
 
   // Feedback given offline is sent once the phone is back online.
   useEffect(() => {

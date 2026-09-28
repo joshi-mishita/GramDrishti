@@ -12,7 +12,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 log = logging.getLogger("gramdrishti.api")
 
 HTTP_CODES = {400: "bad_request", 404: "not_found", 405: "method_not_allowed", 409: "conflict",
-              422: "validation_error", 500: "internal_error", 503: "not_available"}
+              413: "payload_too_large", 422: "validation_error", 500: "internal_error", 503: "not_available"}
 
 
 class ApiError(Exception):

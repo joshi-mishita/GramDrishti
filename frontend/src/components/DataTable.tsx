@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import { sortRows, type SortDir, type SortValue } from "../lib/sort";
+import { TableScroll } from "./TableScroll";
 
 export interface Column<R> {
   key: string;
@@ -14,7 +15,7 @@ export interface Column<R> {
 }
 
 interface Props<R> {
-  caption: ReactNode;
+  caption: string;
   columns: Column<R>[];
   rows: readonly R[];
   rowKey: (row: R) => string;
@@ -51,7 +52,7 @@ export function DataTable<R>({
   const shown = col?.sortValue && sort ? sortRows(rows, col.sortValue, sort.dir) : rows;
 
   return (
-    <div className="table-wrap">
+    <TableScroll label={caption}>
       <table className={className ? `data-table ${className}` : "data-table"}>
         <caption className="visually-hidden">{caption}</caption>
         <thead>
@@ -124,6 +125,6 @@ export function DataTable<R>({
           })}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }

@@ -13,7 +13,11 @@
     <title>GramDrishti</title>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Static first paint: the brand bar shows as soon as the stylesheet arrives, before the
+         script runs (about 2 s on a slow phone connection). React replaces it on first render. -->
+    <div id="root">
+      <div class="boot-bar"><span class="wordmark">GramDrishti</span></div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

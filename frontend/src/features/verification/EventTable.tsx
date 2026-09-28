@@ -11,6 +11,7 @@ import {
   rowDigits,
 } from "../../lib/verify";
 import { useAppStore } from "../../state/store";
+import { TableScroll } from "../../components/TableScroll";
 
 const EVENT_METRICS = ["pod", "far", "csi", "frequency_bias", "brier"] as const;
 type EventMetric = (typeof EVENT_METRICS)[number];
@@ -30,7 +31,7 @@ export function EventTable({ events }: { events: readonly EventSummary[] }) {
   const cols = 2 + baselines.length;
 
   return (
-    <div className="table-wrap verify-table-wrap">
+    <TableScroll label={t("verification.eventsCaption")} className="verify-table-wrap">
       <table className="data-table verify-table">
         <caption className="visually-hidden">{t("verification.eventsCaption")}</caption>
         <thead>
@@ -86,7 +87,7 @@ export function EventTable({ events }: { events: readonly EventSummary[] }) {
           </tbody>
         ))}
       </table>
-    </div>
+    </TableScroll>
   );
 }
 

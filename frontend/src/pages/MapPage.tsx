@@ -146,13 +146,13 @@ function MapArea() {
               ? t("map.heading", {
                   variable: varLabel,
                   date: validDate,
-                  view: t(`viewModes.${viewMode}`),
+                  view: t(`map.headingView.${viewMode}`),
                 })
               : varLabel}
         </h2>
         <button
           type="button"
-          className="btn"
+          className="btn map-table-toggle"
           aria-pressed={showTable}
           onClick={() => setShowTable((v) => !v)}
           disabled={!geo.data || !data}
