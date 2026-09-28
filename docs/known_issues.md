@@ -28,7 +28,7 @@ Sweep totals: 0 console errors or warnings on 90 page loads; 0 broken internal l
 
 | Id | Issue | Where | Note |
 |---|---|---|---|
-| L1 | With the API down, the live app (8080) shows its error state without the mock ribbon: no response has told it the data mode. | shell | It shows no data then. The offline copy shows the ribbon. From S14. |
+| L1 | ~~With the API down, the live app (8080) shows its error state without the mock ribbon.~~ **Fixed in S18:** the ribbon is hidden only once a response says "real" (D178). | shell | Checked with the API unreachable: ribbon at 0.6 s and on the error state. |
 | L2 | Detail panel: "103.8 mm", block "105.8 mm", "Difference from block -1.9 mm". The difference is computed from unrounded values, so the displayed numbers do not subtract exactly. | detail panel | If asked: rounding. |
 | L3 | English API text on Hindi and Punjabi screens: the truth source inside the verification method sentence ("synthetic Panchayat truth (mock data generator)"), demo date reasons in the issue date menu, impact rules, verification notes, review evidence rows. All are marked `lang="en"`. | API texts | From S11 and S15. Everything else English on those screens is a name (product, synthetic Panchayats and stations, model id). |
 | L4 | The spray-hold fallback says "If the day turns out dry and calm, you can spray in the early morning." | `advisory/templates.yaml` | Conditional agronomic advice, not a forecast claim. The expert should confirm or reword; changing it changes advisory text and the examples. |
@@ -39,7 +39,7 @@ Sweep totals: 0 console errors or warnings on 90 page loads; 0 broken internal l
 | L9 | Farmer route LCP 3.17 s on Lighthouse's slow mobile profile. | farmer | From S15. |
 | L10 | Open design items: "0 mm, likely about 0 mm" headline on dry days; verification page about 7,300 px tall; repeated "Why" text on heavy-rain days in Priority. | several | From S15 `design_review.md`. |
 | L11 | Rain middle values (p50) are one value per block on 9 Sep, so the rain map barely changes between Block and Panchayat views. | model | Demo step 1 says so and switches to Max temperature. From S14. |
-| L12 | Officer map at phone width: the controls fill the first screen and the map comes below them. | map | The demo shows the officer console at desktop width. From S3/S4. |
+| L12 | Officer map at phone width: the controls filled the first screen. **Improved in S18:** view, risk layer and Panchayat picker fold into "More map options" below 768 px; the map starts at 546 px instead of 771 px on a 360x740 screen (D180). | map | Day and variable stay in view; the map is partly on the first screen, not all of it. |
 | L13 | `docs/DECISIONS.md` has 25 ids used twice (D046 to D065, D080 to D086). | docs | Renumbering needs someone to decide which session keeps each id. From S15. |
 | L14 | `click` 8.1.8 CVE-2026-7246 in the API image (gTTS pins `click<8.2`). | backend deps | `click.edit()` is unreachable (D127). |
 | L15 | Node 25 on the build Mac, while `.nvmrc` says 22. Tests and the build pass on 25; Docker and CI use 22. | tooling | Use `nvm use` before `npm` commands on demo day. |
@@ -49,3 +49,10 @@ Sweep totals: 0 console errors or warnings on 90 page loads; 0 broken internal l
 - Firefox, Safari, a real phone, a screen reader, a projector.
 - Turning Wi-Fi off on the laptop, and the phone-voice fallback heard by a person. These are the owner's rehearsals.
 - A person new to the farmer app using it without instructions.
+
+## Found and fixed in S18
+
+| Id | Issue | Where | Fix | Checked |
+|---|---|---|---|---|
+| S18-1 | The printable bulletin in any snapshot build (the Docker offline copy on 8081 and the new public copy) said "No demo file for the approved advice": it asks `/advisories?panchayat_id=…&issue_date=…`, which the export never wrote. | `backend/gramdrishti/export_snapshot.py` | The export writes that request for every exported Panchayat and date (+720 files). | `tests/test_farmers.py`; bulletin of MP0307 on the Pages build shows the approved spray advice |
+| S18-2 | Farmer rain read "Likely, 0 to 156 mm" when the most likely amount was 104 mm; dry days read "about 0 mm". | `frontend/src/features/farmer/forecastText.ts` | "Likely, about 104 mm, could reach 156 mm"; dry days give only the chance word (D179). | `forecastText.test.ts`, screen text |

@@ -65,6 +65,9 @@ Shared: Docker Compose, GitHub Actions.
 - Whole product in Docker (build, prepare, start; uses `backend/artifacts/` when it has a model, else trains): `make up` (= `./scripts/demo.sh`); `make down`, `make logs`, `make ps`; `make clean` deletes the volumes (model, snapshots, reviews). Steps and timings: `docs/docker.md`
 - Prepare everything the API needs, skipping what exists: `cd backend && python -m gramdrishti.pipeline.prepare_demo` (`--seed-model-from DIR`, `--offline-out DIR`, `--refresh-offline`)
 - Refresh the offline copy (port 8081) after approving advisories: `make offline`
+- Approve named demo advisories (used by the public build; reviewer says no officer reviewed them): `cd backend && python -m gramdrishti.pipeline.approve_demo --issue-date 2024-09-09 --panchayat MP0307 MP0311 --crop bajra`
+- Public read-only copy on GitHub Pages (`.github/workflows/pages.yml`, deploys on push to `main`; steps and local rehearsal in `docs/deploy.md`): `cd frontend && BASE_PATH=/GramDrishti/ VITE_SNAPSHOT=1 npm run build`
+- Pack the verified model for the `model-bundle` GitHub Release the Pages build uses (model files stay out of git): `./scripts/pack_model_bundle.sh`
 - Demo e2e on an isolated Docker stack (ports 180xx, removed afterwards; add `SHOTS_BROWSER_CHANNEL=chrome` on this Mac): `make e2e` (= `./scripts/e2e_docker.sh`)
 - Second e2e run on the same machine (own project, ports 190xx, own images): `E2E_PROJECT=gramdrishti-s17e2e E2E_PORT_PREFIX=190 GRAMDRISHTI_IMAGE_TAG=s17 make e2e`. Rehearsal recording: add `E2E_HEADED=1 E2E_VIDEO=1 E2E_SLOWMO=250` (videos in `frontend/test-results/e2e-docker/{script,offline}/`)
 - Copy the stack's offline export (for a USB backup): `docker compose cp web-offline:/srv/offline/snapshot <dest>`
