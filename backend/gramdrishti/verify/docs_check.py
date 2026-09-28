@@ -66,6 +66,26 @@ GAP = ("block_mean_error", "rain")
 WET = ("coverage", "rain", "observed_rain>=1mm")
 QNA, DEMO = "docs/qna.md", "docs/demo_script.md"
 CARD, OUTLINE = "docs/model_card.md", "docs/presentation_outline.md"
+RELEASE, DAY = "docs/RELEASE_NOTES.md", "docs/demo_day_checklist.md"
+
+
+def _release_cells() -> list[Claim]:
+    """The release notes' skill table: skill and 95 % interval against B0 and B1, per variable."""
+    cells = {  # as written in docs/RELEASE_NOTES.md
+        "rain": ("+13.7 % (+4.0 to +27.9)", "-3.8 % (-8.1 to +0.8)"),
+        "tmax": ("+6.8 % (+5.1 to +8.4)", "+5.1 % (+3.8 to +6.6)"),
+        "tmin": ("+14.6 % (+13.2 to +16.2)", "+3.8 % (+2.1 to +5.5)"),
+        "rh": ("+5.3 % (+4.8 to +5.8)", "+4.2 % (+3.7 to +4.6)"),
+        "wind": ("+36.2 % (+34.9 to +37.4)", "+1.9 % (+1.8 to +2.0)"),
+    }
+    out = []
+    for var, (b0, b1) in cells.items():
+        for cell, skill, ci in ((b0, "skill_vs_b0", "skill_ci95"), (b1, "skill_vs_b1", "skill_vs_b1_ci95")):
+            base = ("metric", "temporal_holdout", var, "MAE")
+            paths = (base + (skill,), base + (ci, 0), base + (ci, 1))
+            for written, path in zip(NUM.findall(cell), paths, strict=True):
+                out.append(Claim(RELEASE, cell, written, path, 100))
+    return out
 CLAIMS: list[Claim] = [
     Claim("README.md", "maximum temperature (+5.1 %)", "+5.1", _b1("tmax"), 100),
     Claim("README.md", "minimum temperature (+3.8 %)", "+3.8", _b1("tmin"), 100),
@@ -95,6 +115,10 @@ CLAIMS: list[Claim] = [
     Claim(OUTLINE, "(217 against 554)", "554", _imp("spray", "block_baseline", "wasted_wait")),
     Claim(OUTLINE, "(179 against 68)", "179", _imp("spray", "model", "washed_off")),
     Claim(OUTLINE, "51 % for rain on wet days", "51", WET, 100),
+    Claim(RELEASE, "The largest gap is 1.4e-14", "1.4e-14", GAP),
+    Claim(DAY, "(rain MAE 1.070 for the model)", "1.070",
+          ("metric", "temporal_holdout", "rain", "MAE", "model")),
+    *_release_cells(),
 ]
 
 
@@ -123,7 +147,8 @@ def lookup(v: dict, imp: dict, path: tuple) -> float:
     """Read one number from the verification or impact file."""
     kind = path[0]
     if kind == "metric":
-        return _find_metric(v, path[1], path[2], path[3])[path[4]]
+        value = _find_metric(v, path[1], path[2], path[3])[path[4]]
+        return value[path[5]] if len(path) > 5 else value   # path[5]: 0 or 1 of a 95 % interval
     if kind == "block_mean_error":
         return v["summary"]["block_mean_error"][path[1]]
     if kind in ("coverage", "coverage_width"):
