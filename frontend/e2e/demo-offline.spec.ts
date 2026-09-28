@@ -88,8 +88,9 @@ test("offline copy: verification and farmer screens without the API", async ({ p
 test("live app with the API down shows an error state, not a blank page", async ({ page }) => {
   test.setTimeout(90_000);
   await page.goto(`/map?date=${DATE}&var=rain`);
-  // The client retries each request before giving up (about 30 s). No ribbon here: no response
-  // has told the app its data mode.
+  // The client retries each request before giving up. The ribbon stays: with no response the
+  // data mode is unknown, and this build only has synthetic data (S18, known issue L1).
+  await expect(page.locator(".ribbon")).toHaveText("Synthetic demo data. Not real weather.");
   const error = page.getByText("Could not load the Panchayat boundaries", { exact: false });
   await expect(error).toBeVisible({ timeout: 60_000 });
   await expect(page.getByText(/not_available: The API is not reachable/).first()).toBeVisible();

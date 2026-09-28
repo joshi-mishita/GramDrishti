@@ -20,10 +20,11 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S11 | Frontend verification and impact | frontend | merged | session-11-verification-impact-ui (#15) | yes |
 | S12 | Farmer-side backend and snapshot export | backend | merged | session-12-farmer-backend (#16) | yes |
 | S13 | Frontend farmer app, languages, bulletin, offline | frontend | merged | session-13-farmer-app (#19) | yes |
-| S14 | Integration, Docker and end-to-end tests | both | branch pushed, no PR (no `gh`) | session-14-integration | |
-| S15 | Design and accessibility polish | frontend | pushed, no PR (no `gh`); contains S13 | session-15-design-polish | |
-| S16 | Documentation and submission assets | both | pushed, no PR (no `gh`); contains S13, S14, S15 | session-16-docs | |
-| S17 | Final QA and demo freeze | both | pushed, no PR (no `gh`); contains S16 | session-17-final-qa | |
+| S14 | Integration, Docker and end-to-end tests | both | merged (through S16) | session-14-integration (#20) | yes |
+| S15 | Design and accessibility polish | frontend | merged (through S16) | session-15-design-polish (#20) | yes |
+| S16 | Documentation and submission assets | both | merged | session-16-docs (#20) | yes |
+| S17 | Final QA and demo freeze | both | merged | session-17-final-qa (#21) | yes |
+| S18 | Phone layout, farmer rain wording, public GitHub Pages copy | both | pushed, no PR (no `gh`) | session-18-deploy-polish | |
 
 ## Current state
 S0: repo skeleton, README, contribution rules, PR template, CI.
@@ -235,6 +236,13 @@ S17: final QA and demo freeze (branch `session-17-final-qa` in worktree `../Gram
 - Offline: host snapshot bundle 21,968 responses (39.1 MB); `VITE_SNAPSHOT=1` production build served with no API: 10 screens, 0 `/api` requests. Pre-approving MP0311 gives the offline copy a farmer with advice (D172).
 - `docs/RELEASE_NOTES.md` (with the freeze list), `docs/demo_day_checklist.md`, `docs/known_issues.md`; tag `v1.0-demo` prepared locally, not pushed (D174).
 - Tests: 441 backend, 233 frontend; ruff and lint clean; `docs_check` clean.
+
+S18: owner's request after the merge of S17: improve what does not work as intended and publish the app for any device (branch `session-18-deploy-polish` in worktree `../GramDrishti-s18`). The owner chose GitHub Pages (read-only) and three fixes. Built or changed:
+- Public read-only copy: `.github/workflows/pages.yml` builds the snapshot variant under `/GramDrishti/` and deploys it from `main` (D176, `docs/deploy.md`). New `BASE_PATH` build variable (vite `base`, router `basename`, mock and snapshot roots, manifest, service worker scope); the default stays `/`, so Docker and dev are unchanged. `404.html` makes deep links work. Pull requests run the build without deploying.
+- `pipeline/approve_demo.py` approves named advisories with an honest automated reviewer name (D177); the Pages build approves MP0307's and MP0311's bajra advisories on 9 Sep so farmer screens and bulletins have advice. `scripts/pack_model_bundle.sh` packs the verified model for a `model-bundle` release, which the workflow uses so the public verification screens have numbers (D122, D176).
+- Fixes: the ribbon shows while the data mode is unknown, including API down (L1, D178); farmer rain line "Likely, about 104 mm, could reach 156 mm" instead of "0 to 156 mm" (D179); officer map folds view, risk layer and Panchayat picker on phones, map now at 546 px instead of 771 px on 360x740 (L12, D180); the bulletin in every snapshot build (also Docker's 8081) said "No demo file" because the export lacked `/advisories?panchayat_id=…` (S18-1); the review page on the public copy explains it is read-only without developer steps.
+- Checked locally: sub-path build served like GitHub Pages (`404.html` fallback): 13 routes × desktop and phone, 0 console errors, 0 failed requests, 0 API calls, ribbon everywhere, no sideways scroll; service worker active under `/GramDrishti/`; offline reload and offline navigation work; bulletin shows the approved advice. API unreachable: ribbon at 0.6 s and on the error state.
+- Tests: 443 backend (1 new file, 1 new assertion), 239 frontend (5 new rain wording tests, ribbon tests updated to the new rule); ruff, ESLint, Prettier and `tsc` clean.
 
 ## Decisions
 - D001 Licence MIT.
@@ -465,6 +473,12 @@ S17: final QA and demo freeze (branch `session-17-final-qa` in worktree `../Gram
 - S14: only tested on this MacBook (Apple silicon, Colima 4 CPU / 8 GB, Docker 29.5.2, Compose 5.5.1). Not tested with Docker Desktop, on Windows or on an Intel machine.
 - S14: loading and error states were seen live only on the map (API stopped) and the farmer empty state; other screens rely on the `QueryBoundary` unit tests.
 
+- S18: the Pages workflow has not run on GitHub (no `gh` here, and it deploys only from `main`). Every step was run locally except `gh release download` and the two Pages actions. The first run on the pull request shows whether the runner build works; the deploy runs after the merge.
+- S18: the released-bundle path was checked in parts only: the packed file unpacks to a bundle `prepare_demo` accepts (`model_ready`, version `s5-lgbm-9b632a7b1b`), and `requirements.lock` equals the record's library versions. With it, the runner makes the forecasts on Linux with the Mac model, as Docker does (D122).
+- S18: the public copy was not opened on a real phone, in Safari or Firefox; phone checks used Chrome's mobile emulation at 360x740. "Add to Home screen" was not tried.
+- S18: the `demo-offline.spec.ts` ribbon assertion (API down) was not run through `make e2e`; the same case was checked with a production build against an unreachable API.
+- S18: Hindi and Punjabi drafts for the new rain lines, "More map options" and the read-only notice need native review (`docs/translation_notes.md`).
+
 ## Known issues
 - S17: the release's issue list with severities is `docs/known_issues.md`; the items below are the session history.
 - S16 `frontend/e2e/demo-script.spec.ts` step 5b goes to `/farmer` (Today), but the "Did it rain today" card is on Forecast and My farm, so the step still skips after S13 is merged; B4 items 11 and 13 stay unconfirmed on the Docker stack (item 11 was confirmed by hand on the dev stack in S16).
@@ -566,6 +580,8 @@ Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`
 | 2026-09-27 | s5-lgbm-9b632a7b1b (S10) | models TRAIN; isotonic + CQR CALIB; evaluated on TEST (issue dates 2024-07-16..2024-12-26) | `python -m gramdrishti.verify.run_validation`. **TEST window first opened 2026-09-27T15:14:23** for this version (ledger `docs/test_window_ledger.json`); rerun at 15:23:42 gave identical numbers. Dry run of the same code on CALIB earlier the same day. Report: `docs/validation_report.md`. TEST reused: no |
 
 ## Handoff for the next session
+S18 (2026-09-29): branch `session-18-deploy-polish` in worktree `../GramDrishti-s18`, from `main` at the S17 merge (#21). Owner's steps to publish (`docs/deploy.md`): Settings → Pages → Source: GitHub Actions; optionally `./scripts/pack_model_bundle.sh` and a published pre-release tagged `model-bundle` with that file; then merge. The site is https://joshi-mishita.github.io/GramDrishti/. The Pages build approves four advisories only in its own throwaway database; the Docker demo database is untouched. After a new model version, pack and release the new bundle (and its verification record must exist) or the public screens say "not computed".
+
 S17 (2026-09-28): branch `session-17-final-qa` in worktree `../GramDrishti-s17` (D170). It contains S16, and through it S14 and S15, plus `main`. Merge order: S16 (its pull request), then S17; after S16 merges this PR shows only S17. The S16 pull request's Docker CI job fails until S17's nginx fix (D175) is in: merge S17 right after S16, or cherry-pick `bcd32b8` onto S16. After the last merge, check that CI is green on `main` (the "Docker stack and demo e2e" job trains a Linux model and skips steps 6 and 7 by design). Then move the local tag `v1.0-demo` to the merge commit on `main` and push it (D174): `git tag -f v1.0-demo <main commit> && git push origin v1.0-demo`. The freeze list is in `docs/RELEASE_NOTES.md`. Owner's steps before the demo: two timed rehearsals (one with Wi-Fi off), a first-time user on the farmer app, and the pre-demo steps in `docs/demo_day_checklist.md` (reset, approve MP0311, `make offline`, USB copy, printed bulletins). The demo stack on this Mac was rebuilt from S17 (`make up`) and its database is clean: MP0307 drafts, no feedback.
 
 S16 (2026-09-28): branch `session-16-docs` in worktree `../GramDrishti-s16`: S15 plus merges of S13 and S14 (D150), the docs, `verify/docs_check.py`, and the `web-offline` build fix (D156). Merge order S13, S14, S15, S16. After any change to a number-bearing document or a new model version, run `python -m gramdrishti.verify.docs_check` (CI runs it through `tests/test_docs_check.py`); a new claim with a number goes into `CLAIMS` in that module. S17: rehearse with `docs/demo_script.md` on the Docker stack, read `docs/qna.md` aloud as a pair and cut anything that sounds bigger than the build, fix e2e step 5b (suggested task), fill the expert pack's contact line.

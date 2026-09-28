@@ -41,6 +41,45 @@
   border-right: 1px solid var(--line);
 }
 
+/* View, risk layer and picker: always open from 768 px; a folded section on phones */
+.map-more {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4);
+}
+.map-more > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--gap-2);
+  min-height: 44px;
+  padding: var(--gap-2) var(--gap-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-weight: 500;
+  cursor: pointer;
+}
+.map-more > summary::-webkit-details-marker {
+  display: none;
+}
+.map-more > summary {
+  list-style: none;
+}
+.map-more-state {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-1);
+}
+.map-more[open] .map-more-chevron {
+  transform: rotate(180deg);
+}
+@media (min-width: 768px) {
+  .map-more > summary {
+    display: none;
+  }
+}
+
 .map-area {
   display: flex;
   flex-direction: column;

@@ -61,7 +61,7 @@ docker compose stop api          # what happens if the API crashes
   farmer screens all read the exported files. It never calls the API (the e2e checks this).
 - `http://localhost:8080` shows each screen's error state ("Could not load ... Check the server is running")
   within about 2 s (1.4 to 1.5 s measured in S17 on the map, farmer and verification screens), with the message "The API is not reachable. Snapshot mode keeps the demo
-  running without it." The mock ribbon is not shown there, because no response has told the app its data mode.
+  running without it." The mock ribbon stays: with no response the data mode is unknown, and this build only has synthetic data.
 - The offline copy shows reviews as they were when it was exported. After approving advisories for the demo,
   run `make offline` (about 1 to 2 minutes) so the offline copy shows them too.
 - `docker compose start api` brings the API back (healthy in about 10 s).

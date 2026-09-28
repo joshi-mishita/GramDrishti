@@ -4,6 +4,8 @@ Panchayat-level weather forecasts and officer-reviewed crop advisories, built fr
 
 > **All data in this repository is synthetic.** The district, Panchayats, stations, forecasts, observations and farmer reports in `data/` are artificial. Every accuracy number produced on them shows that the method and code work on data built to resemble the problem, not that the method works on real weather. See [data/README.md](data/README.md) and the [data card](docs/data_card.md).
 
+**Try it on any device:** https://joshi-mishita.github.io/GramDrishti/ (a read-only copy on GitHub Pages; it works offline after the first visit and reviews are not saved there). How it is built: [docs/deploy.md](docs/deploy.md).
+
 ## The problem
 
 Smart India Hackathon 2026, problem **SIH26074**: downscale block-level weather forecasts to Panchayat level for agro-meteorological advisory services.

@@ -50,7 +50,8 @@ if (!root) throw new Error("#root missing from index.html");
 createRoot(root).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      {/* basename: "" at the root, "/GramDrishti" on GitHub Pages (BASE_PATH). */}
+      <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
         <AppRoutes />
       </BrowserRouter>
     </QueryClientProvider>

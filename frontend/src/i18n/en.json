@@ -98,6 +98,7 @@
   "map": {
     "title": "Map explorer",
     "areaLabel": "Map",
+    "moreOptions": "More map options",
     "controls": "Map settings",
     "day": "Day",
     "show": "Show",
@@ -175,6 +176,7 @@
     "reviewer": "Reviewing as",
     "reviewerHint": "Written into the history of every advisory you review. There is no login in the prototype.",
     "readOnly": "These advisories come from the demo files, which are read-only. To approve or reject, start the API and serve advisories from it (see .env.example).",
+    "readOnlySnapshot": "This is a read-only copy of the demo. You can open every advisory, but approvals, edits and rejections are not saved here. The full app with its server saves them.",
     "listed_one": "{{status}} ({{count}})",
     "listed_other": "{{status}} ({{count}})",
     "filters": "Queue filters",
@@ -459,7 +461,8 @@
       "likely": "Likely",
       "unknown": "Not known"
     },
-    "rainRange": "{{word}}, {{lo}} to {{hi}} mm",
+    "rainRange": "{{word}}, about {{mid}} mm, could reach {{hi}} mm",
+    "rainUpTo": "{{word}}, could reach {{hi}} mm",
     "rainAbout": "{{word}}, about {{value}} mm",
     "rainNone": "{{word}}",
     "tempRange": "{{lo}} to {{hi}} °C",

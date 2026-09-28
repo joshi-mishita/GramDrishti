@@ -95,7 +95,7 @@ describe("farmer Forecast", () => {
     expect(days).toHaveLength(5);
     const first = days[0] as HTMLElement;
     expect(first).toHaveTextContent("Tue 10 Sep");
-    expect(first).toHaveTextContent(/Likely, 0 to \d+ mm/);
+    expect(first).toHaveTextContent(/Likely, about \d+ mm, could reach \d+ mm/);
     expect(first).toHaveTextContent(/\d+ to \d+ °C/);
     expect(first).toHaveTextContent(/\d+ km\/h/);
     expect(first).toHaveTextContent("AvoidDo not spray");

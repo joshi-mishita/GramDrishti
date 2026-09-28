@@ -101,6 +101,9 @@ def requests(svc: Service, pids: list[str]) -> Iterator[Req]:
         for pid in pids:
             yield Req(f"forecast_panchayat_{pid}_{d}.json", f"/forecast/panchayat/{pid}{_q(issue_date=d)}",
                       s.PanchayatForecast)
+            # The printable bulletin asks for one Panchayat's advisories (S18: it said "No demo file").
+            yield Req(f"advisories_{pid}_{d}.json", f"/advisories{_q(panchayat_id=pid, issue_date=d)}",
+                      s.AdvisoryList)
             yield Req(f"forecast_changes_{pid}_{d}.json", f"/forecast/changes/{pid}{_q(issue_date=d)}",
                       s.ForecastChanges)
             yield Req(f"observed_panchayat_{pid}_{first}_{last}.json",

@@ -86,3 +86,13 @@ The map title now names the view instead of a bare "Panchayat". Drafted by Claud
 | Rain on Tue 10 Sep 2024, Panchayat forecast | मंगल 10 सितंबर 2024 को वर्षा, पंचायत पूर्वानुमान | ਮੰਗਲ 10 ਸਤੰਬਰ 2024 ਨੂੰ ਮੀਂਹ, ਪੰਚਾਇਤ ਭਵਿੱਖਬਾਣੀ | Word order with the date first; "को"/"ਨੂੰ" after a date. |
 | block forecast | ब्लॉक पूर्वानुमान | ਬਲਾਕ ਭਵਿੱਖਬਾਣੀ | Same words as elsewhere in the UI. |
 | Panchayat minus block | पंचायत और ब्लॉक का अंतर | ਪੰਚਾਇਤ ਅਤੇ ਬਲਾਕ ਦਾ ਫ਼ਰਕ | "Difference between Panchayat and block"; a literal "minus" read oddly. |
+
+## Farmer rain wording and map options (S18)
+
+The farmer rain line now gives the most likely amount first, then how high it could go, instead of "0 to 156 mm". Drafted by Claude Code, **needs native review**:
+
+| English | Hindi draft | Punjabi draft | Why we are unsure |
+|---|---|---|---|
+| Likely, about 104 mm, could reach 156 mm | संभावना ज़्यादा, लगभग 104 मिमी, 156 मिमी तक हो सकती है | ਸੰਭਾਵਨਾ ਜ਼ਿਆਦਾ, ਲਗਭਗ 104 ਮਿ.ਮੀ., 156 ਮਿ.ਮੀ. ਤੱਕ ਹੋ ਸਕਦਾ ਹੈ | "हो सकती है" agrees with बारिश (feminine), "ਹੋ ਸਕਦਾ ਹੈ" with ਮੀਂਹ (masculine); the row label is the noun. Is the sentence clear without repeating the noun? |
+| Possible, could reach 12 mm | हो सकती है, 12 मिमी तक हो सकती है | ਹੋ ਸਕਦਾ ਹੈ, 12 ਮਿ.ਮੀ. ਤੱਕ ਹੋ ਸਕਦਾ ਹੈ | The chance word and the ending repeat "हो सकती है"; a native speaker may prefer another word order. |
+| More map options (officer map, phone width) | नक्शे के और विकल्प | ਨਕਸ਼ੇ ਦੇ ਹੋਰ ਵਿਕਲਪ | Plain wording; check. |
