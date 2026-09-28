@@ -1,0 +1,78 @@
+# GramDrishti demo stack (S14). `make up` (or scripts/demo.sh) runs `docker compose up --build --wait`.
+#
+#   prepare      one-shot: oracle, training (first run only), snapshots, verification record, demo farmers,
+#                offline export. Every step is skipped when its output is already in the volumes.
+#   api          FastAPI on port 8000, starts after prepare succeeded.
+#   web          the app built against the API, nginx on port 8080, proxies /api to api.
+#   web-offline  the same app built with VITE_SNAPSHOT=1 on port 8081; reads the exported responses and
+#                never calls the API (demo insurance, Backend Guide B6).
+#
+# Everything is synthetic mock data. Ports bind to BIND_ADDRESS (127.0.0.1 unless .env says otherwise).
+name: gramdrishti
+
+x-backend: &backend
+  image: gramdrishti-api:local
+  build:
+    context: .
+    dockerfile: backend/Dockerfile
+  environment:
+    DATA_MODE: ${DATA_MODE:-mock}
+    GRAMDRISHTI_CORS_ORIGINS: ${GRAMDRISHTI_CORS_ORIGINS:-http://localhost:5173}
+    GRAMDRISHTI_MAX_BODY_BYTES: ${GRAMDRISHTI_MAX_BODY_BYTES:-65536}
+  volumes:
+    - artifacts:/app/backend/artifacts        # trained models, snapshots, verification files, audio cache
+    - state:/app/state                        # SQLite store (advisories, reviews, farmers, feedback)
+    - oracle:/app/data/synthetic_oracle       # git-ignored answer key, generated on first run
+    - offline:/app/offline                    # snapshot-mode export for web-offline
+
+services:
+  prepare:
+    <<: *backend
+    command: ["python", "-m", "gramdrishti.pipeline.prepare_demo", "--offline-out", "/app/offline/snapshot"]
+    restart: "no"
+    healthcheck:
+      disable: true
+
+  api:
+    <<: *backend
+    depends_on:
+      prepare:
+        condition: service_completed_successfully
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${API_PORT:-8000}:8000"
+    restart: unless-stopped
+
+  web:
+    image: gramdrishti-web:local
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${WEB_PORT:-8080}:8080"
+    restart: unless-stopped
+
+  web-offline:
+    image: gramdrishti-web-offline:local
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        VITE_SNAPSHOT: "1"
+        VITE_REAL_ENDPOINTS: ""
+    depends_on:
+      prepare:
+        condition: service_completed_successfully
+    volumes:
+      - offline:/srv/offline:ro
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${OFFLINE_PORT:-8081}:8080"
+    restart: unless-stopped
+
+volumes:
+  artifacts:
+  state:
+  oracle:
+  offline:

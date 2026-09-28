@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GramDrishti: server error</title>
+    <style>
+      /* Tokens copied from src/styles/tokens.css; this page is served when the app itself cannot be. */
+      :root {
+        --ink: #18262b;
+        --canvas: #eef1f0;
+        --surface: #ffffff;
+        --line: #d3dad7;
+        --muted: #5b6b70;
+        --brand: #24594a;
+        --radius: 3px;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--ink);
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 36rem;
+        margin: 64px auto;
+        padding: 24px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 8px;
+      }
+      p {
+        margin: 0 0 12px;
+        color: var(--muted);
+      }
+      a {
+        color: var(--brand);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>GramDrishti is not available right now</h1>
+      <p>The web server could not answer this request. Try again in a minute.</p>
+      <p>
+        During a demo, the offline copy on port 8081 runs without the API (<code>make up</code>
+        starts it).
+      </p>
+      <p><a href="/">Back to the map</a></p>
+    </main>
+  </body>
+</html>

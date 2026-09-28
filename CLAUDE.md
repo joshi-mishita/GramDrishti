@@ -61,6 +61,11 @@ Shared: Docker Compose, GitHub Actions.
 - Before/after screenshot sets (every screen in en/hi/pa at 1366, 1920 and 360 px into `docs/screens/<set>/`): `cd frontend && SHOTS_SET=after npm run shots`
 - Accessibility (axe on every screen in three languages at 1366 and 360 px, plus the keyboard-only walkthrough; findings in `test-results/a11y/axe-summary.jsonl`): `cd frontend && npm run a11y`
 - Lighthouse on the farmer route (build first, then `npx vite preview --port 4178`): `cd frontend && npx lighthouse@12 "http://localhost:4178/farmer?date=2024-09-09" --form-factor=mobile --throttling-method=simulate --chrome-flags="--headless=new"`
+- Whole product in Docker (build, prepare, start; uses `backend/artifacts/` when it has a model, else trains): `make up` (= `./scripts/demo.sh`); `make down`, `make logs`, `make ps`; `make clean` deletes the volumes (model, snapshots, reviews). Steps and timings: `docs/docker.md`
+- Prepare everything the API needs, skipping what exists: `cd backend && python -m gramdrishti.pipeline.prepare_demo` (`--seed-model-from DIR`, `--offline-out DIR`, `--refresh-offline`)
+- Refresh the offline copy (port 8081) after approving advisories: `make offline`
+- Demo e2e on an isolated Docker stack (ports 180xx, removed afterwards; add `SHOTS_BROWSER_CHANNEL=chrome` on this Mac): `make e2e` (= `./scripts/e2e_docker.sh`)
+- README quick start in a temp clone (ports 280xx): `make fresh-check` (= `./scripts/fresh_clone_check.sh`)
 - End-to-end review flow and S9 screens on a real API with a throwaway database (starts its own API on port 8010; needs the backend venv, artifacts and snapshots): `cd frontend && npm run e2e` (add `SHOTS_BROWSER_CHANNEL=chrome` if needed)
 
 ## Non-negotiable rules
