@@ -11,7 +11,7 @@ Roles (Guide B6): the frontend person drives the screens; the backend person exp
 1. `make up` on the demo laptop (about 33 s when everything is built; 7 to 8 minutes on a machine with nothing built). It prints three addresses. Leave the terminal open.
 2. Open `http://localhost:8080` in Chrome at 1366x768 or larger. Open a second tab on `http://localhost:8081` (the offline copy) and leave it there.
 3. Check the verification screen shows numbers, not "not computed". It needs the verified model `s5-lgbm-9b632a7b1b` in `backend/artifacts/` (a fresh clone trains a different version, DECISIONS D122).
-4. Check MP0307 still has draft bajra advisories: `http://localhost:8080/review?date=2024-09-09&block=MB03&crop=bajra` lists MP0307 twice under "Waiting for review". If a rehearsal approved them, see "Reset after a rehearsal" at the end.
+4. Check MP0307 still has draft bajra advisories: `http://localhost:8080/review?date=2024-09-09&block=MB03&crop=bajra` lists MP0307 twice under "Waiting for review". If a rehearsal approved them, see "Reset after a rehearsal" at the end. Then approve **MP0311**'s two bajra advisories (Harvest, Irrigation) and run `make offline` (1 to 2 min): the offline copy then has a farmer with advice (Demo farmer 2, Punjabi) in case the API dies before step 4. Step 4 only touches MP0307, so this changes nothing in the live walk-through (checked in S17).
 5. Phone view: Chrome DevTools device toolbar at 360 px, or a second window narrowed to phone width.
 6. Internet on or off: with internet the API makes the audio (gTTS); without it the app falls back to the laptop's own voice (Hindi worked on the team's Mac; there was no Punjabi voice).
 
@@ -99,8 +99,8 @@ Say: "Everything you saw runs on synthetic data. The real-data path keeps the sa
 
 | What happens | Do this | Say |
 |---|---|---|
-| The API stops answering (screens show "Could not load", after about 30 s of retries) | switch to the second tab, `http://localhost:8081`, and continue. It reads exported files and never calls the API. | "This is the offline snapshot mode, built for exactly this." |
-| Offline copy does not show the approvals you just made | expected: it shows reviews as of its export. Show the farmer screen for a Panchayat approved in rehearsal, or skip step 4. Before the demo, `make offline` after rehearsing. | |
+| The API stops answering (screens show "Could not load" within about 2 s; 1.4 to 1.5 s measured in S17) | switch to the second tab, `http://localhost:8081`, and continue. It reads exported files and never calls the API. | "This is the offline snapshot mode, built for exactly this." |
+| Offline copy does not show the approvals you just made | expected: it shows reviews as of its export. On the offline copy open **Demo settings** at the foot of the farmer screen and pick **Demo farmer 2 (F002)** (MP0311, Punjabi): its advice was approved before the demo (see "Before the demo", step 4). | "The offline copy shows what was approved when it was exported." |
 | Verification says "not computed" | the running model is not the verified version (D122). Show `docs/validation_report.md` on GitHub instead. | "The screen refuses to show numbers for a model that was not verified. Here is the report for the verified version." |
 | Listen gives no sound | no internet (the API audio needs it) and no voice for that language on this laptop. Read the text aloud. | "On a phone the app uses the phone's own voice when there is no internet." |
 | Map is blank | WebGL off or the tab needs a reload. Use **Show as table** on the map screen. | |

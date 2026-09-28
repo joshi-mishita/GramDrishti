@@ -60,7 +60,7 @@ docker compose stop api          # what happens if the API crashes
 - `http://localhost:8081` keeps working: map, Panchayat panel, review list, verification, impact and the
   farmer screens all read the exported files. It never calls the API (the e2e checks this).
 - `http://localhost:8080` shows each screen's error state ("Could not load ... Check the server is running")
-  after about 30 s of retries, with the message "The API is not reachable. Snapshot mode keeps the demo
+  within about 2 s (1.4 to 1.5 s measured in S17 on the map, farmer and verification screens), with the message "The API is not reachable. Snapshot mode keeps the demo
   running without it." The mock ribbon is not shown there, because no response has told the app its data mode.
 - The offline copy shows reviews as they were when it was exported. After approving advisories for the demo,
   run `make offline` (about 1 to 2 minutes) so the offline copy shows them too.
@@ -74,7 +74,11 @@ make fresh-check   # ./scripts/fresh_clone_check.sh: README quick start in a tem
 ```
 
 On a Mac where Playwright's own Chromium is not downloaded, add `SHOTS_BROWSER_CHANNEL=chrome` to use the
-installed Google Chrome. Screens go to `docs/screens/s14-*.png` (git-ignored).
+installed Google Chrome.
+
+Two runs at once (for example from two worktrees) must not share a project, ports or images: give the second
+one `E2E_PROJECT=<name> E2E_PORT_PREFIX=190 GRAMDRISHTI_IMAGE_TAG=<tag>` (D173). `E2E_HEADED=1 E2E_VIDEO=1
+E2E_SLOWMO=250` shows the browser and keeps a video of every step (`frontend/test-results/e2e-docker/`). Screens go to `docs/screens/s14-*.png` (git-ignored).
 
 ## Configuration
 
