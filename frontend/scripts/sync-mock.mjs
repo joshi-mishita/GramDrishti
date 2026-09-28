@@ -6,8 +6,10 @@
 // VITE_SNAPSHOT=1 is set or `--snapshot` is passed (`npm run sync:snapshot`). Otherwise
 // public/snapshot/ is removed, so a normal build does not carry about 100 MB of files.
 // Both targets are git-ignored.
-// Also copies contract/snapshot/ (from `python -m gramdrishti.export_snapshot`) into
-// public/snapshot/ when it exists, for VITE_SNAPSHOT=1. Both targets are git-ignored.
+//
+// SNAPSHOT_FROM_VOLUME=1 (set by frontend/Dockerfile): the Docker offline copy is built with
+// VITE_SNAPSHOT=1 before any snapshot exists; nginx serves /snapshot/ from a volume at run time,
+// so nothing is copied and the build goes on.
 import { cpSync, existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -38,6 +40,9 @@ if (!wantSnapshot) {
     rmSync(snapDest, { recursive: true, force: true });
     console.log("sync:mock: removed public/snapshot (set VITE_SNAPSHOT=1 to use the snapshot)");
   }
+} else if (process.env.SNAPSHOT_FROM_VOLUME === "1") {
+  rmSync(snapDest, { recursive: true, force: true });
+  console.log("sync:mock: snapshot is served from a volume at run time (SNAPSHOT_FROM_VOLUME=1)");
 } else if (existsSync(join(snapSrc, "index.json"))) {
   rmSync(snapDest, { recursive: true, force: true });
   cpSync(snapSrc, snapDest, { recursive: true });

@@ -10,9 +10,11 @@ COPY frontend ./
 ARG VITE_REAL_ENDPOINTS=health,meta,geo,forecast,observed,explain,risk,priority,advisories,audio,farmers,feedback,verification,impact,data-quality
 ARG VITE_SNAPSHOT=
 ARG VITE_DEFAULT_ISSUE_DATE=
+# SNAPSHOT_FROM_VOLUME: the offline variant's /snapshot/ comes from the `offline` volume at run time.
 ENV VITE_REAL_ENDPOINTS=$VITE_REAL_ENDPOINTS \
     VITE_SNAPSHOT=$VITE_SNAPSHOT \
-    VITE_DEFAULT_ISSUE_DATE=$VITE_DEFAULT_ISSUE_DATE
+    VITE_DEFAULT_ISSUE_DATE=$VITE_DEFAULT_ISSUE_DATE \
+    SNAPSHOT_FROM_VOLUME=1
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:1.29-alpine
