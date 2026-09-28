@@ -138,7 +138,7 @@ Known issues in full: [docs/PROGRESS.md](docs/PROGRESS.md).
 | For | Read |
 |---|---|
 | Jury and reviewers | [model card](docs/model_card.md), [data card](docs/data_card.md), [validation report](docs/validation_report.md), [likely questions](docs/qna.md) |
-| Running the demo | [demo script](docs/demo_script.md), [Docker guide](docs/docker.md), [presentation outline](docs/presentation_outline.md) |
+| Running the demo | [demo script](docs/demo_script.md), [demo-day checklist](docs/demo_day_checklist.md), [Docker guide](docs/docker.md), [presentation outline](docs/presentation_outline.md), [release notes](docs/RELEASE_NOTES.md) |
 | Engineers | [architecture](docs/architecture.md), [mock to real plan](docs/mock_to_real_plan.md), [validation protocol](docs/validation_protocol.md), [contract changelog](contract/CHANGELOG.md), [decisions](docs/DECISIONS.md), [progress log](docs/PROGRESS.md) |
 | Experts and translators | [expert review pack](docs/expert_review_pack.md), [thresholds table](docs/thresholds_for_expert_review.md), [translation notes](docs/translation_notes.md) |
 | Design | [design review](docs/design_review.md), [design tokens](docs/design.md) |
@@ -154,9 +154,10 @@ Known issues in full: [docs/PROGRESS.md](docs/PROGRESS.md).
 | Farmer backend and app, bulletin, offline | done (S12, S13) |
 | Docker, one-command start, end-to-end tests | done (S14) |
 | Design and accessibility pass | done (S15) |
-| Documentation and submission assets | this branch (S16) |
+| Documentation and submission assets | done (S16) |
+| Final QA, release notes, demo-day checklist | done (S17, [release notes](docs/RELEASE_NOTES.md), [known issues](docs/known_issues.md)) |
 
-Sessions S13 to S16 are on branches not yet merged into `main`. Full log: [docs/PROGRESS.md](docs/PROGRESS.md).
+S13 is merged into `main`; S14 to S17 are on branches waiting to be merged (S16, then S17). Full log: [docs/PROGRESS.md](docs/PROGRESS.md).
 
 ## Contributing
 

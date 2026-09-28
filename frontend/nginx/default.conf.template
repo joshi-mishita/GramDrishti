@@ -33,7 +33,9 @@ server {
         proxy_set_header Host $host;
         proxy_connect_timeout 3s;
         proxy_read_timeout 60s;
-        # Only nginx's own 502/504 (API unreachable) go to @api_down; the API's errors pass through.
+        # Only nginx's own answers when the API cannot be reached (502) or times out (504). The API's
+        # 503s (for example not_computed when a model has no verification record) pass through unchanged.
+        proxy_intercept_errors on;
         error_page 502 504 = @api_down;
     }
 

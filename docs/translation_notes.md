@@ -68,7 +68,7 @@ Please check first:
 | Share | भेजें | ਭੇਜੋ | We used "send" because WhatsApp opens; "शेयर करें" is common too. |
 | Rain likely / possible / unlikely / very unlikely | संभावना ज़्यादा / हो सकती है / कम संभावना / बहुत कम संभावना | ਸੰਭਾਵਨਾ ਜ਼ਿਆਦਾ / ਹੋ ਸਕਦਾ ਹੈ / ਘੱਟ ਸੰਭਾਵਨਾ / ਬਹੁਤ ਘੱਟ ਸੰਭਾਵਨਾ | Shown before "0 to 31 mm"; the Punjabi "ਹੋ ਸਕਦਾ ਹੈ" agrees with no noun. |
 | Spraying: Good / Caution / Avoid | अच्छा / सावधानी / टालें | ਚੰਗਾ / ਸਾਵਧਾਨੀ / ਟਾਲੋ | "Avoid" was "न करें", which repeated the line under it ("छिड़काव न करें"). |
-| Spray only in the calm early morning | सिर्फ़ सुबह जल्दी, हवा शांत हो तब छिड़काव करें | ਸਿਰਫ਼ ਸਵੇਰੇ ਜਲਦੀ, ਹਵਾ ਸ਼ਾਂਤ ਹੋਵੇ ਤਾਂ ਛਿੜਕਾਅ ਕਰੋ | Check tone. |
+| Check wind and rain before you spray | छिड़काव से पहले हवा और बारिश देख लें | ਛਿੜਕਾਅ ਤੋਂ ਪਹਿਲਾਂ ਹਵਾ ਅਤੇ ਮੀਂਹ ਵੇਖ ਲਓ | S17: replaced "Spray only in the calm early morning", which named a time of day the daily data cannot support. Check tone. |
 | Did it rain today? Light / Moderate / Heavy | हल्की / मध्यम / भारी | ਹਲਕਾ / ਦਰਮਿਆਨਾ / ਭਾਰੀ | Gender agreement with बारिश (f.) and ਮੀਂਹ (m.). |
 | Saved copy. Last updated ... | सेव की गई कॉपी। आख़िरी अपडेट ... | ਸੇਵ ਕੀਤੀ ਕਾਪੀ। ਆਖ਼ਰੀ ਅੱਪਡੇਟ ... | Loanwords; is there plainer wording for "offline copy"? |
 | This phone has no Punjabi voice ... text-to-speech settings | ... टेक्स्ट-टू-स्पीच सेटिंग ... | ... ਟੈਕਸਟ-ਟੂ-ਸਪੀਚ ਸੈਟਿੰਗ ... | Name of the Android setting in each language. |

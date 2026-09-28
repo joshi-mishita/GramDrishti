@@ -64,6 +64,18 @@ def test_a_claim_that_drifts_is_caught(tmp_path: Path, record) -> None:
     assert "not found" in dc.check_claims(tmp_path, *record, claims=[missing])[0]
 
 
+def test_release_notes_skill_intervals_are_checked(tmp_path: Path, record) -> None:
+    """S17: interval ends are read from the record; a wrong end in the release table is caught."""
+    claims = [c for c in dc.CLAIMS if c.file == dc.RELEASE and c.path[-1] in (0, 1)]
+    assert len(claims) == 20          # 5 variables x (B0, B1) x (low, high)
+    cell = "+13.7 % (+4.0 to +27.9)"
+    (tmp_path / "docs").mkdir()
+    (tmp_path / dc.RELEASE).write_text(cell.replace("+4.0", "+5.0"))
+    low = next(c for c in claims if c.text == cell and c.value == "+4.0")
+    wrong = dc.Claim(dc.RELEASE, cell.replace("+4.0", "+5.0"), "+5.0", low.path, 100)
+    assert "says +5.0" in dc.check_claims(tmp_path, *record, claims=[wrong])[0]
+
+
 def test_broken_links_and_anchors_are_caught(tmp_path: Path) -> None:
     (tmp_path / "b.md").write_text("# Production path (future, not built)\n")
     a = tmp_path / "a.md"

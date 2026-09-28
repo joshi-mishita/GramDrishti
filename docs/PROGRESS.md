@@ -19,11 +19,11 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S10 | Verification and impact | backend | merged | session-10-verification-impact (#14) | yes |
 | S11 | Frontend verification and impact | frontend | merged | session-11-verification-impact-ui (#15) | yes |
 | S12 | Farmer-side backend and snapshot export | backend | merged | session-12-farmer-backend (#16) | yes |
-| S13 | Frontend farmer app, languages, bulletin, offline | frontend | pushed, no PR (no `gh`); contains S12 | session-13-farmer-app | |
+| S13 | Frontend farmer app, languages, bulletin, offline | frontend | merged | session-13-farmer-app (#19) | yes |
 | S14 | Integration, Docker and end-to-end tests | both | branch pushed, no PR (no `gh`) | session-14-integration | |
 | S15 | Design and accessibility polish | frontend | pushed, no PR (no `gh`); contains S13 | session-15-design-polish | |
 | S16 | Documentation and submission assets | both | pushed, no PR (no `gh`); contains S13, S14, S15 | session-16-docs | |
-| S17 | Final QA and demo freeze | both | not started | | |
+| S17 | Final QA and demo freeze | both | pushed, no PR (no `gh`); contains S16 | session-17-final-qa | |
 
 ## Current state
 S0: repo skeleton, README, contribution rules, PR template, CI.
@@ -227,6 +227,15 @@ S16: documentation and submission assets (branch `session-16-docs` in worktree `
 - Claims removed or softened after checking them: listed in the S16 handoff below.
 - Tests: 441 backend (8 new), 233 frontend; ruff and lint clean.
 
+S17: final QA and demo freeze (branch `session-17-final-qa` in worktree `../GramDrishti-s17`, from `session-16-docs` plus `main` with S13, D170). No new features. Built or changed:
+- B4 checklist rerun with evidence (`docs/integration_checklist.md`): **14 pass, 1 partly** (item 13, phone-voice fallback not heard in S17). Fresh clone with Docker: 394 s, 14 endpoint checks pass. `make e2e` on an isolated stack, headed Chrome with video: demo script 9 passed, the tapped rain report read back from SQLite, API stopped 4 passed. API sweep: 287 requests, no NaN, 748 coordinates in range, 18,825 ordered quantile triples.
+- Bug bash (`docs/known_issues.md`): 90 page loads (15 routes × 3 languages × 2 widths) with 0 console errors, 0 broken links out of 114, ribbon everywhere. 8 medium issues fixed or given a tested procedure, 0 high, 15 low open.
+- Fix found by reproducing CI in a fresh clone: nginx rewrote the API's own 503 `not_computed` as "The API is not reachable", which failed the S16 pull request's Docker job at step 6 (D175).
+- Fixes: e2e steps 5b (Listen) and 5c (rain question on Forecast) plus the SQLite read-back; spray caution wording without a time of day (D171); Panchayat picker shows the full name (column 244 px); API-down timing in the docs (measured 1.4 to 1.5 s, not 30 s); isolated and recorded e2e runs (D173).
+- Offline: host snapshot bundle 21,968 responses (39.1 MB); `VITE_SNAPSHOT=1` production build served with no API: 10 screens, 0 `/api` requests. Pre-approving MP0311 gives the offline copy a farmer with advice (D172).
+- `docs/RELEASE_NOTES.md` (with the freeze list), `docs/demo_day_checklist.md`, `docs/known_issues.md`; tag `v1.0-demo` prepared locally, not pushed (D174).
+- Tests: 441 backend, 233 frontend; ruff and lint clean; `docs_check` clean.
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -378,8 +387,18 @@ S16: documentation and submission assets (branch `session-16-docs` in worktree `
 - D154 README diagram shows only implemented flow.
 - D155 Expert pack has no contact address yet.
 - D156 Docker offline build skips the snapshot copy (`SNAPSHOT_FROM_VOLUME=1`).
+- D170 S17 from pushed S16 plus `main`; own worktree with a copy of the verified model.
+- D171 Spray caution help text without a time of day.
+- D172 Pre-approve MP0311 and `make offline` so the backup has a farmer with advice.
+- D173 e2e isolation (`E2E_PORT_PREFIX`, `GRAMDRISHTI_IMAGE_TAG`), per-run output folders, headed and video options.
+- D174 `v1.0-demo` tagged locally; pushed only on the owner's yes, after merging.
+- D175 nginx maps only its own 502 and 504 to "API not reachable"; the API's 503s pass through.
 
 ## Not verified
+- S17: the two timed human rehearsals (one with the network unplugged) and a first-time user trying the farmer app were not done; they are the owner's steps. Wi-Fi was never turned off; "no network" was simulated with a container without a network (gTTS fails at once) and by stopping the API.
+- S17: CI on GitHub: `main` is green at `db1f997` (S13 merge). The S16 pull request's run failed in the "Docker stack and demo e2e" job; its log needs a GitHub login, which this machine does not have. The same failure was reproduced locally in a fresh clone and fixed (D175); CI itself has not run on the fix yet.
+- S17: the phone-voice fallback was not heard (item 13 partly). Only Chrome on macOS; no Firefox, Safari, real phone, projector or screen reader.
+- S17: the rehearsal videos cover the automated walk (25 s for the whole script), not a paced human rehearsal.
 - S16: Mermaid was checked with Mermaid 11 in a local browser (3 of 3 render) and seen rendered on GitHub for the README and `docs/architecture.md` on the pushed branch. The other new documents were read as Markdown and on GitHub only where linked from the README; their tables were not inspected on GitHub one by one.
 - S16: the Q&A was not read aloud with a teammate; that is the owner's step. The demo was walked on the dev frontend with the real API, not on the Docker stack at 8080; `make e2e` was not rerun (its step 5b looks for the rain question on Today, but it is on Forecast; a task was suggested).
 - S16: no real-world figure appears anywhere; the presentation outline says to add one only with a citable source.
@@ -447,6 +466,7 @@ S16: documentation and submission assets (branch `session-16-docs` in worktree `
 - S14: loading and error states were seen live only on the map (API stopped) and the farmer empty state; other screens rely on the `QueryBoundary` unit tests.
 
 ## Known issues
+- S17: the release's issue list with severities is `docs/known_issues.md`; the items below are the session history.
 - S16 `frontend/e2e/demo-script.spec.ts` step 5b goes to `/farmer` (Today), but the "Did it rain today" card is on Forecast and My farm, so the step still skips after S13 is merged; B4 items 11 and 13 stay unconfirmed on the Docker stack (item 11 was confirmed by hand on the dev stack in S16).
 - S16 two review filters changed within the same event-loop tick (a script setting both selects at once) lose the first one; with a second between them both stick. Not seen with human input; related to D145.
 - S16 `docs/integration_checklist.md` is the S14 record and still says S13 is not merged.
@@ -546,6 +566,8 @@ Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`
 | 2026-09-27 | s5-lgbm-9b632a7b1b (S10) | models TRAIN; isotonic + CQR CALIB; evaluated on TEST (issue dates 2024-07-16..2024-12-26) | `python -m gramdrishti.verify.run_validation`. **TEST window first opened 2026-09-27T15:14:23** for this version (ledger `docs/test_window_ledger.json`); rerun at 15:23:42 gave identical numbers. Dry run of the same code on CALIB earlier the same day. Report: `docs/validation_report.md`. TEST reused: no |
 
 ## Handoff for the next session
+S17 (2026-09-28): branch `session-17-final-qa` in worktree `../GramDrishti-s17` (D170). It contains S16, and through it S14 and S15, plus `main`. Merge order: S16 (its pull request), then S17; after S16 merges this PR shows only S17. The S16 pull request's Docker CI job fails until S17's nginx fix (D175) is in: merge S17 right after S16, or cherry-pick `bcd32b8` onto S16. After the last merge, check that CI is green on `main` (the "Docker stack and demo e2e" job trains a Linux model and skips steps 6 and 7 by design). Then move the local tag `v1.0-demo` to the merge commit on `main` and push it (D174): `git tag -f v1.0-demo <main commit> && git push origin v1.0-demo`. The freeze list is in `docs/RELEASE_NOTES.md`. Owner's steps before the demo: two timed rehearsals (one with Wi-Fi off), a first-time user on the farmer app, and the pre-demo steps in `docs/demo_day_checklist.md` (reset, approve MP0311, `make offline`, USB copy, printed bulletins). The demo stack on this Mac was rebuilt from S17 (`make up`) and its database is clean: MP0307 drafts, no feedback.
+
 S16 (2026-09-28): branch `session-16-docs` in worktree `../GramDrishti-s16`: S15 plus merges of S13 and S14 (D150), the docs, `verify/docs_check.py`, and the `web-offline` build fix (D156). Merge order S13, S14, S15, S16. After any change to a number-bearing document or a new model version, run `python -m gramdrishti.verify.docs_check` (CI runs it through `tests/test_docs_check.py`); a new claim with a number goes into `CLAIMS` in that module. S17: rehearse with `docs/demo_script.md` on the Docker stack, read `docs/qna.md` aloud as a pair and cut anything that sounds bigger than the build, fix e2e step 5b (suggested task), fill the expert pack's contact line.
 
 Claims removed or softened in S16 after checking them against the code, data and running app:

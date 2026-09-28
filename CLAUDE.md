@@ -66,6 +66,8 @@ Shared: Docker Compose, GitHub Actions.
 - Prepare everything the API needs, skipping what exists: `cd backend && python -m gramdrishti.pipeline.prepare_demo` (`--seed-model-from DIR`, `--offline-out DIR`, `--refresh-offline`)
 - Refresh the offline copy (port 8081) after approving advisories: `make offline`
 - Demo e2e on an isolated Docker stack (ports 180xx, removed afterwards; add `SHOTS_BROWSER_CHANNEL=chrome` on this Mac): `make e2e` (= `./scripts/e2e_docker.sh`)
+- Second e2e run on the same machine (own project, ports 190xx, own images): `E2E_PROJECT=gramdrishti-s17e2e E2E_PORT_PREFIX=190 GRAMDRISHTI_IMAGE_TAG=s17 make e2e`. Rehearsal recording: add `E2E_HEADED=1 E2E_VIDEO=1 E2E_SLOWMO=250` (videos in `frontend/test-results/e2e-docker/{script,offline}/`)
+- Copy the stack's offline export (for a USB backup): `docker compose cp web-offline:/srv/offline/snapshot <dest>`
 - README quick start in a temp clone (ports 280xx): `make fresh-check` (= `./scripts/fresh_clone_check.sh`)
 - End-to-end review flow and S9 screens on a real API with a throwaway database (starts its own API on port 8010; needs the backend venv, artifacts and snapshots): `cd frontend && npm run e2e` (add `SHOTS_BROWSER_CHANNEL=chrome` if needed)
 
