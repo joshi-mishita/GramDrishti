@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useGeoPanchayats, useMeta } from "../../api/hooks";
 import { RISK_TYPES, type PanchayatCollection, type RiskType, type Var } from "../../api/types";
 import { SegmentedControl } from "../../components/SegmentedControl";
+import { useMediaQuery } from "../../lib/useMediaQuery";
 import { LEAD_DAYS } from "../../lib/config";
 import { addDays, formatDate } from "../../lib/format";
 import { useAppStore, type ViewMode } from "../../state/store";
@@ -19,7 +20,10 @@ export function MapControls() {
   const setVariable = useAppStore((s) => s.setVariable);
   const viewMode = useAppStore((s) => s.viewMode);
   const setViewMode = useAppStore((s) => s.setViewMode);
-  const riskOn = useAppStore((s) => s.riskType !== null);
+  const riskType = useAppStore((s) => s.riskType);
+  const riskOn = riskType !== null;
+  // Phones: day and variable stay in view, the rest folds away so the map is on the first screen.
+  const wide = useMediaQuery("(min-width: 768px)");
 
   // Weekday over the day number in one row of five; the full date is what screen readers hear.
   const dayOptions = LEAD_DAYS.map((d) => {
@@ -69,23 +73,31 @@ export function MapControls() {
           onChange={setVariable}
         />
       ) : null}
-      <SegmentedControl<ViewMode>
-        legend={t("map.view")}
-        showLegend
-        name="view-mode"
-        variant="list"
-        value={viewMode}
-        options={[
-          { value: "block", label: t("viewModes.block") },
-          { value: "panchayat", label: t("viewModes.panchayat") },
-          { value: "delta", label: t("viewModes.delta") },
-        ]}
-        onChange={setViewMode}
-        disabled={riskOn}
-        note={riskOn ? t("map.viewOffForRisk") : undefined}
-      />
-      <RiskLayerSelect />
-      <PanchayatPicker />
+      <details className="map-more" open={wide || undefined}>
+        <summary>
+          <span>{t("map.moreOptions")}</span>
+          <span className="muted small">
+            {riskType ? t(`risks.${riskType}`) : t(`viewModes.${viewMode}`)}
+          </span>
+        </summary>
+        <SegmentedControl<ViewMode>
+          legend={t("map.view")}
+          showLegend
+          name="view-mode"
+          variant="list"
+          value={viewMode}
+          options={[
+            { value: "block", label: t("viewModes.block") },
+            { value: "panchayat", label: t("viewModes.panchayat") },
+            { value: "delta", label: t("viewModes.delta") },
+          ]}
+          onChange={setViewMode}
+          disabled={riskOn}
+          note={riskOn ? t("map.viewOffForRisk") : undefined}
+        />
+        <RiskLayerSelect />
+        <PanchayatPicker />
+      </details>
     </aside>
   );
 }
