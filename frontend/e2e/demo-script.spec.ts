@@ -29,10 +29,15 @@ interface Advisory {
   reason: { en: string; hi: string | null; pa: string | null };
 }
 
+// Chromium's software WebGL (CI has no GPU) logs performance notes such as "GPU stall due to
+// ReadPixels" as warnings. They come from the browser, not the app; real GL errors still count.
+const GL_PERFORMANCE_NOTE = /^\[\.WebGL-[^\]]*\]GL Driver Message \(OpenGL, Performance,/;
+
 function watchConsole(page: Page): string[] {
   const errors: string[] = [];
   page.on("console", (m) => {
-    if (m.type() === "error" || m.type() === "warning") errors.push(m.text());
+    if (m.type() !== "error" && m.type() !== "warning") return;
+    if (!GL_PERFORMANCE_NOTE.test(m.text())) errors.push(m.text());
   });
   page.on("pageerror", (e) => errors.push(e.message));
   return errors;
