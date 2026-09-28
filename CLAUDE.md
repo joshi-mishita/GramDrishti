@@ -40,6 +40,7 @@ Shared: Docker Compose, GitHub Actions.
 - Verification on TEST (once per model version, see `docs/validation_protocol.md`; needs trained artifacts; writes `backend/artifacts/verification.json`, `impact.json` and records the opening in `docs/test_window_ledger.json`): `cd backend && python -m gramdrishti.verify.run_validation` (`--window CALIB` is a dry run that never opens TEST, `--no-lobo` skips leave-one-block-out)
 - Decision replay only, from the saved predictions: `cd backend && python -m gramdrishti.verify.impact`
 - Validation report (writes `docs/validation_report.md` from the two files; a test checks it is current): `cd backend && python -m gramdrishti.verify.report`
+- Docs check (links and anchors in README and docs/, Mermaid blocks, model card tables and numeric claims against the committed verification record; `tests/test_docs_check.py` runs it): `cd backend && python -m gramdrishti.verify.docs_check` (`--mermaid-html PATH` writes a page that renders every diagram)
 - Run API: `cd backend && uvicorn gramdrishti.api.main:app --reload --port 8000`
 - Export contract: `cd backend && python -m gramdrishti.export_openapi`
 - Contract examples (calls the app, validates, writes `contract/examples/`; needs the snapshots above): `cd backend && python -m gramdrishti.contract.make_examples`
