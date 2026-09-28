@@ -380,7 +380,7 @@ S16: documentation and submission assets (branch `session-16-docs` in worktree `
 - D156 Docker offline build skips the snapshot copy (`SNAPSHOT_FROM_VOLUME=1`).
 
 ## Not verified
-- S16: the documents were checked as Markdown and with Mermaid 11 in a local browser, not seen rendered on GitHub (the branch is pushed, but no one has opened it there yet).
+- S16: Mermaid was checked with Mermaid 11 in a local browser (3 of 3 render) and seen rendered on GitHub for the README and `docs/architecture.md` on the pushed branch. The other new documents were read as Markdown and on GitHub only where linked from the README; their tables were not inspected on GitHub one by one.
 - S16: the Q&A was not read aloud with a teammate; that is the owner's step. The demo was walked on the dev frontend with the real API, not on the Docker stack at 8080; `make e2e` was not rerun (its step 5b looks for the rain question on Today, but it is on Forecast; a task was suggested).
 - S16: no real-world figure appears anywhere; the presentation outline says to add one only with a citable source.
 - S16: the licences and access status of every intended real source are unverified by design ([verify] in `docs/data_card.md`).
