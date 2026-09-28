@@ -11,7 +11,7 @@
 name: gramdrishti
 
 x-backend: &backend
-  image: gramdrishti-api:local
+  image: gramdrishti-api:${GRAMDRISHTI_IMAGE_TAG:-local}
   build:
     context: .
     dockerfile: backend/Dockerfile
@@ -43,7 +43,7 @@ services:
     restart: unless-stopped
 
   web:
-    image: gramdrishti-web:local
+    image: gramdrishti-web:${GRAMDRISHTI_IMAGE_TAG:-local}
     build:
       context: .
       dockerfile: frontend/Dockerfile
@@ -55,7 +55,7 @@ services:
     restart: unless-stopped
 
   web-offline:
-    image: gramdrishti-web-offline:local
+    image: gramdrishti-web-offline:${GRAMDRISHTI_IMAGE_TAG:-local}
     build:
       context: .
       dockerfile: frontend/Dockerfile

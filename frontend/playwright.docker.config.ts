@@ -26,5 +26,9 @@ export default defineConfig({
     colorScheme: "light",
     viewport: { width: 1366, height: 768 },
     channel,
+    // Rehearsal recording: E2E_VIDEO=1 keeps a video per step; E2E_HEADED=1 (scripts/e2e_docker.sh)
+    // shows the browser, slowed by E2E_SLOWMO milliseconds per action so a person can follow it.
+    video: process.env.E2E_VIDEO === "1" ? "on" : "off",
+    launchOptions: { slowMo: Number(process.env.E2E_SLOWMO || 0) },
   },
 });

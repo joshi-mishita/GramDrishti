@@ -251,19 +251,42 @@ test("5a farmer phone view: the approved card in Hindi", async ({ page, request 
   expect(errors, "console errors or warnings").toEqual([]);
 });
 
-test("5b farmer phone view: tap Did it rain?", async ({ page }) => {
+test("5b farmer phone view: Listen asks the API for the spoken advice", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await setup(page, "hi");
+  await page.setViewportSize({ width: 360, height: 740 });
+  await page.goto(`/farmer?date=${DATE}`);
+  await settled(page);
+  // gTTS needs internet: with it the API answers 200 audio/mpeg, without it 404
+  // audio_not_available and the app falls back to the phone's voice (D108). Both are valid.
+  const audio = page.waitForResponse((r) => r.url().includes(`${API}/audio/`));
+  await page.locator(".advice-hero").getByRole("button", { name: "सुनें" }).click();
+  const r = await audio;
+  if (r.status() === 200) expect(r.headers()["content-type"]).toContain("audio/mpeg");
+  else expect(r.status()).toBe(404);
+  expect(errors, "page errors").toEqual([]);
+});
+
+test("5c farmer phone view: Did it rain today? on Forecast is stored", async ({ page }) => {
+  const errors = watchConsole(page);
   await setup(page, "en");
   await page.setViewportSize({ width: 360, height: 740 });
   await page.goto(`/farmer?date=${DATE}`);
   await settled(page);
-  // The "Did it rain today?" card arrives with S13 (farmer app). Until it is merged this step
-  // is reported as skipped, not passed. scripts/e2e_docker.sh checks the API and SQLite side.
-  const question = page.getByText(/^Did it rain today/);
-  test.skip((await question.count()) === 0, "feedback card not in this build (S13 not merged)");
+  // The demo script taps the question on Forecast (it is also on My farm, not on Today).
+  await page.getByRole("link", { name: "Forecast", exact: true }).click();
+  await settled(page);
+  await expect(page.getByText(/Did it rain today/)).toBeVisible();
   await page.getByRole("button", { name: "Yes", exact: true }).click();
   await page.getByRole("button", { name: "Heavy", exact: true }).click();
-  await expect(page.getByText(/Thank you|stored|saved/i)).toBeVisible();
+  // On the API the answer is stored and the API's thank-you is shown; demo files say "not sent".
+  const result = page.locator(".feedback-result");
+  await expect(result).toBeVisible();
+  await expect(result).not.toContainText("not sent");
   await shot(page, "5-farmer-feedback");
+  expect(errors, "console errors or warnings").toEqual([]);
+  // scripts/e2e_docker.sh reads this row back from SQLite (MP0307, 2024-09-09, heavy, app).
 });
 
 test("6 verification: every score on screen equals the verification job's file", async ({

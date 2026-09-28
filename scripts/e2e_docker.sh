@@ -14,14 +14,19 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Two runs at once (for example from two worktrees) must not share a project, ports or images: give the
+# second one E2E_PROJECT, E2E_PORT_PREFIX (default 180 -> 18000, 18080, 18081) and GRAMDRISHTI_IMAGE_TAG.
 export COMPOSE_PROJECT_NAME=${E2E_PROJECT:-gramdrishti-e2e}
-export WEB_PORT=18080 OFFLINE_PORT=18081 API_PORT=18000
+pp=${E2E_PORT_PREFIX:-180}
+export WEB_PORT=${pp}80 OFFLINE_PORT=${pp}81 API_PORT=${pp}00
 export E2E_BASE_URL=http://localhost:$WEB_PORT E2E_OFFLINE_URL=http://localhost:$OFFLINE_PORT
 # With a trained model in this checkout the stack serves its verification numbers, and the test demands
 # them; a fresh clone trains its own model version, which has none (docs/DECISIONS.md D122).
 if [ -f backend/artifacts/config.json ]; then export E2E_REQUIRE_VERIFICATION=1; fi
 
 say() { printf '[e2e] %s\n' "$*"; }
+# E2E_HEADED=1 shows the browser (rehearsal recording, with E2E_VIDEO=1 and E2E_SLOWMO=ms).
+headed=(); if [ "${E2E_HEADED:-0}" = 1 ]; then headed=(--headed); fi
 cleanup() {
   if [ "${E2E_KEEP:-0}" = 1 ]; then say "kept project $COMPOSE_PROJECT_NAME (docker compose -p $COMPOSE_PROJECT_NAME down -v)"
   else docker compose down -v --remove-orphans >/dev/null 2>&1 || true; say "removed project $COMPOSE_PROJECT_NAME"; fi
@@ -33,7 +38,7 @@ t0=$(date +%s)
 t1=$(date +%s)
 
 say "Playwright: demo script against $E2E_BASE_URL"
-(cd frontend && npx playwright test --config playwright.docker.config.ts e2e/demo-script.spec.ts)
+(cd frontend && npx playwright test --config playwright.docker.config.ts --output test-results/e2e-docker/script ${headed[@]+"${headed[@]}"} e2e/demo-script.spec.ts)
 
 say "feedback: POST /feedback, then read it back from SQLite"
 resp=$(curl -fsS -X POST "$E2E_BASE_URL/api/v1/feedback" -H 'Content-Type: application/json' -H 'X-Role: farmer' \
@@ -47,10 +52,15 @@ rows = con.execute("SELECT id, panchayat_id, date, reported_rain, intensity, cha
                    "WHERE panchayat_id = 'MP0307' AND date = '2024-09-08'").fetchall()
 print(f"[e2e] SQLite feedback rows for MP0307 on 2024-09-08: {rows}")
 assert rows and rows[-1][3:] == (1, "heavy", "app"), rows
+# The tap in demo step 5c (farmer Forecast screen, demo issue date).
+tapped = con.execute("SELECT id, panchayat_id, date, reported_rain, intensity, channel FROM feedback "
+                     "WHERE panchayat_id = 'MP0307' AND date = '2024-09-09'").fetchall()
+print(f"[e2e] SQLite feedback rows from the tap (MP0307, 2024-09-09): {tapped}")
+assert tapped and tapped[-1][3:] == (1, "heavy", "app"), tapped
 EOF
 
 say "stopping the API; the offline copy must keep the demo running"
 docker compose stop api
-(cd frontend && E2E_API_DOWN=1 npx playwright test --config playwright.docker.config.ts e2e/demo-offline.spec.ts)
+(cd frontend && E2E_API_DOWN=1 npx playwright test --config playwright.docker.config.ts --output test-results/e2e-docker/offline ${headed[@]+"${headed[@]}"} e2e/demo-offline.spec.ts)
 t2=$(date +%s)
 say "passed: stack up $((t1 - t0)) s, tests $((t2 - t1)) s"
