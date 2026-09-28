@@ -22,6 +22,7 @@ import {
   type StatusFilter,
 } from "../features/review/reviewState";
 import { useReviewer } from "../features/review/useReviewer";
+import { config } from "../lib/config";
 import { formatDate } from "../lib/format";
 import { useAppStore } from "../state/store";
 
@@ -48,7 +49,12 @@ export default function ReviewPage() {
     <div className="page page-wide review-page">
       <PageHeader title={t("review.title")} subtitle={t("review.subtitle", { date })} />
       <ReviewerField value={reviewer} onChange={setReviewer} />
-      {writable ? null : <p className="provenance">{t("review.readOnly")}</p>}
+      {writable ? null : (
+        // The published copy (GitHub Pages) is a snapshot: say so without developer set-up steps.
+        <p className="provenance">
+          {t(config.snapshot ? "review.readOnlySnapshot" : "review.readOnly")}
+        </p>
+      )}
       <QueryBoundary query={advisories} what={t("what.advisories")} skeletonLines={8}>
         {(list) => (
           <ReviewWorkspace

@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useGeoPanchayats, useMeta } from "../../api/hooks";
 import { RISK_TYPES, type PanchayatCollection, type RiskType, type Var } from "../../api/types";
@@ -76,8 +77,9 @@ export function MapControls() {
       <details className="map-more" open={wide || undefined}>
         <summary>
           <span>{t("map.moreOptions")}</span>
-          <span className="muted small">
+          <span className="map-more-state muted small">
             {riskType ? t(`risks.${riskType}`) : t(`viewModes.${viewMode}`)}
+            <ChevronDown size={16} aria-hidden="true" className="map-more-chevron" />
           </span>
         </summary>
         <SegmentedControl<ViewMode>
