@@ -11,13 +11,15 @@ describe("Ribbon", () => {
     ).toBeInTheDocument();
   });
 
-  it("is absent for real data and while data_mode is unknown", () => {
-    renderWithProviders(
-      <>
-        <Ribbon dataMode="real" />
-        <Ribbon dataMode={undefined} />
-      </>,
-    );
+  it("shows while data_mode is unknown (loading or API down)", () => {
+    renderWithProviders(<Ribbon dataMode={undefined} />);
+    expect(
+      screen.getByRole("region", { name: "Synthetic demo data. Not real weather." }),
+    ).toBeInTheDocument();
+  });
+
+  it("is absent once a response says the data is real", () => {
+    renderWithProviders(<Ribbon dataMode="real" />);
     expect(screen.queryByRole("region")).not.toBeInTheDocument();
   });
 });
