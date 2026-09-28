@@ -98,6 +98,7 @@
   "map": {
     "title": "ਨਕਸ਼ਾ",
     "areaLabel": "ਨਕਸ਼ਾ",
+    "moreOptions": "ਨਕਸ਼ੇ ਦੇ ਹੋਰ ਵਿਕਲਪ",
     "controls": "ਨਕਸ਼ੇ ਦੀਆਂ ਸੈਟਿੰਗਾਂ",
     "day": "ਦਿਨ",
     "show": "ਵਿਖਾਓ",
@@ -459,7 +460,8 @@
       "likely": "ਸੰਭਾਵਨਾ ਜ਼ਿਆਦਾ",
       "unknown": "ਪਤਾ ਨਹੀਂ"
     },
-    "rainRange": "{{word}}, {{lo}} ਤੋਂ {{hi}} ਮਿ.ਮੀ.",
+    "rainRange": "{{word}}, ਲਗਭਗ {{mid}} ਮਿ.ਮੀ., {{hi}} ਮਿ.ਮੀ. ਤੱਕ ਹੋ ਸਕਦਾ ਹੈ",
+    "rainUpTo": "{{word}}, {{hi}} ਮਿ.ਮੀ. ਤੱਕ ਹੋ ਸਕਦਾ ਹੈ",
     "rainAbout": "{{word}}, ਲਗਭਗ {{value}} ਮਿ.ਮੀ.",
     "rainNone": "{{word}}",
     "tempRange": "{{lo}} ਤੋਂ {{hi}} °C",

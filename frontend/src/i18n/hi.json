@@ -98,6 +98,7 @@
   "map": {
     "title": "नक्शा",
     "areaLabel": "नक्शा",
+    "moreOptions": "नक्शे के और विकल्प",
     "controls": "नक्शे की सेटिंग",
     "day": "दिन",
     "show": "दिखाएँ",
@@ -459,7 +460,8 @@
       "likely": "संभावना ज़्यादा",
       "unknown": "पता नहीं"
     },
-    "rainRange": "{{word}}, {{lo}} से {{hi}} मिमी",
+    "rainRange": "{{word}}, लगभग {{mid}} मिमी, {{hi}} मिमी तक हो सकती है",
+    "rainUpTo": "{{word}}, {{hi}} मिमी तक हो सकती है",
     "rainAbout": "{{word}}, लगभग {{value}} मिमी",
     "rainNone": "{{word}}",
     "tempRange": "{{lo}} से {{hi}} °C",

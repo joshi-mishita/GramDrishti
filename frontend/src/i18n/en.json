@@ -98,6 +98,7 @@
   "map": {
     "title": "Map explorer",
     "areaLabel": "Map",
+    "moreOptions": "More map options",
     "controls": "Map settings",
     "day": "Day",
     "show": "Show",
@@ -459,7 +460,8 @@
       "likely": "Likely",
       "unknown": "Not known"
     },
-    "rainRange": "{{word}}, {{lo}} to {{hi}} mm",
+    "rainRange": "{{word}}, about {{mid}} mm, could reach {{hi}} mm",
+    "rainUpTo": "{{word}}, could reach {{hi}} mm",
     "rainAbout": "{{word}}, about {{value}} mm",
     "rainNone": "{{word}}",
     "tempRange": "{{lo}} to {{hi}} °C",
