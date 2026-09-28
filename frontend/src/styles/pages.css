@@ -1077,3 +1077,481 @@
     display: none;
   }
 }
+
+/* ---- Farmer app (S13): big type, 48 px targets, words next to every icon ---- */
+.farmer-top {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: var(--gap-3) var(--gap-4);
+  background: var(--brand);
+  color: var(--brand-ink);
+}
+.farmer-top > * + * {
+  margin-top: var(--gap-2);
+}
+.farmer-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-3);
+}
+.farmer-village {
+  font-size: var(--fs-3);
+  font-weight: 700;
+}
+.farmer-top .seg-bar .seg-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.farmer-top .seg-bar .seg-face {
+  min-height: var(--touch);
+  align-items: center;
+  font-size: var(--fs-3);
+}
+.farmer-top .seg-legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+.farmer-top :focus-visible {
+  outline-color: var(--brand-ink);
+}
+
+.offline-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-1);
+  padding: 2px var(--gap-2);
+  border: 1px solid var(--brand-ink);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--fs-2);
+  font-weight: 700;
+}
+
+/* Developer control at the foot of each farmer screen, dashed so it reads as "not the app". */
+.demo-controls {
+  margin: var(--gap-5) var(--gap-4) 0;
+  padding: var(--gap-2) var(--gap-3);
+  border: 1px dashed var(--muted);
+  border-radius: var(--radius);
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+.demo-controls summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-1);
+  min-height: 36px;
+  cursor: pointer;
+}
+.demo-controls-body {
+  margin-top: var(--gap-2);
+  color: var(--ink);
+}
+.demo-controls-body > * + * {
+  margin-top: var(--gap-2);
+}
+.demo-controls-body .field-inline {
+  flex-wrap: wrap;
+}
+.demo-controls-body select {
+  flex: 1;
+  min-width: 0;
+}
+
+.last-updated {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  margin: 0;
+  padding: var(--gap-2) var(--gap-4);
+  background: var(--canvas);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-3);
+}
+
+.farmer .small {
+  font-size: var(--fs-3);
+}
+.farmer h2 {
+  font-size: var(--fs-4);
+}
+
+.btn-farmer {
+  min-height: var(--touch);
+  padding: 0 var(--gap-4);
+  font-size: var(--fs-farmer-body);
+  justify-content: center;
+}
+.btn-wide {
+  display: flex;
+  width: 100%;
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-2);
+}
+/* Two buttons share the row; each grows, and wraps when a language needs more room. */
+.btn-row > * {
+  flex: 1 1 8rem;
+}
+.btn-link {
+  min-height: var(--touch);
+  padding: 0 var(--gap-2);
+  border: 0;
+  background: none;
+  color: var(--brand);
+  font-size: var(--fs-3);
+  text-decoration: underline;
+}
+
+.advice-hero {
+  padding: var(--gap-4);
+  border: 2px solid var(--brand);
+  border-radius: var(--radius-panel);
+}
+.advice-hero > * + * {
+  margin-top: var(--gap-3);
+}
+.advice-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  color: var(--brand);
+  font-weight: 700;
+  font-size: var(--fs-3);
+}
+.advice-meta svg {
+  flex: none;
+}
+.advice-action {
+  font-size: var(--fs-farmer-action);
+  font-weight: 700;
+  line-height: 1.3;
+}
+:lang(hi) .advice-action,
+:lang(pa) .advice-action,
+.advice-action:lang(hi),
+.advice-action:lang(pa) {
+  line-height: 1.55;
+}
+.advice-reason {
+  font-size: var(--fs-farmer-body);
+}
+.advice-confidence .confidence-word {
+  font-size: var(--fs-3);
+  font-weight: 700;
+}
+.advice-more summary,
+.advice-item summary {
+  min-height: var(--touch);
+  cursor: pointer;
+}
+.advice-more summary {
+  display: flex;
+  align-items: center;
+  color: var(--brand);
+  font-weight: 700;
+}
+.advice-more > p {
+  margin-top: var(--gap-2);
+}
+
+.advice-list > li {
+  padding: 0;
+}
+.advice-item summary {
+  display: flex;
+  gap: var(--gap-3);
+  padding: var(--gap-3) var(--gap-4);
+  list-style: none;
+}
+.advice-item summary::-webkit-details-marker {
+  display: none;
+}
+.advice-item-icon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--brand);
+}
+.advice-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--fs-farmer-body);
+}
+.advice-item-meta {
+  color: var(--muted);
+  font-size: var(--fs-3);
+}
+.advice-item[open] summary {
+  font-weight: 700;
+}
+.advice-item-body {
+  padding: 0 var(--gap-4) var(--gap-4) calc(var(--gap-4) + 22px + var(--gap-3));
+}
+.advice-item-body > * + * {
+  margin-top: var(--gap-3);
+}
+
+.listen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-1);
+}
+.listen .btn {
+  width: 100%;
+}
+.listen .btn[aria-pressed="true"] {
+  background: var(--brand-tint);
+  border-color: var(--brand);
+}
+.listen-status {
+  min-height: 0;
+  font-size: var(--fs-3);
+  color: var(--muted);
+}
+.listen-status:empty {
+  display: none;
+}
+
+.fc-days {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+}
+.fc-day {
+  padding: var(--gap-3) var(--gap-4);
+}
+.fc-day + .fc-day {
+  border-top: 1px solid var(--line);
+}
+.fc-date {
+  font-size: var(--fs-4);
+  margin-bottom: var(--gap-2);
+}
+.fc-rows {
+  margin: 0;
+  display: grid;
+  gap: var(--gap-2);
+}
+.fc-rows > div {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, auto) 1fr;
+  gap: var(--gap-3);
+  align-items: start;
+}
+.fc-rows dt {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  color: var(--muted);
+}
+.fc-rows dd {
+  margin: 0;
+  font-weight: 500;
+}
+.spray {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--gap-2);
+}
+.spray-help {
+  flex-basis: 100%;
+  font-weight: 400;
+  color: var(--muted);
+  font-size: var(--fs-3);
+}
+.spray-good svg {
+  color: var(--sev-low);
+}
+.spray-caution svg {
+  color: var(--ink);
+}
+.spray-avoid svg {
+  color: var(--sev-severe);
+}
+
+.feedback {
+  padding: var(--gap-4);
+}
+.feedback > * + * {
+  margin-top: var(--gap-3);
+}
+.feedback-q {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+}
+.feedback-amount {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.feedback-amount legend {
+  margin-bottom: var(--gap-2);
+  font-weight: 700;
+}
+.feedback-result {
+  display: flex;
+  gap: var(--gap-2);
+  align-items: flex-start;
+  font-size: var(--fs-farmer-body);
+}
+.feedback-ok svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--sev-low);
+}
+.feedback-error {
+  color: var(--sev-severe);
+}
+
+/* Crop and delete on one line, the date under them at full width (fits 360 px). */
+.crop-edit > li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--gap-2);
+  align-items: end;
+}
+.crop-edit > li > label:nth-child(2) {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+.crop-edit label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-1);
+  font-size: var(--fs-3);
+  min-width: 0;
+}
+.crop-edit select,
+.crop-edit input {
+  min-height: var(--touch);
+  font-size: var(--fs-3);
+  width: 100%;
+  min-width: 0;
+}
+.crop-edit input {
+  padding: 0 var(--gap-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+}
+.crop-edit .btn-icon {
+  min-width: var(--touch);
+  min-height: var(--touch);
+}
+
+/* ---- Bulletin (Guide 7.1): an A4 sheet on screen, plain black on white on paper ---- */
+.bulletin-screen {
+  padding: var(--gap-4);
+}
+.bulletin-screen:focus {
+  outline: none;
+}
+.bulletin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--gap-3) var(--gap-5);
+  max-width: 210mm;
+  margin: 0 auto var(--gap-4);
+}
+.bulletin-toolbar a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-1);
+  min-height: 36px;
+}
+.bulletin-toolbar .seg-list .seg-options,
+.bulletin-toolbar .seg-options {
+  flex-direction: row;
+}
+.bulletin {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 14mm;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 16px; /* 12 pt */
+}
+.bulletin > * + *,
+.bulletin section > * + * {
+  margin-top: var(--gap-3);
+}
+.bulletin section + section,
+.bulletin-foot {
+  margin-top: var(--gap-5);
+}
+.bulletin-kicker {
+  font-weight: 700;
+}
+.bulletin h1 {
+  font-size: 24px;
+  margin: var(--gap-1) 0;
+}
+.bulletin h2 {
+  font-size: 20px;
+  padding-bottom: var(--gap-1);
+  border-bottom: 2px solid var(--ink);
+}
+.bulletin-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.bulletin-table th,
+.bulletin-table td {
+  padding: var(--gap-2);
+  border: 1px solid var(--ink);
+  text-align: left;
+  vertical-align: top;
+}
+.bulletin-table thead th:first-child,
+.bulletin-table tbody th {
+  width: 22%;
+}
+.bulletin-note {
+  font-size: 16px;
+}
+.bulletin-actions {
+  margin: 0;
+  padding-left: 1.5em;
+}
+.bulletin-actions > li + li {
+  margin-top: var(--gap-4);
+}
+.bulletin-action {
+  font-weight: 700;
+}
+.bulletin-foot {
+  padding-top: var(--gap-3);
+  border-top: 1px solid var(--ink);
+}
+.bulletin-foot > * + * {
+  margin-top: var(--gap-2);
+}
+.bulletin-mock {
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .bulletin-screen {
+    padding: var(--gap-2);
+  }
+  .bulletin {
+    padding: var(--gap-4);
+  }
+}

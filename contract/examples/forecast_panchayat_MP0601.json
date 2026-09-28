@@ -1,0 +1,353 @@
+{
+  "panchayat_id": "MP0601",
+  "name": "Synthetic Panchayat MP0601",
+  "block_id": "MB06",
+  "issue_date": "2024-09-09",
+  "data_mode": "mock",
+  "provenance": "computed",
+  "static": {
+    "elevation_m": 213.9,
+    "soil_texture": "loam",
+    "drainage_class": "moderate",
+    "irrigated_frac": 0.5
+  },
+  "days": [
+    {
+      "date": "2024-09-10",
+      "lead_day": 1,
+      "rain": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "block": 0.0,
+        "mean": 0.0,
+        "block_corrected": 0.0
+      },
+      "tmax": {
+        "p10": 33.78,
+        "p50": 34.97,
+        "p90": 36.33,
+        "block": 35.58,
+        "mean": 35.05,
+        "block_corrected": 35.28
+      },
+      "tmin": {
+        "p10": 22.34,
+        "p50": 23.29,
+        "p90": 24.71,
+        "block": 24.04,
+        "mean": 23.41,
+        "block_corrected": 23.25
+      },
+      "rh": {
+        "p10": 77.53,
+        "p50": 84.01,
+        "p90": 91.26,
+        "block": 82.3,
+        "mean": 84.16,
+        "block_corrected": 83.17
+      },
+      "wind": {
+        "p10": 2.87,
+        "p50": 4.38,
+        "p90": 6.55,
+        "block": 5.55,
+        "mean": 4.72,
+        "block_corrected": 4.64
+      },
+      "prob": {
+        "rain_ge_1mm": 0.01,
+        "rain_ge_2_5mm": 0.01,
+        "rain_ge_10mm": 0.0,
+        "rain_ge_35mm": 0.0
+      },
+      "derived": {
+        "et0_mm": 5.2,
+        "soil_moisture_frac": 0.8,
+        "thi": 86.9,
+        "waterlog_risk": "low",
+        "soil_moisture_frac_dry": 0.8,
+        "soil_moisture_frac_wet": 0.8,
+        "depletion_frac": 0.2,
+        "gdd": {
+          "cotton": 14.1
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 1,
+        "spray_rating": "good"
+      }
+    },
+    {
+      "date": "2024-09-11",
+      "lead_day": 2,
+      "rain": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.32,
+        "block": 0.0,
+        "mean": 0.0,
+        "block_corrected": 0.0
+      },
+      "tmax": {
+        "p10": 30.66,
+        "p50": 31.74,
+        "p90": 33.23,
+        "block": 32.06,
+        "mean": 31.91,
+        "block_corrected": 32.08
+      },
+      "tmin": {
+        "p10": 18.77,
+        "p50": 20.48,
+        "p90": 21.59,
+        "block": 21.07,
+        "mean": 20.49,
+        "block_corrected": 20.28
+      },
+      "rh": {
+        "p10": 75.03,
+        "p50": 83.66,
+        "p90": 91.8,
+        "block": 81.7,
+        "mean": 83.1,
+        "block_corrected": 82.6
+      },
+      "wind": {
+        "p10": 14.08,
+        "p50": 16.49,
+        "p90": 20.35,
+        "block": 20.5,
+        "mean": 17.26,
+        "block_corrected": 17.08
+      },
+      "prob": {
+        "rain_ge_1mm": 0.01,
+        "rain_ge_2_5mm": 0.01,
+        "rain_ge_10mm": 0.01,
+        "rain_ge_35mm": 0.01
+      },
+      "derived": {
+        "et0_mm": 4.7,
+        "soil_moisture_frac": 0.76,
+        "thi": 82.3,
+        "waterlog_risk": "low",
+        "soil_moisture_frac_dry": 0.76,
+        "soil_moisture_frac_wet": 0.77,
+        "depletion_frac": 0.24,
+        "gdd": {
+          "cotton": 11.1
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 2,
+        "spray_rating": "avoid"
+      }
+    },
+    {
+      "date": "2024-09-12",
+      "lead_day": 3,
+      "rain": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "block": 0.0,
+        "mean": 0.0,
+        "block_corrected": 0.0
+      },
+      "tmax": {
+        "p10": 28.63,
+        "p50": 30.89,
+        "p90": 32.78,
+        "block": 31.29,
+        "mean": 31.02,
+        "block_corrected": 31.26
+      },
+      "tmin": {
+        "p10": 20.66,
+        "p50": 22.9,
+        "p90": 25.16,
+        "block": 23.25,
+        "mean": 22.7,
+        "block_corrected": 22.53
+      },
+      "rh": {
+        "p10": 61.91,
+        "p50": 78.08,
+        "p90": 91.11,
+        "block": 73.85,
+        "mean": 76.21,
+        "block_corrected": 75.37
+      },
+      "wind": {
+        "p10": 2.64,
+        "p50": 5.33,
+        "p90": 8.47,
+        "block": 6.76,
+        "mean": 5.74,
+        "block_corrected": 5.61
+      },
+      "prob": {
+        "rain_ge_1mm": 0.02,
+        "rain_ge_2_5mm": 0.02,
+        "rain_ge_10mm": 0.0,
+        "rain_ge_35mm": 0.0
+      },
+      "derived": {
+        "et0_mm": 4.0,
+        "soil_moisture_frac": 0.73,
+        "thi": 81.3,
+        "waterlog_risk": "low",
+        "soil_moisture_frac_dry": 0.73,
+        "soil_moisture_frac_wet": 0.73,
+        "depletion_frac": 0.27,
+        "gdd": {
+          "cotton": 11.9
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 3,
+        "spray_rating": "good"
+      }
+    },
+    {
+      "date": "2024-09-13",
+      "lead_day": 4,
+      "rain": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "block": 0.0,
+        "mean": 0.0,
+        "block_corrected": 0.0
+      },
+      "tmax": {
+        "p10": 30.18,
+        "p50": 32.2,
+        "p90": 34.71,
+        "block": 32.45,
+        "mean": 32.22,
+        "block_corrected": 32.4
+      },
+      "tmin": {
+        "p10": 16.05,
+        "p50": 18.99,
+        "p90": 21.57,
+        "block": 19.89,
+        "mean": 19.09,
+        "block_corrected": 18.91
+      },
+      "rh": {
+        "p10": 76.77,
+        "p50": 87.68,
+        "p90": 100.0,
+        "block": 88.3,
+        "mean": 90.48,
+        "block_corrected": 89.69
+      },
+      "wind": {
+        "p10": 5.75,
+        "p50": 9.66,
+        "p90": 12.79,
+        "block": 11.54,
+        "mean": 9.56,
+        "block_corrected": 9.41
+      },
+      "prob": {
+        "rain_ge_1mm": 0.01,
+        "rain_ge_2_5mm": 0.01,
+        "rain_ge_10mm": 0.0,
+        "rain_ge_35mm": 0.0
+      },
+      "derived": {
+        "et0_mm": 5.0,
+        "soil_moisture_frac": 0.69,
+        "thi": 82.8,
+        "waterlog_risk": "low",
+        "soil_moisture_frac_dry": 0.69,
+        "soil_moisture_frac_wet": 0.69,
+        "depletion_frac": 0.31,
+        "gdd": {
+          "cotton": 10.6
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 4,
+        "spray_rating": "caution"
+      }
+    },
+    {
+      "date": "2024-09-14",
+      "lead_day": 5,
+      "rain": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.01,
+        "block": 0.0,
+        "mean": 0.0,
+        "block_corrected": 0.0
+      },
+      "tmax": {
+        "p10": 31.7,
+        "p50": 33.77,
+        "p90": 36.09,
+        "block": 34.48,
+        "mean": 33.95,
+        "block_corrected": 34.15
+      },
+      "tmin": {
+        "p10": 19.99,
+        "p50": 22.2,
+        "p90": 24.86,
+        "block": 22.84,
+        "mean": 22.31,
+        "block_corrected": 22.15
+      },
+      "rh": {
+        "p10": 80.84,
+        "p50": 93.57,
+        "p90": 100.0,
+        "block": 90.4,
+        "mean": 93.01,
+        "block_corrected": 92.03
+      },
+      "wind": {
+        "p10": 3.12,
+        "p50": 6.39,
+        "p90": 9.24,
+        "block": 8.24,
+        "mean": 6.67,
+        "block_corrected": 6.58
+      },
+      "prob": {
+        "rain_ge_1mm": 0.04,
+        "rain_ge_2_5mm": 0.01,
+        "rain_ge_10mm": 0.0,
+        "rain_ge_35mm": 0.0
+      },
+      "derived": {
+        "et0_mm": 4.9,
+        "soil_moisture_frac": 0.65,
+        "thi": 86.6,
+        "waterlog_risk": "low",
+        "soil_moisture_frac_dry": 0.65,
+        "soil_moisture_frac_wet": 0.65,
+        "depletion_frac": 0.35,
+        "gdd": {
+          "cotton": 13.0
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 5,
+        "spray_rating": "good"
+      }
+    }
+  ],
+  "model_version": "s5-lgbm-9b632a7b1b",
+  "thresholds_status": "placeholder"
+}

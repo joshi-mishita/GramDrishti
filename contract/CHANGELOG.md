@@ -12,11 +12,12 @@ Rules (see `CONTRIBUTING.md`):
 | v0.1.1 | 2026-09-25 | superseded | First implementation (S2): `openapi.json`, `examples/`. Every Appendix A shape kept; additions and definitions listed below. | no (additive) |
 | v0.1.2 | 2026-09-26 | superseded | Forecast endpoints serve the S5 model through snapshots (S6). Optional fields only; see below. | no (additive) |
 | v0.2.0 | 2026-09-26 | superseded | Risk, priority and advisories from the YAML rules engine; review state in SQLite (S8). Optional fields only; see below. | no (additive) |
-| v0.4.0 | 2026-09-27 | **current** | Farmer side (S12): demo farmers in SQLite, farmer advice filtered by crop with spray days, feedback checks, gTTS audio, offline snapshot export. Optional fields only; see below. v0.3.0 is taken by S10 (verification and impact) on its own branch. | no (additive) |
+| v0.3.0 | 2026-09-27 | superseded | Verification and impact from the verification job on the TEST window (S10). Optional fields only; see below. | no (additive) |
+| v0.4.0 | 2026-09-27 | **current** | Farmer side (S12): demo farmers in SQLite, farmer advice filtered by crop with spray days, feedback checks, gTTS audio, offline snapshot export. Optional fields only; see below. | no (additive) |
 
 ## v0.4.0 (2026-09-27, S12)
 
-Additive and optional: every v0.2.0 client and example still validates. `GET /meta` and `/health` return `api_version: "0.4.0"`. The number skips v0.3.0 because the S10 branch (verification and impact, not merged when S12 started) already uses it; when both are merged the two entries stand side by side.
+Additive and optional: every v0.3.0 client and example still validates. `GET /meta` and `/health` return `api_version: "0.4.0"`. The number skips v0.3.0 because the S10 branch (verification and impact, not merged when S12 started) already uses it; when both are merged the two entries stand side by side.
 
 New optional fields:
 - `Farmer.livestock` (boolean): the demo farmer keeps livestock, so livestock advisories reach them.
@@ -29,8 +30,9 @@ Semantics changed in this version (shapes unchanged):
 - `GET /audio/{advisory_id}?lang=`: MP3 (`audio/mpeg`) of the advisory's action, reason and fallback in that language, made with gTTS on first request and cached (a new file after an edit). 404 `audio_not_available` (contract error shape) when gTTS is not installed, the language has no text (for example after an English-only edit), or the file cannot be made (no internet). 404 `not_found` for an unknown advisory.
 - `Advisory.audio`: approved and edited advisories now list `{lang: "/api/v1/audio/<id>?lang=<lang>"}` for each language with text that the installed gTTS supports (en, hi and pa with gTTS 2.5.4). Drafts and rejected advisories keep `{}`. A listed link can still answer 404 when the server has no internet; the UI then uses browser speech.
 
+Examples added in S13 (no shape change, still v0.4.0): `farmer_advice_F003..F005.json`, `forecast_panchayat_<pid>.json` for each demo farmer's Panchayat (MP0307, MP0311, MP0508, MP0601), and `advisories_<pid>.json` = `GET /advisories?panchayat_id=<pid>&issue_date=2024-09-09` for the same Panchayats plus MP0103 (the bulletin reads this list and prints approved and edited items). Drafts in all five farmers' Panchayats are approved before these are written. `export_snapshot` adds the same per-Panchayat list for every Panchayat and date.
+
 New, outside the API: `contract/snapshot/` (git-ignored) from `python -m gramdrishti.export_snapshot` holds every GET response the frontend asks for on the demo dates, with an `index.json` in the same format as `contract/examples/index.json` (one entry per request: `file`, `method`, `path` with query, `status`, `model`). Top-level keys: `contract_version`, `data_mode`, `issue_dates`, `model_versions`, `panchayats`, `generated_on`, `generated_by`, `files`. File names follow the example names with the date and lead day added, for example `forecast_map_rain_2024-09-09_lead1.json`, `explain_MP0307_tmax_2024-09-09_lead1.json`, `farmer_advice_F001_2024-09-09.json`.
-| v0.3.0 | 2026-09-27 | **current** | Verification and impact from the verification job on the TEST window (S10). Optional fields only; see below. | no (additive) |
 
 ## v0.3.0 (2026-09-27, S10)
 

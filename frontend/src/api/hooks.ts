@@ -12,6 +12,8 @@ import type {
   Explain,
   Farmer,
   FarmerAdvice,
+  FeedbackRequest,
+  FeedbackResponse,
   ForecastChanges,
   ForecastMap,
   Observed,
@@ -53,6 +55,8 @@ export const queryKeys = {
   advisories: (status: Status | undefined, issueDate: string) =>
     ["advisories", status ?? "all", issueDate] as const,
   advisory: (id: string) => ["advisory", id] as const,
+  panchayatAdvisories: (pid: string, issueDate: string) =>
+    ["advisories", "panchayat", pid, issueDate] as const,
   verificationSummary: ["verification", "summary"] as const,
   reliability: (event: RainEvent) => ["verification", "reliability", event] as const,
   coverage: ["verification", "coverage"] as const,
@@ -217,6 +221,24 @@ export const useAdvisory = (id: string | null, enabled = true) =>
     staleTime: 0,
   });
 
+/**
+ * Every advisory of one Panchayat and issue date, all statuses (the bulletin prints the
+ * approved and edited ones). The key starts with "advisories", so a review refetches it.
+ */
+export const usePanchayatAdvisories = (pid: string | null, issueDate: string | null) =>
+  useQuery({
+    queryKey: queryKeys.panchayatAdvisories(pid ?? "", issueDate ?? ""),
+    queryFn: ({ signal }) =>
+      apiGet<AdvisoryList>(
+        "/advisories",
+        { panchayat_id: pid, issue_date: issueDate },
+        undefined,
+        signal,
+      ),
+    enabled: !!pid && !!issueDate,
+    staleTime: 0,
+  });
+
 export interface ReviewVars {
   id: string;
   body: ReviewRequest;
@@ -295,4 +317,15 @@ export const useFarmerAdvice = (id: string, issueDate: string | null) =>
       apiGet<FarmerAdvice>(`/farmers/${id}/advice`, { issue_date: issueDate }, undefined, signal),
     enabled: !!issueDate,
     staleTime: 0,
+  });
+
+/**
+ * "Did it rain today?" (Guide 7). networkMode "always" so an offline phone gets the
+ * network error at once (the farmer screen then keeps the answer to send later) instead of
+ * a mutation paused without telling anyone.
+ */
+export const useSendFeedback = () =>
+  useMutation({
+    mutationFn: (body: FeedbackRequest) => apiPost<FeedbackResponse>("/feedback", body),
+    networkMode: "always",
   });

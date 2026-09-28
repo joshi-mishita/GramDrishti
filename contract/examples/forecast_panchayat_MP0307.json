@@ -1,0 +1,353 @@
+{
+  "panchayat_id": "MP0307",
+  "name": "Synthetic Panchayat MP0307",
+  "block_id": "MB03",
+  "issue_date": "2024-09-09",
+  "data_mode": "mock",
+  "provenance": "computed",
+  "static": {
+    "elevation_m": 210.8,
+    "soil_texture": "loam",
+    "drainage_class": "moderate",
+    "irrigated_frac": 0.41
+  },
+  "days": [
+    {
+      "date": "2024-09-10",
+      "lead_day": 1,
+      "rain": {
+        "p10": 0.0,
+        "p50": 103.84,
+        "p90": 156.24,
+        "block": 105.78,
+        "mean": 101.41,
+        "block_corrected": 101.28
+      },
+      "tmax": {
+        "p10": 24.87,
+        "p50": 26.46,
+        "p90": 27.49,
+        "block": 26.77,
+        "mean": 26.71,
+        "block_corrected": 26.57
+      },
+      "tmin": {
+        "p10": 21.79,
+        "p50": 23.06,
+        "p90": 24.27,
+        "block": 23.65,
+        "mean": 22.62,
+        "block_corrected": 23.13
+      },
+      "rh": {
+        "p10": 47.18,
+        "p50": 56.84,
+        "p90": 62.83,
+        "block": 54.95,
+        "mean": 57.25,
+        "block_corrected": 55.97
+      },
+      "wind": {
+        "p10": 1.98,
+        "p50": 3.17,
+        "p90": 4.43,
+        "block": 4.38,
+        "mean": 3.36,
+        "block_corrected": 3.68
+      },
+      "prob": {
+        "rain_ge_1mm": 0.91,
+        "rain_ge_2_5mm": 0.82,
+        "rain_ge_10mm": 0.82,
+        "rain_ge_35mm": 0.48
+      },
+      "derived": {
+        "et0_mm": 2.5,
+        "soil_moisture_frac": 0.98,
+        "thi": 73.7,
+        "waterlog_risk": "moderate",
+        "soil_moisture_frac_dry": 0.85,
+        "soil_moisture_frac_wet": 0.98,
+        "depletion_frac": 0.02,
+        "gdd": {
+          "bajra": 14.8
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 0,
+        "spray_rating": "avoid"
+      }
+    },
+    {
+      "date": "2024-09-11",
+      "lead_day": 2,
+      "rain": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "block": 0.0,
+        "mean": 0.0,
+        "block_corrected": 0.0
+      },
+      "tmax": {
+        "p10": 29.69,
+        "p50": 31.95,
+        "p90": 32.72,
+        "block": 32.42,
+        "mean": 32.07,
+        "block_corrected": 31.77
+      },
+      "tmin": {
+        "p10": 19.9,
+        "p50": 21.57,
+        "p90": 22.88,
+        "block": 22.46,
+        "mean": 21.56,
+        "block_corrected": 21.75
+      },
+      "rh": {
+        "p10": 66.0,
+        "p50": 73.23,
+        "p90": 82.7,
+        "block": 74.75,
+        "mean": 76.16,
+        "block_corrected": 75.66
+      },
+      "wind": {
+        "p10": 6.83,
+        "p50": 10.02,
+        "p90": 11.61,
+        "block": 12.26,
+        "mean": 9.55,
+        "block_corrected": 10.21
+      },
+      "prob": {
+        "rain_ge_1mm": 0.01,
+        "rain_ge_2_5mm": 0.01,
+        "rain_ge_10mm": 0.01,
+        "rain_ge_35mm": 0.0
+      },
+      "derived": {
+        "et0_mm": 4.6,
+        "soil_moisture_frac": 0.93,
+        "thi": 81.5,
+        "waterlog_risk": "low",
+        "soil_moisture_frac_dry": 0.81,
+        "soil_moisture_frac_wet": 0.93,
+        "depletion_frac": 0.07,
+        "gdd": {
+          "bajra": 16.8
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 1,
+        "spray_rating": "caution"
+      }
+    },
+    {
+      "date": "2024-09-12",
+      "lead_day": 3,
+      "rain": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "block": 0.0,
+        "mean": 0.0,
+        "block_corrected": 0.0
+      },
+      "tmax": {
+        "p10": 26.42,
+        "p50": 28.83,
+        "p90": 30.89,
+        "block": 29.04,
+        "mean": 28.88,
+        "block_corrected": 28.64
+      },
+      "tmin": {
+        "p10": 16.68,
+        "p50": 19.33,
+        "p90": 21.12,
+        "block": 20.21,
+        "mean": 19.16,
+        "block_corrected": 19.55
+      },
+      "rh": {
+        "p10": 61.58,
+        "p50": 73.33,
+        "p90": 87.54,
+        "block": 71.1,
+        "mean": 73.86,
+        "block_corrected": 72.6
+      },
+      "wind": {
+        "p10": 5.02,
+        "p50": 8.27,
+        "p90": 10.99,
+        "block": 10.51,
+        "mean": 7.89,
+        "block_corrected": 8.62
+      },
+      "prob": {
+        "rain_ge_1mm": 0.02,
+        "rain_ge_2_5mm": 0.01,
+        "rain_ge_10mm": 0.0,
+        "rain_ge_35mm": 0.0
+      },
+      "derived": {
+        "et0_mm": 4.1,
+        "soil_moisture_frac": 0.89,
+        "thi": 77.4,
+        "waterlog_risk": "low",
+        "soil_moisture_frac_dry": 0.77,
+        "soil_moisture_frac_wet": 0.89,
+        "depletion_frac": 0.11,
+        "gdd": {
+          "bajra": 14.1
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 2,
+        "spray_rating": "avoid"
+      }
+    },
+    {
+      "date": "2024-09-13",
+      "lead_day": 4,
+      "rain": {
+        "p10": 0.0,
+        "p50": 9.83,
+        "p90": 30.78,
+        "block": 9.39,
+        "mean": 13.73,
+        "block_corrected": 12.91
+      },
+      "tmax": {
+        "p10": 32.05,
+        "p50": 33.2,
+        "p90": 36.24,
+        "block": 33.12,
+        "mean": 33.55,
+        "block_corrected": 33.28
+      },
+      "tmin": {
+        "p10": 21.71,
+        "p50": 23.82,
+        "p90": 26.72,
+        "block": 24.93,
+        "mean": 23.97,
+        "block_corrected": 24.12
+      },
+      "rh": {
+        "p10": 56.6,
+        "p50": 65.86,
+        "p90": 83.65,
+        "block": 65.6,
+        "mean": 67.76,
+        "block_corrected": 67.14
+      },
+      "wind": {
+        "p10": 5.29,
+        "p50": 8.38,
+        "p90": 10.9,
+        "block": 11.42,
+        "mean": 8.41,
+        "block_corrected": 9.28
+      },
+      "prob": {
+        "rain_ge_1mm": 0.91,
+        "rain_ge_2_5mm": 0.89,
+        "rain_ge_10mm": 0.7,
+        "rain_ge_35mm": 0.09
+      },
+      "derived": {
+        "et0_mm": 4.5,
+        "soil_moisture_frac": 0.96,
+        "thi": 82.6,
+        "waterlog_risk": "low",
+        "soil_moisture_frac_dry": 0.73,
+        "soil_moisture_frac_wet": 0.96,
+        "depletion_frac": 0.04,
+        "gdd": {
+          "bajra": 18.5
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 0,
+        "spray_rating": "avoid"
+      }
+    },
+    {
+      "date": "2024-09-14",
+      "lead_day": 5,
+      "rain": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "block": 0.0,
+        "mean": 0.0,
+        "block_corrected": 0.0
+      },
+      "tmax": {
+        "p10": 27.93,
+        "p50": 30.5,
+        "p90": 32.75,
+        "block": 30.52,
+        "mean": 30.56,
+        "block_corrected": 30.27
+      },
+      "tmin": {
+        "p10": 14.39,
+        "p50": 17.74,
+        "p90": 20.13,
+        "block": 19.08,
+        "mean": 17.85,
+        "block_corrected": 18.07
+      },
+      "rh": {
+        "p10": 42.57,
+        "p50": 57.87,
+        "p90": 70.39,
+        "block": 58.5,
+        "mean": 60.36,
+        "block_corrected": 60.0
+      },
+      "wind": {
+        "p10": 5.05,
+        "p50": 7.98,
+        "p90": 11.21,
+        "block": 10.62,
+        "mean": 7.9,
+        "block_corrected": 8.51
+      },
+      "prob": {
+        "rain_ge_1mm": 0.06,
+        "rain_ge_2_5mm": 0.03,
+        "rain_ge_10mm": 0.03,
+        "rain_ge_35mm": 0.01
+      },
+      "derived": {
+        "et0_mm": 4.7,
+        "soil_moisture_frac": 0.91,
+        "thi": 77.2,
+        "waterlog_risk": "low",
+        "soil_moisture_frac_dry": 0.68,
+        "soil_moisture_frac_wet": 0.91,
+        "depletion_frac": 0.09,
+        "gdd": {
+          "bajra": 14.1
+        },
+        "frost_prob": 0.0,
+        "frost_risk": "low",
+        "fog_proxy": false,
+        "dry_spell_days": 1,
+        "spray_rating": "caution"
+      }
+    }
+  ],
+  "model_version": "s5-lgbm-9b632a7b1b",
+  "thresholds_status": "placeholder"
+}

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useMeta } from "../api/hooks";
 import { IssueDateSelect } from "./IssueDateSelect";
 import { LangSwitch } from "./LangSwitch";
+import { OfflinePill } from "./OfflinePill";
 import { RoleSwitch } from "./RoleSwitch";
 
 /** Product name, district, issue date, role and language (Guide 2.5 and 6.1). */
@@ -24,6 +25,7 @@ export function TopBar() {
       </div>
       <IssueDateSelect />
       <div className="topbar-switches">
+        <OfflinePill />
         <RoleSwitch />
         <LangSwitch />
       </div>
