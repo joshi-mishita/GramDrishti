@@ -471,7 +471,7 @@
     },
     "sprayHelp": {
       "good": "Good day to spray",
-      "caution": "Spray only in the calm early morning",
+      "caution": "Check wind and rain before you spray",
       "avoid": "Do not spray"
     },
     "sprayNote": "Spray ratings are for the whole day, not for hours.",

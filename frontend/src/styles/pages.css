@@ -14,7 +14,8 @@
 /* ---- Map explorer: controls | map | detail panel (Guide 6.1) ---- */
 .map-page {
   display: grid;
-  grid-template-columns: 232px minmax(0, 1fr) var(--panel-w);
+  /* 244 px: the longest synthetic name ("Synthetic Panchayat MP0307") fits the picker (S17). */
+  grid-template-columns: 244px minmax(0, 1fr) var(--panel-w);
   min-height: calc(100vh - var(--topbar-h) - var(--ribbon-h));
 }
 /* Wide screens: the map fills the window; controls and panel scroll on their own */
