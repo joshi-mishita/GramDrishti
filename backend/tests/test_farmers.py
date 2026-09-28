@@ -301,4 +301,5 @@ def test_snapshot_export_files_validate(snapshot_dir, verification_dir, tmp_path
     assert f"/explain/MP0307?issue_date={MAIN}&lead_day=5&var=wind" in keys
     assert "/observed/panchayat/MP0307?from=2024-09-10&to=2024-09-14" in keys
     assert f"/advisories?issue_date={MAIN}&status=draft" in keys
+    assert f"/advisories?issue_date={MAIN}&panchayat_id=MP0307" in keys, "the bulletin's request"
     assert not (tmp_path / "snapshot.tmp").exists()
