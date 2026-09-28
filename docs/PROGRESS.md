@@ -22,7 +22,7 @@ Claude Code updates this file at the end of every session. People update the "Me
 | S13 | Frontend farmer app, languages, bulletin, offline | frontend | pushed, no PR (no `gh`); contains S12 | session-13-farmer-app | |
 | S14 | Integration, Docker and end-to-end tests | both | branch pushed, no PR (no `gh`) | session-14-integration | |
 | S15 | Design and accessibility polish | frontend | pushed, no PR (no `gh`); contains S13 | session-15-design-polish | |
-| S16 | Documentation and submission assets | both | in progress; contains S13, S14, S15 | session-16-docs | |
+| S16 | Documentation and submission assets | both | pushed, no PR (no `gh`); contains S13, S14, S15 | session-16-docs | |
 | S17 | Final QA and demo freeze | both | not started | | |
 
 ## Current state
@@ -217,6 +217,16 @@ S14 (2026-09-28, branch `session-14-integration` from `main` `1d752cd`, S13 not 
 - Tests: `frontend/e2e/demo-script.spec.ts` (B7 steps 1 to 7) and `demo-offline.spec.ts` (API stopped) via `scripts/e2e_docker.sh` on an isolated project; `scripts/fresh_clone_check.sh` runs the README quick start in a temp clone. CI: new jobs "Contract (openapi, types, examples)" and "Docker stack and demo e2e".
 - B4 checklist with evidence: `docs/integration_checklist.md` (12 pass, 1 partly, 2 fail: both S13 UI).
 
+S16: documentation and submission assets (branch `session-16-docs` in worktree `../GramDrishti-s16`, from S15 plus merges of S13 and S14, D150). Built:
+- `README.md` final: problem, one-paragraph solution, architecture diagram (regrouped, only implemented flow, D154), screenshots from `docs/screens/after/`, the quick start (block unchanged, checked by `scripts/fresh_clone_check.sh`), features mapped to the problem statement, results with the rain tie, tech stack, limitations, roadmap, document index.
+- New documents: `docs/model_card.md`, `data_card.md`, `architecture.md`, `mock_to_real_plan.md`, `demo_script.md` (six-minute and two-minute versions, failure table, reset after a rehearsal), `qna.md` (25 questions), `presentation_outline.md` (14 slides), `expert_review_pack.md`.
+- `python -m gramdrishti.verify.docs_check` (D151): 20 files, 66 relative links and anchors, 3 Mermaid blocks, 22 model card table rows and 28 numeric claims checked against the committed verification record; `tests/test_docs_check.py` (8 tests, including that a wrong number, verdict, count, claim, link or anchor is caught). `--mermaid-html` renders every diagram with Mermaid 11 in a browser: 3 of 3 rendered.
+- Demo walked by hand on the S16 API and dev frontend (1366x768 and 360x740): map views, MP0307 panel (103.8 mm, likely 0 to 156.2 mm, block 105.8 mm), review filters, approve, farmer Today in the approved language, rain report stored in SQLite (`1|MP0307|2024-09-09|1|heavy|app`), verification and impact numbers equal to the record.
+- Fix found by the fresh-clone check: the merged S13 + S14 `web-offline` image did not build (D156).
+- `scripts/fresh_clone_check.sh` on commit `2b82ac3` (this branch, images cached from S14, model trained in the container): quick start 325 s (build 29 s, prepare 275 s, start 19 s), all 14 endpoint checks pass, verification answers 503 `not_computed` as expected (D122). The first run on `8e1daa4` failed at the `web-offline` build. The demo script's review reset (remove the `state` volume, `make up`) was tested on the same stack: 38 s, the approved advisory was a draft again.
+- Claims removed or softened after checking them: listed in the S16 handoff below.
+- Tests: 441 backend (8 new), 233 frontend; ruff and lint clean.
+
 ## Decisions
 - D001 Licence MIT.
 - D002 Mock data flattened into `data/`; zip and `synthetic_oracle/` git-ignored.
@@ -354,8 +364,26 @@ S14 (2026-09-28, branch `session-14-integration` from `main` `1d752cd`, S13 not 
 - D125 API body limit, CORS from config, access log without personal data.
 - D126 e2e on an isolated project checks numbers against the API; fresh-clone check runs the README block.
 - D127 `click` CVE-2026-7246 recorded, not fixed (gTTS pins click<8.2; `click.edit()` unreachable).
+- D140 S15 merges S13; decisions from D140.
+- D141 Verification and impact notes in plain words; losses as headline plus strata.
+- D142 Hindi and Punjabi strings stay in the main bundle.
+- D143 Static brand bar in `index.html` for first paint.
+- D144 Focus moves to `<main>` on navigation.
+- D145 URL sync compares against the address bar.
+- D146 Only cropped before/after pairs committed.
+- D150 S16 from S15 plus S13 and S14 merges; decisions from D150.
+- D151 Docs numbers, links and Mermaid checked by `verify/docs_check.py` against the committed record.
+- D152 Real sources by name only; licence and access marked [verify].
+- D153 Demo step 1 shows the spread with Max temperature; rain p50 is flat within blocks on 2024-09-09.
+- D154 README diagram shows only implemented flow.
+- D155 Expert pack has no contact address yet.
+- D156 Docker offline build skips the snapshot copy (`SNAPSHOT_FROM_VOLUME=1`).
 
 ## Not verified
+- S16: the documents were checked as Markdown and with Mermaid 11 in a local browser, not seen rendered on GitHub (the branch is pushed, but no one has opened it there yet).
+- S16: the Q&A was not read aloud with a teammate; that is the owner's step. The demo was walked on the dev frontend with the real API, not on the Docker stack at 8080; `make e2e` was not rerun (its step 5b looks for the rain question on Today, but it is on Forecast; a task was suggested).
+- S16: no real-world figure appears anywhere; the presentation outline says to add one only with a citable source.
+- S16: the licences and access status of every intended real source are unverified by design ([verify] in `docs/data_card.md`).
 - S15: no screen reader pass with NVDA or VoiceOver (axe and the keyboard walkthrough only); no real low-end phone or projector; nobody outside the team has been asked "Does this look like a real government or agri tool?" (space for answers at the end of `docs/design_review.md`). Lighthouse ran on `vite preview` with the demo files, not against the API or a deployed server. CI has not run `npm run a11y` (it needs Chrome; S14 owns CI).
 - S0: Mermaid checked with the mermaid parser locally, not seen rendered on GitHub.
 - S1: CI has not run on GitHub from this session (no `gh`); check the pull request's checks. That includes the oracle regeneration step and the generator reproduction test on Linux with Python 3.11. Local runs used Python 3.13.9, pandas 3.0.6 and numpy 2.5.3 on macOS.
@@ -406,11 +434,6 @@ S14 (2026-09-28, branch `session-14-integration` from `main` `1d752cd`, S13 not 
 - S9: printing was checked with print-media emulation and a screenshot, not on paper or as a PDF from the print dialog.
 - S9: new Hindi and Punjabi UI strings (risk, priority, review, statuses, categories) are drafts needing native review. Stage names come from `templates.yaml` (also drafts).
 - S9: the farmer advice query is invalidated after a review, but the farmer screen is not built yet (S13), so the effect on it is untested.
-- S12: CI has not run this branch (no `gh`). The examples freshness test needs local snapshots.
-- S12: nobody has listened to the generated Hindi or Punjabi audio; only the file type (MPEG layer III, 24 kHz) and size were checked. Pronunciation of numbers and units ("मिमी", "ਮਿਲੀਮੀਟਰ") is unknown.
-- S12: snapshot mode was checked in the in-app browser on two screens (farmer Today, map with detail panel), not screen by screen; the full export was not built in production mode (`npm run build` copies 104 MB of snapshot into `dist/`).
-- S12: the new hi/pa feedback texts are drafts needing native review.
-- S12: the feedback report used the mock file only (`--no-store`); with API reports it adds them the same way (unit-tested).
 - S13: CI has not run this branch (no `gh`). `npm run e2e:farmer` builds the app and needs a browser; it was run locally with `SHOTS_BROWSER_CHANNEL=chrome` (Playwright's headless shell is not downloaded here), not in CI.
 - S13: not tried on a real phone. Offline was tested with Playwright's offline mode in desktop Chrome at 360 px, not airplane mode on a device. Voices differ per phone: only the Mac's voices were tried (Hindi yes, Punjabi none). The server MP3 was played once for English; nobody listened to Hindi or Punjabi audio.
 - S13: WhatsApp sharing was checked as a link (text and encoding in tests); the link was not opened in WhatsApp.
@@ -424,6 +447,9 @@ S14 (2026-09-28, branch `session-14-integration` from `main` `1d752cd`, S13 not 
 - S14: loading and error states were seen live only on the map (API stopped) and the farmer empty state; other screens rely on the `QueryBoundary` unit tests.
 
 ## Known issues
+- S16 `frontend/e2e/demo-script.spec.ts` step 5b goes to `/farmer` (Today), but the "Did it rain today" card is on Forecast and My farm, so the step still skips after S13 is merged; B4 items 11 and 13 stay unconfirmed on the Docker stack (item 11 was confirmed by hand on the dev stack in S16).
+- S16 two review filters changed within the same event-loop tick (a script setting both selects at once) lose the first one; with a second between them both stick. Not seen with human input; related to D145.
+- S16 `docs/integration_checklist.md` is the S14 record and still says S13 is not merged.
 - S15 text the API sends in English only appears on Hindi and Punjabi screens: demo date reasons in the issue date menu, impact rule sentences, verification and impact notes, review evidence rows (all marked `lang="en"`).
 - S15 LCP on the farmer route is 3.17 s on the slow profile: the advice waits for the script, the route chunk and three data requests (`/mock/index.json`, farmer, advice).
 - S15 still open from the design review: redundant "0 mm, likely about 0 mm" headline on dry days; the Panchayat picker truncates names in the 232 px column; the verification page is about 7,300 px tall (every station row); repeated "Why" text on heavy-rain days in Priority.
@@ -483,7 +509,7 @@ S14 (2026-09-28, branch `session-14-integration` from `main` `1d752cd`, S13 not 
 - S13 on demo files, feedback cannot be stored and says so; on the real API it needs `farmers,feedback` in `VITE_REAL_ENDPOINTS`, and the farmer's Today stays empty until an officer approves drafts in that Panchayat.
 - S13 Panchayat names are English ("Synthetic Panchayat MP0307") on Hindi and Punjabi screens: the geography has no translated names.
 - S13 feedback answers queued offline are kept per browser; if storage is blocked the answer is lost (the screen says it was saved only when storing worked).
-- S14 the rain median (p50) is one value per block on 2024-09-09 (MB03: 103.84 mm for all 16 Panchayats on lead day 1; every block on lead days 2 and 3), while the mean varies (99 to 124 mm in MB03). The Panchayat map for rain therefore shows no spread in its middle values on the main demo date; the likely range does vary. Extends the S8/S12 note that rain chances are flat within MB03. Demo step 1 should say so, or use temperature for the spread. For the model owner (quantile model or reconciliation of p50).
+- S14 the rain median (p50) is one value per block on 2024-09-09 (MB03: 103.84 mm for all 16 Panchayats on lead day 1; every block on lead days 2 and 3), while the mean varies (65.2 to 124.2 mm in MB03; corrected in S16 from the API, the S14 text said 99 to 124). The Panchayat map for rain therefore shows no spread in its middle values on the main demo date; the likely range does vary. Extends the S8/S12 note that rain chances are flat within MB03. Demo step 1 should say so, or use temperature for the spread. For the model owner (quantile model or reconciliation of p50).
 - S14 a Linux retrain gets model version `s5-lgbm-2576015e9e` (libm last-bit differences in 8 of 60 feature columns), so a fresh clone has no verification numbers (D122).
 - S14 with the API down the live app (port 8080) takes about 30 s of retries to show its error state, and shows no mock ribbon (no response has given it the data mode). The offline copy (8081) is unaffected.
 - S14 the offline copy shows reviews as of its export; run `make offline` after approving advisories for the demo (1 to 2 minutes).
@@ -520,6 +546,20 @@ Full protocol: `docs/validation_protocol.md`. Frozen: model `s5-lgbm-9b632a7b1b`
 | 2026-09-27 | s5-lgbm-9b632a7b1b (S10) | models TRAIN; isotonic + CQR CALIB; evaluated on TEST (issue dates 2024-07-16..2024-12-26) | `python -m gramdrishti.verify.run_validation`. **TEST window first opened 2026-09-27T15:14:23** for this version (ledger `docs/test_window_ledger.json`); rerun at 15:23:42 gave identical numbers. Dry run of the same code on CALIB earlier the same day. Report: `docs/validation_report.md`. TEST reused: no |
 
 ## Handoff for the next session
+S16 (2026-09-28): branch `session-16-docs` in worktree `../GramDrishti-s16`: S15 plus merges of S13 and S14 (D150), the docs, `verify/docs_check.py`, and the `web-offline` build fix (D156). Merge order S13, S14, S15, S16. After any change to a number-bearing document or a new model version, run `python -m gramdrishti.verify.docs_check` (CI runs it through `tests/test_docs_check.py`); a new claim with a number goes into `CLAIMS` in that module. S17: rehearse with `docs/demo_script.md` on the Docker stack, read `docs/qna.md` aloud as a pair and cut anything that sounds bigger than the build, fix e2e step 5b (suggested task), fill the expert pack's contact line.
+
+Claims removed or softened in S16 after checking them against the code, data and running app:
+- README diagram: the arrows "farmer feedback to verification" and "verification to model and rules" implied an automatic loop; feedback never enters the verification job and nothing retrains. Removed; the text says changes go through people (D154).
+- README status table said the farmer app was "in progress" and Docker was "S14"; both are built (S13, S14), on unmerged branches, and the README says so.
+- PROGRESS S14 known issue said the MB03 rain mean on 2024-09-09 ranges 99 to 124 mm; the API gives 65.2 to 124.2 mm. Corrected.
+- Demo script: "wins by 2 to 5 percent" became "1.9 to 5.1 percent"; "irrigated and low-lying Panchayats come out cooler" became irrigated only (low-lying is a winter-night Tmin pattern, not the Tmax map on 9 Sep).
+- Q&A: "a deep model would need far more data than any district has" (never tested) became "we did not try one"; "a test checks no LLM is used" now names the test file; latency "3 to 6 ms" became the measured medians 3.2 to 6.2 ms.
+- Mock-to-real plan: "with one source the weights reduce and spread is 0" (never run) became "only run with two sources; check the combination".
+- Data card: "the access log records the path" became "route template", as `api/hardening.py` does; "about 8 m" of elevation became the measured 210.0 to 218.3 m; no licence of any real source is stated as fact (all [verify], D152).
+- Architecture: gTTS described as "an unofficial API" became "a library that calls Google Translate's speech service".
+- Expert pack: no contact address published (D155).
+- Presentation outline: no real-world statistics; the problem slides use reasons and the synthetic example.
+
 S15 (2026-09-28): branch `session-15-design-polish` in worktree `../GramDrishti-s15`, from `main` plus the unmerged `session-13-farmer-app` (D140). Merge order: S13, then S15. Frontend only apart from docs. New: `components/TableScroll.tsx` (use it for any wide table), `layouts/useFocusMainOnNavigate.ts`, `readableNote`/`splitLossNote` in `lib/verify.ts`, `fanScale` in `lib/fan.ts`, the `days` variant of `SegmentedControl`, `npm run a11y` (`playwright.a11y.config.ts`, `e2e/a11y.spec.ts`, `e2e/keyboard.spec.ts`) and `SHOTS_SET=before|after npm run shots`. S14/S17: add `npm run a11y` to CI next to `e2e:farmer` (both need a browser). S16: the README can use `docs/screens/{before,after}/readme-*.png`; Lighthouse and axe numbers are in `docs/design_review.md`. Still to do: screen reader pass, outside-person reactions, native review of the three new map title strings (`docs/translation_notes.md`).
 
 S13 (2026-09-28): branch `session-13-farmer-app` in worktree `../GramDrishti-s13`, from `main` plus the unmerged S12 branch (D102). Merge order: S12, then S13 (after S12 merges, this PR shows only S13). Farmer screens live in `pages/farmer/` and `features/farmer/` (helpers in `farmerData.ts`, `forecastText.ts`, `speech.ts`, `outbox.ts`). Offline: `src/sw.ts`, `lib/network.ts`, `components/OfflinePill.tsx`, `LastUpdated.tsx`. S14: add `farmers,feedback,audio` to the Docker Compose `VITE_REAL_ENDPOINTS`, run `npm run e2e:farmer` in CI with a browser, and consider a feedback flow test against the API (checked by hand here). S15: screen reader pass on the farmer app and bulletin, 200 % zoom, the long officer queue.

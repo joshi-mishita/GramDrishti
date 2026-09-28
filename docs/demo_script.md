@@ -113,5 +113,5 @@ Recovery commands: `docker compose start api` (the API alone, healthy in about 1
 A rehearsal approves MP0307's drafts, so step 4 has nothing left to approve. Options:
 
 - Use another Panchayat of block MB03 in step 4 (the list shows every draft still waiting), or MP0311.
-- Or clear the review database only, keeping the model and snapshots: `docker compose down`, `docker volume rm gramdrishti_state`, `make up`. The API seeds the five demo farmers again and writes new drafts on the first request for a date. This deletes every review and feedback report.
+- Or clear the review database only, keeping the model and snapshots: `docker compose down`, `docker volume rm gramdrishti_state`, `make up`. The API seeds the five demo farmers again and writes new drafts on the first request for a date. This deletes every review and feedback report. Checked on 2026-09-28 on a fresh-clone stack: an approved MP0307 advisory was a draft again after the reset, which took 38 s.
 - `make clean` deletes everything, including the model; the next `make up` retrains and verification then says "not computed" unless the verified model is in `backend/artifacts/`.

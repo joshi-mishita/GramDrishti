@@ -79,7 +79,7 @@ The guide's rule: anything that runs at request time only reads precomputed file
 - `run_daily --all-demo-dates` writes 16 snapshots: the 8 demo issue dates and the day before each (for "forecast changed since yesterday"). About 4.5 MB and 34 s (S6).
 - The forecast endpoints accept only these demo dates; any other date answers 404 (DECISIONS D016). The dates were chosen from issued forecasts only, not from outcomes (`contract/pick_demo_dates.py`).
 - A missing snapshot or verification file answers 503 `not_computed`; the API never computes or changes a score.
-- Measured on the dev laptop (S6, S8): median warm latency 3 to 6 ms for forecast endpoints, 70 ms for `/priority`; the first risk or priority request per date takes 0.45 to 0.7 s while the engine runs, then it is cached.
+- Measured on the dev laptop (S6, S8): median warm latency 3.2 to 6.2 ms for the forecast endpoints, 70 ms for `/priority`; the first risk or priority request per date takes 0.45 to 0.7 s while the engine runs, then it is cached.
 - **Offline copy:** `export_snapshot` saves every GET response the frontend sends for the demo dates (21,965 files, 39 MB) with an `index.json`. The app built with `VITE_SNAPSHOT=1` reads these files and makes no API call. Docker serves it on port 8081 as demo insurance.
 - **Farmer phone offline:** the PWA service worker precaches the app shell and fonts and serves data network first with a cache fallback. A screen never opened online is not available offline.
 

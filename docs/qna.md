@@ -76,7 +76,7 @@ It is stored and can be checked against stations. It does not change forecasts o
 ## Scale, cost, privacy
 
 **22. How does it scale?**
-The heavy work runs once per day offline; the API only reads precomputed files, which answered in 3 to 6 ms on a laptop (70 ms for the priority list). One district is 90 Panchayats. For many districts we would move SQLite to PostgreSQL, add a scheduler and a model registry; that is a plan, not built ([architecture.md](architecture.md)).
+The heavy work runs once per day offline; the API only reads precomputed files, which answered in a median of 3.2 to 6.2 ms per request on a laptop (70 ms for the priority list). One district is 90 Panchayats. For many districts we would move SQLite to PostgreSQL, add a scheduler and a model registry; that is a plan, not built ([architecture.md](architecture.md)).
 
 **23. What are the privacy considerations?**
 We store no phone numbers, addresses or ID numbers. A farmer profile holds Panchayat, language, crops and livestock; a rain report holds Panchayat, date and answer, not who sent it. Logs contain no personal data. There is no login yet, so a real deployment needs officer accounts before anything is sent.
